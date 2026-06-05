@@ -1,0 +1,8 @@
+program_id,type,status,platform,classroom,miro,zoom,wsp_students,absence_form,ambassador_state,risk
+PRG-001,Especializacion,Finalizado,SI,SI,SI,SI,NO,NO SE TIENE,Sin asignacion visible,Certificados y videos historicos
+PRG-002,Diplomado,Finalizado,SI,SI,SI,SI,NO,NO SE TIENE,Sin asignacion visible,Certificados y contenido
+PRG-003,Diplomado,En proceso,SI,SI,SI,SI,NO,NO SE TIENE,Sin asignacion visible,Asistencia y seguimiento
+PRG-004,Diplomado,En proceso,SI,SI,POR COMPLETAR,SI,NO,CREAR CON URGENCIA,Sin asignacion visible,Grupo/formulario urgente
+PRG-005,Diplomado,En proceso,EN PROCESO,SI,POR COMPLETAR,POR COMPLETAR,SI,POR DEFINIR,Por definir,Alta friccion operativa
+PRG-006,Especializacion,En proceso,EN PROCESO,SI,POR COMPLETAR,SI,NO,POR DEFINIR,Por definir,Completar activos
+PRG-007,Diplomado,Por iniciar,EN PROCESO,EN PROCESO,EN PROCESO,EN PROCESO,NO,,Por definir,Preparacion previa

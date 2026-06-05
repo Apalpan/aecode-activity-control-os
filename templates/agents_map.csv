@@ -1,0 +1,11 @@
+agent_id,name,mission,input,output,human_control,status
+Agente #1,Router Soporte,Clasificar consultas de Admin Morado y crear tickets,mensaje WhatsApp,ticket con categoria/SLA,Persona 1 revisa casos rojos,Propuesto
+Agente #2,Aprovisionador Accesos,Crear accesos en plataforma/Classroom/licencias,registro validado,acceso activo o observado,Persona 1 valida altas masivas,Propuesto
+Agente #3,Scheduler Zoom,Crear Zoom recurrente y detectar conflictos,programa/horario,zoom creado y notificado,Persona 3 aprueba cambios,Propuesto
+Agente #4,Video Pipeline,Orquestar Drive -> edicion -> Vimeo -> plataforma,grabacion sesion,video publicado con estado,Persona 4 valida calidad,Propuesto
+Agente #5,Recordatorios Clase,Enviar o verificar recordatorios antes de sesion,calendario/sesion,mensaje enviado o alerta,Persona 6 revisa excepciones,Propuesto
+Agente #6,Gestor Grupos,Crear y mantener grupos WSP por cohorte,programa/cohorte,grupo y descripcion listos,Persona 6 valida participantes,Propuesto
+Agente #7,Data Steward,Sincronizar inscritos/GHT/BD grupos,Sheets/GHL,carga limpia y duplicados marcados,Persona 2 valida datos sensibles,Propuesto
+Agente #8,Certificados,Emitir certificados de participacion/Autodesk,lista aprobados,certificado enviado y trazado,Persona 1 valida bloqueos,Propuesto
+Agente #9,Embajador Ops,Asignar embajador e inducirlo,programa/curso,embajador activo y checklist,Persona 7 valida induccion,Propuesto
+Agente #10,Difusion Ops,Planificar difusion WSP/Facebook/YouTube,campana/evento,envios y posts registrados,Persona 8 aprueba mensaje,Propuesto

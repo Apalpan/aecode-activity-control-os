@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ae-bg: #0e1121;
+  --ae-bg-deep: #0d0f1f;
+  --ae-surface: #13172f;
+  --ae-surface-raised: #1b1e3c;
+  --ae-surface-soft: #222341;
+  --ae-border: rgba(124, 126, 223, 0.32);
+  --ae-text: #eef3f8;
+  --ae-muted: #a2b4cb;
+  --ae-primary: #4a3ac1;
+  --ae-blue: #4465ee;
+  --ae-violet: #7c7edf;
+  --ae-green: #47cf78;
+  --ae-mint: #95e3b1;
+  --ae-danger: #e26a62;
+  --ae-warning: #f8b84e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle at top left, rgba(68, 101, 238, 0.22), transparent 32rem),
+    radial-gradient(circle at top right, rgba(71, 207, 120, 0.12), transparent 28rem), var(--ae-bg);
+  color: var(--ae-text);
+  font-family: Inter, "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #a6a7ff;
+  outline-offset: 2px;
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border-right: 1px solid var(--ae-border);
+  background: rgba(12, 15, 41, 0.88);
+  backdrop-filter: blur(18px);
+  padding: 22px;
+}
+
+.main {
+  min-width: 0;
+  padding: 24px;
+}
+
+.panel {
+  border: 1px solid var(--ae-border);
+  background: linear-gradient(180deg, rgba(27, 30, 60, 0.94), rgba(19, 23, 47, 0.92));
+  border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+}
+
+.panel-light {
+  border: 1px solid rgba(124, 126, 223, 0.26);
+  background: #edeffb;
+  color: #202231;
+  border-radius: 8px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(360px, 0.6fr);
+  gap: 16px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid rgba(124, 126, 223, 0.18);
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table th {
+  color: #c5cffa;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.chip {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 126, 223, 0.34);
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.chip-critical {
+  border-color: rgba(226, 106, 98, 0.5);
+  background: rgba(226, 106, 98, 0.12);
+  color: #ffb2aa;
+}
+
+.chip-high {
+  border-color: rgba(248, 184, 78, 0.45);
+  background: rgba(248, 184, 78, 0.12);
+  color: #ffd58a;
+}
+
+.chip-good {
+  border-color: rgba(71, 207, 120, 0.42);
+  background: rgba(71, 207, 120, 0.12);
+  color: #95e3b1;
+}
+
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.segmented button {
+  min-height: 36px;
+  border: 1px solid rgba(124, 126, 223, 0.26);
+  border-radius: 999px;
+  background: rgba(34, 35, 65, 0.72);
+  color: var(--ae-muted);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.segmented button[data-active="true"] {
+  border-color: rgba(149, 227, 177, 0.62);
+  background: linear-gradient(90deg, rgba(68, 101, 238, 0.95), rgba(109, 18, 227, 0.9));
+  color: white;
+}
+
+.progress-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(162, 180, 203, 0.18);
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #47cf78, #7c7edf);
+}
+
+@media (max-width: 1180px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: relative;
+    height: auto;
+  }
+
+  .metric-grid,
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .main,
+  .sidebar {
+    padding: 16px;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+}

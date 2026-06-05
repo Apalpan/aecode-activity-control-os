@@ -1,0 +1,20 @@
+activity_id,area,activity,owner_alias,agent_candidate,automation_level,sla,evidence,status,priority
+ACT-001,Accesos y soporte,Acceso y consultas con Admin Morado,Persona 1,Agente #1,Alta,5-30 min,ticket/respuesta,Activo,Critica
+ACT-002,Accesos y soporte,Accesos a plataforma desde Panel AECODE,Persona 1,Agente #2,Alta,24h,acceso activo,Activo,Critica
+ACT-003,Datos,Mantener actualizado el registro de inscritos/estudiantes,Persona 2,Agente #7,Alta,Diario,row actualizado,Activo,Alta
+ACT-004,Sesiones,Crear y configurar Zoom de cursos,Persona 3,Agente #3,Media,72h antes,zoom creado,Activo,Alta
+ACT-005,Contenido,Subir grabaciones Drive a Vimeo y plataforma,Persona 4,Agente #4,Alta,24h post sesion,video publicado,Activo,Critica
+ACT-006,Contenido,Editar videos de cursos antes de publicar,Persona 4,Agente #4,Media,48h post sesion,video editado,Activo,Alta
+ACT-007,Difusion,Editar videos para YouTube,Persona 5,Agente #10,Media,Semanal,short/video,Activo,Media
+ACT-008,Difusion,Subir videos a YouTube,Persona 5,Agente #10,Alta,Semanal,publicacion,Activo,Media
+ACT-009,Sesiones,Enviar recordatorio de clase o validar que embajador lo haga,Persona 6,Agente #5,Alta,Antes 4pm,mensaje enviado,Activo,Alta
+ACT-010,Comunidad,Crear grupos WSP de estudiantes por diplomado/curso/especializacion,Persona 6,Agente #6,Media,Antes inicio,grupo creado,Activo,Alta
+ACT-011,Embajadores,Acordar embajador del curso,Persona 7,Agente #9,Baja,Antes inicio,embajador asignado,Activo,Alta
+ACT-012,Embajadores,Induccion al embajador y entrega de video,Persona 7,Agente #9,Media,Antes inicio,induccion registrada,Activo,Alta
+ACT-013,Difusion,Difusion previa por grupos WhatsApp,Persona 8,Agente #10,Alta,72h/24h antes,envio registrado,Activo,Alta
+ACT-014,Difusion,Difusion previa por grupos Facebook,Persona 8,Agente #10,Media,72h/24h antes,post registrado,Activo,Media
+ACT-015,Datos,Mantener BD de grupos WSP y linea de difusion,Persona 2,Agente #7,Alta,Semanal,BD actualizada,Activo,Alta
+ACT-016,Plataforma,Creacion de Classrooms para diplomados,Persona 1,Agente #2,Media,Antes inicio,classroom creado,Activo,Alta
+ACT-017,Datos,Apoyo en subida de datos al GHT de Marketing AECODE,Persona 2,Agente #7,Media,Semanal,carga validada,Activo,Media
+ACT-018,Certificados,Envio de certificados de participacion,Persona 1,Agente #8,Alta,5 dias post cierre,certificado enviado,Activo,Critica
+ACT-019,Certificados,Envio de certificados de aprobacion Autodesk,Persona 1,Agente #8,Media,5 dias post cierre,certificado enviado,Activo,Critica
