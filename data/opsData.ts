@@ -326,6 +326,29 @@ export type DataEntityContract = {
   security: "Publico" | "Interno" | "Critico";
 };
 
+export type StrategicRoleBlock = {
+  label: string;
+  company: EcosystemCompany["company"];
+  objective: string;
+  activities: string[];
+  systems: string[];
+  metrics: string[];
+  handoffs: string[];
+  risks: string[];
+};
+
+export type StrategicRoleProfile = {
+  id: string;
+  person: string;
+  title: string;
+  scope: string;
+  executiveRead: string;
+  blocks: StrategicRoleBlock[];
+  operatingMetrics: string[];
+  nextSystemActions: string[];
+  source: string;
+};
+
 export const areas = [
   "Direccion",
   "Accesos y soporte",
@@ -351,6 +374,8 @@ export const areas = [
   "AI Ops",
   "Diseno",
   "Automatizacion",
+  "Administracion",
+  "Legal",
   "Finanzas",
   "Producto",
   "Tecnologia",
@@ -377,6 +402,175 @@ export const ecosystemProjects: EcosystemProject[] = [
   { id: "ECO-07", project: "Programa UTEC 2026", company: "AECODE", progress: "En curso", status: "En curso", nextAction: "Convertir aprendizajes en modulos AECODE/AgentFlow.", owner: "Persona 20", risk: "Si no se empaqueta, el aprendizaje queda como entrega aislada y no como activo reusable." },
   { id: "ECO-08", project: "THESIA IP", company: "THESIA", progress: "Planificacion", status: "Planificando", nextAction: "Entregar 1 activo IP antes del 2026-07-01.", owner: "Persona 10", risk: "Sin activo IP fechado, THESIA no materializa investigacion en propiedad reutilizable." },
   { id: "ECO-09", project: "Cotizacion ESPARQ SaaS", company: "GEN+", progress: "47/84 pts", status: "Activo", nextAction: "Dar seguimiento a respuesta esperada post 2026-06-03.", owner: "Persona 25", risk: "Cotizacion sin siguiente accion cae fuera del pipeline y del forecast." }
+];
+
+export const strategicRoleProfiles: StrategicRoleProfile[] = [
+  {
+    id: "SRP-01",
+    person: "Daniella",
+    title: "Responsable de Operaciones Estrategicas GEN+ / AECODE",
+    scope: "PMO transversal, AECODE Training, Summit/partners, comercial tecnico, THESIA/startup y sistemas de seguimiento.",
+    executiveRead: "Daniella no debe ser vista como ejecutora de tareas sueltas; es el nodo de coordinacion estrategica que mantiene proyectos, programas, sponsors y decisiones comerciales con evidencia.",
+    blocks: [
+      {
+        label: "PMO GEN+ proyectos",
+        company: "GEN+",
+        objective: "Mantener proyectos cliente con avance, entregables, observaciones, alcance, fechas y riesgos visibles.",
+        activities: ["Seguimiento de proyectos", "Revision de avances y entregables", "Comunicacion con clientes", "Levantamiento de observaciones", "Cierre de hitos"],
+        systems: ["Drive", "Sheets", "Correo", "Reuniones", "Reportes tecnicos"],
+        metrics: ["Hitos cerrados", "Observaciones abiertas", "Entregables validados", "Fechas en riesgo"],
+        handoffs: ["Julie ordena Drive, documentacion y administracion", "Kevin/Paolo/Israel atienden soporte tecnico BIM", "Alejandro decide cambios de alcance"],
+        risks: ["Sobrecarga por demasiados proyectos simultaneos", "Cambios de alcance sin registro", "Cliente esperando respuesta sin owner"]
+      },
+      {
+        label: "AECODE Training",
+        company: "AECODE",
+        objective: "Asegurar que programas, instructores, materiales, actas, rubricas, cierres y certificados no dependan de memoria informal.",
+        activities: ["Coordinar clases e instructores", "Revisar materiales academicos", "Alinear cronogramas", "Cerrar actas y sustentaciones", "Revisar certificados"],
+        systems: ["Notion Training", "Drive academico", "Sheets", "Zoom", "Plataforma AECODE"],
+        metrics: ["Sesiones listas 72h antes", "Actas cerradas <24h", "Materiales versionados", "Certificados sin bloqueo"],
+        handoffs: ["Patrick opera accesos, plataforma y certificados", "Ivana/Carolina coordinan sesiones y embajadores", "Julie soporta administracion y pagos"],
+        risks: ["Sesion sin docente/material", "Acta o evidencia no registrada", "Postventa escalando sin SLA"]
+      },
+      {
+        label: "Summit, partners y sponsors",
+        company: "AECODE",
+        objective: "Mantener agenda academica, ponentes, sponsors, comunicacion corporativa, grupos y experiencia VIP con proximo paso claro.",
+        activities: ["Coordinar ponentes", "Apoyar sponsors", "Revisar comunicaciones", "Definir experiencia corporativa", "Seguir onboarding sponsor"],
+        systems: ["Notion", "Gmail", "WhatsApp", "Calendar", "Sheets sponsors"],
+        metrics: ["Sponsors por etapa", "Ponentes confirmados", "Correos enviados", "Grupos activos", "Bloqueos VIP"],
+        handoffs: ["Erika lidera partnerships", "Paola ejecuta outreach y reuniones", "Julie actualiza sponsors/facturacion", "Anggie/Arantxa preparan piezas"],
+        risks: ["Sponsor caliente sin propuesta", "Ponente sin confirmacion", "Compromiso comercial no documentado"]
+      },
+      {
+        label: "Comercial tecnico y startups",
+        company: "THESIA",
+        objective: "Convertir oportunidades, convocatorias, presupuestos, pitch deck, costos y metricas en decisiones listas para Alejandro.",
+        activities: ["Preparar propuestas y cotizaciones", "Revisar requisitos de convocatorias", "Ordenar metricas financieras", "Apoyar pitch deck", "Seguir THESIA/proyectos startup"],
+        systems: ["Drive startup", "Sheets metricas", "Pitch deck", "Documentos legales/financieros"],
+        metrics: ["Convocatorias listas", "Costos revisados", "Metricas actualizadas", "Documentos completos"],
+        handoffs: ["Julie ordena costos, Drive y administracion", "Fabrizio aporta producto/automatizacion", "Alejandro define narrativa y decision final"],
+        risks: ["Falta de KPI duro", "Documentos dispersos", "Convocatoria con requisito pendiente"]
+      }
+    ],
+    operatingMetrics: ["Top 5 bloqueos por frente", "Entregables/hitos cerrados", "Sesiones listas 72h", "Sponsors por etapa", "Documentos startup completos"],
+    nextSystemActions: ["Crear tablero PMO con proyecto, objetivo, estado, owner, proxima accion, fecha, riesgo, evidencia y metrica", "Separar bandeja Daniella: decision, coordinacion y seguimiento; no tareas ejecutoras pequenas", "Activar Agente #36 para sponsors y Agente #35 para programas con aprobacion humana"],
+    source: "Analisis Daniella 2026 + actividades recurrentes enviadas"
+  },
+  {
+    id: "SRP-02",
+    person: "Julie",
+    title: "Operaciones, administracion, finanzas y soporte de proyectos",
+    scope: "GEN+ proyectos, comercial, administracion/facturacion, AECODE Training, sponsors, legal/experiencia, startup y THESIA.",
+    executiveRead: "Julie concentra ejecucion operativa y administrativa critica: si no se separan proyectos, facturacion/cobranza, Training y startup, se pierden pagos, entregables o compromisos.",
+    blocks: [
+      {
+        label: "GEN+ proyectos",
+        company: "GEN+",
+        objective: "Mantener proyectos con Drive ordenado, documentos tecnicos, entregables, observaciones y estado de avance visible.",
+        activities: ["Seguimiento de proyectos", "Revision de modelos, planos, metrados y reportes", "Organizacion de Drive", "Solicitud de informacion al cliente", "Cierre de hitos"],
+        systems: ["Drive proyecto", "Sheets PMO", "Correo", "Documentos tecnicos"],
+        metrics: ["Entregables validados", "Observaciones resueltas", "Carpetas completas", "Hitos cerrados"],
+        handoffs: ["Daniella define prioridad PMO", "Kevin/Paolo/Israel resuelven soporte BIM", "Alejandro aprueba cambios de alcance"],
+        risks: ["Drive desordenado", "Alcance pendiente sin fecha", "Cliente sin correo de avance"]
+      },
+      {
+        label: "GEN+ comercial",
+        company: "GEN+",
+        objective: "Convertir oportunidades en cotizaciones, propuestas, PPTs, brochures y correos con alcance claro.",
+        activities: ["Elaborar cotizaciones", "Preparar propuestas comerciales", "Ordenar PPTs y brochures", "Agendar reuniones", "Revisar oportunidades SEACE"],
+        systems: ["Drive comercial", "Sheets pipeline", "PPTs", "Correo"],
+        metrics: ["Cotizaciones enviadas", "Propuestas actualizadas", "Reuniones agendadas", "Oportunidades priorizadas"],
+        handoffs: ["Fabrizio apoya alcance tecnico/producto", "Daniella valida estrategia comercial", "Erika/Paola conectan oportunidades y partners"],
+        risks: ["Cotizacion sin seguimiento", "PPT no versionada", "Alcance comercial ambiguo"]
+      },
+      {
+        label: "Administracion y finanzas",
+        company: "Ecosistema AP",
+        objective: "Evitar bloqueos de pagos, facturacion, cobranza, documentos administrativos y pago a instructores.",
+        activities: ["Emitir facturas", "Seguir pagos y cobranzas", "Confirmar pagos recibidos", "Registrar estados administrativos", "Pagar instructores"],
+        systems: ["Sheets admin", "Facturacion", "Drive administrativo", "Correo"],
+        metrics: ["Facturas emitidas", "Pagos confirmados", "Cobranza vencida", "Instructores pagados"],
+        handoffs: ["Yudely concilia finanzas/pasarelas", "Patrick/Ivana reciben desbloqueos academicos", "Alejandro decide excepciones"],
+        risks: ["Pago sin registro", "Instructor no pagado", "Cobranza sin proximo paso", "Documento faltante"]
+      },
+      {
+        label: "AECODE Training y Summit",
+        company: "AECODE",
+        objective: "Soportar clases, instructores, materiales, cronogramas, certificados, sponsors confirmados, presupuesto y experiencia VIP.",
+        activities: ["Coordinar clases y materiales", "Revisar cronogramas", "Apoyar certificados", "Actualizar Sheet sponsors", "Revisar presupuesto, marca, privacidad y VIP"],
+        systems: ["Notion Training", "Drive academico", "Sheets sponsors", "Zoom", "Politicas/evento"],
+        metrics: ["Clases coordinadas", "Materiales listos", "Sponsors actualizados", "Presupuesto revisado", "Riesgos VIP"],
+        handoffs: ["Daniella coordina estrategia", "Patrick/Ivana/Carolina operan academia", "Erika/Paola gestionan sponsors", "Anggie/Arantxa preparan marketing"],
+        risks: ["Sponsor confirmado sin facturacion", "Cambio de clase no comunicado", "Politica/legal pendiente"]
+      },
+      {
+        label: "Startup y THESIA",
+        company: "THESIA",
+        objective: "Ordenar metricas, finanzas, pitch, convocatorias, costos, documentos y reportes Proinnovate/THESIA.",
+        activities: ["Seguir startups", "Ordenar metricas financieras y growth", "Revisar costos y presupuesto", "Preparar postulaciones", "Seguir entrega de informes"],
+        systems: ["Drive startup", "Sheets metricas", "Pitch deck", "Documentos Proinnovate"],
+        metrics: ["Metricas actualizadas", "Costos revisados", "Documentos completos", "Informes entregados"],
+        handoffs: ["Daniella prioriza seguimiento", "Alejandro valida narrativa", "Fabrizio aporta producto/automatizacion"],
+        risks: ["Metricas desactualizadas", "Informe vencido", "Costo sin sustento"]
+      }
+    ],
+    operatingMetrics: ["Facturas/cobranza al dia", "Pago a instructores", "Cotizaciones enviadas y seguidas", "Drive completo por proyecto", "Sponsors confirmados actualizados"],
+    nextSystemActions: ["Separar tablero Julie en Proyectos, Comercial, Admin/Finanzas, Training, Summit y Startup", "Crear checklist de pago a instructores y cobranza con evidencia", "Conectar Agente #18 para bloqueos administrativos y Agente #36 para sponsors"],
+    source: "Actividades recurrentes Julie enviadas por Alejandro"
+  },
+  {
+    id: "SRP-03",
+    person: "Fabrizio",
+    title: "Producto AECODE, automatizacion marketing e ingenieria operativa",
+    scope: "AECODE F3/3.0, dashboards, AgentFlow, automatizacion de marketing, Summit, cotizaciones/propuestas tecnicas y handoff de producto.",
+    executiveRead: "Fabrizio debe enfocarse en lo que escala AECODE: producto, metricas, automatizacion y arquitectura operativa; no absorber tareas sueltas que otros roles pueden ejecutar.",
+    blocks: [
+      {
+        label: "Producto AECODE F3/3.0",
+        company: "AECODE",
+        objective: "Convertir cursos en producto: rutas, skills, capsulas, evidencia, rubrica, certificado, algoritmo y dashboard B2B.",
+        activities: ["Mapear rutas/skills/capsulas", "Definir gaps de producto", "Aterrizar metricas de AECODE", "Pasar ruta a diseno", "Coordinar algoritmo y BD"],
+        systems: ["Notion producto", "GitHub", "AgentFlow", "Figma/UX handoff", "Sheets metricas"],
+        metrics: ["Skills verificadas", "Rutas publicadas", "Evidencias enviadas", "Certificados emitidos", "Dashboard en uso"],
+        handoffs: ["Yary estructura UX/UI", "Anggie conecta producto con marca/growth", "Anderson valida arquitectura", "Emanuel/Marlon ejecutan agentes y flujos"],
+        risks: ["F3 queda como contenido suelto", "Dashboard sin decision", "Algoritmo sin datos confiables"]
+      },
+      {
+        label: "Marketing numerico y automatizacion",
+        company: "AECODE",
+        objective: "Centralizar reportes, piezas, funnels, grillados, Manychat/GHL y Looker para optimizar por resultados, no solo por actividad.",
+        activities: ["Automatizar reportes Meta Ads", "Crear dashboard de metricas", "Estandarizar piezas y guiones", "Automatizar funnel/grillado", "Cruzar marketing con ventas"],
+        systems: ["Meta Ads", "GHL", "Looker Studio", "Drive marketing", "WhatsApp/Manychat futuro"],
+        metrics: ["CPL", "Lead quality", "Conversion", "Piezas por resultado", "Tiempo de reporte"],
+        handoffs: ["Anggie lidera marketing/growth", "Jessica revisa venta real", "Talia/Yadira aportan objeciones", "Marlon/Emanuel apoyan flujos"],
+        risks: ["Optimizar por CPL y no por cierre", "Automatizacion sin revision humana", "Piezas sin trazabilidad"]
+      },
+      {
+        label: "AgentFlow y AI Ops",
+        company: "GEN+",
+        objective: "Migrar procesos repetitivos a agentes auditables con triggers, datos, logs, fallback y aprobacion humana.",
+        activities: ["Mapear oportunidades de automatizacion por area", "Migrar flujos con Emanuel", "Coordinar n8n/integraciones con Marlon", "Documentar agentes", "Priorizar por impacto"],
+        systems: ["AgentFlow", "n8n", "GitHub", "Docs tecnicos", "Dashboards"],
+        metrics: ["Flujos mapeados", "Agentes en piloto", "Horas ahorradas", "Errores reducidos", "Logs completos"],
+        handoffs: ["Emanuel implementa automatizaciones", "Marlon integra web/n8n", "Anderson revisa arquitectura", "Jordi valida QA"],
+        risks: ["Agente sin logs", "Flujo automatizado sin control humano", "Caja negra operativa"]
+      },
+      {
+        label: "Summit y comercial tecnico",
+        company: "GEN+",
+        objective: "Usar Summit y propuestas tecnicas como activos de autoridad y venta, manteniendo alcance, agenda, speakers y cotizaciones claras.",
+        activities: ["Plantear agenda academica Summit", "Disenar comunicacion con speakers", "Automatizar seguimiento de status", "Preparar cotizaciones y propuestas tecnicas", "Ajustar alcances"],
+        systems: ["Sheets sponsors/speakers", "Docs propuestas", "Gmail", "Calendar", "Drive comercial"],
+        metrics: ["Speakers confirmados", "Sponsors por etapa", "Cotizaciones enviadas", "Alcance validado", "Seguimientos hechos"],
+        handoffs: ["Daniella coordina estrategia y operaciones", "Julie ordena cotizaciones/admin", "Erika/Paola gestionan partners", "Alejandro cierra decisiones comerciales"],
+        risks: ["Cotizacion fuera de alcance", "Sponsor/speaker sin follow-up", "Summit consume foco de producto"]
+      }
+    ],
+    operatingMetrics: ["Avance producto F3", "Dashboards de metricas activos", "Automatizaciones por impacto", "Cotizaciones/propuestas seguidas", "Riesgos producto vs urgencias"],
+    nextSystemActions: ["Definir 1 loop F3 que mueve skills verificadas antes de ampliar features", "Separar backlog Fabrizio en Producto, Marketing numerico, AgentFlow y Comercial tecnico", "Publicar reporte diario de producto/marketing/automatizacion con evidencia y bloqueo"],
+    source: "WhatsApp Chat Gen+ Fabrizio + actividades enviadas por Alejandro"
+  }
 ];
 
 export const flywheelLayers: FlywheelLayer[] = [
@@ -499,6 +693,28 @@ export const dataEntityContracts: DataEntityContract[] = [
     sourceField: "source_id",
     updatedField: "updated_at",
     security: "Critico"
+  },
+  {
+    entity: "DailyStateOverride",
+    key: "override_id",
+    purpose: "Capa editable local o futura persistencia remota para estado diario sin modificar la base versionada.",
+    minimumFields: ["override_id", "activity_day_id", "field", "value", "actor_person_id", "updated_at", "source_device"],
+    relations: ["activity_id", "person_id", "status_log_id"],
+    stateField: "field",
+    sourceField: "source_id",
+    updatedField: "updated_at",
+    security: "Interno"
+  },
+  {
+    entity: "StrategicRoleProfile",
+    key: "profile_id",
+    purpose: "Resumen ejecutivo por persona transversal con bloques, handoffs, sistemas, metricas, riesgos y siguientes acciones.",
+    minimumFields: ["profile_id", "person_id", "title", "scope", "executive_read", "blocks_json", "operating_metrics", "next_system_actions"],
+    relations: ["person_id", "activity_id", "agent_id", "system_id"],
+    stateField: "profile_status",
+    sourceField: "source_id",
+    updatedField: "updated_at",
+    security: "Interno"
   },
   {
     entity: "Escalation",
@@ -2373,6 +2589,198 @@ export const activities: Activity[] = [
     source: "Actividad enviada por cierre comercial",
     risk: "Sin review comercial, las mejoras quedan informales y no se convierten en sistema.",
     nextAction: "Revisar leads llamados, audios enviados, cierres, objeciones, copys, brochures y proximos cambios."
+  },
+  {
+    id: "ACT-113",
+    area: "Programas",
+    activity: "Coordinar AECODE Training: clases, instructores, materiales, cronogramas, certificados y nuevas ediciones",
+    owner: "Julie",
+    backup: "Daniella",
+    agent: "Agente #35",
+    automationLevel: "Media",
+    sla: "72h antes de clase / cierre semanal",
+    evidence: "cronograma actualizado, material versionado, instructor confirmado y bloqueo academico registrado",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividades recurrentes Julie",
+    risk: "Training puede depender de coordinaciones informales si no hay evidencia por sesion.",
+    nextAction: "Separar checklist Julie Training por programa: instructor, Drive, cronograma, certificado y siguiente edicion."
+  },
+  {
+    id: "ACT-114",
+    area: "Administracion",
+    activity: "Emitir facturas, seguir cobranzas, confirmar pagos y registrar estados administrativos",
+    owner: "Julie",
+    backup: "Persona 21",
+    agent: "Agente #18",
+    automationLevel: "Alta",
+    sla: "Diario / cierre de cobranza",
+    evidence: "factura emitida, pago confirmado, cobranza con proxima accion y registro administrativo actualizado",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividades recurrentes Julie",
+    risk: "Pago sin registro bloquea accesos, certificados, instructor o cierre comercial.",
+    nextAction: "Crear cola unica de facturacion/cobranza/pagos con estado, owner, vencimiento y evidencia."
+  },
+  {
+    id: "ACT-115",
+    area: "Finanzas",
+    activity: "Gestionar pago a instructores y documentos administrativos relacionados",
+    owner: "Julie",
+    backup: "Persona 21",
+    agent: "Agente #18",
+    automationLevel: "Media",
+    sla: "Cierre de modulo / cierre mensual",
+    evidence: "instructor, horas, programa, monto, aprobacion y comprobante registrados",
+    status: "Riesgo",
+    priority: "Alta",
+    source: "Actividades recurrentes Julie",
+    risk: "Si el pago a instructores no tiene regla fija, se generan reclamos y perdida de confianza.",
+    nextAction: "Definir plantilla de pago a instructores con horas, curso, aprobador, fecha y estado."
+  },
+  {
+    id: "ACT-116",
+    area: "Comercial",
+    activity: "Elaborar, revisar y enviar cotizaciones, propuestas, PPTs, brochures y one pagers GEN+",
+    owner: "Julie",
+    backup: "Fabrizio",
+    agent: "Agente #36",
+    automationLevel: "Media",
+    sla: "Por oportunidad comercial",
+    evidence: "cotizacion/propuesta versionada, alcance validado, correo enviado y siguiente seguimiento",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades recurrentes Julie + WhatsApp Fabrizio",
+    risk: "Cotizacion sin version, alcance o seguimiento cae fuera del forecast.",
+    nextAction: "Ordenar pipeline comercial GEN+ con fecha, alcance, propuesta, owner y proxima accion."
+  },
+  {
+    id: "ACT-117",
+    area: "Documentacion",
+    activity: "Crear y ordenar Drive de proyectos, carpetas, archivos y documentacion tecnica",
+    owner: "Julie",
+    backup: "Daniella",
+    agent: "Agente #28",
+    automationLevel: "Media",
+    sla: "Inicio de proyecto / por hito",
+    evidence: "Drive creado, estructura de carpetas, entregables y permisos revisados",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades recurrentes Julie",
+    risk: "Drive desordenado genera perdida de evidencias, retrabajo y entregables incompletos.",
+    nextAction: "Crear plantilla unica de Drive proyecto con carpetas, naming y checklist de permisos."
+  },
+  {
+    id: "ACT-118",
+    area: "Eventos",
+    activity: "Actualizar Sheet de sponsors, facturacion, presupuesto, marca, privacidad y experiencia VIP del Summit",
+    owner: "Julie",
+    backup: "Daniella",
+    agent: "Agente #36",
+    automationLevel: "Media",
+    sla: "Semanal / diario en sprint Summit",
+    evidence: "sponsor actualizado, facturacion revisada, presupuesto validado y riesgo legal/VIP registrado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades recurrentes Julie",
+    risk: "Sponsor confirmado sin facturacion, presupuesto o experiencia definida se vuelve deuda reputacional.",
+    nextAction: "Separar tablero Summit en sponsor, facturacion, legal, experiencia VIP y siguiente accion."
+  },
+  {
+    id: "ACT-119",
+    area: "Administracion",
+    activity: "Ordenar metricas financieras, costos, presupuesto, pitch deck y documentos de AECODE StartUp/THESIA",
+    owner: "Julie",
+    backup: "Daniella",
+    agent: "Agente #19",
+    automationLevel: "Media",
+    sla: "Semanal / por convocatoria",
+    evidence: "metricas actualizadas, costos revisados, documento listo y requisito de convocatoria validado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades recurrentes Julie",
+    risk: "Startup con metricas o costos desactualizados pierde capacidad de postular, negociar o decidir.",
+    nextAction: "Crear checklist startup: metrica, costo, documento, responsable, fecha limite y evidencia."
+  },
+  {
+    id: "ACT-120",
+    area: "Direccion",
+    activity: "Operar PMO transversal GEN+ / AECODE con proyecto, objetivo, estado, owner, proxima accion, fecha, riesgo y evidencia",
+    owner: "Daniella",
+    backup: "Julie",
+    agent: "Agente #19",
+    automationLevel: "Alta",
+    sla: "Diario / war room semanal",
+    evidence: "tablero PMO actualizado, bloqueos separados y decisiones escaladas con criterio",
+    status: "Activo",
+    priority: "Critica",
+    source: "Analisis Daniella 2026",
+    risk: "Sin PMO unificado, la operacion depende de WhatsApp y memoria individual.",
+    nextAction: "Crear vista Daniella por frentes: GEN+ proyectos, Training, Summit/partners, comercial tecnico y THESIA."
+  },
+  {
+    id: "ACT-121",
+    area: "Producto",
+    activity: "Mapear producto AECODE F3/3.0: rutas, skills, capsulas, evidencias, rubricas, certificados y dashboard",
+    owner: "Persona 20",
+    backup: "Persona 23",
+    agent: "Agente #17",
+    automationLevel: "Media",
+    sla: "Sprint quincenal",
+    evidence: "spec de producto, loop elegido, metrica NSM y backlog priorizado",
+    status: "Activo",
+    priority: "Critica",
+    source: "WhatsApp Chat Gen+ Fabrizio + roadmap AECODE",
+    risk: "Si F3 no se estructura, AECODE se queda como cursos sueltos y pierde ventaja de skill verification.",
+    nextAction: "Elegir el primer loop que mueve skills verificadas con evidencia por usuario activo mensual."
+  },
+  {
+    id: "ACT-122",
+    area: "Marketing",
+    activity: "Automatizar reportes de marketing, Meta Ads, piezas, funnels, grillados y dashboards de resultados",
+    owner: "Persona 20",
+    backup: "Persona 12",
+    agent: "Agente #12",
+    automationLevel: "Alta",
+    sla: "Diario / campana activa",
+    evidence: "dashboard actualizado, piezas trazadas, CPL/quality/cierre visible y acciones recomendadas",
+    status: "Activo",
+    priority: "Critica",
+    source: "WhatsApp Chat Gen+ Fabrizio",
+    risk: "Marketing puede optimizar por actividad o CPL sin leer venta real ni cierre.",
+    nextAction: "Conectar reporte diario Fabrizio-Anggie-Jessica-Talia con GHL, Ads, objeciones y cierre."
+  },
+  {
+    id: "ACT-123",
+    area: "AI Ops",
+    activity: "Migrar flujos a AgentFlow con triggers, validaciones, logs, fallback y aprobacion humana",
+    owner: "Persona 20",
+    backup: "Persona 11",
+    agent: "Agente #27",
+    automationLevel: "Alta",
+    sla: "Por piloto priorizado",
+    evidence: "contrato AgentFlow, dry-run, log de prueba, owner y criterio de produccion",
+    status: "Activo",
+    priority: "Alta",
+    source: "WhatsApp Chat Gen+ Fabrizio",
+    risk: "Automatizacion sin contrato ni logs se vuelve caja negra y riesgo operativo.",
+    nextAction: "Priorizar tres pilotos: reportes marketing, sponsors/speakers y postventa/accesos."
+  },
+  {
+    id: "ACT-124",
+    area: "Comercial",
+    activity: "Preparar cotizaciones y propuestas tecnicas GEN+ con alcance, automatizacion y seguimiento",
+    owner: "Persona 20",
+    backup: "Julie",
+    agent: "Agente #36",
+    automationLevel: "Media",
+    sla: "Por oportunidad",
+    evidence: "documento de alcance, propuesta versionada, correo enviado y seguimiento registrado",
+    status: "Activo",
+    priority: "Alta",
+    source: "WhatsApp Chat Gen+ Fabrizio",
+    risk: "Alcance comercial sin precision tecnica genera retrabajo o propuesta fuera de capacidad.",
+    nextAction: "Separar cotizaciones GEN+ de producto AECODE para no contaminar prioridades."
   }
 ];
 
@@ -2592,6 +3000,60 @@ export const dailyExecutionItems: DailyExecutionItem[] = [
     agent: "Agente #19",
     system: "Dashboard / Sheets / Notion / GitHub",
     decisionNeeded: "Definir formato fijo de reporte semanal AP."
+  },
+  {
+    id: "DAY-013",
+    title: "Facturacion, cobranza y pago a instructores",
+    area: "Administracion",
+    owner: "Julie",
+    backup: "Persona 21",
+    playbookId: "PB-10",
+    priority: "Critica",
+    status: "Riesgo",
+    due: "Hoy 16:30",
+    source: "Actividades recurrentes Julie",
+    evidence: "Facturas emitidas, pagos confirmados, instructores pagados y bloqueos administrativos registrados",
+    nextBestAction: "Separar cola de facturacion, cobranza, pagos a instructores y documentos con fecha y evidencia.",
+    escalation: "Alejandro solo recibe excepciones de pago, deuda critica o decision administrativa fuera de regla.",
+    agent: "Agente #18",
+    system: "Sheets admin / Facturacion / Drive administrativo",
+    decisionNeeded: "Confirmar regla fija para pago a instructores y vencimientos de cobranza."
+  },
+  {
+    id: "DAY-014",
+    title: "PMO transversal GEN+ / AECODE",
+    area: "Direccion",
+    owner: "Daniella",
+    backup: "Julie",
+    playbookId: "PB-17",
+    priority: "Critica",
+    status: "Requiere decision",
+    due: "Hoy 18:15",
+    source: "Analisis Daniella 2026",
+    evidence: "Tablero por frente con proyecto, objetivo, estado, owner, proxima accion, fecha, riesgo y evidencia",
+    nextBestAction: "Ordenar frentes Daniella: GEN+ proyectos, AECODE Training, Summit/partners, comercial tecnico y THESIA/startup.",
+    escalation: "Alejandro decide solo alcance, presupuesto, prioridad o riesgo reputacional; tareas ejecutoras bajan a Julie/Paola/Training/Marketing.",
+    agent: "Agente #19",
+    system: "Dashboard / Drive / Sheets / Notion",
+    decisionNeeded: "Definir que frentes pasan a Julie/Paola/Patrick/Ivana para descargar a Daniella."
+  },
+  {
+    id: "DAY-015",
+    title: "Foco Fabrizio: producto, marketing numerico y AgentFlow",
+    area: "Producto",
+    owner: "Persona 20",
+    backup: "Persona 23",
+    playbookId: "PB-07",
+    priority: "Critica",
+    status: "En curso",
+    due: "Hoy 19:30",
+    source: "WhatsApp Chat Gen+ Fabrizio",
+    evidence: "Top 5 diario de producto/marketing/automatizacion, bloqueo, metrica y proxima accion",
+    nextBestAction: "Separar lo que Fabrizio debe liderar de tareas sueltas: F3, dashboards, AgentFlow, marketing numerico y cotizaciones tecnicas.",
+    escalation: "Alejandro decide si una urgencia Summit/comercial desplaza el loop F3 de skills verificadas.",
+    agent: "Agente #29",
+    system: "GitHub / AgentFlow / GHL / Looker / Notion producto",
+    decisionNeeded: "Elegir 1 loop F3 y 1 automatizacion marketing que se cierran esta semana."
   }
 ];
 
@@ -3630,12 +4092,12 @@ export const opsRoles: OpsRole[] = [
     role: "Producto + automatizacion marketing + ingenieria",
     mission: "Convertir cursos en producto AECODE con rutas, skills, evidencias, automatizacion marketing, dashboards e ingenieria operativa.",
     areas: ["Producto", "Plataforma", "Certificados", "Datos"],
-    primaryActivities: ["ACT-031", "ACT-016", "ACT-018", "ACT-019"],
-    kpis: ["Skills verificadas por usuario activo", "Rutas publicadas", "Automatizaciones marketing priorizadas", "Dashboards accionables", "Rubricas activas"],
+    primaryActivities: ["ACT-031", "ACT-016", "ACT-018", "ACT-019", "ACT-121", "ACT-122", "ACT-123", "ACT-124"],
+    kpis: ["Skills verificadas por usuario activo", "Rutas publicadas", "Automatizaciones marketing priorizadas", "Dashboards accionables", "Rubricas activas", "AgentFlow pilots"],
     dailyCheck: "Revisar avance de producto, rutas, automatizacion marketing, dashboards, bloqueos de ingenieria y certificacion.",
     escalation: "Curso sin skill outcome, automatizacion sin impacto, dashboard sin decision, certificado sin validacion o plataforma desalineada.",
     backup: "Persona 23",
-    obsidianSource: "Sistema operativo AECODE/Product loop"
+    obsidianSource: "Sistema operativo AECODE/Product loop + WhatsApp Chat Gen+ Fabrizio"
   },
   {
     id: "Persona 21",
@@ -3648,6 +4110,18 @@ export const opsRoles: OpsRole[] = [
     escalation: "Pago no conciliado, comprobante incorrecto, deuda activa o reclamo administrativo.",
     backup: "Persona 1",
     obsidianSource: "Proceso coordinacion academica/Pagos documentacion automatizacion"
+  },
+  {
+    id: "Julie",
+    role: "Operations + Admin + Finance + Training Support",
+    mission: "Controlar proyectos, cotizaciones, facturacion, cobranzas, pago a instructores, AECODE Training, sponsors, startup y THESIA con evidencia operativa.",
+    areas: ["Administracion", "Finanzas", "Comercial", "Programas", "Documentacion", "Eventos"],
+    primaryActivities: ["ACT-113", "ACT-114", "ACT-115", "ACT-116", "ACT-117", "ACT-118", "ACT-119"],
+    kpis: ["Facturas emitidas", "Cobranza al dia", "Pagos a instructores", "Cotizaciones seguidas", "Drives completos", "Sponsors actualizados"],
+    dailyCheck: "Revisar proyectos, facturacion/cobranza, pago a instructores, Training, sponsors y startup con proxima accion y evidencia.",
+    escalation: "Pago vencido, instructor sin pago, sponsor confirmado sin facturacion, proyecto sin Drive, cotizacion sin seguimiento o Training con bloqueo administrativo.",
+    backup: "Daniella",
+    obsidianSource: "Actividades recurrentes Julie enviadas por Alejandro"
   },
   {
     id: "Persona 22",
@@ -3723,15 +4197,15 @@ export const opsRoles: OpsRole[] = [
   },
   {
     id: "Persona 28",
-    role: "Operacion transversal de programas + Summit",
-    mission: "Coordinar operaciones a todo nivel en programas activos, actas, flujos Notion, docentes, postventa, sponsors, ponentes, marketing, B2B y comunicaciones HTML.",
-    areas: ["Programas", "Sesiones", "Documentacion", "Accesos y soporte", "Automatizacion", "Alianzas", "Eventos", "Marketing", "Comercial", "Contenido"],
-    primaryActivities: ["ACT-095", "ACT-096", "ACT-097", "ACT-098", "ACT-099", "ACT-100", "ACT-101", "ACT-102", "ACT-103", "ACT-104"],
-    kpis: ["Programas actualizados", "Actas cerradas <24h", "Sesiones listas 72h antes", "Sponsors en seguimiento", "Errores de automatizacion reportados", "Plantillas HTML versionadas"],
-    dailyCheck: "Revisar programas activos, actas, docentes, horarios, materiales, soporte postventa, automatizaciones en prueba, sponsors, ponentes, campanas, B2B y plantillas HTML.",
-    escalation: "Sesion sin docente/material, acta pendiente, participante sin respuesta, automatizacion con error, sponsor sin follow-up, ponente sin confirmar o plantilla sin version.",
+    role: "Operaciones estrategicas GEN+ / AECODE",
+    mission: "Coordinar PMO transversal, Training, Summit/partners, comercial tecnico, documentacion, THESIA/startup y sistemas de seguimiento.",
+    areas: ["Programas", "Sesiones", "Documentacion", "Accesos y soporte", "Automatizacion", "Alianzas", "Eventos", "Marketing", "Comercial", "Contenido", "Direccion"],
+    primaryActivities: ["ACT-095", "ACT-096", "ACT-097", "ACT-098", "ACT-099", "ACT-100", "ACT-101", "ACT-102", "ACT-103", "ACT-104", "ACT-120"],
+    kpis: ["Programas actualizados", "Actas cerradas <24h", "Sesiones listas 72h antes", "Sponsors en seguimiento", "Errores de automatizacion reportados", "Plantillas HTML versionadas", "Top 5 bloqueos por frente"],
+    dailyCheck: "Revisar GEN+ proyectos, AECODE Training, Summit/partners, comercial tecnico, THESIA/startup, bloqueos, evidencias y decisiones.",
+    escalation: "Proyecto sin proxima accion, sesion sin docente/material, sponsor sin follow-up, cotizacion sin alcance, startup con requisito pendiente o decision de negocio sin Alejandro.",
     backup: "Persona 3",
-    obsidianSource: "Actividad enviada por programas/Summit"
+    obsidianSource: "Actividad enviada por programas/Summit + analisis Daniella 2026"
   }
 ];
 

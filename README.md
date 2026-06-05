@@ -32,6 +32,10 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - Actividades de Yary integradas como UX/UI, branding, web experience y handoff.
 - Actividades de Jessica integradas como revision de ventas/GHL para optimizar marketing, copys, oferta y calidad de leads.
 - Actividades de Talia integradas como cierre comercial: llamadas a leads calientes, audios, seguimiento orientado al cierre, copys, brochures, seguimiento masivo y entrenamiento de ventas.
+- Actividades recurrentes de Julie integradas como GEN+ proyectos, comercial, administracion/facturacion, cobranza, pago a instructores, AECODE Training, sponsors, legal/experiencia, startup y THESIA.
+- Analisis de Daniella 2026 integrado como operaciones estrategicas GEN+ / AECODE: PMO transversal, AECODE Training, Summit/partners, comercial tecnico, documentacion, sistemas de seguimiento y THESIA/startup.
+- Chat operativo `WhatsApp Chat - Gen+ Fabrizio` usado de forma sintetica para mapear producto AECODE F3/3.0, automatizacion marketing, dashboards de metricas, AgentFlow, Summit y propuestas/cotizaciones tecnicas. No se publica contenido privado ni links completos.
+- Prompt pegado sobre escalamiento interactivo usado parcialmente: se ejecuto persistencia local/exportacion/importacion y chequeo de privacidad; no se aplico anonimato total porque la instruccion vigente pide nombres reales.
 - Lista completa de `09_Actividades Diarias/Actividades_TEAM` integrada: 35 personas consideradas, 25 asientos nucleo y 10 perfiles en red extendida para cumplir el limite operativo solicitado.
 - PDF de actividades de tecnologia/automatizacion integrado como `Persona 27`: n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA y soporte comercial/postventa.
 - Actividades de programas activos, Summit, postventa, marketing, B2B y comunicaciones HTML integradas como `Persona 28` hasta confirmar nombre.
@@ -118,10 +122,23 @@ Templates nuevos:
 - `templates/daily_execution_items.csv`
 - `templates/agentflow_contracts.csv`
 - `templates/backend_entity_contracts.csv`
+- `templates/strategic_role_profiles.csv`
 
 Roadmap:
 
 - `docs/ROADMAP_X5.md`
+
+## Iteracion operativa editable
+
+La seccion `Hoy / Centro de ejecucion` ahora funciona como piloto diario sin backend:
+
+- permite editar estado, fecha/SLA, siguiente accion, evidencia y decision por item;
+- recalcula KPIs y carga por persona con los cambios locales;
+- guarda en `localStorage` del navegador;
+- exporta/importa un JSON de estado para compartir cortes operativos;
+- mantiene la base versionada del repo intacta y reiniciable.
+
+Tambien se agrego `Perfiles operativos criticos`, una lectura ejecutiva de Julie, Daniella y Fabrizio con frentes, actividades, sistemas, handoffs, metricas, riesgos y siguientes acciones de sistema.
 
 ## Equipo nucleo y red extendida
 

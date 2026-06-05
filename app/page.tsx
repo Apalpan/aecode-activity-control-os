@@ -12,6 +12,7 @@ import {
   CircleDotDashed,
   ClipboardList,
   Database,
+  Download,
   ExternalLink,
   Filter,
   Gauge,
@@ -23,16 +24,18 @@ import {
   LockKeyhole,
   MessageSquareText,
   PlaySquare,
+  RefreshCw,
   Route,
   Search,
   ShieldCheck,
   SlidersHorizontal,
   TimerReset,
+  Upload,
   UserRoundCheck,
   Users,
   Workflow
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   aecodeDomains,
   activities,
@@ -63,6 +66,7 @@ import {
   opsSources,
   programs,
   sourceNotes,
+  strategicRoleProfiles,
   workflowPlaybooks,
   workflowStages,
   type Activity,
@@ -98,6 +102,13 @@ const executionStatusClass: Record<ExecutionStatus, string> = {
 
 const playbookModes = ["Checklist", "Kanban", "Timeline", "RACI", "Log"] as const;
 type PlaybookMode = (typeof playbookModes)[number];
+type DailyExecutionPatch = Partial<Pick<DailyExecutionItem, "status" | "due" | "evidence" | "nextBestAction" | "decisionNeeded">>;
+type EditableDailyField = keyof DailyExecutionPatch;
+
+const executionStatuses: ExecutionStatus[] = ["Listo", "En curso", "Riesgo", "Bloqueado", "Automatizable", "Requiere decision"];
+const editableDailyFields: EditableDailyField[] = ["status", "due", "evidence", "nextBestAction", "decisionNeeded"];
+const dailyOverridesStorageKey = "aecode-activity-control-os:daily-overrides:v1";
+const executionOwnerStorageKey = "aecode-activity-control-os:execution-owner:v1";
 
 const privacyClass = {
   Critico: "chip-critical",
@@ -135,6 +146,7 @@ const navGroups = [
       { label: "Cultura", href: "#cultura", icon: MessageSquareText },
       { label: "Actividades", href: "#actividades", icon: ListChecks },
       { label: "Roles", href: "#roles", icon: UserRoundCheck },
+      { label: "Perfiles criticos", href: "#perfiles-criticos", icon: ShieldCheck },
       { label: "Equipo mapeado", href: "#equipo-real", icon: Users },
       { label: "Conexiones", href: "#conexiones", icon: Workflow },
       { label: "Flujo", href: "#flujo", icon: Route }
@@ -249,6 +261,102 @@ export default function Page() {
     areas: true,
     sistemas: true
   });
+  const [dailyOverrides, setDailyOverrides] = useState<Record<string, DailyExecutionPatch>>({});
+  const [importPayload, setImportPayload] = useState("");
+  const [storeNotice, setStoreNotice] = useState("Sin cambios locales.");
+  const [storeHydrated, setStoreHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const savedOverrides = window.localStorage.getItem(dailyOverridesStorageKey);
+      const savedOwner = window.localStorage.getItem(executionOwnerStorageKey);
+
+      if (savedOverrides) {
+        const parsed = JSON.parse(savedOverrides) as Record<string, DailyExecutionPatch>;
+        setDailyOverrides(parsed);
+        setStoreNotice("Estado local restaurado.");
+      }
+
+      if (savedOwner) {
+        setExecutionOwner(savedOwner);
+      }
+    } catch {
+      setStoreNotice("No se pudo leer el estado local. Se mantiene la base del repo.");
+    } finally {
+      setStoreHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!storeHydrated) return;
+    window.localStorage.setItem(dailyOverridesStorageKey, JSON.stringify(dailyOverrides));
+  }, [dailyOverrides, storeHydrated]);
+
+  useEffect(() => {
+    if (!storeHydrated) return;
+    window.localStorage.setItem(executionOwnerStorageKey, executionOwner);
+  }, [executionOwner, storeHydrated]);
+
+  const executionItems = useMemo(() => {
+    return dailyExecutionItems.map((item) => ({ ...item, ...(dailyOverrides[item.id] ?? {}) }));
+  }, [dailyOverrides]);
+
+  const updateDailyItem = (id: string, patch: DailyExecutionPatch) => {
+    const seed = dailyExecutionItems.find((item) => item.id === id);
+    setDailyOverrides((current) => {
+      const nextPatch: DailyExecutionPatch = { ...(current[id] ?? {}), ...patch };
+
+      if (seed) {
+        editableDailyFields.forEach((field) => {
+          if (nextPatch[field] === seed[field]) {
+            delete nextPatch[field];
+          }
+        });
+      }
+
+      const next = { ...current };
+      if (Object.keys(nextPatch).length) {
+        next[id] = nextPatch;
+      } else {
+        delete next[id];
+      }
+      return next;
+    });
+    setStoreNotice(`Cambio local guardado para ${id}.`);
+  };
+
+  const exportDailyState = () => {
+    const payload = JSON.stringify({
+      schema: "aecode-activity-control-os.daily-state.v1",
+      exportedAt: new Date().toISOString(),
+      selectedOwner: executionOwner,
+      overrides: dailyOverrides
+    }, null, 2);
+
+    setImportPayload(payload);
+    navigator.clipboard?.writeText(payload).catch(() => undefined);
+    setStoreNotice("JSON generado y copiado al portapapeles si el navegador lo permite.");
+  };
+
+  const importDailyState = () => {
+    try {
+      const parsed = JSON.parse(importPayload) as { overrides?: Record<string, DailyExecutionPatch>; selectedOwner?: string };
+      setDailyOverrides(parsed.overrides ?? {});
+      if (parsed.selectedOwner) {
+        setExecutionOwner(parsed.selectedOwner);
+      }
+      setStoreNotice("Estado importado en este navegador.");
+    } catch {
+      setStoreNotice("JSON invalido. Revisa el contenido antes de importar.");
+    }
+  };
+
+  const resetDailyState = () => {
+    setDailyOverrides({});
+    setImportPayload("");
+    window.localStorage.removeItem(dailyOverridesStorageKey);
+    setStoreNotice("Estado local reiniciado. Se muestra la base versionada del repo.");
+  };
 
   const filtered = useMemo(() => {
     return activities
@@ -260,16 +368,16 @@ export default function Page() {
   }, [area, query, role, status]);
 
   const executionOwners = useMemo(() => {
-    return Array.from(new Set(dailyExecutionItems.flatMap((item) => [item.owner, item.backup]))).sort((a, b) => displayPerson(a).localeCompare(displayPerson(b)));
-  }, []);
+    return Array.from(new Set(executionItems.flatMap((item) => [item.owner, item.backup]))).sort((a, b) => displayPerson(a).localeCompare(displayPerson(b)));
+  }, [executionItems]);
 
   const executionFiltered = useMemo(() => {
-    return dailyExecutionItems
+    return executionItems
       .filter((item) => executionOwner === "Todos" || item.owner === executionOwner || item.backup === executionOwner)
       .filter((item) => executionStatus === "Todos" || item.status === executionStatus)
       .filter((item) => executionPlaybook === "Todos" || item.playbookId === executionPlaybook)
       .sort((a, b) => getPriorityWeight(b.priority) - getPriorityWeight(a.priority));
-  }, [executionOwner, executionPlaybook, executionStatus]);
+  }, [executionItems, executionOwner, executionPlaybook, executionStatus]);
 
   const criticalCount = activities.filter((item) => item.priority === "Critica").length;
   const riskCount = activities.filter((item) => item.status === "Riesgo").length;
@@ -287,14 +395,14 @@ export default function Page() {
   const selectedPlaybookReadyCount = selectedPlaybook.steps.filter((step) => step.status === "Listo").length;
   const selectedPlaybookRiskCount = selectedPlaybook.steps.filter((step) => step.status === "Riesgo").length;
   const selectedPlaybookProgress = Math.round((selectedPlaybookReadyCount / Math.max(selectedPlaybook.steps.length, 1)) * 100);
-  const blockedToday = dailyExecutionItems.filter((item) => item.status === "Bloqueado" || item.status === "Riesgo").length;
-  const decisionToday = dailyExecutionItems.filter((item) => item.status === "Requiere decision" || item.decisionNeeded.toLowerCase().includes("confirmar") || item.decisionNeeded.toLowerCase().includes("definir")).length;
-  const evidenceToday = dailyExecutionItems.filter((item) => item.evidence.toLowerCase().includes("evidencia") || item.evidence.toLowerCase().includes("log") || item.evidence.toLowerCase().includes("reporte")).length;
-  const agentReadyToday = dailyExecutionItems.filter((item) => item.status === "Automatizable" || item.agent.includes("Agente")).length;
+  const blockedToday = executionItems.filter((item) => item.status === "Bloqueado" || item.status === "Riesgo").length;
+  const decisionToday = executionItems.filter((item) => item.status === "Requiere decision" || item.decisionNeeded.toLowerCase().includes("confirmar") || item.decisionNeeded.toLowerCase().includes("definir")).length;
+  const evidenceToday = executionItems.filter((item) => item.evidence.toLowerCase().includes("evidencia") || item.evidence.toLowerCase().includes("log") || item.evidence.toLowerCase().includes("reporte")).length;
+  const agentReadyToday = executionItems.filter((item) => item.status === "Automatizable" || item.agent.includes("Agente")).length;
   const ownerLoad = executionOwners.map((owner) => ({
     owner,
-    count: dailyExecutionItems.filter((item) => item.owner === owner || item.backup === owner).length,
-    critical: dailyExecutionItems.filter((item) => (item.owner === owner || item.backup === owner) && item.priority === "Critica").length
+    count: executionItems.filter((item) => item.owner === owner || item.backup === owner).length,
+    critical: executionItems.filter((item) => (item.owner === owner || item.backup === owner) && item.priority === "Critica").length
   })).sort((a, b) => b.count - a.count);
   const overloadedPeople = ownerLoad.filter((item) => item.count >= 3 || item.critical >= 2);
 
@@ -410,7 +518,7 @@ export default function Page() {
           <div className="execution-kpis">
             <article>
               <p>Items de hoy</p>
-              <strong>{dailyExecutionItems.length}</strong>
+              <strong>{executionItems.length}</strong>
               <span>por playbook operativo</span>
             </article>
             <article>
@@ -449,7 +557,7 @@ export default function Page() {
               <label htmlFor="execution-status">Estado</label>
               <select id="execution-status" value={executionStatus} onChange={(event) => setExecutionStatus(event.target.value)}>
                 <option value="Todos">Todos</option>
-                {(["Listo", "En curso", "Riesgo", "Bloqueado", "Automatizable", "Requiere decision"] as ExecutionStatus[]).map((item) => (
+                {executionStatuses.map((item) => (
                   <option key={item} value={item}>{item}</option>
                 ))}
               </select>
@@ -463,6 +571,41 @@ export default function Page() {
                 ))}
               </select>
             </div>
+          </div>
+
+          <div className="daily-store-panel">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-aecode-green">Modo editable local</p>
+              <h3 className="mt-1 text-lg font-black text-white">Estado diario guardado en este navegador</h3>
+              <p className="mt-2 text-sm leading-6 text-aecode-muted">
+                Los cambios ajustan este tablero y sus KPIs sin tocar Sheets, WhatsApp, Notion ni GitHub. Usa exportar/importar para compartir un corte operativo.
+              </p>
+              <p className="mt-2 text-xs font-bold text-aecode-lavender">{storeNotice}</p>
+            </div>
+            <div className="daily-store-actions">
+              <button type="button" onClick={exportDailyState}>
+                <Download size={15} />
+                <span>Exportar</span>
+              </button>
+              <button type="button" onClick={importDailyState}>
+                <Upload size={15} />
+                <span>Importar</span>
+              </button>
+              <button type="button" onClick={resetDailyState}>
+                <RefreshCw size={15} />
+                <span>Reiniciar</span>
+              </button>
+            </div>
+            <label className="daily-import-box" htmlFor="daily-import-payload">
+              <span>JSON de estado</span>
+              <textarea
+                id="daily-import-payload"
+                value={importPayload}
+                onChange={(event) => setImportPayload(event.target.value)}
+                placeholder='{"schema":"aecode-activity-control-os.daily-state.v1","overrides":{}}'
+                rows={4}
+              />
+            </label>
           </div>
 
           <div className="execution-layout">
@@ -485,6 +628,34 @@ export default function Page() {
                     <p><strong>Owner</strong>{displayPerson(item.owner)}</p>
                     <p><strong>Backup</strong>{displayPerson(item.backup)}</p>
                     <p><strong>Flujo</strong>{item.playbookId}</p>
+                  </div>
+                  <div className="quick-update-grid">
+                    <label>
+                      <span>Estado</span>
+                      <select value={item.status} onChange={(event) => updateDailyItem(item.id, { status: event.target.value as ExecutionStatus })}>
+                        {executionStatuses.map((executionState) => (
+                          <option key={executionState} value={executionState}>{executionState}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      <span>Fecha / SLA</span>
+                      <input value={item.due} onChange={(event) => updateDailyItem(item.id, { due: event.target.value })} />
+                    </label>
+                    <label className="quick-update-wide">
+                      <span>Siguiente accion</span>
+                      <textarea value={item.nextBestAction} onChange={(event) => updateDailyItem(item.id, { nextBestAction: event.target.value })} rows={2} />
+                    </label>
+                    <label className="quick-update-wide">
+                      <span>Evidencia / decision</span>
+                      <textarea value={`${item.evidence}\nDecision: ${item.decisionNeeded}`} onChange={(event) => {
+                        const [evidenceLine, ...decisionLines] = event.target.value.split("\nDecision:");
+                        updateDailyItem(item.id, {
+                          evidence: evidenceLine.trim(),
+                          decisionNeeded: decisionLines.join("Decision:").trim() || item.decisionNeeded
+                        });
+                      }} rows={3} />
+                    </label>
                   </div>
                   <div className="next-action">
                     <TimerReset size={17} />
@@ -529,7 +700,7 @@ export default function Page() {
               <div className="side-block">
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-aecode-green">Decisiones para Alejandro</p>
                 <div className="mt-3 grid gap-2">
-                  {dailyExecutionItems.filter((item) => item.status === "Requiere decision").map((item) => (
+                  {executionItems.filter((item) => item.status === "Requiere decision").map((item) => (
                     <a className="decision-link" href="#flujo" key={item.id} onClick={() => setActivePlaybookId(item.playbookId)}>
                       <AlertTriangle size={15} />
                       <span>{item.title}</span>
@@ -545,6 +716,98 @@ export default function Page() {
                 </p>
               </div>
             </aside>
+          </div>
+        </section>
+
+        <section className="strategic-profiles mt-6" id="perfiles-criticos">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Perfiles operativos criticos</p>
+              <h2 className="mt-2 text-3xl font-black text-white">Julie, Daniella y Fabrizio como nodos de control</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Lectura ejecutiva de los roles que cruzan varias empresas y areas. Sirve para saber que hacen, con quien se comunican, que evidencias deben dejar y que no se debe cargarles sin criterio.
+              </p>
+            </div>
+            <ShieldCheck className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="mt-5 grid gap-4">
+            {strategicRoleProfiles.map((profile) => (
+              <article className="strategic-profile-row" key={profile.id}>
+                <div className="strategic-profile-head">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{profile.id} / {displayPerson(profile.person)}</p>
+                    <h3>{profile.title}</h3>
+                    <p>{profile.scope}</p>
+                  </div>
+                  <span className="chip chip-good">Control transversal</span>
+                </div>
+
+                <div className="strategic-profile-read">
+                  <AlertTriangle size={16} />
+                  <p>{profile.executiveRead}</p>
+                </div>
+
+                <div className="strategic-block-grid">
+                  {profile.blocks.map((block) => (
+                    <div className="strategic-block" key={`${profile.id}-${block.label}`}>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <h4>{block.label}</h4>
+                        <span className="chip">{block.company}</span>
+                      </div>
+                      <p className="mt-2 text-sm leading-6 text-aecode-muted">{block.objective}</p>
+                      <div className="mt-3 grid gap-3 xl:grid-cols-2">
+                        <div>
+                          <span className="strategic-label">Actividades</span>
+                          {block.activities.map((activity) => (
+                            <p className="strategic-line" key={activity}>{activity}</p>
+                          ))}
+                        </div>
+                        <div>
+                          <span className="strategic-label">Metricas</span>
+                          {block.metrics.map((metric) => (
+                            <p className="strategic-line" key={metric}>{metric}</p>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {block.systems.map((system) => (
+                          <span className="chip chip-good" key={system}>{system}</span>
+                        ))}
+                      </div>
+                      <div className="mt-3 grid gap-2">
+                        {block.handoffs.map((handoff) => (
+                          <p className="handoff-line" key={handoff}>
+                            <ChevronRight size={14} />
+                            <span>{handoff}</span>
+                          </p>
+                        ))}
+                      </div>
+                      <p className="mt-3 text-xs font-bold leading-5 text-[#ffb2aa]">{block.risks.join(" / ")}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="strategic-footer">
+                  <div>
+                    <span className="strategic-label">KPIs de control</span>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {profile.operatingMetrics.map((metric) => (
+                        <span className="chip" key={metric}>{metric}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="strategic-label">Siguientes acciones de sistema</span>
+                    <div className="mt-2 grid gap-2">
+                      {profile.nextSystemActions.map((action) => (
+                        <p className="strategic-line" key={action}>{action}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
