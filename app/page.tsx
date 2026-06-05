@@ -52,6 +52,11 @@ import {
   type Activity,
   type Priority
 } from "@/data/opsData";
+import {
+  aecodeTeamMembers,
+  personIdentityMap,
+  resolvePersonName
+} from "@/data/teamData";
 
 const priorityClass: Record<Priority, string> = {
   Critica: "chip-critical",
@@ -85,6 +90,7 @@ const navGroups = [
       { label: "Cultura", href: "#cultura", icon: MessageSquareText },
       { label: "Actividades", href: "#actividades", icon: ListChecks },
       { label: "Roles", href: "#roles", icon: UserRoundCheck },
+      { label: "Equipo anonimo", href: "#equipo-real", icon: Users },
       { label: "Flujo", href: "#flujo", icon: Route }
     ]
   },
@@ -147,6 +153,17 @@ function prioritySort(a: Activity, b: Activity) {
   return getPriorityWeight(b.priority) - getPriorityWeight(a.priority);
 }
 
+function confidenceClass(confidence: string) {
+  if (confidence === "Alta") return "chip-good";
+  if (confidence === "Media") return "chip-high";
+  if (confidence === "Baja") return "chip-critical";
+  return "";
+}
+
+function displayPerson(value: string) {
+  return resolvePersonName(value);
+}
+
 export default function Page() {
   const [area, setArea] = useState("Todas");
   const [query, setQuery] = useState("");
@@ -163,7 +180,7 @@ export default function Page() {
       .filter((item) => area === "Todas" || item.area === area)
       .filter((item) => status === "Todos" || item.status === status)
       .filter((item) => role === "Todos" || item.owner === role || item.backup === role)
-      .filter((item) => `${item.id} ${item.area} ${item.activity} ${item.agent} ${item.owner}`.toLowerCase().includes(query.toLowerCase()))
+      .filter((item) => `${item.id} ${item.area} ${item.activity} ${item.agent} ${item.owner} ${displayPerson(item.owner)} ${displayPerson(item.backup)}`.toLowerCase().includes(query.toLowerCase()))
       .sort(prioritySort);
   }, [area, query, role, status]);
 
@@ -174,6 +191,7 @@ export default function Page() {
   const selectedRole = opsRoles.find((item) => item.id === role);
   const commercialRoles = opsRoles.filter((item) => item.areas.some((roleArea) => ["Comercial", "Finanzas"].includes(roleArea)));
   const productRoles = opsRoles.filter((item) => item.areas.some((roleArea) => ["Producto", "Plataforma", "Certificados"].includes(roleArea)));
+  const highConfidenceTeam = aecodeTeamMembers.filter((member) => member.confidence === "Alta").length;
 
   return (
     <div className="shell">
@@ -192,7 +210,7 @@ export default function Page() {
           <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Activity Control OS</p>
           <h1 className="mt-3 text-3xl font-black leading-tight text-white">Tablero maestro de actividades</h1>
           <p className="mt-4 text-sm leading-7 text-aecode-muted">
-            Control total AECODE: academia, postventa, soporte, producto, marketing, comercial, eventos, finanzas, datos y automatizacion.
+            Control interno AECODE: roles anonimos, postventa, soporte, producto, marketing, comercial, eventos, finanzas, datos y automatizacion.
           </p>
         </div>
 
@@ -223,8 +241,8 @@ export default function Page() {
         </nav>
 
         <div className="mt-8 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-4">
-          <p className="text-sm font-black text-aecode-mint">Regla de publicacion</p>
-          <p className="mt-2 text-sm leading-6 text-aecode-muted">Sin nombres, sin links privados, sin PII. Solo roles anonimos, estados y decision operativa.</p>
+          <p className="text-sm font-black text-aecode-mint">Modo interno</p>
+          <p className="mt-2 text-sm leading-6 text-aecode-muted">No expone nombres reales, correos, credenciales ni URLs privadas completas. Opera con alias `Persona N`.</p>
         </div>
       </aside>
 
@@ -253,10 +271,10 @@ export default function Page() {
           </div>
 
           <div className="metric-grid">
-            <Metric label="Actividades" value={String(activities.length)} detail="Actividades completas normalizadas desde el pedido, Sheet y adjuntos." />
+            <Metric label="Actividades" value={String(activities.length)} detail="Actividades completas normalizadas desde Obsidian, Notion, Sheet y adjuntos." />
             <Metric label="Links" value={String(linkAssets.length)} detail="Inventario seguro de enlaces extraidos del chat operativo." />
             <Metric label="Areas AECODE" value={String(aecodeDomains.length)} detail="Dominios de control desde direccion hasta finanzas y BI." tone="good" />
-            <Metric label="Roles" value={String(opsRoles.length)} detail="Responsables anonimos con mision, KPIs, backup y escalamiento." />
+            <Metric label="Equipo anonimo" value={`${aecodeTeamMembers.length}/${highConfidenceTeam}`} detail="Personas mapeadas como alias; segundo numero indica roles con certeza alta." />
             <Metric label="Criticas" value={String(criticalCount)} detail="Accesos, videos y certificados tienen impacto directo en activacion." tone="risk" />
             <Metric label="En riesgo" value={String(riskCount)} detail="Requieren owner, SLA o evidencia para no generar reclamos." tone="risk" />
             <Metric label="Automatizables" value={`${automationCount}/${activities.length}`} detail="Candidatas para AgentFlow, GHL, WhatsApp, Drive o n8n." tone="good" />
@@ -284,7 +302,7 @@ export default function Page() {
                     <p className="text-xs font-black text-aecode-muted">{domain.id}</p>
                     <h3 className="mt-1 text-lg font-black text-white">{domain.domain}</h3>
                   </div>
-                  <span className="chip chip-good">{domain.lead}</span>
+                <span className="chip chip-good">{displayPerson(domain.lead)}</span>
                 </div>
                 <p className="mt-3 min-h-[72px] text-sm leading-6 text-aecode-muted">{domain.mission}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -296,7 +314,7 @@ export default function Page() {
                   <p className="text-xs font-black uppercase text-aecode-green">Automatizacion</p>
                   <p className="mt-2 text-sm leading-6 text-white">{domain.automation}</p>
                 </div>
-                <p className="mt-4 text-xs font-bold text-aecode-lavender">Apoyo: {domain.supportingRoles.join(" + ")}</p>
+                <p className="mt-4 text-xs font-bold text-aecode-lavender">Apoyo: {domain.supportingRoles.map(displayPerson).join(" + ")}</p>
               </article>
             ))}
           </div>
@@ -336,7 +354,7 @@ export default function Page() {
                     <p className="text-xs font-black uppercase text-aecode-green">Evidencia de decision</p>
                     <p className="mt-2 text-sm leading-6 text-white">{boundary.evidence}</p>
                   </div>
-                  <p className="mt-3 text-xs font-bold text-aecode-lavender">Owner: {boundary.owner}</p>
+                  <p className="mt-3 text-xs font-bold text-aecode-lavender">Owner: {displayPerson(boundary.owner)}</p>
                   <p className="mt-2 text-xs leading-5 text-aecode-muted">Riesgo: {boundary.risk}</p>
                 </article>
               );
@@ -476,7 +494,7 @@ export default function Page() {
               <div className="segmented" aria-label="Filtro por rol operativo">
                 {["Todos", ...opsRoles.map((item) => item.id)].map((item) => (
                   <button key={item} data-active={role === item} onClick={() => setRole(item)} type="button">
-                    {item}
+                    {item === "Todos" ? item : displayPerson(item)}
                   </button>
                 ))}
               </div>
@@ -484,7 +502,7 @@ export default function Page() {
                 <div className="mt-4 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-4">
                   <p className="text-sm font-black text-aecode-mint">{selectedRole.role}</p>
                   <p className="mt-2 text-sm leading-6 text-aecode-muted">{selectedRole.dailyCheck}</p>
-                  <p className="mt-2 text-xs font-bold text-aecode-lavender">Backup: {selectedRole.backup}</p>
+                  <p className="mt-2 text-xs font-bold text-aecode-lavender">Backup: {displayPerson(selectedRole.backup)}</p>
                 </div>
               ) : null}
             </div>
@@ -505,7 +523,7 @@ export default function Page() {
                   <span className="chip chip-good">{item.agent}</span>
                   <span className="chip">{item.sla}</span>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-aecode-muted">Owner: {item.owner} / Backup: {item.backup}</p>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">Owner: {displayPerson(item.owner)} / Backup: {displayPerson(item.backup)}</p>
                 <p className="mt-2 text-sm leading-6 text-aecode-muted">{item.risk}</p>
                 <p className="mt-2 text-sm leading-6 text-white">{item.nextAction}</p>
               </article>
@@ -537,8 +555,8 @@ export default function Page() {
                       <span className="chip">{item.area}</span>
                     </td>
                     <td>
-                      <p className="font-bold text-white">{item.owner}</p>
-                      <p className="text-xs text-aecode-muted">Backup: {item.backup}</p>
+                      <p className="font-bold text-white">{displayPerson(item.owner)}</p>
+                      <p className="text-xs text-aecode-muted">Backup: {displayPerson(item.backup)}</p>
                     </td>
                     <td>
                       <span className="chip chip-good">{item.agent}</span>
@@ -567,7 +585,7 @@ export default function Page() {
               <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equipo operativo</p>
               <h2 className="mt-2 text-2xl font-black text-white">Roles, responsabilidades y foco diario</h2>
               <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
-                Estructura anonima basada en la carpeta Obsidian de actividades del equipo. Cada rol muestra mision, areas, KPIs y criterio de escalamiento.
+                Estructura interna basada en fuentes operativas. Cada rol muestra alias, mision, areas, KPIs, backup y criterio de escalamiento.
               </p>
             </div>
             <UserRoundCheck className="text-aecode-mint" size={30} />
@@ -578,10 +596,10 @@ export default function Page() {
               <article className="panel p-4" key={item.id}>
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                    <p className="text-xs font-black text-aecode-muted">{displayPerson(item.id)}</p>
                     <h3 className="mt-1 text-lg font-black text-white">{item.role}</h3>
                   </div>
-                  <span className="chip chip-good">{item.backup}</span>
+                  <span className="chip chip-good">{displayPerson(item.backup)}</span>
                 </div>
                 <p className="mt-3 min-h-[72px] text-sm leading-6 text-aecode-muted">{item.mission}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -607,13 +625,109 @@ export default function Page() {
           </div>
         </section>
 
+        <section className="mt-6 grid gap-4" id="equipo-real">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equipo anonimizado AECODE</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Personas, rol claro, actividades y comunicacion</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Matriz interna extraida de fuentes operativas. Los responsables se muestran como `Persona N` y se conserva el nivel de certeza sin publicar nombres reales.
+              </p>
+            </div>
+            <Users className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="grid gap-3 xl:grid-cols-2">
+            {aecodeTeamMembers.map((member) => (
+              <article className="panel p-4" key={member.name}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.12em] text-aecode-muted">{member.squad}</p>
+                    <h3 className="mt-1 text-xl font-black text-white">{member.name}</h3>
+                    <p className="mt-1 text-sm font-bold text-aecode-mint">{member.role}</p>
+                  </div>
+                  <span className={`chip ${confidenceClass(member.confidence)}`}>Certeza {member.confidence}</span>
+                </div>
+
+                <p className="mt-4 text-sm leading-6 text-aecode-muted">{member.focus}</p>
+
+                <div className="mt-4 grid gap-3 lg:grid-cols-2">
+                  <div className="rounded-lg border border-aecode-violet/15 bg-aecode-bg/40 p-3">
+                    <p className="text-xs font-black uppercase text-aecode-green">Actividades</p>
+                    <div className="mt-2 grid gap-2">
+                      {member.activities.map((activity) => (
+                        <p className="flex gap-2 text-sm leading-6 text-aecode-muted" key={activity}>
+                          <CheckCircle2 className="mt-1 shrink-0 text-aecode-green" size={14} />
+                          {activity}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-aecode-violet/15 bg-aecode-bg/40 p-3">
+                    <p className="text-xs font-black uppercase text-aecode-green">Se comunica con</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {member.communicatesWith.map((person) => (
+                        <span className="chip" key={person}>{person}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-3 md:grid-cols-3">
+                  <div>
+                    <p className="text-xs font-black uppercase text-aecode-green">Proyectos</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {member.projects.map((project) => (
+                        <span className="chip" key={project}>{project}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs font-black uppercase text-aecode-green">Owns</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {member.owns.map((own) => (
+                        <span className="chip chip-good" key={own}>{own}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs font-black uppercase text-aecode-green">Fuente</p>
+                    <p className="mt-2 text-sm leading-6 text-aecode-muted">{member.source}</p>
+                    <p className="mt-2 text-xs font-bold text-aecode-lavender">{member.company}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <section className="panel p-4">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equivalencia operativa</p>
+            <h3 className="mt-2 text-xl font-black text-white">Alias operativo y nivel de certeza</h3>
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {Object.entries(personIdentityMap).map(([personaId, identity]) => (
+                <div className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-3" key={personaId}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-black text-aecode-muted">{personaId}</p>
+                      <p className="mt-1 text-base font-black text-white">{identity.name}</p>
+                    </div>
+                    <span className={`chip ${confidenceClass(identity.confidence)}`}>{identity.confidence}</span>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">{identity.rationale}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </section>
+
         <section className="mt-6 panel p-5" id="marketing">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Marketing + Growth</p>
               <h2 className="mt-2 text-2xl font-black text-white">Procesos derivados del panel de marketing</h2>
               <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
-                Se integran campanas, Summit, difusion, clips, automatizacion y contenido organico con roles anonimos y evidencia operativa.
+                Se integran campanas, Summit, difusion, clips, automatizacion y contenido organico con responsables anonimos y evidencia operativa.
               </p>
             </div>
             <Megaphone className="text-aecode-mint" size={30} />
@@ -627,7 +741,7 @@ export default function Page() {
                     <p className="text-xs font-black text-aecode-muted">{process.id}</p>
                     <h3 className="mt-1 text-lg font-black text-white">{process.title}</h3>
                   </div>
-                  <span className="chip chip-good">{process.lead}</span>
+                  <span className="chip chip-good">{displayPerson(process.lead)}</span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-aecode-muted">{process.objective}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -656,10 +770,10 @@ export default function Page() {
                 <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={item.id}>
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                      <p className="text-xs font-black text-aecode-muted">{displayPerson(item.id)}</p>
                       <h3 className="mt-1 text-lg font-black text-white">{item.role}</h3>
                     </div>
-                    <span className="chip">{item.backup}</span>
+                    <span className="chip">{displayPerson(item.backup)}</span>
                   </div>
                   <p className="mt-3 text-sm leading-6 text-aecode-muted">{item.mission}</p>
                   <div className="mt-4 grid gap-2">
@@ -691,7 +805,7 @@ export default function Page() {
                 <div className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={item.id}>
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm font-black text-white">{item.role}</p>
-                    <span className="chip chip-good">{item.id}</span>
+                    <span className="chip chip-good">{displayPerson(item.id)}</span>
                   </div>
                   <p className="mt-2 text-sm leading-6 text-aecode-muted">{item.dailyCheck}</p>
                   <p className="mt-2 text-xs font-bold text-aecode-lavender">{item.escalation}</p>
@@ -721,7 +835,7 @@ export default function Page() {
                     <p className="text-xs font-black text-aecode-muted">{stage.id} / {stage.timing}</p>
                     <h3 className="mt-1 text-lg font-black text-white">{stage.label}</h3>
                   </div>
-                  <span className="chip chip-good">{stage.owner}</span>
+                  <span className="chip chip-good">{displayPerson(stage.owner)}</span>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-aecode-muted">{stage.objective}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -813,7 +927,7 @@ export default function Page() {
                     </td>
                     <td>
                       <span className={`chip ${privacyClass[item.privacy]}`}>{item.privacy}</span>
-                      <p className="mt-2 text-xs text-aecode-muted">{item.owner} / {item.agent}</p>
+                      <p className="mt-2 text-xs text-aecode-muted">{displayPerson(item.owner)} / {item.agent}</p>
                       <p className="mt-1 text-xs text-aecode-muted">{item.status}</p>
                     </td>
                     <td>
@@ -907,7 +1021,7 @@ export default function Page() {
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Readiness</p>
-              <h2 className="mt-2 text-2xl font-black text-white">Estado operativo por programa anonimizado</h2>
+              <h2 className="mt-2 text-2xl font-black text-white">Estado operativo por programa</h2>
             </div>
             <Users className="text-aecode-mint" size={28} />
           </div>

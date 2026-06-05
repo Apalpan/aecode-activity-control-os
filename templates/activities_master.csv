@@ -79,3 +79,27 @@ ACT-077,Producto digital,Coordinar seguimiento dev backlog dailys bloqueos y des
 ACT-078,Plataforma,Supervisar funcionamiento de AECODITOS por programa,Persona 27,Agente #27,Alta,Semanal,estado AECODITO por programa,Pendiente,Alta
 ACT-079,Web,Gestionar contenido web del producto y coherencia entre landing training y comunidad,Persona 27,Agente #14,Media,Semanal,contenido web actualizado,Activo,Alta
 ACT-080,Finanzas,Coordinar validacion operativa de pagos ingresos y accesos post compra,Persona 27,Agente #18,Media,Diario,pago validado y acceso habilitado,Activo,Alta
+ACT-081,Automatizacion,Disenar y desplegar workflows n8n end-to-end para GEN+/AECODE,Persona 27,Agente #30,Alta,Por sprint,workflow n8n versionado,Activo,Critica
+ACT-082,Automatizacion,Automatizar servicios conectados Sheets Drive Calendar Notion mensajeria Meta Ads y Zoom,Persona 27,Agente #30,Alta,Por integracion,integracion activa y monitoreada,Activo,Alta
+ACT-083,AI Ops,Depurar y mantener automatizaciones en produccion,Persona 27,Agente #30,Alta,Diario incidente,incidente resuelto o monitoreo verde,Activo,Critica
+ACT-084,AI Ops,Operar y mejorar centro de operaciones IA con WhatsApp voz vision RAG y recordatorios,Persona 27,Agente #31,Alta,Semanal,estado de asistente IA,Activo,Alta
+ACT-085,AI Ops,Disenar arquitectura multi-agente supervisor y sub-agentes para oficina virtual,Persona 27,Agente #31,Alta,Por hito,mapa de nodos multi-agente,Pendiente,Alta
+ACT-086,Producto digital,Construir paneles y apps Next.js multi-rol con autenticacion roles y multi-tenant,Persona 27,Agente #32,Media,Por release,app o dashboard desplegado,Activo,Alta
+ACT-087,Datos,Investigar y construir scrapers con paneles de datos en vivo para oportunidades y empresas,Persona 27,Agente #32,Alta,Por fuente,dataset y panel vivo,Pendiente,Media
+ACT-088,Computer Vision,Crear datasets curar datos y entrenar modelos de deteccion para productos GEN+,Persona 27,Agente #32,Media,Por experimento,dataset modelo evaluado,Pendiente,Media
+ACT-089,Tecnologia,Desplegar apps y workflows configurar MCP APIs Postgres y resolver incidentes tecnicos,Persona 27,Agente #32,Media,Por deploy incidente,deploy o incidente documentado,Activo,Alta
+ACT-090,Documentacion,Redactar specs informes tecnicos mapas de proceso semaforos y roadmaps,Persona 27,Agente #28,Media,Por feature proceso,spec o roadmap actualizado,Activo,Alta
+ACT-091,Capacitacion IA,Disenar talleres de productividad IA plantillas guias toolkits y artefactos HTML,Persona 27,Agente #33,Media,Por taller,toolkit IA publicado,Activo,Media
+ACT-092,Programas,Apoyar estructuracion de cursos IA materiales del alumno y facilitacion de sesiones,Persona 27,Agente #17,Media,Por programa,material academico validado,Activo,Alta
+ACT-093,Comercial,Automatizar data de ventas notificaciones multicanal boleteo y soporte postventa,Persona 27,Agente #34,Alta,Por flujo comercial,flujo comercial automatizado,Pendiente,Alta
+ACT-094,Marketing,Producir contenido videos recaps piezas visuales e investigacion de tendencias benchmarks,Persona 27,Agente #15,Media,Por campana,asset o benchmark publicado,Activo,Media
+ACT-095,Programas,Gestionar y hacer seguimiento a programas de formacion activos,Persona 28,Agente #35,Media,Diario,estado de programa actualizado,Activo,Critica
+ACT-096,Documentacion,Elaborar actas de sesion en PDF y documentar flujos en Notion,Persona 28,Agente #35,Media,24h post sesion,acta y flujo documentado,Activo,Alta
+ACT-097,Sesiones,Coordinar docentes horarios materiales y dinamicas Kahoot,Persona 28,Agente #35,Media,72h antes,sesion academica lista,Activo,Critica
+ACT-098,Accesos y soporte,Atender soporte postventa de participantes con el equipo de soporte,Persona 28,Agente #1,Media,Horario operativo,caso postventa resuelto,Activo,Alta
+ACT-099,Automatizacion,Dar seguimiento a automatizaciones con equipo tecnico pruebas documentacion y reporte de errores,Persona 28,Agente #29,Media,Por sprint,bug o mejora reportada,Activo,Alta
+ACT-100,Alianzas,Gestionar pipeline de sponsors y aliados del Summit en CRM y redactar correos formales,Persona 28,Agente #36,Alta,Diario en campana,pipeline y correo trazado,Activo,Alta
+ACT-101,Eventos,Coordinar ponentes y programacion academica del Summit,Persona 28,Agente #13,Media,Semanal diario previo,agenda academica confirmada,Activo,Alta
+ACT-102,Marketing,Apoyar marketing revisando contenidos campanas y piezas,Persona 28,Agente #12,Media,Por campana,contenido revisado,Activo,Media
+ACT-103,Comercial,Dar seguimiento a ventas B2B y eventos,Persona 28,Agente #16,Media,Semanal oportunidad,seguimiento B2B actualizado,Activo,Alta
+ACT-104,Contenido,Gestionar plantillas y comunicaciones HTML para programas,Persona 28,Agente #35,Media,Por envio,plantilla HTML aprobada,Activo,Media

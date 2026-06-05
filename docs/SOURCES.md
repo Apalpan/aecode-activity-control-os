@@ -29,6 +29,8 @@ Informacion extraida y normalizada:
 - `DESIGN-AECODE.zip`: design system, logos y referencias visuales.
 - `_chat.txt`: chat operativo usado para detectar 32 links unicos y convertirlos en inventario seguro.
 - Notion `AECODE Training`: link adicional compartido por el usuario; el fetch directo no tuvo acceso, pero la busqueda interna encontro una base relacionada con frecuencia, estado y semanas.
+- PDF interno de actividades tecnologia/automatizacion: usado para mapear n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA, soporte comercial/postventa y frontera GEN+.
+- Actividades pegadas de programas/Summit: usadas para mapear programas activos, actas, flujos Notion, docentes, postventa, automatizaciones, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
 
 ## Normalizacion
 

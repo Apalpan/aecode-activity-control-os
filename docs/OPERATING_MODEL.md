@@ -8,7 +8,7 @@ El tablero no debe funcionar como una lista larga de pendientes. Debe operar com
 - flujo -> etapa -> owner -> agente -> fuente;
 - fuente -> Obsidian, Sheet, Notion o Drive -> estado de seguridad.
 
-La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE, `Cultura-AECODE.md` y el panel HTML de marketing. En la UI publica se mantienen roles anonimos.
+La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `04_Team GEN+`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE, `Cultura-AECODE.md` y el panel HTML de marketing. Esta version es interna y muestra nombres reales con trazabilidad `Persona N` cuando el owner fue asumido.
 
 `Cultura-GEN+.md` se usa como frontera operativa: lo que sea consultoria, proyecto cliente, ingenieria aplicada, BIM/VDC para cliente, automatizacion empresarial o producto GEN+ no entra al tablero AECODE salvo que se convierta en activo educativo anonimizado.
 
@@ -40,7 +40,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 - `Persona 24`: activos BIM academicos, modelos, plantillas, familias, scripts, PPTs y Miros.
 - `Persona 25`: alianzas, sponsors, interesados, reuniones, WhatsApp Business, LinkedIn, grupos y convenios.
 - `Persona 26`: QA, E2E, UX, carga/estres, pruebas automatizadas, bugfixes y data.
-- `Persona 27`: producto digital, AI Ops, automatizaciones, AECODITOS, roadmap AECODE 2.0/3.0 y seguimiento dev.
+- `Persona 27`: AI automation, n8n, integraciones, agentes IA, AECODITOS, dashboards, data, ML, deploy, specs, capacitacion IA y soporte tecnico a flujos comerciales/postventa.
+- `Persona 28`: programas activos, actas, flujos Notion, docentes, postventa, automatizaciones, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
 
 ## Flujo operativo por sesion
 
@@ -59,7 +60,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 13. Alianzas y sponsors: interesados, empresas, llamadas, reuniones, grupos, convenios y follow-up.
 14. QA y release validation: E2E, UX, carga, pruebas automatizadas, bugs y data.
 15. UX/UI y handoff de producto: investigacion, flujo completo, UI, branding, assets web, formularios y coordinacion con desarrollo.
-16. Producto digital y AI Ops: automatizaciones, AECODITOS, roadmap, seguimiento dev, flujos criticos, web y accesos post compra.
+16. Producto digital y AI Ops: automatizaciones, n8n, integraciones, AECODITOS, agentes IA, dashboards, data, deploys, specs, capacitacion IA, roadmap, seguimiento dev, flujos criticos, web y accesos post compra.
+17. Programas activos, Summit y postventa: sesiones, actas, Notion, docentes, soporte, automatizaciones, sponsors, ponentes, marketing, B2B y HTML.
 
 ## Loop maestro
 
@@ -81,6 +83,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 12. QA, testing y validacion de data.
 13. UX/UI, branding y web experience.
 14. Producto digital, AI Ops y automatizacion.
+15. Programas activos, Summit y comunicaciones.
 
 ## Frontera AECODE / GEN+
 
@@ -105,7 +108,7 @@ Marketing no debe optimizar solo por CPL. `Persona 12` revisa GHL con ventas par
 
 ## Reglas de control
 
-- Cada actividad debe tener owner anonimo.
+- Cada actividad debe tener owner real o `Persona N` cuando el responsable no este confirmado.
 - Cada actividad debe tener SLA.
 - Cada actividad debe tener evidencia esperada.
 - Toda actividad repetible debe tener un agente candidato.
@@ -156,3 +159,10 @@ Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excus
 - `Agente #27`: priorizador de AI Ops, agentes IA y AECODITOS.
 - `Agente #28`: mapeador AS-IS/TO-BE y medicion de eficiencia operativa.
 - `Agente #29`: torre de control de producto digital, dev, QA, bloqueos y releases.
+- `Agente #30`: monitor de n8n, integraciones y automatizaciones en produccion.
+- `Agente #31`: auditor de arquitectura multi-agente, RAG, canales y limites de AECODITOS.
+- `Agente #32`: orquestador de dashboards, scrapers, datasets, ML, deploys e incidentes.
+- `Agente #33`: generador de toolkits de capacitacion IA.
+- `Agente #34`: sincronizador de ventas, pagos, tickets, notificaciones y postventa.
+- `Agente #35`: copiloto de programas activos, actas, sesiones, Notion, soporte y HTML.
+- `Agente #36`: monitor de pipeline Summit, sponsors, aliados, ponentes, B2B y CRM.

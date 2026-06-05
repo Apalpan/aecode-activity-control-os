@@ -1,18 +1,19 @@
 # AECODE Activity Control OS
 
-Tablero maestro para estructurar, priorizar y automatizar actividades de todo AECODE.
+Tablero maestro interno para estructurar, priorizar y automatizar actividades de todo AECODE con nombres reales del equipo.
 
 ## Objetivo
 
 Convertir actividades dispersas de direccion, postventa, accesos, soporte, plataforma, videos, difusion, embajadores, marketing, comercial, eventos, producto, tecnologia, BIM, finanzas, datos y certificados en un sistema operativo con:
 
-- actividades anonimizadas por `Persona 1`, `Persona 2`, etc.
+- actividades con responsable real cuando existe certeza desde Obsidian.
+- trazabilidad `Persona 1`, `Persona 2`, etc. cuando el owner fue asumido o necesita confirmacion.
 - automatizaciones candidatas por `Agente #1`, `Agente #2`, etc.
 - KPIs de decision.
 - riesgos y bloqueos.
 - detalle por flujo.
 - inventario seguro de links internos y activos fuente.
-- mapa de roles anonimos con responsabilidades, KPIs, backup y chequeo diario.
+- mapa de alias operativos con responsabilidades, KPIs, backup, comunicacion y chequeo diario.
 - flujo operativo por sesion/cohorte, campanas, eventos, producto y control administrativo.
 - panel izquierdo vertical con grupos desplegables para control, areas AECODE y sistemas.
 - plantillas CSV para importar a Sheets, Airtable, Notion o backend.
@@ -29,10 +30,12 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - Actividades enviadas por equipo tecnico y soporte BIM, anonimizadas como `Persona 23` y `Persona 24`.
 - Actividades de alianzas/sponsors/reuniones y QA/testing/data, anonimizadas como `Persona 25` y `Persona 26`.
 - Actividades UX/UI, branding, web experience y handoff, anonimizadas como `Persona 16`.
-- Fuentes Notion AECODE relacionadas con AI Ops, producto digital, AECODE 2.0/3.0, AECODITOS y seguimiento dev, anonimizadas como `Persona 27`.
+- PDF de actividades de tecnologia/automatizacion integrado como `Persona 27`: n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA y soporte comercial/postventa.
+- Actividades de programas activos, Summit, postventa, marketing, B2B y comunicaciones HTML, anonimizadas como `Persona 28`.
+- Fuentes Notion AECODE relacionadas con AI Ops, producto digital, AECODE 2.0/3.0, AECODITOS y seguimiento dev, integradas dentro de `Persona 27`.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
-Por seguridad, el repositorio no expone nombres personales, emails, links de WhatsApp, links de Zoom ni URLs privadas. La app usa estados, conteos, roles anonimizados y referencias de fuente.
+Esta version es interna: muestra nombres reales del equipo, pero no expone emails, credenciales, links de WhatsApp, links de Zoom ni URLs privadas completas.
 
 ## Links internos
 
@@ -46,7 +49,7 @@ El tablero incluye un apartado `Links e informacion interna` con 34 activos dete
 - Zoom.
 - Web externa.
 
-La version publica muestra metadata segura: tipo, dominio, uso operativo, owner anonimo, agente, riesgo y siguiente accion. Las URLs completas quedan solo en el archivo local no versionado `outputs/internal_links_private.csv`.
+La app muestra metadata segura de links: tipo, dominio, uso operativo, owner, agente, riesgo y siguiente accion. Las URLs completas quedan solo en el archivo local no versionado `outputs/internal_links_private.csv`.
 
 Tambien incluye la pestana `ENLACES GRUPOS WHATSAPP` del Sheet academico como fuente critica para gobernar grupos de coordinacion, participantes e instructores.
 
@@ -61,11 +64,11 @@ La pantalla esta organizada para que cualquier miembro del equipo pueda responde
 - Que agente puede automatizar parte del trabajo.
 - Donde vive la fuente en Obsidian, Sheet o Notion.
 
-Las fuentes Obsidian reales se usan para estructurar el sistema, pero la version publica conserva roles anonimos `Persona N`.
+Las fuentes Obsidian reales se usan para estructurar el sistema. La UI muestra nombres reales y conserva `Persona N` como respaldo cuando el mapeo es asumido.
 
 ## Control total AECODE
 
-El tablero ya no esta limitado a coordinacion academica. Incluye 14 dominios operativos:
+El tablero ya no esta limitado a coordinacion academica. Incluye 15 dominios operativos:
 
 1. Direccion y sistema operativo.
 2. Operacion academica y postventa.
@@ -81,10 +84,11 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 14 dominios ope
 12. QA, testing y validacion de data.
 13. UX/UI, branding y web experience.
 14. Producto digital, AI Ops y automatizacion.
+15. Programas activos, Summit y comunicaciones.
 
-Cada dominio define lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
+Cada dominio define lead real, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
 
-La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables. La capa UX/UI estructura investigacion, flujos, interfaces, branding, formularios, assets web y handoff para desarrollo antes de prototipar. La capa AI Ops/producto digital conecta automatizaciones, AECODITOS, roadmap AECODE 2.0/3.0, seguimiento dev, flujos criticos y eficiencia operativa.
+La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables. La capa UX/UI estructura investigacion, flujos, interfaces, branding, formularios, assets web y handoff para desarrollo antes de prototipar. La capa AI Ops/producto digital conecta n8n, integraciones, AECODITOS, agentes IA, dashboards, scrapers, data, ML, deploys, specs, capacitacion IA, roadmap AECODE 2.0/3.0, seguimiento dev, flujos criticos y eficiencia operativa. La capa programas/Summit coordina sesiones, actas, Notion, docentes, postventa, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
 
 ## Frontera AECODE / GEN+
 
@@ -135,7 +139,7 @@ GitHub Pages:
 
 ```txt
 app/              UI Next.js
-data/             modelo operativo anonimizado
+data/             modelo operativo interno y matriz real de equipo
 docs/             playbooks y especificacion
 templates/        CSVs importables: actividades, roles, dominios, cultura, procesos, links y agentes
 public/           assets AECODE

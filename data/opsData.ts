@@ -1,6 +1,7 @@
 export type Priority = "Critica" | "Alta" | "Media" | "Baja";
 export type AutomationLevel = "Alta" | "Media" | "Baja";
 export type ActivityStatus = "Activo" | "Pendiente" | "Riesgo" | "Listo";
+export type Confidence = "Alta" | "Media" | "Baja" | "Asumida";
 
 export type Activity = {
   id: string;
@@ -27,6 +28,26 @@ export type Agent = {
   humanControl: string;
   status: "Propuesto" | "Piloto" | "Listo";
   impact: "Alto" | "Medio" | "Bajo";
+};
+
+export type PersonIdentity = {
+  name: string;
+  confidence: Confidence;
+  rationale: string;
+};
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  squad: string;
+  company: string;
+  confidence: Confidence;
+  focus: string;
+  projects: string[];
+  activities: string[];
+  communicatesWith: string[];
+  owns: string[];
+  source: string;
 };
 
 export type ProgramStatus = {
@@ -168,6 +189,10 @@ export const areas = [
   "QA",
   "Web",
   "UX/UI",
+  "Programas",
+  "Documentacion",
+  "Capacitacion IA",
+  "Computer Vision",
   "Producto digital",
   "AI Ops",
   "Diseno",
@@ -1460,6 +1485,390 @@ export const activities: Activity[] = [
     source: "Notion AECODE producto digital",
     risk: "Pago no validado o acceso no habilitado genera reclamos y friccion inmediata en postventa.",
     nextAction: "Cruzar pago, canal, comprobante, registro, acceso, curso, estado administrativo y excepciones."
+  },
+  {
+    id: "ACT-081",
+    area: "Automatizacion",
+    activity: "Disenar y desplegar workflows n8n end-to-end para GEN+/AECODE",
+    owner: "Persona 27",
+    backup: "Persona 11",
+    agent: "Agente #30",
+    automationLevel: "Alta",
+    sla: "Por sprint",
+    evidence: "workflow n8n versionado",
+    status: "Activo",
+    priority: "Critica",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Workflows sin version, owner o rollback pueden romper procesos academicos, comerciales o internos.",
+    nextAction: "Registrar objetivo, trigger, nodos, credenciales seguras, logs, fallback, owner humano y ambiente."
+  },
+  {
+    id: "ACT-082",
+    area: "Automatizacion",
+    activity: "Automatizar servicios conectados: Sheets, Drive, Calendar, Notion, mensajeria, Meta Ads y Zoom",
+    owner: "Persona 27",
+    backup: "Persona 22",
+    agent: "Agente #30",
+    automationLevel: "Alta",
+    sla: "Por integracion",
+    evidence: "integracion activa y monitoreada",
+    status: "Activo",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Integraciones sin control de permisos exponen datos o generan acciones duplicadas.",
+    nextAction: "Crear matriz por servicio con permiso, API, dato sensible, frecuencia, limite, error esperado y responsable."
+  },
+  {
+    id: "ACT-083",
+    area: "AI Ops",
+    activity: "Depurar y mantener automatizaciones en produccion",
+    owner: "Persona 27",
+    backup: "Persona 26",
+    agent: "Agente #30",
+    automationLevel: "Alta",
+    sla: "Diario / incidente",
+    evidence: "incidente resuelto o monitoreo verde",
+    status: "Activo",
+    priority: "Critica",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Automatizaciones caidas o silenciosas bloquean accesos, recordatorios, data, marketing o soporte.",
+    nextAction: "Implementar health checks, alertas, bitacora de errores, severidad, reintentos y criterio de desactivacion."
+  },
+  {
+    id: "ACT-084",
+    area: "AI Ops",
+    activity: "Operar y mejorar centro de operaciones IA con WhatsApp, voz, vision, RAG y recordatorios",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #31",
+    automationLevel: "Alta",
+    sla: "Semanal",
+    evidence: "estado de asistente IA",
+    status: "Activo",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Un asistente IA sin base curada, logs o limites puede responder mal y escalar reclamos.",
+    nextAction: "Definir base de conocimiento, canales, permisos, trazabilidad, respuestas bloqueadas, evaluacion y escalamiento humano."
+  },
+  {
+    id: "ACT-085",
+    area: "AI Ops",
+    activity: "Disenar arquitectura multi-agente supervisor y sub-agentes para oficina virtual",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #31",
+    automationLevel: "Alta",
+    sla: "Por hito",
+    evidence: "mapa de nodos multi-agente",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Agentes conectados sin contrato de entrada/salida crean decisiones opacas y fallas dificiles de auditar.",
+    nextAction: "Documentar nodos, prompts, herramientas, memoria, permisos, handoff, trazas y aprobaciones humanas."
+  },
+  {
+    id: "ACT-086",
+    area: "Producto digital",
+    activity: "Construir paneles y apps Next.js multi-rol con autenticacion, roles y multi-tenant",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #32",
+    automationLevel: "Media",
+    sla: "Por release",
+    evidence: "app o dashboard desplegado",
+    status: "Activo",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Paneles sin roles o datos confiables se vuelven demos aisladas y no herramientas de decision.",
+    nextAction: "Definir usuarios, permisos, entidades, fuentes, acciones clave, estados vacios, logs y plan de deploy."
+  },
+  {
+    id: "ACT-087",
+    area: "Datos",
+    activity: "Investigar y construir scrapers con paneles de datos en vivo para oportunidades y empresas",
+    owner: "Persona 27",
+    backup: "Persona 22",
+    agent: "Agente #32",
+    automationLevel: "Alta",
+    sla: "Por fuente",
+    evidence: "dataset y panel vivo",
+    status: "Pendiente",
+    priority: "Media",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Scrapers sin politicas de uso, normalizacion o monitoreo generan datos rotos o riesgos de compliance.",
+    nextAction: "Validar fuente, permiso, frecuencia, schema, deduplicacion, trazabilidad, alertas y uso comercial/academico."
+  },
+  {
+    id: "ACT-088",
+    area: "Computer Vision",
+    activity: "Crear datasets, curar datos y entrenar modelos de deteccion para productos GEN+",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #32",
+    automationLevel: "Media",
+    sla: "Por experimento",
+    evidence: "dataset/modelo evaluado",
+    status: "Pendiente",
+    priority: "Media",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Modelos sin dataset versionado, metricas o reentrenamiento no llegan a produccion confiable.",
+    nextAction: "Separar como frontera GEN+: dataset, version, metrica, caso de uso, permiso, benchmark, test y reentrenamiento."
+  },
+  {
+    id: "ACT-089",
+    area: "Tecnologia",
+    activity: "Desplegar apps y workflows, configurar MCP, APIs, Postgres y resolver incidentes tecnicos",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #32",
+    automationLevel: "Media",
+    sla: "Por deploy / incidente",
+    evidence: "deploy o incidente documentado",
+    status: "Activo",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Deploys sin checklist, monitoreo o registro de incidentes repiten caidas, bloqueos de IP o errores de datos.",
+    nextAction: "Registrar ambiente, variables, credenciales, version, rollback, monitoreo, incidente, causa y accion preventiva."
+  },
+  {
+    id: "ACT-090",
+    area: "Documentacion",
+    activity: "Redactar specs, informes tecnicos, mapas de proceso, semaforos y roadmaps",
+    owner: "Persona 27",
+    backup: "Persona 22",
+    agent: "Agente #28",
+    automationLevel: "Media",
+    sla: "Por feature/proceso",
+    evidence: "spec o roadmap actualizado",
+    status: "Activo",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Sin documentacion tecnica, los nodos, procesos y decisiones no son transferibles al equipo.",
+    nextAction: "Estandarizar spec con objetivo, usuario, flujo, data, arquitectura, riesgos, pruebas, owner y decision."
+  },
+  {
+    id: "ACT-091",
+    area: "Capacitacion IA",
+    activity: "Disenar talleres de productividad IA, plantillas, guias, toolkits y artefactos HTML",
+    owner: "Persona 27",
+    backup: "Persona 20",
+    agent: "Agente #33",
+    automationLevel: "Media",
+    sla: "Por taller",
+    evidence: "toolkit IA publicado",
+    status: "Activo",
+    priority: "Media",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Capacitacion sin toolkit reutilizable se pierde como conocimiento interno o producto educativo.",
+    nextAction: "Convertir cada taller en guia, prompt, checklist, demo, practica, evidencia y mejora de proceso."
+  },
+  {
+    id: "ACT-092",
+    area: "Programas",
+    activity: "Apoyar estructuracion de cursos IA, materiales del alumno y facilitacion de sesiones",
+    owner: "Persona 27",
+    backup: "Persona 20",
+    agent: "Agente #17",
+    automationLevel: "Media",
+    sla: "Por programa",
+    evidence: "material academico validado",
+    status: "Activo",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Cursos tecnicos sin estructura, practica o material claro no generan skill verification.",
+    nextAction: "Mapear objetivo, skill, caso, slides, guia, practica, evidencia, rubrica y soporte de sesion."
+  },
+  {
+    id: "ACT-093",
+    area: "Comercial",
+    activity: "Automatizar data de ventas, notificaciones multicanal, boleteo y soporte postventa",
+    owner: "Persona 27",
+    backup: "Persona 21",
+    agent: "Agente #34",
+    automationLevel: "Alta",
+    sla: "Por flujo comercial",
+    evidence: "flujo comercial automatizado",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Ventas, pago, ticket y soporte desconectados provocan reclamos y perdida de trazabilidad.",
+    nextAction: "Unificar lead, venta, pago, ticket, notificacion, acceso, soporte y estado administrativo."
+  },
+  {
+    id: "ACT-094",
+    area: "Marketing",
+    activity: "Producir contenido, videos, recaps, piezas visuales e investigacion de tendencias/benchmarks",
+    owner: "Persona 27",
+    backup: "Persona 17",
+    agent: "Agente #15",
+    automationLevel: "Media",
+    sla: "Por campana",
+    evidence: "asset o benchmark publicado",
+    status: "Activo",
+    priority: "Media",
+    source: "PDF actividades tecnologia/automatizacion",
+    risk: "Contenido tecnico sin benchmark ni criterio de posicionamiento pierde autoridad o conversion.",
+    nextAction: "Registrar objetivo, referencia, formato, insight, pieza, canal, CTA, fecha y resultado."
+  },
+  {
+    id: "ACT-095",
+    area: "Programas",
+    activity: "Gestionar y hacer seguimiento a programas de formacion activos",
+    owner: "Persona 28",
+    backup: "Persona 3",
+    agent: "Agente #35",
+    automationLevel: "Media",
+    sla: "Diario",
+    evidence: "estado de programa actualizado",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Programas activos sin control de sesiones, Zoom, grabaciones y grupos generan friccion para participantes.",
+    nextAction: "Actualizar por programa: sesion, Zoom, grabacion, grupo, responsable, bloqueo y proxima accion."
+  },
+  {
+    id: "ACT-096",
+    area: "Documentacion",
+    activity: "Elaborar actas de sesion en PDF y documentar flujos en Notion",
+    owner: "Persona 28",
+    backup: "Persona 22",
+    agent: "Agente #35",
+    automationLevel: "Media",
+    sla: "24h post sesion",
+    evidence: "acta y flujo documentado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Sin acta ni flujo, acuerdos, incidencias y mejoras se pierden entre sesiones.",
+    nextAction: "Estandarizar acta con fecha, asistentes, acuerdos, incidencias, links seguros, responsables y pendientes."
+  },
+  {
+    id: "ACT-097",
+    area: "Sesiones",
+    activity: "Coordinar docentes, horarios, materiales y dinamicas Kahoot",
+    owner: "Persona 28",
+    backup: "Persona 3",
+    agent: "Agente #35",
+    automationLevel: "Media",
+    sla: "72h antes",
+    evidence: "sesion academica lista",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Docente, horario o material sin confirmar afecta asistencia, calidad y percepcion del programa.",
+    nextAction: "Confirmar docente, agenda, horario, materiales, dinamica, recursos, acceso y comunicacion previa."
+  },
+  {
+    id: "ACT-098",
+    area: "Accesos y soporte",
+    activity: "Atender soporte postventa de participantes con el equipo de soporte",
+    owner: "Persona 28",
+    backup: "Persona 1",
+    agent: "Agente #1",
+    automationLevel: "Media",
+    sla: "Durante horario operativo",
+    evidence: "caso postventa resuelto",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Soporte no coordinado duplica respuestas o deja participantes sin solucion.",
+    nextAction: "Registrar caso, categoria, programa, responsable, respuesta, estado, evidencia y escalamiento."
+  },
+  {
+    id: "ACT-099",
+    area: "Automatizacion",
+    activity: "Dar seguimiento a automatizaciones con equipo tecnico: pruebas, documentacion y reporte de errores",
+    owner: "Persona 28",
+    backup: "Persona 27",
+    agent: "Agente #29",
+    automationLevel: "Media",
+    sla: "Por sprint",
+    evidence: "bug o mejora reportada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Automatizaciones sin pruebas ni reporte operacional quedan desconectadas del usuario real.",
+    nextAction: "Probar flujo, documentar error, prioridad, evidencia, impacto, responsable tecnico y estado de resolucion."
+  },
+  {
+    id: "ACT-100",
+    area: "Alianzas",
+    activity: "Gestionar pipeline de sponsors y aliados del Summit en CRM y redactar correos formales",
+    owner: "Persona 28",
+    backup: "Persona 25",
+    agent: "Agente #36",
+    automationLevel: "Alta",
+    sla: "Diario en campana",
+    evidence: "pipeline y correo trazado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Sponsor sin seguimiento, estado CRM o correo formal pierde oportunidad de cierre.",
+    nextAction: "Actualizar etapa, contacto, proxima accion, correo, responsable, fecha limite, bloqueo y decision."
+  },
+  {
+    id: "ACT-101",
+    area: "Eventos",
+    activity: "Coordinar ponentes y programacion academica del Summit",
+    owner: "Persona 28",
+    backup: "Persona 14",
+    agent: "Agente #13",
+    automationLevel: "Media",
+    sla: "Semanal / diario previo",
+    evidence: "agenda academica confirmada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Ponentes o agenda sin confirmacion retrasan difusion, landing y valor academico del evento.",
+    nextAction: "Confirmar ponente, tema, bio, horario, material, permisos, calendario, recordatorio y backup."
+  },
+  {
+    id: "ACT-102",
+    area: "Marketing",
+    activity: "Apoyar marketing revisando contenidos, campanas y piezas",
+    owner: "Persona 28",
+    backup: "Persona 12",
+    agent: "Agente #12",
+    automationLevel: "Media",
+    sla: "Por campana",
+    evidence: "contenido revisado",
+    status: "Activo",
+    priority: "Media",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Campanas sin revision operativa pueden prometer horarios, speakers o beneficios no confirmados.",
+    nextAction: "Validar copy contra agenda, programa, beneficios, CTA, links, estado CRM y disponibilidad real."
+  },
+  {
+    id: "ACT-103",
+    area: "Comercial",
+    activity: "Dar seguimiento a ventas B2B y eventos",
+    owner: "Persona 28",
+    backup: "Persona 18",
+    agent: "Agente #16",
+    automationLevel: "Media",
+    sla: "Semanal / por oportunidad",
+    evidence: "seguimiento B2B actualizado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Oportunidades B2B o de evento sin seguimiento quedan fuera del forecast y del cierre comercial.",
+    nextAction: "Registrar empresa, interes, propuesta, reunion, etapa, objecion, proxima accion y responsable."
+  },
+  {
+    id: "ACT-104",
+    area: "Contenido",
+    activity: "Gestionar plantillas y comunicaciones HTML para programas",
+    owner: "Persona 28",
+    backup: "Persona 13",
+    agent: "Agente #35",
+    automationLevel: "Media",
+    sla: "Por envio",
+    evidence: "plantilla HTML aprobada",
+    status: "Activo",
+    priority: "Media",
+    source: "Actividad enviada por programas/Summit",
+    risk: "Plantillas no versionadas generan mensajes inconsistentes o links incorrectos.",
+    nextAction: "Versionar plantilla, objetivo, segmento, asunto, CTA, links seguros, aprobacion y resultado."
   }
 ];
 
@@ -1492,7 +1901,14 @@ export const agents: Agent[] = [
   { id: "Agente #26", mission: "Convertir brief, investigacion y requerimientos en IA, flujos, UI specs, branding y handoff para desarrollo.", input: "Brief + objetivo + usuario + constraints", output: "Mapa UX, estructura, criterios UI y checklist de implementacion", humanControl: "Persona 16 valida criterio UX/UI y marca", status: "Propuesto", impact: "Alto" },
   { id: "Agente #27", mission: "Priorizar automatizaciones, agentes IA y AECODITOS por impacto, riesgo y control humano.", input: "Backlog + procesos + metricas + fuentes", output: "Portafolio AI Ops priorizado con piloto, owner y criterio de produccion", humanControl: "Persona 27 valida impacto operativo y Persona 11 valida automatizacion", status: "Propuesto", impact: "Alto" },
   { id: "Agente #28", mission: "Convertir procesos AS-IS en SOPs TO-BE y medir eficiencia operativa.", input: "Proceso actual + tiempos + errores + responsables", output: "Mapa AS-IS/TO-BE, SOP y reporte de ahorro operativo", humanControl: "Persona 27 aprueba proceso y Persona 22 valida metricas", status: "Propuesto", impact: "Alto" },
-  { id: "Agente #29", mission: "Consolidar roadmap AECODE 2.0/3.0, backlog dev, bugs, bloqueos, despliegues y flujos criticos.", input: "Roadmap + tareas dev + QA + producto + contenido", output: "Estado producto digital con riesgos, bloqueos y decisiones pendientes", humanControl: "Persona 27 valida estado operativo y Persona 23 valida release", status: "Propuesto", impact: "Alto" }
+  { id: "Agente #29", mission: "Consolidar roadmap AECODE 2.0/3.0, backlog dev, bugs, bloqueos, despliegues y flujos criticos.", input: "Roadmap + tareas dev + QA + producto + contenido", output: "Estado producto digital con riesgos, bloqueos y decisiones pendientes", humanControl: "Persona 27 valida estado operativo y Persona 23 valida release", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #30", mission: "Monitorear workflows n8n, integraciones y automatizaciones en produccion.", input: "n8n + logs + servicios conectados + errores", output: "Estado de automatizacion, alerta, causa probable y accion sugerida", humanControl: "Persona 27 valida cambios y Persona 11 valida impacto operativo", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #31", mission: "Auditar arquitectura multi-agente, base RAG, canales y limites de AECODITOS/oficina virtual.", input: "Prompts + tools + logs + base conocimiento + flujos", output: "Mapa de agentes, riesgos, handoffs, respuestas bloqueadas y evaluacion", humanControl: "Persona 27 valida funcionamiento y Persona 23 valida arquitectura", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #32", mission: "Orquestar dashboards, scrapers, datasets, modelos ML, deploys e incidentes tecnicos.", input: "Fuentes + repo + dataset + deployment + incidentes", output: "Panel tecnico con estado de datos, modelo, deploy, incidentes y proximas acciones", humanControl: "Persona 27 valida alcance y Persona 23 valida produccion", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #33", mission: "Convertir capacitaciones IA en guias, plantillas, toolkits, practicas y artefactos reutilizables.", input: "Tema + audiencia + taller + recursos", output: "Toolkit IA con guia, prompts, practica, evidencia y checklist", humanControl: "Persona 27 valida toolkit y Persona 20 valida valor academico", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #34", mission: "Unificar flujo ventas, pago, ticket, notificaciones y soporte postventa.", input: "CRM + pagos + tickets + canales + reglas", output: "Estado comercial/postventa con alertas de acceso, ticket y notificacion", humanControl: "Persona 27 valida flujo y Persona 21 valida administracion", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #35", mission: "Operar checklist de programas activos: sesiones, actas, Notion, docentes, materiales, soporte y HTML.", input: "Calendario + programa + acta + materiales + grupos + plantillas", output: "Estado de programa con pendientes, evidencias, comunicacion y bloqueos", humanControl: "Persona 28 valida coordinacion y Persona 3 valida agenda academica", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #36", mission: "Gestionar pipeline Summit/sponsors/aliados con CRM, correos, ponentes, B2B y seguimiento.", input: "CRM + contactos + agenda + correos + oportunidades", output: "Pipeline priorizado con correo, etapa, proxima accion, riesgo y responsable", humanControl: "Persona 28 valida seguimiento y Persona 25 valida tono/relacion", status: "Propuesto", impact: "Alto" }
 ];
 
 export const programs: ProgramStatus[] = [
@@ -2367,15 +2783,27 @@ export const opsRoles: OpsRole[] = [
   },
   {
     id: "Persona 27",
-    role: "Digital Product Ops + AI Ops Lead",
-    mission: "Convertir automatizacion, AECODE 2.0/3.0, seguimiento dev, AECODITOS y flujos criticos en operacion trazable y medible.",
-    areas: ["AI Ops", "Producto digital", "Automatizacion", "Producto", "Tecnologia", "Web", "Plataforma", "Finanzas", "Datos"],
-    primaryActivities: ["ACT-071", "ACT-072", "ACT-073", "ACT-074", "ACT-075", "ACT-076", "ACT-077", "ACT-078", "ACT-079", "ACT-080"],
-    kpis: ["Automatizaciones en produccion", "Horas ahorradas", "Roadmap actualizado", "Bloqueos dev resueltos", "Flujos criticos validados"],
-    dailyCheck: "Revisar backlog de automatizacion, roadmap AECODE 2.0/3.0, bloqueos dev, flujos criticos, AECODITOS, contenido web y accesos post compra.",
-    escalation: "Automatizacion sin owner, flujo critico roto, release bloqueado, AECODITO sin control, pago sin acceso o roadmap sin estado.",
+    role: "AI Automation + Data Product Engineer",
+    mission: "Disenar, desplegar y mantener automatizaciones, agentes IA, dashboards, data, documentacion tecnica, capacitacion IA y flujos criticos GEN+/AECODE con control operativo.",
+    areas: ["AI Ops", "Producto digital", "Automatizacion", "Producto", "Tecnologia", "Web", "Plataforma", "Finanzas", "Datos", "Documentacion", "Capacitacion IA", "Computer Vision", "Programas", "Comercial", "Marketing"],
+    primaryActivities: ["ACT-071", "ACT-072", "ACT-073", "ACT-074", "ACT-075", "ACT-076", "ACT-077", "ACT-078", "ACT-079", "ACT-080", "ACT-081", "ACT-082", "ACT-083", "ACT-084", "ACT-085", "ACT-086", "ACT-087", "ACT-088", "ACT-089", "ACT-090", "ACT-091", "ACT-092", "ACT-093", "ACT-094"],
+    kpis: ["Automatizaciones en produccion", "Incidentes resueltos", "Agentes auditables", "Dashboards desplegados", "Specs versionadas", "Toolkits IA reutilizables"],
+    dailyCheck: "Revisar n8n, integraciones, AECODITOS, roadmap, bloqueos dev, incidentes, datasets, specs, capacitaciones IA, contenido tecnico y flujos comerciales/postventa automatizados.",
+    escalation: "Automatizacion sin owner, agente sin control, workflow caido, deploy sin rollback, dataset sin version, pago sin acceso, spec incompleta o frontera GEN+/AECODE confusa.",
     backup: "Persona 11",
-    obsidianSource: "Notion AECODE operaciones/AI Ops y producto digital"
+    obsidianSource: "PDF actividades tecnologia/automatizacion + Notion AECODE operaciones/AI Ops y producto digital"
+  },
+  {
+    id: "Persona 28",
+    role: "Training Programs + Summit Coordination Ops",
+    mission: "Coordinar programas activos, actas, flujos Notion, docentes, postventa, automatizaciones, sponsors, ponentes, marketing, B2B y comunicaciones HTML.",
+    areas: ["Programas", "Sesiones", "Documentacion", "Accesos y soporte", "Automatizacion", "Alianzas", "Eventos", "Marketing", "Comercial", "Contenido"],
+    primaryActivities: ["ACT-095", "ACT-096", "ACT-097", "ACT-098", "ACT-099", "ACT-100", "ACT-101", "ACT-102", "ACT-103", "ACT-104"],
+    kpis: ["Programas actualizados", "Actas cerradas <24h", "Sesiones listas 72h antes", "Sponsors en seguimiento", "Errores de automatizacion reportados", "Plantillas HTML versionadas"],
+    dailyCheck: "Revisar programas activos, actas, docentes, horarios, materiales, soporte postventa, automatizaciones en prueba, sponsors, ponentes, campanas, B2B y plantillas HTML.",
+    escalation: "Sesion sin docente/material, acta pendiente, participante sin respuesta, automatizacion con error, sponsor sin follow-up, ponente sin confirmar o plantilla sin version.",
+    backup: "Persona 3",
+    obsidianSource: "Actividad enviada por programas/Summit"
   }
 ];
 
@@ -2535,10 +2963,20 @@ export const workflowStages: WorkflowStage[] = [
     label: "Producto digital y AI Ops",
     timing: "Discovery -> produccion",
     owner: "Persona 27",
-    objective: "Coordinar automatizaciones, AECODITOS, roadmap AECODE 2.0/3.0, dev, flujos criticos, web y accesos con trazabilidad.",
-    activities: ["ACT-071", "ACT-072", "ACT-073", "ACT-074", "ACT-075", "ACT-076", "ACT-077", "ACT-078", "ACT-079", "ACT-080"],
-    evidence: "Backlog AI Ops, SOP, roadmap, checklist funcional, estado dev, AECODITOS y reporte de eficiencia.",
-    automation: "Agente #27 + Agente #28 + Agente #29"
+    objective: "Coordinar automatizaciones, agentes IA, n8n, integraciones, dashboards, data, dev, flujos criticos, capacitacion IA y soporte comercial con trazabilidad.",
+    activities: ["ACT-071", "ACT-072", "ACT-073", "ACT-074", "ACT-075", "ACT-076", "ACT-077", "ACT-078", "ACT-079", "ACT-080", "ACT-081", "ACT-082", "ACT-083", "ACT-084", "ACT-085", "ACT-086", "ACT-087", "ACT-088", "ACT-089", "ACT-090", "ACT-091", "ACT-092", "ACT-093", "ACT-094"],
+    evidence: "Backlog AI Ops, workflows n8n, SOP, roadmap, checklist funcional, estado dev, agentes, datasets, specs, deploys y reporte de eficiencia.",
+    automation: "Agente #27 + Agente #28 + Agente #29 + Agente #30 + Agente #31 + Agente #32"
+  },
+  {
+    id: "WF-17",
+    label: "Programas activos, Summit y postventa",
+    timing: "Diario / por sesion / campana",
+    owner: "Persona 28",
+    objective: "Mantener programas, actas, docentes, soporte, automatizaciones, sponsors, ponentes, marketing, B2B y HTML coordinados sin perdida de trazabilidad.",
+    activities: ["ACT-095", "ACT-096", "ACT-097", "ACT-098", "ACT-099", "ACT-100", "ACT-101", "ACT-102", "ACT-103", "ACT-104"],
+    evidence: "Estado de programa, acta PDF, flujo Notion, agenda academica, ticket postventa, reporte de error, pipeline sponsor y plantilla HTML.",
+    automation: "Agente #35 + Agente #36 + Agente #13 + Agente #1"
   }
 ];
 
@@ -2702,14 +3140,26 @@ export const aecodeDomains: AecodeDomain[] = [
   {
     id: "DOM-14",
     domain: "Producto digital, AI Ops y automatizacion",
-    mission: "Asegurar que AECODE 2.0/3.0, agentes IA, AECODITOS, backlog dev, flujos criticos y mejoras de proceso avancen con impacto medible.",
+    mission: "Asegurar que AECODE/GEN+ conviertan automatizacion, agentes IA, n8n, dashboards, data, deploys y documentacion tecnica en impacto operativo medible.",
     lead: "Persona 27",
-    supportingRoles: ["Persona 11", "Persona 20", "Persona 23", "Persona 26", "Persona 22", "Persona 15", "Persona 21"],
-    responsibilities: ["Backlog AI Ops", "Agentes IA", "AECODITOS", "Roadmap producto", "Seguimiento dev", "Flujos criticos", "SOPs", "Eficiencia operativa"],
-    kpis: ["Automatizaciones productivas", "Horas ahorradas", "Roadmap actualizado", "Flujos criticos validados", "Bloqueos dev resueltos"],
-    cadences: ["Review AI Ops semanal", "Daily producto/dev", "Release checklist", "Medicion mensual de eficiencia"],
-    risks: ["Automatizar sin impacto", "Producto sin trazabilidad", "Release sin validacion funcional", "AECODITOS sin control", "Flujos compra/acceso rotos"],
-    automation: "Agente #27 prioriza AI Ops, Agente #28 documenta procesos y Agente #29 consolida producto digital."
+    supportingRoles: ["Persona 11", "Persona 20", "Persona 23", "Persona 26", "Persona 22", "Persona 15", "Persona 21", "Persona 28"],
+    responsibilities: ["Backlog AI Ops", "n8n", "Integraciones", "Agentes IA", "AECODITOS", "Dashboards", "Scrapers", "Datasets ML", "Deploys", "Specs", "Capacitacion IA"],
+    kpis: ["Automatizaciones productivas", "Incidentes resueltos", "Agentes auditables", "Dashboards desplegados", "Specs versionadas", "Toolkits IA reutilizables"],
+    cadences: ["Review AI Ops semanal", "Daily producto/dev", "Release checklist", "Revision de incidentes", "Medicion mensual de eficiencia"],
+    risks: ["Automatizar sin impacto", "Agentes sin control", "Workflows caidos", "Deploys sin rollback", "Datos sin version", "Frontera GEN+/AECODE confusa"],
+    automation: "Agentes #27-#32 priorizan AI Ops, documentan procesos, monitorean n8n/agentes y consolidan producto digital."
+  },
+  {
+    id: "DOM-15",
+    domain: "Programas activos, Summit y comunicaciones",
+    mission: "Asegurar que programas de formacion, actas, docentes, postventa, sponsors, ponentes, marketing, B2B y HTML operen con trazabilidad diaria.",
+    lead: "Persona 28",
+    supportingRoles: ["Persona 3", "Persona 1", "Persona 14", "Persona 25", "Persona 12", "Persona 13", "Persona 18", "Persona 27"],
+    responsibilities: ["Programas activos", "Actas PDF", "Flujos Notion", "Docentes", "Materiales", "Soporte postventa", "Sponsors", "Ponentes", "Campanas", "B2B", "HTML"],
+    kpis: ["Programas actualizados", "Actas <24h", "Sesiones listas 72h antes", "Sponsors con proxima accion", "Errores reportados", "Plantillas versionadas"],
+    cadences: ["Chequeo diario de programas", "Preparacion 72h antes", "Cierre post-sesion", "Pipeline Summit semanal", "Revision de HTML por envio"],
+    risks: ["Sesion sin material", "Acta pendiente", "Participante sin soporte", "Automatizacion sin prueba", "Sponsor sin seguimiento", "Ponente sin confirmar"],
+    automation: "Agente #35 controla programas y Agente #36 monitorea sponsors, ponentes, B2B y CRM."
   }
 ];
 
@@ -2976,7 +3426,8 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Actividades alianzas", value: activities.filter((item) => item.area === "Alianzas" || item.area === "Reuniones").length, target: activities.length, context: "Interesados, empresas, reuniones, sponsors y convenios" },
   { label: "Actividades QA/data", value: activities.filter((item) => item.area === "QA" || item.id === "ACT-061").length, target: activities.length, context: "E2E, UX, carga, automatizadas, bugs y data" },
   { label: "Actividades UX/UI", value: activities.filter((item) => item.owner === "Persona 16").length, target: activities.length, context: "Investigacion, flujos, UI, branding, web, formularios y handoff" },
-  { label: "Actividades producto/AI Ops", value: activities.filter((item) => item.owner === "Persona 27").length, target: activities.length, context: "Automatizaciones, AECODITOS, roadmap, dev, flujos criticos y eficiencia" }
+  { label: "Actividades producto/AI Ops", value: activities.filter((item) => item.owner === "Persona 27").length, target: activities.length, context: "n8n, integraciones, agentes, dashboards, data, deploys, specs y capacitacion IA" },
+  { label: "Actividades programas/Summit", value: activities.filter((item) => item.owner === "Persona 28").length, target: activities.length, context: "Programas activos, actas, docentes, postventa, sponsors, ponentes, B2B y HTML" }
 ];
 
 export const sourceNotes = [
@@ -2994,7 +3445,9 @@ export const sourceNotes = [
   "Actividades de alianzas/sponsors/reuniones integradas como Persona 25.",
   "Actividades de QA/testing/data integradas como Persona 26.",
   "Actividades UX/UI y branding integradas como Persona 16.",
-  "Fuente Notion AECODE OS directa no accesible por URL; se integraron fuentes Notion relacionadas accesibles sobre AI Ops, producto digital y operaciones como Persona 27.",
+  "PDF de actividades tecnologia/automatizacion integrado como Persona 27: n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA y soporte comercial/postventa.",
+  "Actividades de programas activos, Summit, postventa, marketing, B2B y comunicaciones HTML integradas como Persona 28.",
+  "Fuente Notion AECODE OS directa no accesible por URL; se integraron fuentes Notion relacionadas accesibles sobre AI Ops, producto digital y operaciones dentro de Persona 27.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];
