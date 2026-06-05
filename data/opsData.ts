@@ -68,6 +68,37 @@ export type LinkAsset = {
   secureReference: string;
 };
 
+export type OpsRole = {
+  id: string;
+  role: string;
+  mission: string;
+  areas: string[];
+  primaryActivities: string[];
+  kpis: string[];
+  dailyCheck: string;
+  escalation: string;
+  backup: string;
+  obsidianSource: string;
+};
+
+export type WorkflowStage = {
+  id: string;
+  label: string;
+  timing: string;
+  owner: string;
+  objective: string;
+  activities: string[];
+  evidence: string;
+  automation: string;
+};
+
+export type OpsSource = {
+  label: string;
+  path: string;
+  use: string;
+  privacy: "Publico" | "Interno" | "Critico";
+};
+
 export const areas = [
   "Accesos y soporte",
   "Datos",
@@ -954,6 +985,207 @@ export const linkAssets: LinkAsset[] = [
     risk: "Contiene enlaces reales de WhatsApp y nombres internos; hay enlaces de coordinacion pendientes por completar.",
     nextAction: "Convertir en tabla community_groups con group_type, program_id, audience, owner_alias, link_status y privacy_level.",
     secureReference: "URL completa en outputs/internal_links_private.csv"
+  }
+];
+
+export const opsRoles: OpsRole[] = [
+  {
+    id: "Persona 1",
+    role: "Access + Certifications Ops",
+    mission: "Asegurar que cada estudiante tenga acceso, soporte, recursos y certificado con trazabilidad.",
+    areas: ["Accesos y soporte", "Plataforma", "Certificados", "Contenido"],
+    primaryActivities: ["ACT-001", "ACT-002", "ACT-005", "ACT-016", "ACT-018", "ACT-019"],
+    kpis: ["Tiempo compra -> acceso", "Tickets cerrados en SLA", "Certificados enviados a tiempo", "Videos publicados"],
+    dailyCheck: "Revisar cola de accesos, Admin Morado, videos pendientes y certificados bloqueados.",
+    escalation: "Casos rojos: acceso caido, certificado observado, panel con error o alumno sin respuesta.",
+    backup: "Persona 3",
+    obsidianSource: "09_Actividades Diarias/Actividades_TEAM/Persona 1"
+  },
+  {
+    id: "Persona 2",
+    role: "Data Steward + Registro Academico",
+    mission: "Mantener datos confiables de inscritos, programas, grupos, GHT y fuentes maestras.",
+    areas: ["Datos", "Comunidad"],
+    primaryActivities: ["ACT-003", "ACT-015", "ACT-017"],
+    kpis: ["Registros completos", "Duplicados marcados", "Fuentes actualizadas", "Grupos clasificados"],
+    dailyCheck: "Validar altas, cambios de estado, duplicados y campos minimos por programa.",
+    escalation: "Datos sin owner, links faltantes, hoja paralela o base no sincronizada.",
+    backup: "Persona 8",
+    obsidianSource: "05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE"
+  },
+  {
+    id: "Persona 3",
+    role: "Academic Ops Lead",
+    mission: "Coordinar calendario, Zoom, instructores, sesiones, alertas y reporte semanal.",
+    areas: ["Sesiones", "Plataforma", "Datos"],
+    primaryActivities: ["ACT-004", "ACT-009", "ACT-016"],
+    kpis: ["Sesiones confirmadas 72h antes", "Zooms sin conflicto", "Alertas escaladas", "Reporte semanal emitido"],
+    dailyCheck: "Mirar calendario 72h, confirmar Zoom, instructor, embajador, recursos y link de grupo.",
+    escalation: "Instructor sin confirmar, Zoom incompleto, grupo sin enlace o material faltante.",
+    backup: "Persona 6",
+    obsidianSource: "09_Actividades Diarias/Actividades_TEAM/Persona 3"
+  },
+  {
+    id: "Persona 4",
+    role: "Content Pipeline Ops",
+    mission: "Convertir grabaciones y recursos en contenido disponible en plataforma.",
+    areas: ["Contenido", "Plataforma"],
+    primaryActivities: ["ACT-005", "ACT-006"],
+    kpis: ["Drive completo <24h", "Vimeo listo", "Plataforma actualizada", "Versiones sin error"],
+    dailyCheck: "Revisar grabaciones nuevas, estado de edicion, subida a Vimeo y publicacion final.",
+    escalation: "Grabacion faltante, archivo corrupto, video sin edicion o recurso mal ubicado.",
+    backup: "Persona 5",
+    obsidianSource: "09_Actividades Diarias/Actividades_TEAM/Persona 4"
+  },
+  {
+    id: "Persona 5",
+    role: "Marketing Content Support",
+    mission: "Transformar contenido academico en piezas publicables y activos de difusion.",
+    areas: ["Difusion", "Contenido"],
+    primaryActivities: ["ACT-007", "ACT-008", "ACT-014"],
+    kpis: ["Piezas publicadas", "Playlist actualizada", "CTA registrado", "Campanas con fuente"],
+    dailyCheck: "Identificar clips publicables, piezas YouTube y posts por evento o curso.",
+    escalation: "Contenido sin permiso, CTA ausente, pieza sin fuente o publicacion sin registro.",
+    backup: "Persona 8",
+    obsidianSource: "09_Actividades Diarias/Actividades_TEAM/Persona 5"
+  },
+  {
+    id: "Persona 6",
+    role: "Community + Session Ops",
+    mission: "Operar grupos WSP, recordatorios, asistencia y comunicacion de sesiones.",
+    areas: ["Comunidad", "Sesiones"],
+    primaryActivities: ["ACT-009", "ACT-010", "ACT-013", "ACT-015"],
+    kpis: ["Grupos creados antes del inicio", "Recordatorios enviados", "Asistencia visible", "Enlaces completos"],
+    dailyCheck: "Confirmar grupos, recordatorios, participantes, embajador y mensajes del dia.",
+    escalation: "Grupo sin enlace, participante fuera de grupo, recordatorio no enviado o baja asistencia.",
+    backup: "Persona 1",
+    obsidianSource: "Sheet ENLACES GRUPOS WHATSAPP + Actividades_TEAM"
+  },
+  {
+    id: "Persona 7",
+    role: "Academic Quality + Embassadors Lead",
+    mission: "Garantizar calidad academica, evidencias, rubricas, reportes de embajadores y recuperacion.",
+    areas: ["Embajadores", "Certificados", "Sesiones"],
+    primaryActivities: ["ACT-011", "ACT-012", "ACT-018", "ACT-019"],
+    kpis: ["Reportes de embajador completos", "Evidencias validadas", "Notas listas", "Certificados bloqueados con causa"],
+    dailyCheck: "Revisar reportes de embajadores, evidencias, notas pendientes y estudiantes en recuperacion.",
+    escalation: "Sesion sin evidencia, embajador sin induccion, notas incompletas o certificado sin sustento.",
+    backup: "Persona 3",
+    obsidianSource: "09_Actividades Diarias/Actividades_TEAM/Persona 7"
+  },
+  {
+    id: "Persona 8",
+    role: "Growth + Diffusion Ops",
+    mission: "Activar comunidades, Facebook, WhatsApp y fuentes de marketing con trazabilidad.",
+    areas: ["Difusion", "Comunidad", "Datos"],
+    primaryActivities: ["ACT-013", "ACT-014", "ACT-017"],
+    kpis: ["Grupos segmentados", "Envios registrados", "Leads con source_channel", "Campanas trazadas"],
+    dailyCheck: "Preparar difusion 72h/24h, validar grupos permitidos y registrar fuente/copy/CTA.",
+    escalation: "Grupo no clasificado, campana sin source_channel o mensaje sin aprobacion.",
+    backup: "Persona 5",
+    obsidianSource: "09_Actividades Diarias/Actividades_TEAM/Persona 8"
+  },
+  {
+    id: "Persona 9",
+    role: "Branding QA Certificados",
+    mission: "Asegurar plantillas, firmas, QR, folios y calidad visual de certificados.",
+    areas: ["Certificados"],
+    primaryActivities: ["ACT-018", "ACT-019"],
+    kpis: ["Plantillas aprobadas", "Errores visuales cero", "Folios trazables", "Certificados sin rebote"],
+    dailyCheck: "Validar plantilla, marca, datos, folio, QR y entrega antes del envio.",
+    escalation: "Logo incorrecto, datos incompletos, folio duplicado o plantilla no aprobada.",
+    backup: "Persona 1",
+    obsidianSource: "05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE"
+  }
+];
+
+export const workflowStages: WorkflowStage[] = [
+  {
+    id: "WF-01",
+    label: "Onboarding postventa",
+    timing: "Compra validada -> 24h",
+    owner: "Persona 1",
+    objective: "Convertir inscrito en estudiante activo sin friccion.",
+    activities: ["ACT-002", "ACT-003", "ACT-016", "ACT-010"],
+    evidence: "Acceso activo, Classroom/grupo creado y registro actualizado.",
+    automation: "Agente #2 + Agente #7"
+  },
+  {
+    id: "WF-02",
+    label: "Preparacion 72h",
+    timing: "72h antes de clase",
+    owner: "Persona 3",
+    objective: "Confirmar que la sesion puede ejecutarse sin improvisacion.",
+    activities: ["ACT-004", "ACT-009", "ACT-011", "ACT-012"],
+    evidence: "Zoom, instructor, embajador, recursos y recordatorio listos.",
+    automation: "Agente #3 + Agente #5 + Agente #9"
+  },
+  {
+    id: "WF-03",
+    label: "Ejecucion de sesion",
+    timing: "Dia de clase",
+    owner: "Persona 6",
+    objective: "Asegurar asistencia, soporte y captura de evidencia operativa.",
+    activities: ["ACT-001", "ACT-009", "ACT-010"],
+    evidence: "Recordatorio enviado, asistencia revisada, incidencias registradas.",
+    automation: "Agente #1 + Agente #5"
+  },
+  {
+    id: "WF-04",
+    label: "Contenido post sesion",
+    timing: "0-48h post clase",
+    owner: "Persona 4",
+    objective: "Pasar grabacion y recursos a plataforma con version correcta.",
+    activities: ["ACT-005", "ACT-006", "ACT-007", "ACT-008"],
+    evidence: "Drive, Vimeo, plataforma y piezas publicables registradas.",
+    automation: "Agente #4 + Agente #10"
+  },
+  {
+    id: "WF-05",
+    label: "Calidad y cierre academico",
+    timing: "Semanal / cierre de modulo",
+    owner: "Persona 7",
+    objective: "Validar evidencias, notas, rubricas y recuperacion antes de certificar.",
+    activities: ["ACT-011", "ACT-012", "ACT-018", "ACT-019"],
+    evidence: "Reporte embajador, gradebook, bloqueo o aprobacion de certificado.",
+    automation: "Agente #8 + Agente #9"
+  },
+  {
+    id: "WF-06",
+    label: "Difusion y comunidad",
+    timing: "72h / 24h antes de evento",
+    owner: "Persona 8",
+    objective: "Activar grupos correctos sin mezclar soporte, comunidad y ventas.",
+    activities: ["ACT-013", "ACT-014", "ACT-015", "ACT-017"],
+    evidence: "Grupo, copy, CTA, fuente y resultado registrados.",
+    automation: "Agente #7 + Agente #10"
+  }
+];
+
+export const opsSources: OpsSource[] = [
+  {
+    label: "Actividades TEAM",
+    path: "D:/AP/AP_Knowledge_OS/09_Actividades Diarias/Actividades_TEAM",
+    use: "Fichas por persona, responsabilidades, reportes y actividades consolidadas.",
+    privacy: "Critico"
+  },
+  {
+    label: "Proceso coordinacion academica",
+    path: "D:/AP/AP_Knowledge_OS/05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE",
+    use: "Roles recomendados, flujos 72h, KPIs, riesgos y responsabilidades AECODE.",
+    privacy: "Critico"
+  },
+  {
+    label: "Sistema operativo AECODE",
+    path: "D:/AP/AP_Knowledge_OS/02_EMPRESAS/AECODE/00_AECODE-Sistema-Operativo",
+    use: "Contexto empresarial, producto, comunidad, comercial y educacion.",
+    privacy: "Interno"
+  },
+  {
+    label: "Sheet academico",
+    path: "AECODE | AREA ACADEMICA | STATUS GENERAL",
+    use: "Status de programas, grabaciones, transcripciones, certificados, grupos WSP y soporte.",
+    privacy: "Critico"
   }
 ];
 

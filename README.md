@@ -12,6 +12,8 @@ Convertir actividades dispersas de postventa, accesos, soporte, plataforma, vide
 - riesgos y bloqueos.
 - detalle por flujo.
 - inventario seguro de links internos y activos fuente.
+- mapa de roles anonimos con responsabilidades, KPIs, backup y chequeo diario.
+- flujo operativo por sesion/cohorte: onboarding, preparacion 72h, sesion, contenido, calidad y difusion.
 - plantillas CSV para importar a Sheets, Airtable, Notion o backend.
 
 ## Fuentes
@@ -38,6 +40,19 @@ El tablero incluye un apartado `Links e informacion interna` con 34 activos dete
 La version publica muestra metadata segura: tipo, dominio, uso operativo, owner anonimo, agente, riesgo y siguiente accion. Las URLs completas quedan solo en el archivo local no versionado `outputs/internal_links_private.csv`.
 
 Tambien incluye la pestana `ENLACES GRUPOS WHATSAPP` del Sheet academico como fuente critica para gobernar grupos de coordinacion, participantes e instructores.
+
+## UX operativo
+
+La pantalla esta organizada para que cualquier miembro del equipo pueda responder:
+
+- Que tengo que revisar hoy.
+- Cual es mi rol y backup.
+- Que actividades son mias.
+- Que evidencia debo dejar.
+- Que agente puede automatizar parte del trabajo.
+- Donde vive la fuente en Obsidian, Sheet o Notion.
+
+Las fuentes Obsidian reales se usan para estructurar el sistema, pero la version publica conserva roles anonimos `Persona N`.
 
 ## Ejecutar
 

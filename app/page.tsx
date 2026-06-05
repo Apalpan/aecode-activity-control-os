@@ -4,6 +4,7 @@ import Image from "next/image";
 import {
   AlertTriangle,
   Bot,
+  CalendarDays,
   CheckCircle2,
   ClipboardList,
   Database,
@@ -14,8 +15,10 @@ import {
   ListChecks,
   LockKeyhole,
   PlaySquare,
+  Route,
   Search,
   ShieldCheck,
+  UserRoundCheck,
   Users,
   Workflow
 } from "lucide-react";
@@ -29,8 +32,11 @@ import {
   getReadinessScore,
   linkAssets,
   linkMetrics,
+  opsRoles,
+  opsSources,
   programs,
   sourceNotes,
+  workflowStages,
   type Activity,
   type Priority
 } from "@/data/opsData";
@@ -85,19 +91,22 @@ export default function Page() {
   const [area, setArea] = useState("Todas");
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("Todos");
+  const [role, setRole] = useState("Todos");
 
   const filtered = useMemo(() => {
     return activities
       .filter((item) => area === "Todas" || item.area === area)
       .filter((item) => status === "Todos" || item.status === status)
+      .filter((item) => role === "Todos" || item.owner === role || item.backup === role)
       .filter((item) => `${item.id} ${item.area} ${item.activity} ${item.agent} ${item.owner}`.toLowerCase().includes(query.toLowerCase()))
       .sort(prioritySort);
-  }, [area, query, status]);
+  }, [area, query, role, status]);
 
   const criticalCount = activities.filter((item) => item.priority === "Critica").length;
   const riskCount = activities.filter((item) => item.status === "Riesgo").length;
   const automationCount = activities.filter((item) => item.automationLevel !== "Baja").length;
   const readyPrograms = programs.filter((program) => getReadinessScore(program) >= 80).length;
+  const selectedRole = opsRoles.find((item) => item.id === role);
 
   return (
     <div className="shell">
@@ -123,6 +132,8 @@ export default function Page() {
         <nav className="mt-8 grid gap-2">
           {[
             ["Actividades", ListChecks],
+            ["Roles", UserRoundCheck],
+            ["Flujo", Route],
             ["Agentes", Bot],
             ["Links", Link2],
             ["Programas", GraduationCap],
@@ -206,9 +217,49 @@ export default function Page() {
                 </button>
               ))}
             </div>
+
+            <div className="mt-4 border-t border-aecode-violet/15 pt-4">
+              <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Ver por rol operativo</p>
+              <div className="segmented" aria-label="Filtro por rol operativo">
+                {["Todos", ...opsRoles.map((item) => item.id)].map((item) => (
+                  <button key={item} data-active={role === item} onClick={() => setRole(item)} type="button">
+                    {item}
+                  </button>
+                ))}
+              </div>
+              {selectedRole ? (
+                <div className="mt-4 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-4">
+                  <p className="text-sm font-black text-aecode-mint">{selectedRole.role}</p>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">{selectedRole.dailyCheck}</p>
+                  <p className="mt-2 text-xs font-bold text-aecode-lavender">Backup: {selectedRole.backup}</p>
+                </div>
+              ) : null}
+            </div>
           </section>
 
-          <section className="panel table-wrap">
+          <section className="grid gap-3 md:hidden">
+            {filtered.map((item) => (
+              <article className="panel p-4" key={item.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                    <h3 className="mt-1 text-base font-black text-white">{item.activity}</h3>
+                  </div>
+                  <span className={`chip ${priorityClass[item.priority]}`}>{item.priority}</span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="chip">{item.area}</span>
+                  <span className="chip chip-good">{item.agent}</span>
+                  <span className="chip">{item.sla}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">Owner: {item.owner} / Backup: {item.backup}</p>
+                <p className="mt-2 text-sm leading-6 text-aecode-muted">{item.risk}</p>
+                <p className="mt-2 text-sm leading-6 text-white">{item.nextAction}</p>
+              </article>
+            ))}
+          </section>
+
+          <section className="hidden md:block panel table-wrap">
             <table className="data-table">
               <thead>
                 <tr>
@@ -255,6 +306,87 @@ export default function Page() {
               </tbody>
             </table>
           </section>
+        </section>
+
+        <section className="mt-6 grid gap-4" id="roles">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equipo operativo</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Roles, responsabilidades y foco diario</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Estructura anonima basada en la carpeta Obsidian de actividades del equipo. Cada rol muestra mision, areas, KPIs y criterio de escalamiento.
+              </p>
+            </div>
+            <UserRoundCheck className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="grid gap-3 lg:grid-cols-3">
+            {opsRoles.map((item) => (
+              <article className="panel p-4" key={item.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                    <h3 className="mt-1 text-lg font-black text-white">{item.role}</h3>
+                  </div>
+                  <span className="chip chip-good">{item.backup}</span>
+                </div>
+                <p className="mt-3 min-h-[72px] text-sm leading-6 text-aecode-muted">{item.mission}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {item.areas.map((areaName) => (
+                    <span className="chip" key={areaName}>{areaName}</span>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-lg border border-aecode-violet/15 bg-aecode-bg/40 p-3">
+                  <p className="text-xs font-black uppercase text-aecode-green">Chequeo diario</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{item.dailyCheck}</p>
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {item.kpis.slice(0, 4).map((kpi) => (
+                    <p className="flex gap-2 text-sm leading-6 text-aecode-muted" key={kpi}>
+                      <CheckCircle2 className="mt-1 shrink-0 text-aecode-green" size={15} />
+                      {kpi}
+                    </p>
+                  ))}
+                </div>
+                <p className="mt-4 text-xs font-bold text-aecode-lavender">{item.obsidianSource}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6 panel p-5" id="flujo">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Sistema de trabajo</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Flujo operativo por sesion y cohorte</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                El equipo no deberia pensar por archivos sueltos. Debe operar por etapa, owner, evidencia y automatizacion.
+              </p>
+            </div>
+            <CalendarDays className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-3">
+            {workflowStages.map((stage) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={stage.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{stage.id} / {stage.timing}</p>
+                    <h3 className="mt-1 text-lg font-black text-white">{stage.label}</h3>
+                  </div>
+                  <span className="chip chip-good">{stage.owner}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">{stage.objective}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {stage.activities.map((activity) => (
+                    <span className="chip" key={activity}>{activity}</span>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-6 text-white">Evidencia: {stage.evidence}</p>
+                <p className="mt-2 text-xs font-bold text-aecode-lavender">{stage.automation}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="mt-6 panel p-5" id="links">
@@ -405,6 +537,21 @@ export default function Page() {
                   {note}
                 </p>
               ))}
+            </div>
+            <div className="mt-5 border-t border-[#4A3AC1]/15 pt-4">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#4A3AC1]">Estructura Obsidian</p>
+              <div className="mt-3 grid gap-3">
+                {opsSources.map((source) => (
+                  <div className="rounded-lg border border-[#4A3AC1]/15 bg-white/60 p-3" key={source.label}>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-black">{source.label}</p>
+                      <span className={`chip ${privacyClass[source.privacy]}`}>{source.privacy}</span>
+                    </div>
+                    <p className="mt-2 text-xs leading-5 text-[#3A4065]">{source.use}</p>
+                    <p className="mt-2 break-all text-xs font-bold text-[#4A3AC1]">{source.path}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </aside>
         </section>
