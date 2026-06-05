@@ -25,7 +25,7 @@ Por seguridad, el repositorio no expone nombres personales, emails, links de Wha
 
 ## Links internos
 
-El tablero incluye un apartado `Links e informacion interna` con 32 activos detectados en el chat operativo:
+El tablero incluye un apartado `Links e informacion interna` con 33 activos detectados en el chat operativo y Notion:
 
 - Google Sheets.
 - Miro boards.

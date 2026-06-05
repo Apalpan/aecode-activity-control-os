@@ -27,6 +27,7 @@ Informacion extraida y normalizada:
 - `Texto pegado.txt` 2: arquitectura operativa, automatizaciones postventa, onboarding, ciclo academico, roles, reportes, cursos, Sheets y chatbot.
 - `DESIGN-AECODE.zip`: design system, logos y referencias visuales.
 - `_chat.txt`: chat operativo usado para detectar 32 links unicos y convertirlos en inventario seguro.
+- Notion `AECODE Training`: link adicional compartido por el usuario; el fetch directo no tuvo acceso, pero la busqueda interna encontro una base relacionada con frecuencia, estado y semanas.
 
 ## Normalizacion
 
@@ -39,11 +40,11 @@ Para publicar el tablero en GitHub se aplico anonimizacion:
 
 ## Inventario de links
 
-Se detectaron 32 URLs unicas:
+Se detectaron 33 activos enlazados:
 
 - 15 Miro boards.
 - 10 Google Sheets.
-- 3 Notion.
+- 4 Notion.
 - 1 Drive.
 - 1 YouTube.
 - 1 Zoom.

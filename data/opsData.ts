@@ -922,6 +922,22 @@ export const linkAssets: LinkAsset[] = [
     risk: "Publicar el link expone acceso no autorizado.",
     nextAction: "Rotar clave si corresponde y mover a gestor seguro de sesiones.",
     secureReference: "URL completa en outputs/internal_links_private.csv"
+  },
+  {
+    id: "LNK-033",
+    category: "Notion",
+    domain: "notion.so",
+    assetLabel: "AECODE Training",
+    owner: "Persona 2",
+    agent: "Agente #7",
+    relatedArea: "Datos",
+    privacy: "Critico",
+    status: "Requiere revision",
+    infoInside: "Base Notion de seguimiento AECODE Training; se detectaron campos de frecuencia, estado y semanas.",
+    operationalUse: "Controlar programas por estado, frecuencia semanal y avance operativo de training.",
+    risk: "La URL compartida no fue accesible directo por conector; existe una base relacionada en workspace y debe consolidarse sin duplicar fuente.",
+    nextAction: "Validar si esta pagina es fuente maestra, espejo o vista secundaria del seguimiento Training.",
+    secureReference: "URL completa en outputs/internal_links_private.csv"
   }
 ];
 
@@ -942,7 +958,8 @@ export const contentMetrics: ContentMetric[] = [
 
 export const sourceNotes = [
   "Sheet leido por Drive como AECODE | AREA ACADEMICA | STATUS GENERAL.xlsx.",
-  "Chat WhatsApp leido para inventariar links; se detectaron 32 URLs unicas.",
+  "Chat WhatsApp y Notion revisados para inventariar links; se registraron 33 activos.",
+  "El link Notion AECODE Training directo no fue accesible por fetch; busqueda interna encontro una base relacionada con frecuencia, estado y semanas.",
   "No se publican links privados de WhatsApp, Zoom, Classroom, Miro o Drive.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."

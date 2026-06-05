@@ -31,3 +31,4 @@ LNK-029,Google Sheet,docs.google.com,Sheet operativo sin clasificar 4,Persona 2,
 LNK-030,Miro,miro.com,Miro programa 13,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board enviado como link editado en chat,Confirmar link vigente y archivar version anterior
 LNK-031,Miro,miro.com,Miro programa 14,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board identificado como link operativo,Asignar course_id y estado de acceso
 LNK-032,Zoom,zoom.us,Zoom de sesion,Persona 3,Agente #3,Sesiones,Critico,Requiere revision,Link de reunion con clave incluida,Rotar clave si corresponde y mover a gestor seguro
+LNK-033,Notion,notion.so,AECODE Training,Persona 2,Agente #7,Datos,Critico,Requiere revision,Base Notion de seguimiento con frecuencia estado y semanas,Validar si es fuente maestra espejo o vista secundaria
