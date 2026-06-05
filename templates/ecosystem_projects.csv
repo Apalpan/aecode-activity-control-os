@@ -1,0 +1,10 @@
+id,project,company,progress,status,next_action,owner,risk
+ECO-01,AECODE 3.0 - Learning OS,AECODE,46%,Activo,Llevar demo al 70% y cerrar taxonomia curso/modulo/skill/capsula,Persona 27,Sin taxonomia clara el producto se queda como curso online y no como skill verification
+ECO-02,VisionPro - Monitoreo IA,SP+ / VisionPro,Piloto activo,Piloto activo,Estructurar costos y paquetes timelapse basico + IA,Marlon / Emanuel,Piloto sin paquete comercial impide cerrar aprendizaje y precio repetible
+ECO-03,AgentFlow - Automatizaciones,GEN+,34%,Activo,Mantener N8N privado KVM4 Redis y Cloudflare con tablero de salud,Persona 27,Automatizaciones sin health dashboard se vuelven caja negra y riesgo operativo
+ECO-04,ICEBOT - Agente de reuniones,GEN+,MVP funcional,MVP funcional,Construir panel de acuerdos trazables y acciones ejecutables,Persona 27,Sin seguimiento visible el agente resume reuniones pero no mueve compromisos
+ECO-05,AI Construction Summit,GEN+,Planificando,Planificando,Confirmar sponsors y alianzas CCL + CIP minimas,Persona 14,Evento sin sponsors alianzas confirmadas reduce autoridad y caja
+ECO-06,Qawari AI,GEN+,Definicion,Definicion,Precisar caso de uso ICP y MVP,Persona 10,Sin ICP el MVP puede quedar tecnologico pero sin comprador claro
+ECO-07,Programa UTEC 2026,AECODE,En curso,En curso,Convertir aprendizajes en modulos AECODE/AgentFlow,Persona 20,Si no se empaqueta el aprendizaje queda como entrega aislada y no como activo reusable
+ECO-08,THESIA IP,THESIA,Planificacion,Planificando,Entregar 1 activo IP antes del 2026-07-01,Persona 10,Sin activo IP fechado THESIA no materializa investigacion en propiedad reutilizable
+ECO-09,Cotizacion ESPARQ SaaS,GEN+,47/84 pts,Activo,Dar seguimiento a respuesta esperada post 2026-06-03,Persona 25,Cotizacion sin siguiente accion cae fuera del pipeline y del forecast

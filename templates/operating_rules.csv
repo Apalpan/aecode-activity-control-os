@@ -1,0 +1,11 @@
+id,cadence,rule,owner,evidence
+RULE-01,Diario 09:00,Cada responsable actualiza estado de sus actividades activas,Cada responsable,Estado actualizado con proximo paso
+RULE-02,Diario,Ventas actualiza leads y seguimientos del dia,Talia / Yadira,Lead con etapa objecion y proxima accion
+RULE-03,Diario,Coordinacion academica confirma links y materiales de clases del dia,Persona 3,Zoom materiales grupo y soporte listos
+RULE-04,Diario,Soporte testing registra incidencias nuevas con evidencia,Jordi,Bug o incidencia con captura impacto y responsable
+RULE-05,Viernes,Todos cierran actividades completadas y bloqueos abiertos,Lead de area,Cierre semanal con entregables y bloqueos
+RULE-06,Automatica,Fecha limite vencida sin estado alerta al responsable y Alejandro,Agente #19,Alerta con tarea dias de atraso y siguiente accion
+RULE-07,Automatica,Bloqueo mayor a 3 dias escala a Alejandro,Agente #11,Escalamiento con dependencia concreta
+RULE-08,Calidad dato,Actividad sin evidencia_link se considera incompleta,Persona 22,Campo evidencia o enlace interno seguro
+RULE-09,Calidad dato,Bug no se cierra sin confirmacion de retest documentado,Jordi,Campo evidencia_retest completado
+RULE-10,Calidad dato,Sin actualizar en 7+ dias genera badge de riesgo visible,Agente #19,Badge de riesgo en Centro de Control

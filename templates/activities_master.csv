@@ -103,3 +103,11 @@ ACT-101,Eventos,Coordinar ponentes y programacion academica del Summit,Persona 2
 ACT-102,Marketing,Apoyar marketing revisando contenidos campanas y piezas,Persona 28,Agente #12,Media,Por campana,contenido revisado,Activo,Media
 ACT-103,Comercial,Dar seguimiento a ventas B2B y eventos,Persona 28,Agente #16,Media,Semanal oportunidad,seguimiento B2B actualizado,Activo,Alta
 ACT-104,Contenido,Gestionar plantillas y comunicaciones HTML para programas,Persona 28,Agente #35,Media,Por envio,plantilla HTML aprobada,Activo,Media
+ACT-105,Comercial,Llamar leads calientes,Persona 29,Agente #16,Media,Diario,llamada registrada,Activo,Critica
+ACT-106,Comercial,Mandar audios comerciales a leads y oportunidades,Persona 29,Agente #16,Media,Diario,audio enviado y respuesta trazada,Activo,Alta
+ACT-107,Comercial,Dar seguimiento orientado al cierre,Persona 29,Agente #16,Alta,Diario,proxima accion de cierre registrada,Activo,Critica
+ACT-108,Marketing,Optimizar copys comerciales segun objeciones y cierre,Persona 29,Agente #16,Media,Semanal por campana,copy ajustado con insight comercial,Activo,Alta
+ACT-109,Marketing,Dar seguimiento a Anggie para envio de brochures completos,Persona 29,Agente #14,Media,Por campana oferta,brochure completo enviado o publicado,Activo,Alta
+ACT-110,Difusion,Brindar ideas y recordatorios a Reiner para seguimiento masivo,Persona 29,Agente #10,Media,Semanal por campana,seguimiento masivo enviado,Activo,Media
+ACT-111,Comercial,Entrenar a Yadira en cierre audios y llamadas,Persona 29,Agente #16,Baja,Semanal,sesion de entrenamiento y mejora observada,Activo,Alta
+ACT-112,Reuniones,Reunirse con el equipo comercial para revisar avances y mejoras,Persona 29,Agente #16,Media,Semanal,acuerdos avances y mejoras registradas,Activo,Alta

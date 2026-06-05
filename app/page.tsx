@@ -31,6 +31,7 @@ import { useMemo, useState } from "react";
 import {
   aecodeDomains,
   activities,
+  activityFieldSpecs,
   agents,
   areas,
   contentMetrics,
@@ -38,24 +39,35 @@ import {
   cultureClusters,
   cultureRituals,
   cultureValues,
+  ecosystemCompanies,
+  ecosystemMetrics,
+  ecosystemProjects,
+  executiveViews,
+  flywheelLayers,
   getPriorityWeight,
   getReadinessScore,
   linkAssets,
   linkMetrics,
   marketingProcesses,
   opsRoles,
+  operatingRules,
   operatingBoundaries,
   opsSources,
   programs,
   sourceNotes,
+  workflowPlaybooks,
   workflowStages,
   type Activity,
   type Priority
 } from "@/data/opsData";
 import {
   aecodeTeamMembers,
+  allConsideredTeamMembers,
+  extendedTeamMembers,
   personIdentityMap,
-  resolvePersonName
+  resolvePersonName,
+  teamCapacityPolicy,
+  teamConnections
 } from "@/data/teamData";
 
 const priorityClass: Record<Priority, string> = {
@@ -83,6 +95,16 @@ const assetBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const navGroups = [
   {
+    id: "ecosistema",
+    label: "Ecosistema AP",
+    items: [
+      { label: "Empresas", href: "#ecosistema", icon: LayoutDashboard },
+      { label: "Flywheel", href: "#flywheel", icon: Workflow },
+      { label: "Gobierno", href: "#gobierno", icon: ShieldCheck },
+      { label: "Vistas", href: "#vistas", icon: ClipboardList }
+    ]
+  },
+  {
     id: "control",
     label: "Control",
     items: [
@@ -90,7 +112,8 @@ const navGroups = [
       { label: "Cultura", href: "#cultura", icon: MessageSquareText },
       { label: "Actividades", href: "#actividades", icon: ListChecks },
       { label: "Roles", href: "#roles", icon: UserRoundCheck },
-      { label: "Equipo anonimo", href: "#equipo-real", icon: Users },
+      { label: "Equipo mapeado", href: "#equipo-real", icon: Users },
+      { label: "Conexiones", href: "#conexiones", icon: Workflow },
       { label: "Flujo", href: "#flujo", icon: Route }
     ]
   },
@@ -160,6 +183,20 @@ function confidenceClass(confidence: string) {
   return "";
 }
 
+function loadClass(load: string) {
+  if (load === "Alta carga") return "chip-critical";
+  if (load === "Carga media") return "chip-high";
+  if (load === "Ligero / puntual") return "chip-good";
+  return "";
+}
+
+function workflowStatusClass(status: string) {
+  if (status === "Listo") return "chip-good";
+  if (status === "En curso") return "chip-high";
+  if (status === "Riesgo") return "chip-critical";
+  return "";
+}
+
 function displayPerson(value: string) {
   return resolvePersonName(value);
 }
@@ -169,7 +206,10 @@ export default function Page() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("Todos");
   const [role, setRole] = useState("Todos");
+  const [activePlaybookId, setActivePlaybookId] = useState(workflowPlaybooks[0]?.id ?? "");
+  const [activeStepId, setActiveStepId] = useState(workflowPlaybooks[0]?.steps[0]?.id ?? "");
   const [openNav, setOpenNav] = useState<Record<string, boolean>>({
+    ecosistema: true,
     control: true,
     areas: true,
     sistemas: true
@@ -191,7 +231,14 @@ export default function Page() {
   const selectedRole = opsRoles.find((item) => item.id === role);
   const commercialRoles = opsRoles.filter((item) => item.areas.some((roleArea) => ["Comercial", "Finanzas"].includes(roleArea)));
   const productRoles = opsRoles.filter((item) => item.areas.some((roleArea) => ["Producto", "Plataforma", "Certificados"].includes(roleArea)));
-  const highConfidenceTeam = aecodeTeamMembers.filter((member) => member.confidence === "Alta").length;
+  const highConfidenceTeam = allConsideredTeamMembers.filter((member) => member.confidence === "Alta").length;
+  const coreTeamCount = aecodeTeamMembers.length;
+  const extendedTeamCount = extendedTeamMembers.length;
+  const selectedPlaybook = workflowPlaybooks.find((playbook) => playbook.id === activePlaybookId) ?? workflowPlaybooks[0]!;
+  const selectedStep = selectedPlaybook.steps.find((step) => step.id === activeStepId) ?? selectedPlaybook.steps[0]!;
+  const selectedPlaybookReadyCount = selectedPlaybook.steps.filter((step) => step.status === "Listo").length;
+  const selectedPlaybookRiskCount = selectedPlaybook.steps.filter((step) => step.status === "Riesgo").length;
+  const selectedPlaybookProgress = Math.round((selectedPlaybookReadyCount / Math.max(selectedPlaybook.steps.length, 1)) * 100);
 
   return (
     <div className="shell">
@@ -210,7 +257,7 @@ export default function Page() {
           <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Activity Control OS</p>
           <h1 className="mt-3 text-3xl font-black leading-tight text-white">Tablero maestro de actividades</h1>
           <p className="mt-4 text-sm leading-7 text-aecode-muted">
-            Control interno AECODE: roles anonimos, postventa, soporte, producto, marketing, comercial, eventos, finanzas, datos y automatizacion.
+            Control interno AECODE: roles mapeados, postventa, soporte, producto, marketing, comercial, eventos, finanzas, datos y automatizacion.
           </p>
         </div>
 
@@ -242,7 +289,7 @@ export default function Page() {
 
         <div className="mt-8 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-4">
           <p className="text-sm font-black text-aecode-mint">Modo interno</p>
-          <p className="mt-2 text-sm leading-6 text-aecode-muted">No expone nombres reales, correos, credenciales ni URLs privadas completas. Opera con alias `Persona N`.</p>
+          <p className="mt-2 text-sm leading-6 text-aecode-muted">Muestra nombres reales cuando hay evidencia. No expone correos, credenciales ni URLs privadas completas; Persona N queda como trazabilidad cuando falta confirmacion.</p>
         </div>
       </aside>
 
@@ -272,13 +319,200 @@ export default function Page() {
 
           <div className="metric-grid">
             <Metric label="Actividades" value={String(activities.length)} detail="Actividades completas normalizadas desde Obsidian, Notion, Sheet y adjuntos." />
+            <Metric label="Empresas AP" value={String(ecosystemCompanies.length)} detail="GEN+, AECODE, THESIA, SP+/VisionPro y direccion del ecosistema." tone="good" />
+            <Metric label="Proyectos AP" value={String(ecosystemProjects.length)} detail="Iniciativas criticas con siguiente accion y riesgo operativo." />
             <Metric label="Links" value={String(linkAssets.length)} detail="Inventario seguro de enlaces extraidos del chat operativo." />
             <Metric label="Areas AECODE" value={String(aecodeDomains.length)} detail="Dominios de control desde direccion hasta finanzas y BI." tone="good" />
-            <Metric label="Equipo anonimo" value={`${aecodeTeamMembers.length}/${highConfidenceTeam}`} detail="Personas mapeadas como alias; segundo numero indica roles con certeza alta." />
+            <Metric label="Playbooks" value={String(workflowPlaybooks.length)} detail="Flujos tipicos interactivos para operar postventa, sesiones, contenido, certificados, growth, eventos y producto." tone="good" />
+            <Metric label="Equipo nucleo" value={`${coreTeamCount}/${teamCapacityPolicy.maxCoreSeats}`} detail="Asientos operativos activos. El resto queda como red extendida para no inflar ownership." tone="good" />
+            <Metric label="Personas consideradas" value={String(allConsideredTeamMembers.length)} detail={`${highConfidenceTeam} con certeza alta; ${extendedTeamCount} en red extendida o pendiente de confirmacion.`} />
+            <Metric label="Vistas objetivo" value={String(executiveViews.length)} detail="Pestanas operativas requeridas para direccion, equipo, training, ventas y soporte." />
             <Metric label="Criticas" value={String(criticalCount)} detail="Accesos, videos y certificados tienen impacto directo en activacion." tone="risk" />
             <Metric label="En riesgo" value={String(riskCount)} detail="Requieren owner, SLA o evidencia para no generar reclamos." tone="risk" />
             <Metric label="Automatizables" value={`${automationCount}/${activities.length}`} detail="Candidatas para AgentFlow, GHL, WhatsApp, Drive o n8n." tone="good" />
             <Metric label="Programas listos" value={`${readyPrograms}/${programs.length}`} detail="Lectura de readiness por accesos, Zoom, WSP, Classroom y embajador." />
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-4" id="ecosistema">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Ecosistema AP</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Centro de mando GEN+ · AECODE · THESIA · VisionPro</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Capa ejecutiva tomada del dashboard operativo AP: empresa, proyecto, siguiente accion, owner, riesgo y flywheel. AECODE sigue siendo la vertical educativa principal dentro del sistema.
+              </p>
+            </div>
+            <Workflow className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="grid gap-3 xl:grid-cols-5">
+            {ecosystemCompanies.map((company) => (
+              <article className="panel border-l-4 p-4" key={company.id} style={{ borderLeftColor: company.color }}>
+                <p className="text-xs font-black text-aecode-muted">{company.id}</p>
+                <h3 className="mt-1 text-lg font-black text-white">{company.company}</h3>
+                <p className="mt-2 min-h-[48px] text-sm leading-6 text-aecode-muted">{company.type}</p>
+                <span className="chip chip-good">{company.state}</span>
+                <p className="mt-3 text-xs leading-5 text-aecode-lavender">{company.operatingFocus}</p>
+              </article>
+            ))}
+          </div>
+
+          <section className="panel table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Proyecto critico</th>
+                  <th>Empresa</th>
+                  <th>Avance</th>
+                  <th>Owner</th>
+                  <th>Siguiente accion</th>
+                  <th>Riesgo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ecosystemProjects.map((project) => (
+                  <tr key={project.id}>
+                    <td>
+                      <p className="font-black text-white">{project.project}</p>
+                      <p className="mt-1 text-xs text-aecode-muted">{project.id} · {project.status}</p>
+                    </td>
+                    <td><span className="chip">{project.company}</span></td>
+                    <td className="font-bold text-aecode-mint">{project.progress}</td>
+                    <td className="font-bold text-white">{displayPerson(project.owner)}</td>
+                    <td><p className="max-w-[320px] text-sm leading-6 text-white">{project.nextAction}</p></td>
+                    <td><p className="max-w-[300px] text-sm leading-6 text-aecode-muted">{project.risk}</p></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        </section>
+
+        <section className="mt-6 grid gap-4" id="flywheel">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Flywheel AP</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Comunidad → Educacion → Producto → Autoridad → Data → IA → Escala</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Cada capa debe tener una senal visible, una pregunta de decision y un riesgo si se queda rezagada.
+              </p>
+            </div>
+            <Route className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="grid gap-3 xl:grid-cols-7">
+            {flywheelLayers.map((layer, index) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={layer.layer}>
+                <p className="text-xs font-black text-aecode-muted">Paso {index + 1}</p>
+                <h3 className="mt-1 text-lg font-black text-white">{layer.layer}</h3>
+                <p className="mt-3 min-h-[72px] text-sm leading-6 text-aecode-muted">{layer.signal}</p>
+                <div className="mt-4 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-3">
+                  <p className="text-xs font-black uppercase text-aecode-green">Pregunta</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{layer.dashboardQuestion}</p>
+                </div>
+                <p className="mt-3 text-xs font-bold text-aecode-lavender">Owner: {displayPerson(layer.owner)}</p>
+                <p className="mt-2 text-xs leading-5 text-aecode-muted">Riesgo: {layer.lagRisk}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {ecosystemMetrics.map((metric) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-bg/35 p-4" key={metric.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{metric.company}</p>
+                    <h3 className="mt-1 text-base font-black text-white">{metric.metric}</h3>
+                  </div>
+                  <span className="chip chip-good">{metric.target}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">{metric.frequency}</p>
+                <p className="mt-2 text-xs font-bold text-aecode-lavender">Owner: {metric.owner}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-4" id="gobierno">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Gobierno del tablero</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Campos minimos, reglas y vistas requeridas</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Regla central del PDF: toda actividad tiene exactamente un responsable, proximo paso, fecha, evidencia y metrica asociada.
+              </p>
+            </div>
+            <ShieldCheck className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+            <section className="panel table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Regla</th>
+                    <th>Req.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activityFieldSpecs.map((field) => (
+                    <tr key={field.field}>
+                      <td className="font-black text-white">{field.field}</td>
+                      <td><span className="chip">{field.type}</span></td>
+                      <td><p className="max-w-[520px] text-sm leading-6 text-aecode-muted">{field.rule}</p></td>
+                      <td><span className={`chip ${field.required ? "chip-critical" : "chip-good"}`}>{field.required ? "Si" : "No"}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <aside className="grid gap-3">
+              {operatingRules.map((rule) => (
+                <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={rule.id}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-black text-aecode-muted">{rule.id}</p>
+                      <h3 className="mt-1 text-base font-black text-white">{rule.cadence}</h3>
+                    </div>
+                    <span className="chip chip-good">{displayPerson(rule.owner)}</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-aecode-muted">{rule.rule}</p>
+                  <p className="mt-2 text-xs font-bold text-aecode-lavender">Evidencia: {rule.evidence}</p>
+                </article>
+              ))}
+            </aside>
+          </div>
+        </section>
+
+        <section className="mt-6 panel p-5" id="vistas">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">15 vistas requeridas</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Arquitectura visual por audiencia</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Estas vistas funcionan como roadmap de producto: el tablero actual cubre control, roles, AECODE ops, comercial, agentes, links, programas y riesgos; GEN+, instructores, embajadores y permisos quedan como siguiente capa.
+              </p>
+            </div>
+            <ClipboardList className="text-aecode-mint" size={30} />
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {executiveViews.map((view) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={view.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{view.id}</p>
+                    <h3 className="mt-1 text-lg font-black text-white">{view.tab}</h3>
+                  </div>
+                  <span className="chip">{view.frequency}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">{view.purpose}</p>
+                <p className="mt-3 text-xs font-bold text-aecode-lavender">{view.audience}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -288,7 +522,7 @@ export default function Page() {
               <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Mapa completo</p>
               <h2 className="mt-2 text-2xl font-black text-white">Areas, responsabilidades y riesgos</h2>
               <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
-                Cada dominio tiene lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencia y automatizacion candidata.
+                Cada dominio tiene lead mapeado, roles de apoyo, responsabilidades, KPIs, cadencia y automatizacion candidata.
               </p>
             </div>
             <LayoutDashboard className="text-aecode-mint" size={30} />
@@ -628,34 +862,70 @@ export default function Page() {
         <section className="mt-6 grid gap-4" id="equipo-real">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equipo anonimizado AECODE</p>
-              <h2 className="mt-2 text-2xl font-black text-white">Personas, rol claro, actividades y comunicacion</h2>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equipo operativo</p>
+              <h2 className="mt-2 text-2xl font-black text-white">25 asientos nucleo + red extendida trazable</h2>
               <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
-                Matriz interna extraida de fuentes operativas. Los responsables se muestran como `Persona N` y se conserva el nivel de certeza sin publicar nombres reales.
+                Se consideraron todos los nombres de Obsidian. Para que el equipo sea operable, el tablero limita el nucleo a 25 personas y mueve los perfiles sin rol cerrado o apoyo puntual a red extendida.
               </p>
             </div>
             <Users className="text-aecode-mint" size={30} />
           </div>
 
-          <div className="grid gap-3 xl:grid-cols-2">
-            {aecodeTeamMembers.map((member) => (
-              <article className="panel p-4" key={member.name}>
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.12em] text-aecode-muted">{member.squad}</p>
-                    <h3 className="mt-1 text-xl font-black text-white">{member.name}</h3>
+          <section className="panel team-command p-5">
+            <div className="team-command-ring" aria-label="Capacidad nucleo">
+              <span>{teamCapacityPolicy.coreSeats}</span>
+              <small>/ {teamCapacityPolicy.maxCoreSeats}</small>
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Regla de capacidad</p>
+              <h3 className="mt-2 text-xl font-black text-white">Maximo 25 personas con ownership activo</h3>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">{teamCapacityPolicy.rule}</p>
+              <p className="mt-2 text-sm leading-6 text-aecode-lavender">{teamCapacityPolicy.decision}</p>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-3">
+              <div className="mini-stat">
+                <p>Consideradas</p>
+                <strong>{teamCapacityPolicy.consideredPeople}</strong>
+              </div>
+              <div className="mini-stat">
+                <p>Nucleo</p>
+                <strong>{teamCapacityPolicy.coreSeats}</strong>
+              </div>
+              <div className="mini-stat">
+                <p>Red extendida</p>
+                <strong>{teamCapacityPolicy.extendedSeats}</strong>
+              </div>
+            </div>
+          </section>
+
+          <div className="team-grid">
+            {aecodeTeamMembers.map((member, index) => (
+              <article className="team-card panel p-4" key={member.name} style={{ animationDelay: `${Math.min(index * 35, 420)}ms` }}>
+                <div className="team-card-top">
+                  <div className="avatar-badge" aria-hidden="true">
+                    {member.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-black uppercase tracking-[0.12em] text-aecode-muted">{member.squad}</p>
+                    <h3 className="mt-1 truncate text-xl font-black text-white">{member.name}</h3>
                     <p className="mt-1 text-sm font-bold text-aecode-mint">{member.role}</p>
                   </div>
-                  <span className={`chip ${confidenceClass(member.confidence)}`}>Certeza {member.confidence}</span>
+                  <span className={`chip ${loadClass(member.load)}`}>{member.load}</span>
                 </div>
 
                 <p className="mt-4 text-sm leading-6 text-aecode-muted">{member.focus}</p>
 
-                <div className="mt-4 grid gap-3 lg:grid-cols-2">
-                  <div className="rounded-lg border border-aecode-violet/15 bg-aecode-bg/40 p-3">
-                    <p className="text-xs font-black uppercase text-aecode-green">Actividades</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className={`chip ${confidenceClass(member.confidence)}`}>Certeza {member.confidence}</span>
+                  <span className="chip chip-good">{member.seatType}</span>
+                  <span className="chip">{member.company}</span>
+                </div>
+
+                <div className="mt-4 grid gap-3 xl:grid-cols-2">
+                  <div className="subpanel">
+                    <p className="text-xs font-black uppercase text-aecode-green">Actividades clave</p>
                     <div className="mt-2 grid gap-2">
-                      {member.activities.map((activity) => (
+                      {member.activities.slice(0, 5).map((activity) => (
                         <p className="flex gap-2 text-sm leading-6 text-aecode-muted" key={activity}>
                           <CheckCircle2 className="mt-1 shrink-0 text-aecode-green" size={14} />
                           {activity}
@@ -664,17 +934,19 @@ export default function Page() {
                     </div>
                   </div>
 
-                  <div className="rounded-lg border border-aecode-violet/15 bg-aecode-bg/40 p-3">
+                  <div className="subpanel">
                     <p className="text-xs font-black uppercase text-aecode-green">Se comunica con</p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {member.communicatesWith.map((person) => (
-                        <span className="chip" key={person}>{person}</span>
+                        <span className="chip" key={person}>{resolvePersonName(person)}</span>
                       ))}
                     </div>
+                    <p className="mt-4 text-xs font-black uppercase text-aecode-green">Handoff</p>
+                    <p className="mt-2 text-sm leading-6 text-white">{member.keyHandoff}</p>
                   </div>
                 </div>
 
-                <div className="mt-4 grid gap-3 md:grid-cols-3">
+                <div className="mt-4 grid gap-3 2xl:grid-cols-3">
                   <div>
                     <p className="text-xs font-black uppercase text-aecode-green">Proyectos</p>
                     <div className="mt-2 flex flex-wrap gap-2">
@@ -692,21 +964,104 @@ export default function Page() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs font-black uppercase text-aecode-green">Fuente</p>
-                    <p className="mt-2 text-sm leading-6 text-aecode-muted">{member.source}</p>
-                    <p className="mt-2 text-xs font-bold text-aecode-lavender">{member.company}</p>
+                    <p className="text-xs font-black uppercase text-aecode-green">Cadencia</p>
+                    <p className="mt-2 text-sm leading-6 text-aecode-muted">{member.cadence}</p>
                   </div>
+                </div>
+
+                <div className="mt-4 rounded-lg border border-aecode-violet/15 bg-aecode-bg/30 p-3">
+                  <p className="text-xs font-black uppercase text-aecode-green">Riesgo operativo</p>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">{member.risk}</p>
+                  <p className="mt-2 text-xs font-bold text-aecode-lavender">{member.source}</p>
                 </div>
               </article>
             ))}
           </div>
 
+          <section className="panel p-5" id="red-extendida">
+            <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Red extendida</p>
+                <h3 className="mt-2 text-xl font-black text-white">Apoyo puntual, rol por confirmar o sin reporte detallado</h3>
+                <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                  Estas personas estan consideradas, pero no consumen asiento nucleo hasta que tengan rol, entregable y cadencia claros.
+                </p>
+              </div>
+              <span className="chip chip-high">{extendedTeamMembers.length} personas</span>
+            </div>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+              {extendedTeamMembers.map((member) => (
+                <article className="extended-card" key={member.name}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-black text-aecode-muted">{member.squad}</p>
+                      <h4 className="mt-1 text-base font-black text-white">{member.name}</h4>
+                      <p className="mt-1 text-xs font-bold text-aecode-mint">{member.role}</p>
+                    </div>
+                    <span className={`chip ${confidenceClass(member.confidence)}`}>{member.confidence}</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-aecode-muted">{member.focus}</p>
+                  <p className="mt-3 text-xs font-bold text-aecode-lavender">{member.keyHandoff}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="panel p-5" id="conexiones">
+            <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Interconexion operativa</p>
+                <h3 className="mt-2 text-xl font-black text-white">Rutas de comunicacion por dominio</h3>
+                <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                  Cada dominio tiene un responsable primario, personas conectadas, evidencia y agente candidato. Esto evita que la comunicacion dependa de chats sueltos.
+                </p>
+              </div>
+              <Workflow className="text-aecode-mint" size={30} />
+            </div>
+
+            <div className="connection-map mt-5">
+              {teamConnections.map((connection) => (
+                <article className="connection-card" key={connection.id}>
+                  <div className="connection-node">
+                    <span>{connection.id}</span>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.14em] text-aecode-green">{connection.lane}</p>
+                        <h4 className="mt-1 text-lg font-black text-white">{connection.primary}</h4>
+                      </div>
+                      <span className="chip chip-good">{connection.agent}</span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-aecode-muted">{connection.objective}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {connection.connects.map((person) => (
+                        <span className="chip" key={person}>{resolvePersonName(person)}</span>
+                      ))}
+                    </div>
+                    <div className="mt-4 grid gap-3 md:grid-cols-2">
+                      <div className="subpanel">
+                        <p className="text-xs font-black uppercase text-aecode-green">Evidencia</p>
+                        <p className="mt-2 text-sm leading-6 text-white">{connection.evidence}</p>
+                      </div>
+                      <div className="subpanel">
+                        <p className="text-xs font-black uppercase text-aecode-green">Riesgo</p>
+                        <p className="mt-2 text-sm leading-6 text-aecode-muted">{connection.risk}</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <section className="panel p-4">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Equivalencia operativa</p>
-            <h3 className="mt-2 text-xl font-black text-white">Alias operativo y nivel de certeza</h3>
-            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <h3 className="mt-2 text-xl font-black text-white">Alias Persona N normalizados a nombres reales</h3>
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               {Object.entries(personIdentityMap).map(([personaId, identity]) => (
-                <div className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-3" key={personaId}>
+                <div className="alias-card" key={personaId}>
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-xs font-black text-aecode-muted">{personaId}</p>
@@ -727,7 +1082,7 @@ export default function Page() {
               <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Marketing + Growth</p>
               <h2 className="mt-2 text-2xl font-black text-white">Procesos derivados del panel de marketing</h2>
               <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
-                Se integran campanas, Summit, difusion, clips, automatizacion y contenido organico con responsables anonimos y evidencia operativa.
+                Se integran campanas, Summit, difusion, clips, automatizacion, cierre comercial y contenido organico con responsables mapeados y evidencia operativa.
               </p>
             </div>
             <Megaphone className="text-aecode-mint" size={30} />
@@ -819,34 +1174,214 @@ export default function Page() {
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Sistema de trabajo</p>
-              <h2 className="mt-2 text-2xl font-black text-white">Flujo operativo por sesion y cohorte</h2>
+              <h2 className="mt-2 text-2xl font-black text-white">Playbooks operativos interactivos</h2>
               <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
-                El equipo no deberia pensar por archivos sueltos. Debe operar por etapa, owner, evidencia y automatizacion.
+                Flujos tipicos para que el equipo opere por trigger, paso, owner, evidencia, sistema, handoff, riesgo y automatizacion.
               </p>
             </div>
             <CalendarDays className="text-aecode-mint" size={30} />
           </div>
 
-          <div className="mt-5 grid gap-3 xl:grid-cols-3">
-            {workflowStages.map((stage) => (
-              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={stage.id}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-black text-aecode-muted">{stage.id} / {stage.timing}</p>
-                    <h3 className="mt-1 text-lg font-black text-white">{stage.label}</h3>
-                  </div>
-                  <span className="chip chip-good">{displayPerson(stage.owner)}</span>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-aecode-muted">{stage.objective}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {stage.activities.map((activity) => (
-                    <span className="chip" key={activity}>{activity}</span>
-                  ))}
-                </div>
-                <p className="mt-4 text-sm leading-6 text-white">Evidencia: {stage.evidence}</p>
-                <p className="mt-2 text-xs font-bold text-aecode-lavender">{stage.automation}</p>
-              </article>
+          <div className="workflow-command mt-5">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">{selectedPlaybook.id} / {selectedPlaybook.domain}</p>
+              <h3 className="mt-2 text-2xl font-black text-white">{selectedPlaybook.title}</h3>
+              <p className="mt-2 max-w-4xl text-sm leading-7 text-aecode-muted">{selectedPlaybook.goal}</p>
+            </div>
+            <div className="workflow-score" aria-label={`Avance ${selectedPlaybookProgress} por ciento`}>
+              <span>{selectedPlaybookProgress}%</span>
+              <small>listo</small>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-3">
+              <div className="mini-stat">
+                <p>Lead</p>
+                <strong className="text-lg">{displayPerson(selectedPlaybook.lead)}</strong>
+              </div>
+              <div className="mini-stat">
+                <p>Pasos</p>
+                <strong>{selectedPlaybook.steps.length}</strong>
+              </div>
+              <div className="mini-stat">
+                <p>Riesgo</p>
+                <strong>{selectedPlaybookRiskCount}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="playbook-tabs mt-5" role="tablist" aria-label="Playbooks operativos">
+            {workflowPlaybooks.map((playbook) => (
+              <button
+                aria-selected={playbook.id === selectedPlaybook.id}
+                className="playbook-tab"
+                key={playbook.id}
+                onClick={() => {
+                  setActivePlaybookId(playbook.id);
+                  setActiveStepId(playbook.steps[0]?.id ?? "");
+                }}
+                role="tab"
+                title={playbook.title}
+                type="button"
+              >
+                <Route size={15} />
+                <span>{playbook.title}</span>
+                <small>{displayPerson(playbook.lead)}</small>
+              </button>
             ))}
+          </div>
+
+          <div className="workflow-experience mt-5">
+            <div className="workflow-canvas">
+              {selectedPlaybook.steps.map((step, index) => {
+                const isActive = selectedStep.id === step.id;
+                return (
+                  <button
+                    aria-pressed={isActive}
+                    className="flow-node"
+                    data-active={isActive}
+                    key={step.id}
+                    onClick={() => setActiveStepId(step.id)}
+                    style={{ animationDelay: `${index * 70}ms` }}
+                    title={`${step.label} - ${displayPerson(step.owner)}`}
+                    type="button"
+                  >
+                    <span className="flow-index">{index + 1}</span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-left text-sm font-black text-white">{step.label}</span>
+                      <span className="mt-1 block truncate text-left text-xs font-bold text-aecode-muted">{step.timing} / {displayPerson(step.owner)}</span>
+                    </span>
+                    <span className={`chip ${workflowStatusClass(step.status)}`}>{step.status}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <article className="step-detail">
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">{selectedStep.id} / {selectedStep.timing}</p>
+                  <h3 className="mt-2 text-2xl font-black text-white">{selectedStep.label}</h3>
+                  <p className="mt-2 text-sm leading-7 text-aecode-muted">{selectedStep.action}</p>
+                </div>
+                <span className={`chip ${workflowStatusClass(selectedStep.status)}`}>{selectedStep.status}</span>
+              </div>
+
+              <div className="mt-5 grid gap-3 xl:grid-cols-2">
+                <div className="subpanel">
+                  <p className="text-xs font-black uppercase text-aecode-green">Entrada</p>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">{selectedStep.entry}</p>
+                </div>
+                <div className="subpanel">
+                  <p className="text-xs font-black uppercase text-aecode-green">Salida</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{selectedStep.output}</p>
+                </div>
+                <div className="subpanel">
+                  <p className="text-xs font-black uppercase text-aecode-green">Owner y equipo</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{displayPerson(selectedStep.owner)}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedStep.team.map((member) => (
+                      <span className="chip" key={member}>{displayPerson(member)}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="subpanel">
+                  <p className="text-xs font-black uppercase text-aecode-green">Evidencia</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{selectedStep.evidence}</p>
+                </div>
+              </div>
+
+              <div className="automation-strip mt-4">
+                <Bot size={18} />
+                <p>{selectedStep.automation}</p>
+              </div>
+
+              <div className="mt-4 grid gap-3 xl:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+                <div className="subpanel">
+                  <p className="text-xs font-black uppercase text-aecode-green">Sistemas</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedStep.systems.map((system) => (
+                      <span className="chip" key={system}>{system}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="subpanel">
+                  <p className="text-xs font-black uppercase text-aecode-green">Riesgo si falla</p>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">{selectedStep.risk}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedStep.linkedActivities.map((activity) => (
+                      <span className="chip chip-high" key={activity}>{activity}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(300px,0.42fr)]">
+            <section className="handoff-board">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Handoffs</p>
+                  <h3 className="mt-1 text-xl font-black text-white">Reglas entre responsables</h3>
+                </div>
+                <Workflow className="text-aecode-mint" size={24} />
+              </div>
+              <div className="mt-4 grid gap-3 md:grid-cols-2">
+                {selectedPlaybook.handoffs.map((handoff) => (
+                  <div className="handoff-card" key={`${handoff.from}-${handoff.to}-${handoff.rule}`}>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="chip">{displayPerson(handoff.from)}</span>
+                      <ChevronRight size={16} className="text-aecode-mint" />
+                      <span className="chip chip-good">{displayPerson(handoff.to)}</span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-aecode-muted">{handoff.rule}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <aside className="handoff-board">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Control de cierre</p>
+              <h3 className="mt-1 text-xl font-black text-white">Escala y terminado</h3>
+              <div className="mt-4 grid gap-3">
+                {selectedPlaybook.escalations.map((item) => (
+                  <p className="flex gap-2 text-sm leading-6 text-aecode-muted" key={item}>
+                    <AlertTriangle className="mt-1 shrink-0 text-aecode-amber" size={15} />
+                    {item}
+                  </p>
+                ))}
+              </div>
+              <div className="mt-4 border-t border-aecode-violet/20 pt-4">
+                {selectedPlaybook.doneDefinition.map((item) => (
+                  <p className="flex gap-2 text-sm leading-6 text-white" key={item}>
+                    <CheckCircle2 className="mt-1 shrink-0 text-aecode-green" size={15} />
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </aside>
+          </div>
+
+          <div className="mt-6 border-t border-aecode-violet/20 pt-5">
+            <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Biblioteca de etapas</p>
+                <h3 className="mt-1 text-xl font-black text-white">{workflowStages.length} etapas normalizadas</h3>
+              </div>
+              <span className="chip chip-good">{selectedPlaybook.cycle}</span>
+            </div>
+            <div className="stage-strip mt-4">
+              {workflowStages.map((stage) => (
+                <article className="stage-pill" key={stage.id}>
+                  <p className="text-xs font-black text-aecode-muted">{stage.id} / {stage.timing}</p>
+                  <h4 className="mt-1 text-sm font-black text-white">{stage.label}</h4>
+                  <p className="mt-2 text-xs leading-5 text-aecode-muted">{stage.objective}</p>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <span className="chip chip-good">{displayPerson(stage.owner)}</span>
+                    <span className="text-xs font-bold text-aecode-lavender">{stage.activities.length} acts.</span>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

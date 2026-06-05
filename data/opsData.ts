@@ -113,6 +113,47 @@ export type WorkflowStage = {
   automation: string;
 };
 
+export type WorkflowStepStatus = "Listo" | "En curso" | "Riesgo" | "Automatizable";
+
+export type WorkflowPlaybookStep = {
+  id: string;
+  label: string;
+  timing: string;
+  owner: string;
+  team: string[];
+  entry: string;
+  action: string;
+  output: string;
+  evidence: string;
+  systems: string[];
+  automation: string;
+  status: WorkflowStepStatus;
+  risk: string;
+  linkedActivities: string[];
+};
+
+export type WorkflowHandoff = {
+  from: string;
+  to: string;
+  rule: string;
+};
+
+export type WorkflowPlaybook = {
+  id: string;
+  title: string;
+  domain: string;
+  trigger: string;
+  goal: string;
+  lead: string;
+  cycle: string;
+  kpi: string;
+  agent: string;
+  steps: WorkflowPlaybookStep[];
+  handoffs: WorkflowHandoff[];
+  escalations: string[];
+  doneDefinition: string[];
+};
+
 export type OpsSource = {
   label: string;
   path: string;
@@ -172,6 +213,66 @@ export type OperatingBoundary = {
   risk: string;
 };
 
+export type EcosystemCompany = {
+  id: string;
+  company: "GEN+" | "AECODE" | "THESIA" | "SP+ / VisionPro" | "Ecosistema AP";
+  type: string;
+  state: "Activa" | "En construccion" | "Piloto comercial" | "Direccion";
+  color: string;
+  operatingFocus: string;
+};
+
+export type EcosystemProject = {
+  id: string;
+  project: string;
+  company: EcosystemCompany["company"];
+  progress: string;
+  status: "Activo" | "MVP funcional" | "Planificando" | "Definicion" | "En curso" | "Piloto activo";
+  nextAction: string;
+  owner: string;
+  risk: string;
+};
+
+export type FlywheelLayer = {
+  layer: "Comunidad" | "Educacion" | "Producto" | "Autoridad" | "Data" | "IA" | "Escala";
+  signal: string;
+  dashboardQuestion: string;
+  owner: string;
+  lagRisk: string;
+};
+
+export type ActivityFieldSpec = {
+  field: string;
+  type: string;
+  rule: string;
+  required: boolean;
+};
+
+export type ExecutiveView = {
+  id: string;
+  tab: string;
+  audience: string;
+  frequency: string;
+  purpose: string;
+};
+
+export type OperatingRule = {
+  id: string;
+  cadence: string;
+  rule: string;
+  owner: string;
+  evidence: string;
+};
+
+export type EcosystemMetric = {
+  id: string;
+  company: EcosystemCompany["company"] | "Marketing & Growth";
+  metric: string;
+  target: string;
+  frequency: string;
+  owner: string;
+};
+
 export const areas = [
   "Direccion",
   "Accesos y soporte",
@@ -203,6 +304,104 @@ export const areas = [
   "BIM",
   "Plataforma",
   "Certificados"
+];
+
+export const ecosystemCompanies: EcosystemCompany[] = [
+  { id: "COMP-01", company: "GEN+", type: "Consultoria implementacion AEC + IA", state: "Activa", color: "#1E6FFF", operatingFocus: "Productividad, proyectos cliente, automatizacion, BIM/VDC, comercial y casos empresariales." },
+  { id: "COMP-02", company: "AECODE", type: "Plataforma skills verificables AEC", state: "Activa", color: "#7B2FBE", operatingFocus: "Learning OS, rutas, evidencias, Skill Passport, certificados, comunidad y crecimiento educativo." },
+  { id: "COMP-03", company: "THESIA", type: "I+D, datasets e IP tecnica", state: "En construccion", color: "#22A869", operatingFocus: "Investigacion aplicada, propiedad intelectual, datasets, plantillas y activos reutilizables." },
+  { id: "COMP-04", company: "SP+ / VisionPro", type: "Monitoreo visual de obra con IA", state: "Piloto comercial", color: "#0EA5E9", operatingFocus: "Timelapse, computer vision, evidencias de obra, reportes ejecutivos y paquetes comerciales." },
+  { id: "COMP-05", company: "Ecosistema AP", type: "Direccion, flywheel y portafolio", state: "Direccion", color: "#374151", operatingFocus: "Comunidad, educacion, producto, autoridad, data, IA y escala con minima dependencia de horas humanas." }
+];
+
+export const ecosystemProjects: EcosystemProject[] = [
+  { id: "ECO-01", project: "AECODE 3.0 - Learning OS", company: "AECODE", progress: "46%", status: "Activo", nextAction: "Llevar demo al 70% y cerrar taxonomia curso/modulo/skill/capsula.", owner: "Persona 27", risk: "Sin taxonomia clara, el producto se queda como curso online y no como skill verification." },
+  { id: "ECO-02", project: "VisionPro - Monitoreo IA", company: "SP+ / VisionPro", progress: "Piloto activo", status: "Piloto activo", nextAction: "Estructurar costos y paquetes timelapse basico + IA.", owner: "Marlon / Emanuel", risk: "Piloto sin paquete comercial impide cerrar aprendizaje y precio repetible." },
+  { id: "ECO-03", project: "AgentFlow - Automatizaciones", company: "GEN+", progress: "34%", status: "Activo", nextAction: "Mantener N8N privado, KVM4, Redis y Cloudflare con tablero de salud.", owner: "Persona 27", risk: "Automatizaciones sin health dashboard se vuelven caja negra y riesgo operativo." },
+  { id: "ECO-04", project: "ICEBOT - Agente de reuniones", company: "GEN+", progress: "MVP funcional", status: "MVP funcional", nextAction: "Construir panel de acuerdos trazables y acciones ejecutables.", owner: "Persona 27", risk: "Sin seguimiento visible, el agente resume reuniones pero no mueve compromisos." },
+  { id: "ECO-05", project: "AI Construction Summit", company: "GEN+", progress: "Planificando", status: "Planificando", nextAction: "Confirmar sponsors y alianzas CCL + CIP minimas.", owner: "Persona 14", risk: "Evento sin sponsors/alianzas confirmadas reduce autoridad y caja." },
+  { id: "ECO-06", project: "Qawari AI", company: "GEN+", progress: "Definicion", status: "Definicion", nextAction: "Precisar caso de uso, ICP y MVP.", owner: "Persona 10", risk: "Sin ICP, el MVP puede quedar tecnologico pero sin comprador claro." },
+  { id: "ECO-07", project: "Programa UTEC 2026", company: "AECODE", progress: "En curso", status: "En curso", nextAction: "Convertir aprendizajes en modulos AECODE/AgentFlow.", owner: "Persona 20", risk: "Si no se empaqueta, el aprendizaje queda como entrega aislada y no como activo reusable." },
+  { id: "ECO-08", project: "THESIA IP", company: "THESIA", progress: "Planificacion", status: "Planificando", nextAction: "Entregar 1 activo IP antes del 2026-07-01.", owner: "Persona 10", risk: "Sin activo IP fechado, THESIA no materializa investigacion en propiedad reutilizable." },
+  { id: "ECO-09", project: "Cotizacion ESPARQ SaaS", company: "GEN+", progress: "47/84 pts", status: "Activo", nextAction: "Dar seguimiento a respuesta esperada post 2026-06-03.", owner: "Persona 25", risk: "Cotizacion sin siguiente accion cae fuera del pipeline y del forecast." }
+];
+
+export const flywheelLayers: FlywheelLayer[] = [
+  { layer: "Comunidad", signal: "Leads, publicaciones, grupos y embajadores activos.", dashboardQuestion: "Que comunidad esta generando demanda y evidencia?", owner: "Persona 6", lagRisk: "Sin comunidad activa baja el top del funnel educativo." },
+  { layer: "Educacion", signal: "Onboarding, skill start, evidencias y certificados.", dashboardQuestion: "Que usuarios llegaron a primera skill verificada?", owner: "Persona 20", lagRisk: "Sin verificacion AECODE se percibe como academia generica." },
+  { layer: "Producto", signal: "Roadmap, sprints, bugs, UX y features con uso real.", dashboardQuestion: "Que feature reduce friccion o aumenta skill verified?", owner: "Persona 23", lagRisk: "Producto avanza sin mover la North Star Metric." },
+  { layer: "Autoridad", signal: "Summit, webinars, casos, sponsors y alianzas.", dashboardQuestion: "Que activo aumenta autoridad comercial esta semana?", owner: "Persona 14", lagRisk: "Sin autoridad, comunidad y ventas dependen demasiado de pauta." },
+  { layer: "Data", signal: "GHL, Sheets, evidencias, BI y fuentes sincronizadas.", dashboardQuestion: "Que dato permite decidir mejor hoy?", owner: "Persona 22", lagRisk: "Sin datos confiables, los dashboards se vuelven decorativos." },
+  { layer: "IA", signal: "Agentes, n8n, evaluadores, copilotos y automatizaciones.", dashboardQuestion: "Que tarea recurrente se elimina o acelera con agente IA?", owner: "Persona 27", lagRisk: "La operacion escala por horas humanas y no por sistemas." },
+  { layer: "Escala", signal: "Conversion, retencion, revenue, repos y SOPs reutilizables.", dashboardQuestion: "Que proceso ya puede repetirse sin Alejandro?", owner: "Persona 10", lagRisk: "El ecosistema crece, pero sigue dependiendo de intervencion manual." }
+];
+
+export const activityFieldSpecs: ActivityFieldSpec[] = [
+  { field: "empresa", type: "Select", rule: "GEN+ / AECODE / THESIA / SP+ / Ecosistema.", required: true },
+  { field: "area", type: "Select", rule: "Marketing, Ventas, Producto, Dev, Educacion, Comunidad, Soporte, Testing, Admin, I+D o Direccion.", required: true },
+  { field: "proyecto_programa", type: "Link/Text", rule: "Debe apuntar a programa, proyecto, sprint o iniciativa concreta.", required: true },
+  { field: "sprint_fase", type: "Text", rule: "Sprint actual, fase de roadmap o ciclo operativo.", required: true },
+  { field: "rol", type: "Select", rule: "Dev, Growth, Coord. Academico, Instructor, Embajador, Ventas, Soporte, Testing o Direccion.", required: true },
+  { field: "responsable", type: "Persona", rule: "Exactamente 1 nombre real. 'Equipo' no es responsable valido.", required: true },
+  { field: "actividad", type: "Text", rule: "Descripcion breve de la tarea.", required: true },
+  { field: "accion_concreta", type: "Text", rule: "Verbo + objeto + resultado esperado.", required: true },
+  { field: "entregable", type: "Text", rule: "Artefacto fisico o digital medible.", required: true },
+  { field: "prioridad", type: "Select", rule: "Critica, Alta, Media o Baja.", required: true },
+  { field: "estado", type: "Select", rule: "Pendiente, En curso, Completado, Bloqueado, En revision o En espera.", required: true },
+  { field: "fecha_inicio", type: "Date", rule: "Formato YYYY-MM-DD.", required: true },
+  { field: "fecha_limite", type: "Date", rule: "Obligatoria para alertas y escalamiento.", required: true },
+  { field: "dependencia", type: "Link/Text", rule: "Persona o tarea concreta. No usar 'depende del cliente' sin accion de seguimiento.", required: true },
+  { field: "metrica_asociada", type: "Text", rule: "KPI que mueve esta actividad.", required: true },
+  { field: "evidencia_link", type: "URL", rule: "Sin evidencia el entregable queda incompleto.", required: true },
+  { field: "observacion", type: "Text", rule: "Contexto, riesgo o nota operativa.", required: false },
+  { field: "proximo_paso", type: "Text", rule: "Verbo + objeto + fecha + responsable.", required: true },
+  { field: "flywheel_capa", type: "Select", rule: "Comunidad, Educacion, Producto, Autoridad, Data, IA o Escala.", required: true }
+];
+
+export const executiveViews: ExecutiveView[] = [
+  { id: "VIEW-01", tab: "Centro de Control", audience: "Alejandro + lideres", frequency: "Diaria", purpose: "Bloqueos top 5, prioridades del dia, semaforo por empresa y flywheel health." },
+  { id: "VIEW-02", tab: "Equipo y Roles", audience: "Todos", frequency: "Semanal", purpose: "Carga visual por persona, actividades y proximo entregable." },
+  { id: "VIEW-03", tab: "AECODE Operaciones", audience: "AECODE team", frequency: "Diaria", purpose: "AECODE 2.0/3.0, ventas, coordinacion academica y postventa." },
+  { id: "VIEW-04", tab: "GEN+ Proyectos", audience: "GEN+ team + direccion", frequency: "Semanal", purpose: "Pipeline comercial, delivery, cobranzas y portafolio." },
+  { id: "VIEW-05", tab: "Training / Cursos", audience: "Coordinacion e instructores", frequency: "Diaria", purpose: "Sesiones, materiales, grabaciones y certificados." },
+  { id: "VIEW-06", tab: "Marketing & Growth", audience: "Anggie / Arantxa", frequency: "Diaria en campanas", purpose: "Calendario, metricas ADS, creativos y conversion." },
+  { id: "VIEW-07", tab: "Ventas / WhatsApp", audience: "Ventas y coordinacion", frequency: "Diaria", purpose: "Funnel de leads por etapa y seguimientos del dia." },
+  { id: "VIEW-08", tab: "Comunidad / Embajadores", audience: "Embajadores y coordinacion", frequency: "Semanal", purpose: "Leads y publicaciones semanales por persona." },
+  { id: "VIEW-09", tab: "Instructores", audience: "Instructores y coordinacion", frequency: "Por sesion", purpose: "Sesiones, materiales, proxima clase y alertas." },
+  { id: "VIEW-10", tab: "Testing / Soporte / Bugs", audience: "Soporte, testing y dev", frequency: "Diaria", purpose: "Bugs, incidencias abiertas, retest y alumnos sin acceso." },
+  { id: "VIEW-11", tab: "Producto / Dev", audience: "Marlon, Emanuel, Fabrizio", frequency: "Diaria en sprint", purpose: "Sprint board, backlog, roadmap 90 dias y estado tecnico." },
+  { id: "VIEW-12", tab: "Metricas", audience: "Alejandro y lideres", frequency: "Semanal", purpose: "NSM, activacion, retencion, monetizacion y comercial." },
+  { id: "VIEW-13", tab: "Bloqueos", audience: "Todos", frequency: "Diaria", purpose: "Solo bloqueados, ordenados por dias sin resolver." },
+  { id: "VIEW-14", tab: "Automatizaciones", audience: "Marlon, Fabrizio y direccion", frequency: "Semanal", purpose: "Agentes activos, flujos y candidatos de automatizacion." },
+  { id: "VIEW-15", tab: "Documentacion", audience: "Todos", frequency: "Referencia", purpose: "Links a Obsidian, Drive, SOPs, Loom y decisiones." }
+];
+
+export const operatingRules: OperatingRule[] = [
+  { id: "RULE-01", cadence: "Diario 09:00", rule: "Cada responsable actualiza estado de sus actividades activas.", owner: "Cada responsable", evidence: "Estado actualizado con proximo paso." },
+  { id: "RULE-02", cadence: "Diario", rule: "Ventas actualiza leads y seguimientos del dia.", owner: "Talia / Yadira", evidence: "Lead con etapa, objecion y proxima accion." },
+  { id: "RULE-03", cadence: "Diario", rule: "Coordinacion academica confirma links y materiales de clases del dia.", owner: "Persona 3", evidence: "Zoom, materiales, grupo y soporte listos." },
+  { id: "RULE-04", cadence: "Diario", rule: "Soporte/testing registra incidencias nuevas con evidencia.", owner: "Jordi", evidence: "Bug o incidencia con captura, impacto y responsable." },
+  { id: "RULE-05", cadence: "Viernes", rule: "Todos cierran actividades completadas y bloqueos abiertos.", owner: "Lead de area", evidence: "Cierre semanal con entregables y bloqueos." },
+  { id: "RULE-06", cadence: "Automatica", rule: "Fecha limite vencida sin estado alerta al responsable y Alejandro.", owner: "Agente #19", evidence: "Alerta con tarea, dias de atraso y siguiente accion." },
+  { id: "RULE-07", cadence: "Automatica", rule: "Bloqueo mayor a 3 dias escala a Alejandro.", owner: "Agente #11", evidence: "Escalamiento con dependencia concreta." },
+  { id: "RULE-08", cadence: "Calidad dato", rule: "Actividad sin evidencia_link se considera incompleta.", owner: "Persona 22", evidence: "Campo evidencia o enlace interno seguro." },
+  { id: "RULE-09", cadence: "Calidad dato", rule: "Bug no se cierra sin confirmacion de retest documentado.", owner: "Jordi", evidence: "Campo evidencia_retest completado." },
+  { id: "RULE-10", cadence: "Calidad dato", rule: "Sin actualizar en 7+ dias genera badge de riesgo visible.", owner: "Agente #19", evidence: "Badge de riesgo en Centro de Control." }
+];
+
+export const ecosystemMetrics: EcosystemMetric[] = [
+  { id: "MET-01", company: "AECODE", metric: "Skills verificadas / usuario activo mensual", target: ">20%", frequency: "Mensual", owner: "Producto + Educacion" },
+  { id: "MET-02", company: "AECODE", metric: "TTFSV - Time to First Skill Verified", target: "<7 dias", frequency: "Por cohorte", owner: "Producto" },
+  { id: "MET-03", company: "AECODE", metric: "Landing Conversion Rate", target: ">15%", frequency: "Diaria/campana", owner: "Growth + Producto" },
+  { id: "MET-04", company: "AECODE", metric: "Onboarding Completion", target: ">65%", frequency: "Semanal", owner: "Educacion" },
+  { id: "MET-05", company: "AECODE", metric: "Evidence Upload Rate", target: ">20% gate / >35% objetivo", frequency: "Semanal", owner: "Educacion + Producto" },
+  { id: "MET-06", company: "GEN+", metric: "Conversion cotizacion -> proyecto ganado", target: "Seguimiento activo", frequency: "Semanal", owner: "Direccion + Comercial" },
+  { id: "MET-07", company: "GEN+", metric: "Monto facturado vs cobrado / vencidos", target: "0 vencidos >30d", frequency: "Semanal", owner: "Administracion" },
+  { id: "MET-08", company: "SP+ / VisionPro", metric: "Reportes ejecutivos entregados", target: "100% semanas activas", frequency: "Semanal", owner: "Daniella / Erika" },
+  { id: "MET-09", company: "GEN+", metric: "AgentFlow uptime webhooks", target: ">99%", frequency: "Diaria", owner: "Marlon" },
+  { id: "MET-10", company: "Marketing & Growth", metric: "CTR pauta pagada", target: ">2%", frequency: "Diaria en campanas", owner: "Anggie / Arantxa" },
+  { id: "MET-11", company: "Marketing & Growth", metric: "CPL", target: "<3x precio programa basico", frequency: "Semanal por campana", owner: "Anggie / Arantxa" },
+  { id: "MET-12", company: "Marketing & Growth", metric: "Conversion post-webinar", target: ">10% a siguiente oferta", frequency: "Por webinar", owner: "Growth + Comercial" }
 ];
 
 export const activities: Activity[] = [
@@ -1869,6 +2068,134 @@ export const activities: Activity[] = [
     source: "Actividad enviada por programas/Summit",
     risk: "Plantillas no versionadas generan mensajes inconsistentes o links incorrectos.",
     nextAction: "Versionar plantilla, objetivo, segmento, asunto, CTA, links seguros, aprobacion y resultado."
+  },
+  {
+    id: "ACT-105",
+    area: "Comercial",
+    activity: "Llamar leads calientes",
+    owner: "Persona 29",
+    backup: "Persona 19",
+    agent: "Agente #16",
+    automationLevel: "Media",
+    sla: "Diario",
+    evidence: "llamada registrada",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por cierre comercial",
+    risk: "Lead caliente sin llamada pierde urgencia, confianza y probabilidad de cierre.",
+    nextAction: "Priorizar por temperatura, fuente, programa, ultimo contacto y proxima accion registrada."
+  },
+  {
+    id: "ACT-106",
+    area: "Comercial",
+    activity: "Mandar audios comerciales a leads y oportunidades",
+    owner: "Persona 29",
+    backup: "Persona 19",
+    agent: "Agente #16",
+    automationLevel: "Media",
+    sla: "Diario",
+    evidence: "audio enviado y respuesta trazada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por cierre comercial",
+    risk: "Seguimiento frio o generico reduce respuesta y no resuelve objeciones reales.",
+    nextAction: "Crear libreria de audios por curso, objecion, etapa y CTA con control humano."
+  },
+  {
+    id: "ACT-107",
+    area: "Comercial",
+    activity: "Dar seguimiento orientado al cierre",
+    owner: "Persona 29",
+    backup: "Persona 19",
+    agent: "Agente #16",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "proxima accion de cierre registrada",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por cierre comercial",
+    risk: "Sin seguimiento de cierre, la asesoria queda informativa y no convierte.",
+    nextAction: "Definir etapa, objecion, oferta, urgencia, proximo mensaje y fecha de cierre por lead."
+  },
+  {
+    id: "ACT-108",
+    area: "Marketing",
+    activity: "Optimizar copys comerciales segun objeciones y cierre",
+    owner: "Persona 29",
+    backup: "Persona 12",
+    agent: "Agente #16",
+    automationLevel: "Media",
+    sla: "Semanal / por campana",
+    evidence: "copy ajustado con insight comercial",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por cierre comercial",
+    risk: "Copys desconectados de objeciones reales generan leads curiosos pero no compradores.",
+    nextAction: "Cruzar objeciones, audios, llamadas y mensajes con propuesta, CTA y prueba social."
+  },
+  {
+    id: "ACT-109",
+    area: "Marketing",
+    activity: "Dar seguimiento a Anggie para envio de brochures completos",
+    owner: "Persona 29",
+    backup: "Persona 15",
+    agent: "Agente #14",
+    automationLevel: "Media",
+    sla: "Por campana / oferta",
+    evidence: "brochure completo enviado o publicado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por cierre comercial",
+    risk: "Brochure incompleto frena cierre porque el lead no recibe informacion suficiente para decidir.",
+    nextAction: "Mantener checklist de brochure: oferta, beneficios, temario, fecha, precio, CTA, links y aprobacion."
+  },
+  {
+    id: "ACT-110",
+    area: "Difusion",
+    activity: "Brindar ideas y recordatorios a Reiner para seguimiento masivo",
+    owner: "Persona 29",
+    backup: "Persona 8",
+    agent: "Agente #10",
+    automationLevel: "Media",
+    sla: "Semanal / por campana",
+    evidence: "seguimiento masivo enviado",
+    status: "Activo",
+    priority: "Media",
+    source: "Actividad enviada por cierre comercial",
+    risk: "La difusion masiva se atrasa o sale sin aprendizaje comercial si no hay recordatorio e idea clara.",
+    nextAction: "Entregar mensaje, segmento, canal, hora, CTA y objetivo de seguimiento antes del envio."
+  },
+  {
+    id: "ACT-111",
+    area: "Comercial",
+    activity: "Entrenar a Yadira en cierre, audios y llamadas",
+    owner: "Persona 29",
+    backup: "Persona 19",
+    agent: "Agente #16",
+    automationLevel: "Baja",
+    sla: "Semanal",
+    evidence: "sesion de entrenamiento y mejora observada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por cierre comercial",
+    risk: "El conocimiento comercial queda concentrado y no escala al equipo de ventas.",
+    nextAction: "Registrar guion, ejemplos de audios, objeciones, llamadas practicadas y ventas concretadas."
+  },
+  {
+    id: "ACT-112",
+    area: "Reuniones",
+    activity: "Reunirse con el equipo comercial para revisar avances y mejoras",
+    owner: "Persona 29",
+    backup: "Persona 19",
+    agent: "Agente #16",
+    automationLevel: "Media",
+    sla: "Semanal",
+    evidence: "acuerdos, avances y mejoras registradas",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por cierre comercial",
+    risk: "Sin review comercial, las mejoras quedan informales y no se convierten en sistema.",
+    nextAction: "Revisar leads llamados, audios enviados, cierres, objeciones, copys, brochures y proximos cambios."
   }
 ];
 
@@ -1888,7 +2215,7 @@ export const agents: Agent[] = [
   { id: "Agente #13", mission: "Orquestar eventos, Summit, agenda, piezas y sponsors.", input: "Notion evento + calendario + assets", output: "Semaforo de evento y tareas vencidas", humanControl: "Persona 14 escala bloqueos", status: "Propuesto", impact: "Alto" },
   { id: "Agente #14", mission: "Gestionar cola web, landings, piezas y QA visual.", input: "Solicitud de cambio + assets", output: "Checklist de publicacion y aprobacion", humanControl: "Persona 15 o 16 aprueba salida", status: "Propuesto", impact: "Medio" },
   { id: "Agente #15", mission: "Transformar webinars en clips, shorts y assets reutilizables.", input: "Grabacion + transcript + tema", output: "Backlog de clips con guion y estado", humanControl: "Persona 17 valida edicion final", status: "Propuesto", impact: "Medio" },
-  { id: "Agente #16", mission: "Cruzar leads, asesorias GHL, objeciones, scripts, tiempos de respuesta y conversion comercial.", input: "GHL + CRM + feedback diario", output: "Lead quality, objeciones, gaps de venta y oportunidades por curso", humanControl: "Persona 12 y Persona 18 validan lectura marketing-ventas", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #16", mission: "Cruzar leads, asesorias GHL, objeciones, scripts, tiempos de respuesta y conversion comercial.", input: "GHL + CRM + feedback diario", output: "Lead quality, objeciones, gaps de venta y oportunidades por curso", humanControl: "Persona 12 y Persona 18 validan lectura marketing-ventas; Persona 29 valida cierre", status: "Propuesto", impact: "Alto" },
   { id: "Agente #17", mission: "Auditar loop de aprendizaje, evidencias, rubricas y skill passport.", input: "Programas + evidencias + evaluaciones", output: "Mapa de skill verification por cohorte", humanControl: "Persona 20 valida criterio academico", status: "Propuesto", impact: "Alto" },
   { id: "Agente #18", mission: "Sincronizar pagos, comprobantes y bloqueos administrativos.", input: "Pagos + documentos + matriculas", output: "Estado administrativo por estudiante", humanControl: "Persona 21 revisa casos sensibles", status: "Propuesto", impact: "Medio" },
   { id: "Agente #19", mission: "Construir dashboard ejecutivo de operacion completa AECODE.", input: "Academico + marketing + comercial + soporte", output: "KPIs semanales y alertas de decision", humanControl: "Persona 22 valida datos", status: "Propuesto", impact: "Alto" },
@@ -2675,15 +3002,27 @@ export const opsRoles: OpsRole[] = [
   },
   {
     id: "Persona 18",
-    role: "Sales Feedback + Lead Quality Ops",
-    mission: "Traducir la realidad comercial en feedback accionable para campanas, cursos y oferta.",
+    role: "Sales Review + Lead Quality Ops",
+    mission: "Revisar como vende el equipo comercial para convertir la realidad de GHL en feedback accionable para marketing, copys, oferta y calidad de leads.",
     areas: ["Comercial", "Marketing", "Datos"],
     primaryActivities: ["ACT-028", "ACT-029", "ACT-022", "ACT-048"],
-    kpis: ["Leads contactados", "Objeciones mapeadas", "Conversion por campana", "Feedback diario enviado", "Scripts mejorados"],
-    dailyCheck: "Reportar calidad de leads, objeciones, cursos con traccion, conversaciones GHL y oportunidades de mejora.",
-    escalation: "Leads sin contacto, campana con mala calidad, curso sin oferta clara o asesorias desalineadas.",
+    kpis: ["Leads revisados", "Objeciones mapeadas", "Conversion por campana", "Feedback diario enviado", "Scripts mejorados"],
+    dailyCheck: "Revisar conversaciones GHL, calidad de leads, objeciones, cursos con traccion, conversion por fuente y oportunidades de mejora para marketing.",
+    escalation: "Campana con mala calidad, asesoria desalineada, objecion repetida sin ajuste de copy o marketing sin lectura comercial.",
     backup: "Persona 19",
-    obsidianSource: "HTML marketing/Ventas Feedback Comercial"
+    obsidianSource: "Actividad enviada por frontera GEN+/AECODE + HTML marketing/Ventas Feedback Comercial"
+  },
+  {
+    id: "Persona 29",
+    role: "Sales Closing + Team Training Ops",
+    mission: "Convertir leads calientes en cierres mediante llamadas, audios, seguimiento, copys, brochures, seguimiento masivo y entrenamiento del equipo comercial.",
+    areas: ["Comercial", "Marketing", "Difusion", "Datos", "Reuniones"],
+    primaryActivities: ["ACT-105", "ACT-106", "ACT-107", "ACT-108", "ACT-109", "ACT-110", "ACT-111", "ACT-112"],
+    kpis: ["Leads calientes llamados", "Audios enviados", "Tasa de cierre", "Copys ajustados", "Brochures completos", "Seguimiento masivo enviado", "Equipo entrenado"],
+    dailyCheck: "Revisar leads calientes, llamadas, audios, cierres, copys, brochures, seguimiento masivo, avances de Yadira y mejoras del equipo.",
+    escalation: "Lead caliente sin llamada, audio sin respuesta, brochure incompleto, copy debil, seguimiento masivo no enviado, Yadira bloqueada o cierre estancado.",
+    backup: "Persona 19",
+    obsidianSource: "Actividad enviada por cierre comercial corregida por Alejandro: responsable Talia"
   },
   {
     id: "Persona 19",
@@ -2874,8 +3213,8 @@ export const workflowStages: WorkflowStage[] = [
     timing: "7 dias antes -> diario",
     owner: "Persona 12",
     objective: "Pasar de oferta academica a campana medible con feedback comercial.",
-    activities: ["ACT-021", "ACT-022", "ACT-028", "ACT-029", "ACT-048"],
-    evidence: "Brief, piezas, landing, campana activa, CPL, lead quality, conversaciones GHL y objeciones.",
+    activities: ["ACT-021", "ACT-022", "ACT-028", "ACT-029", "ACT-048", "ACT-108", "ACT-109", "ACT-110"],
+    evidence: "Brief, piezas, landing, campana activa, CPL, lead quality, conversaciones GHL, copys ajustados, brochures y objeciones.",
     automation: "Agente #12 + Agente #16"
   },
   {
@@ -2977,6 +3316,785 @@ export const workflowStages: WorkflowStage[] = [
     activities: ["ACT-095", "ACT-096", "ACT-097", "ACT-098", "ACT-099", "ACT-100", "ACT-101", "ACT-102", "ACT-103", "ACT-104"],
     evidence: "Estado de programa, acta PDF, flujo Notion, agenda academica, ticket postventa, reporte de error, pipeline sponsor y plantilla HTML.",
     automation: "Agente #35 + Agente #36 + Agente #13 + Agente #1"
+  },
+  {
+    id: "WF-18",
+    label: "Cierre comercial y entrenamiento ventas",
+    timing: "Diario -> review semanal",
+    owner: "Persona 29",
+    objective: "Convertir leads calientes en cierres mediante llamadas, audios, seguimiento, copys, brochures, difusion masiva y entrenamiento del equipo.",
+    activities: ["ACT-105", "ACT-106", "ACT-107", "ACT-108", "ACT-109", "ACT-110", "ACT-111", "ACT-112"],
+    evidence: "Llamadas registradas, audios enviados, cierres, copys optimizados, brochures completos, seguimiento masivo, entrenamiento y acuerdos de mejora.",
+    automation: "Agente #16 + Agente #14 + Agente #10"
+  }
+];
+
+export const workflowPlaybooks: WorkflowPlaybook[] = [
+  {
+    id: "PB-01",
+    title: "Postventa y acceso de estudiante",
+    domain: "Operacion academica",
+    trigger: "Compra validada, formulario completado o lista de inscritos recibida.",
+    goal: "Que cada estudiante llegue a su primera clase con acceso, grupo y soporte activo.",
+    lead: "Persona 1",
+    cycle: "Compra -> primera clase",
+    kpi: "Acceso activo <24h y cero alumnos bloqueados al inicio.",
+    agent: "Agente #1 + Agente #2 + Agente #7",
+    steps: [
+      {
+        id: "PB01-S1",
+        label: "Validar inscrito",
+        timing: "0-4h",
+        owner: "Persona 2",
+        team: ["Persona 1", "Persona 21"],
+        entry: "Pago, formulario, Sheet o lead marcado como inscrito.",
+        action: "Cruzar registro, curso, cohorte, correo, telefono y estado administrativo.",
+        output: "Alumno validado o observado con motivo concreto.",
+        evidence: "Registro actualizado con user_id, course_id, cohort_id y fuente.",
+        systems: ["Sheet inscritos", "GHL", "Panel AECODE"],
+        automation: "Agente #7 detecta duplicados, campos vacios y alumnos sin owner.",
+        status: "Listo",
+        risk: "Registro duplicado o correo incorrecto bloquea accesos y certificados.",
+        linkedActivities: ["ACT-003", "ACT-032"]
+      },
+      {
+        id: "PB01-S2",
+        label: "Activar acceso",
+        timing: "0-24h",
+        owner: "Persona 1",
+        team: ["Persona 3"],
+        entry: "Alumno validado y programa confirmado.",
+        action: "Crear acceso en plataforma, revisar rol, curso visible y panel correcto.",
+        output: "Acceso activo y probado.",
+        evidence: "Estado acceso_activo y captura o log interno.",
+        systems: ["Admin Morado", "Panel AECODE", "Plataforma"],
+        automation: "Agente #2 genera cola de altas, alertas y excepciones.",
+        status: "En curso",
+        risk: "Acceso tardio genera reclamos tempranos y baja activacion.",
+        linkedActivities: ["ACT-001", "ACT-002"]
+      },
+      {
+        id: "PB01-S3",
+        label: "Crear grupo y aula",
+        timing: "24-72h antes",
+        owner: "Persona 6",
+        team: ["Persona 3", "Persona 7"],
+        entry: "Cohorte confirmada y lista de estudiantes limpia.",
+        action: "Crear o actualizar grupo WhatsApp, Classroom y perfil del grupo.",
+        output: "Canal oficial listo con estudiantes, embajador y reglas basicas.",
+        evidence: "Grupo/aula creado con responsable y enlace seguro interno.",
+        systems: ["WhatsApp", "Classroom", "Sheet grupos"],
+        automation: "Agente #6 compara inscritos vs miembros del grupo.",
+        status: "En curso",
+        risk: "Alumno fuera del grupo pierde recordatorios, soporte y comunidad.",
+        linkedActivities: ["ACT-010", "ACT-016"]
+      },
+      {
+        id: "PB01-S4",
+        label: "Bienvenida y recordatorio",
+        timing: "24h antes",
+        owner: "Persona 6",
+        team: ["Persona 8", "Persona 3"],
+        entry: "Acceso, grupo y clase confirmados.",
+        action: "Enviar mensaje de bienvenida, instrucciones y recordatorio de clase.",
+        output: "Alumno entiende link, horario, canal y proximo paso.",
+        evidence: "Mensaje enviado, canal, hora y responsable registrados.",
+        systems: ["WhatsApp", "GHL", "Sheet seguimiento"],
+        automation: "Agente #5 agenda recordatorios y marca pendientes.",
+        status: "Automatizable",
+        risk: "Sin recordatorio aumenta inasistencia y consultas repetidas.",
+        linkedActivities: ["ACT-009", "ACT-013"]
+      },
+      {
+        id: "PB01-S5",
+        label: "Soporte primer acceso",
+        timing: "Dia de clase",
+        owner: "Persona 1",
+        team: ["Persona 3", "Persona 7"],
+        entry: "Alumno intenta ingresar o reporta bloqueo.",
+        action: "Responder ticket, clasificar incidencia y escalar si excede SLA.",
+        output: "Incidencia resuelta o escalada con evidencia.",
+        evidence: "Ticket con categoria, SLA, respuesta y cierre.",
+        systems: ["WhatsApp", "Panel AECODE", "Registro soporte"],
+        automation: "Agente #1 enrutador de soporte por categoria y prioridad.",
+        status: "Riesgo",
+        risk: "Sin ticket se pierde trazabilidad y el problema se repite.",
+        linkedActivities: ["ACT-001"]
+      }
+    ],
+    handoffs: [
+      { from: "Comercial/Admin", to: "Persona 2", rule: "No pasa a acceso sin pago, correo y programa confirmados." },
+      { from: "Persona 2", to: "Persona 1", rule: "No se activa acceso con registro incompleto." },
+      { from: "Persona 1", to: "Persona 6", rule: "Grupo se crea solo con acceso o cohorte confirmada." },
+      { from: "Persona 6", to: "Persona 3", rule: "Sesion no se confirma si faltan estudiantes clave en grupo." }
+    ],
+    escalations: [
+      "Alumno pagado sin acceso luego de 24h.",
+      "Correo/telefono incorrecto sin respuesta del asesor.",
+      "Grupo o Classroom no creado 24h antes de clase."
+    ],
+    doneDefinition: [
+      "Acceso probado por curso y cohorte.",
+      "Alumno en canal oficial.",
+      "Registro unico actualizado.",
+      "Soporte con SLA y responsable."
+    ]
+  },
+  {
+    id: "PB-02",
+    title: "Sesion en vivo y soporte academico",
+    domain: "Sesiones live",
+    trigger: "Clase programada en calendario academico.",
+    goal: "Ejecutar la sesion sin improvisacion y capturar evidencia operativa.",
+    lead: "Persona 3",
+    cycle: "72h antes -> cierre de clase",
+    kpi: "Sesion lista 72h antes y acta/incidencias cerradas el mismo dia.",
+    agent: "Agente #3 + Agente #5 + Agente #9",
+    steps: [
+      {
+        id: "PB02-S1",
+        label: "Configurar Zoom",
+        timing: "72h antes",
+        owner: "Persona 3",
+        team: ["Persona 6", "Persona 1"],
+        entry: "Horario, instructor y cohorte confirmados.",
+        action: "Crear Zoom, revisar cuenta, permisos, grabacion y conflictos de horario.",
+        output: "Link oficial validado.",
+        evidence: "Zoom creado con fecha, cuenta, host y estado de grabacion.",
+        systems: ["Zoom", "Sheet calendario", "Notion programas"],
+        automation: "Agente #3 detecta conflictos de cuenta y links faltantes.",
+        status: "En curso",
+        risk: "Link incorrecto o cuenta ocupada bloquea la clase.",
+        linkedActivities: ["ACT-004"]
+      },
+      {
+        id: "PB02-S2",
+        label: "Confirmar instructor y recursos",
+        timing: "48h antes",
+        owner: "Persona 3",
+        team: ["Persona 24", "Persona 28"],
+        entry: "Tema de sesion, programa y materiales esperados.",
+        action: "Validar PPT, Miro, archivos BIM, recursos y responsable de presentacion.",
+        output: "Material listo y versionado.",
+        evidence: "Checklist de recursos con version y link seguro.",
+        systems: ["Drive", "Miro", "Notion", "Sheet programas"],
+        automation: "Agente #21 cataloga recursos BIM y faltantes.",
+        status: "Automatizable",
+        risk: "Material tardio afecta experiencia y autoridad docente.",
+        linkedActivities: ["ACT-011", "ACT-044", "ACT-045", "ACT-046", "ACT-047"]
+      },
+      {
+        id: "PB02-S3",
+        label: "Activar embajador",
+        timing: "24h antes",
+        owner: "Persona 7",
+        team: ["Persona 6", "Persona 3"],
+        entry: "Grupo, lista y reglas de sesion listas.",
+        action: "Asignar embajador, pasar funciones y checklist de video/soporte.",
+        output: "Embajador operativo con rol claro.",
+        evidence: "Embajador asignado, induccion enviada y funciones aceptadas.",
+        systems: ["WhatsApp", "Drive", "Sheet embajadores"],
+        automation: "Agente #9 alerta embajador faltante o sin induccion.",
+        status: "En curso",
+        risk: "Sin embajador la sesion depende de coordinacion manual.",
+        linkedActivities: ["ACT-011", "ACT-012"]
+      },
+      {
+        id: "PB02-S4",
+        label: "Recordatorio y ejecucion",
+        timing: "Dia de clase",
+        owner: "Persona 6",
+        team: ["Persona 1", "Persona 3"],
+        entry: "Zoom, grupo y material listos.",
+        action: "Enviar recordatorio, abrir soporte, verificar grabacion y registrar incidencias.",
+        output: "Sesion ejecutada con asistencia y soporte controlados.",
+        evidence: "Recordatorio enviado, asistencia, incidencias y grabacion activa.",
+        systems: ["WhatsApp", "Zoom", "Registro soporte"],
+        automation: "Agente #5 controla recordatorios y asistencia esperada.",
+        status: "Riesgo",
+        risk: "Si no se activa grabacion, se rompe el flujo de contenido post sesion.",
+        linkedActivities: ["ACT-001", "ACT-009"]
+      },
+      {
+        id: "PB02-S5",
+        label: "Cierre y acta",
+        timing: "0-12h post clase",
+        owner: "Persona 28",
+        team: ["Persona 3", "Persona 7"],
+        entry: "Sesion finalizada.",
+        action: "Registrar acta, incidencias, pendientes academicos y material a publicar.",
+        output: "Cierre operativo listo para contenido y seguimiento.",
+        evidence: "Acta, pendientes, asistencia y bloqueos.",
+        systems: ["Notion", "Drive", "Sheet programas"],
+        automation: "Agente #35 genera semaforo de sesion y pendientes.",
+        status: "Automatizable",
+        risk: "Sin acta el aprendizaje operativo no alimenta mejora ni soporte.",
+        linkedActivities: ["ACT-095", "ACT-096"]
+      }
+    ],
+    handoffs: [
+      { from: "Persona 3", to: "Persona 6", rule: "Recordatorio sale solo con link Zoom validado." },
+      { from: "Persona 24", to: "Persona 3", rule: "Material BIM debe llegar versionado antes del recordatorio." },
+      { from: "Persona 7", to: "Persona 28", rule: "Cierre academico incluye reporte de embajador." }
+    ],
+    escalations: [
+      "Zoom sin host confirmado 24h antes.",
+      "Instructor o material sin confirmacion 24h antes.",
+      "Grabacion no activada durante clase."
+    ],
+    doneDefinition: [
+      "Clase ejecutada con link correcto.",
+      "Grabacion confirmada.",
+      "Incidencias registradas.",
+      "Acta o cierre operativo publicado."
+    ]
+  },
+  {
+    id: "PB-03",
+    title: "Grabacion, edicion y publicacion",
+    domain: "Contenido y plataforma",
+    trigger: "Sesion grabada o recurso listo para publicar.",
+    goal: "Publicar la grabacion correcta en plataforma y convertirla en activo reutilizable.",
+    lead: "Persona 4",
+    cycle: "0-48h post clase",
+    kpi: "Grabacion publicada <48h y alumnos notificados.",
+    agent: "Agente #4 + Agente #10 + Agente #15",
+    steps: [
+      {
+        id: "PB03-S1",
+        label: "Recibir grabacion",
+        timing: "0-6h",
+        owner: "Persona 4",
+        team: ["Persona 3"],
+        entry: "Sesion finalizada con grabacion disponible.",
+        action: "Descargar o ubicar archivo Drive, validar nombre, cohorte y modulo.",
+        output: "Archivo base identificado.",
+        evidence: "Drive con nomenclatura curso-modulo-fecha.",
+        systems: ["Zoom", "Drive", "Sheet videos"],
+        automation: "Agente #4 detecta grabaciones sin curso o sin destino.",
+        status: "En curso",
+        risk: "Archivo sin nomenclatura produce errores de publicacion.",
+        linkedActivities: ["ACT-005"]
+      },
+      {
+        id: "PB03-S2",
+        label: "QA y edicion",
+        timing: "6-24h",
+        owner: "Persona 4",
+        team: ["Persona 17", "Persona 5"],
+        entry: "Video base y criterio de publicacion.",
+        action: "Cortar inicio/fin, revisar audio, privacidad, miniatura y partes sensibles.",
+        output: "Video listo para Vimeo o YouTube.",
+        evidence: "Version editada y aprobacion de publicacion.",
+        systems: ["Editor video", "Drive", "YouTube"],
+        automation: "Agente #15 propone cortes y clips reutilizables.",
+        status: "Automatizable",
+        risk: "Publicar sin QA puede exponer errores, datos o mala experiencia.",
+        linkedActivities: ["ACT-006", "ACT-007", "ACT-008"]
+      },
+      {
+        id: "PB03-S3",
+        label: "Subir a Vimeo",
+        timing: "24h",
+        owner: "Persona 4",
+        team: ["Persona 1"],
+        entry: "Video editado y curso destino definido.",
+        action: "Subir a Vimeo, validar privacidad, titulo y embed.",
+        output: "Video con enlace Vimeo listo.",
+        evidence: "URL segura y estado publicado.",
+        systems: ["Vimeo", "Drive", "Panel AECODE"],
+        automation: "Agente #4 marca estado Drive -> Vimeo.",
+        status: "En curso",
+        risk: "Privacidad incorrecta o video no embebible rompe plataforma.",
+        linkedActivities: ["ACT-005"]
+      },
+      {
+        id: "PB03-S4",
+        label: "Publicar en plataforma",
+        timing: "24-48h",
+        owner: "Persona 1",
+        team: ["Persona 4", "Persona 20"],
+        entry: "Embed Vimeo y modulo destino.",
+        action: "Subir video, recurso y descripcion a plataforma AECODE.",
+        output: "Clase disponible para estudiantes.",
+        evidence: "Modulo con video publicado y prueba de acceso.",
+        systems: ["Panel AECODE", "Vimeo", "Plataforma"],
+        automation: "Agente #4 cierra pipeline y notifica faltantes.",
+        status: "Riesgo",
+        risk: "Video no publicado aumenta consultas y baja valor percibido.",
+        linkedActivities: ["ACT-005"]
+      },
+      {
+        id: "PB03-S5",
+        label: "Notificar y reciclar",
+        timing: "48h",
+        owner: "Persona 6",
+        team: ["Persona 15", "Persona 17"],
+        entry: "Video publicado y probado.",
+        action: "Avisar a estudiantes y derivar clips para YouTube/ads si aplica.",
+        output: "Alumno informado y backlog de contenido actualizado.",
+        evidence: "Mensaje enviado, pieza o clip en cola.",
+        systems: ["WhatsApp", "YouTube", "Drive", "GHL"],
+        automation: "Agente #10 registra canal, copy, CTA y resultado.",
+        status: "Automatizable",
+        risk: "Contenido publicado pero no comunicado genera baja visualizacion.",
+        linkedActivities: ["ACT-007", "ACT-008", "ACT-013"]
+      }
+    ],
+    handoffs: [
+      { from: "Persona 3", to: "Persona 4", rule: "Cierre de clase debe indicar si la grabacion existe y donde esta." },
+      { from: "Persona 4", to: "Persona 1", rule: "No se publica en plataforma sin Vimeo validado." },
+      { from: "Persona 1", to: "Persona 6", rule: "No se comunica al grupo hasta probar acceso del video." }
+    ],
+    escalations: [
+      "Grabacion no encontrada 6h post clase.",
+      "Video pendiente de publicacion >48h.",
+      "Error de privacidad o acceso reportado por alumno."
+    ],
+    doneDefinition: [
+      "Video en plataforma.",
+      "Acceso probado.",
+      "Alumnos notificados.",
+      "Clip reusable identificado si aplica."
+    ]
+  },
+  {
+    id: "PB-04",
+    title: "Evidencia, rubrica y certificados",
+    domain: "Skill verification",
+    trigger: "Modulo, reto o cohorte entra a cierre academico.",
+    goal: "Pasar de asistencia a habilidad verificada con evidencia.",
+    lead: "Persona 20",
+    cycle: "Reto -> certificado",
+    kpi: "Skills verificadas con evidencia por usuario activo mensual.",
+    agent: "Agente #8 + Agente #17 + Agente #19",
+    steps: [
+      {
+        id: "PB04-S1",
+        label: "Abrir reto/evidencia",
+        timing: "Inicio modulo",
+        owner: "Persona 20",
+        team: ["Persona 7", "Persona 16"],
+        entry: "Skill outcome, modulo y rubrica definidos.",
+        action: "Publicar tarea, criterios de evidencia y fecha de entrega.",
+        output: "Estudiante sabe que debe demostrar.",
+        evidence: "Reto publicado con rubrica visible.",
+        systems: ["Plataforma", "Classroom", "Notion"],
+        automation: "Agente #17 revisa que cada modulo tenga evidencia esperada.",
+        status: "En curso",
+        risk: "Sin evidencia, AECODE queda como academia de asistencia.",
+        linkedActivities: ["ACT-031", "ACT-033"]
+      },
+      {
+        id: "PB04-S2",
+        label: "Recolectar y clasificar",
+        timing: "Durante modulo",
+        owner: "Persona 7",
+        team: ["Persona 1", "Persona 3"],
+        entry: "Evidencias enviadas por estudiantes.",
+        action: "Clasificar entregas: recibida, incompleta, requiere soporte, lista para rubrica.",
+        output: "Cola de revision limpia.",
+        evidence: "Estado de evidencia por estudiante.",
+        systems: ["Classroom", "Sheet academico", "Plataforma"],
+        automation: "Agente #17 marca entregas incompletas y alumnos en riesgo.",
+        status: "Automatizable",
+        risk: "Evidencias dispersas impiden certificar con criterio.",
+        linkedActivities: ["ACT-018", "ACT-019"]
+      },
+      {
+        id: "PB04-S3",
+        label: "Validar rubrica",
+        timing: "Cierre modulo",
+        owner: "Persona 7",
+        team: ["Persona 20", "Persona 26"],
+        entry: "Evidencias listas.",
+        action: "Aplicar rubrica, registrar feedback y separar aprobados/observados.",
+        output: "Resultado academico defendible.",
+        evidence: "Rubrica, feedback y estado de aprobacion.",
+        systems: ["Sheet academico", "Plataforma", "Drive"],
+        automation: "Agente #24 detecta inconsistencias de data y evidencia faltante.",
+        status: "En curso",
+        risk: "Certificar sin rubrica debilita calidad y confianza.",
+        linkedActivities: ["ACT-056", "ACT-061"]
+      },
+      {
+        id: "PB04-S4",
+        label: "Emitir certificado",
+        timing: "Cierre cohorte",
+        owner: "Persona 1",
+        team: ["Persona 9", "Persona 21"],
+        entry: "Alumno aprobado y datos administrativos correctos.",
+        action: "Generar certificado de participacion o aprobacion segun regla.",
+        output: "Certificado emitido y enviado.",
+        evidence: "Certificado, estado de envio y registro de alumno.",
+        systems: ["Certificados", "Drive", "Correo", "Sheet inscritos"],
+        automation: "Agente #8 valida datos, tipo de certificado y envio.",
+        status: "Riesgo",
+        risk: "Certificado con datos erroneos genera reproceso y reclamo.",
+        linkedActivities: ["ACT-018", "ACT-019"]
+      },
+      {
+        id: "PB04-S5",
+        label: "Actualizar dashboard",
+        timing: "Semanal",
+        owner: "Persona 22",
+        team: ["Persona 20", "Persona 10"],
+        entry: "Evidencias y certificados cerrados.",
+        action: "Actualizar metricas de skill start, evidence upload, verified skill y certificado.",
+        output: "Decision de retencion, producto y growth basada en evidencia.",
+        evidence: "Dashboard actualizado con corte semanal.",
+        systems: ["BI", "Sheet", "Dashboard"],
+        automation: "Agente #19 genera alertas de cohortes y skill verification.",
+        status: "Automatizable",
+        risk: "Sin metrica, el equipo optimiza actividades y no resultados.",
+        linkedActivities: ["ACT-003", "ACT-031", "ACT-033"]
+      }
+    ],
+    handoffs: [
+      { from: "Persona 20", to: "Persona 7", rule: "Rubrica debe existir antes de pedir evidencia." },
+      { from: "Persona 7", to: "Persona 1", rule: "Certificado solo sale con aprobacion y datos validados." },
+      { from: "Persona 1", to: "Persona 22", rule: "Certificado emitido actualiza metricas y cohorte." }
+    ],
+    escalations: [
+      "Alumno aprobado con datos incompletos.",
+      "Evidencias sin revisar por mas de 7 dias.",
+      "Cohorte cierra sin dashboard de skill verification."
+    ],
+    doneDefinition: [
+      "Evidencia validada.",
+      "Feedback registrado.",
+      "Certificado enviado si aplica.",
+      "Metricas actualizadas."
+    ]
+  },
+  {
+    id: "PB-05",
+    title: "Campana, GHL y cierre comercial",
+    domain: "Growth y ventas",
+    trigger: "Nuevo curso, webinar, evento o campana activa.",
+    goal: "Conectar marketing, ventas y postventa para convertir leads con aprendizaje real.",
+    lead: "Persona 12",
+    cycle: "Brief -> venta -> feedback",
+    kpi: "Lead quality, conversion a reunion/venta y objeciones convertidas en mejora de copy.",
+    agent: "Agente #12 + Agente #16",
+    steps: [
+      {
+        id: "PB05-S1",
+        label: "Brief y oferta",
+        timing: "7 dias antes",
+        owner: "Persona 12",
+        team: ["Persona 18", "Persona 16", "Persona 20"],
+        entry: "Programa, precio, promesa y publico objetivo.",
+        action: "Alinear oferta, landing, CTA, objeciones y diferenciador de skill evidence.",
+        output: "Brief de campana listo.",
+        evidence: "Brief, copy base y criterio de lead ideal.",
+        systems: ["Notion", "GHL", "Drive"],
+        automation: "Agente #12 revisa checklist de campana antes de pauta.",
+        status: "En curso",
+        risk: "Campana sin oferta clara atrae leads de baja calidad.",
+        linkedActivities: ["ACT-021", "ACT-108"]
+      },
+      {
+        id: "PB05-S2",
+        label: "Piezas y pauta",
+        timing: "5 dias antes",
+        owner: "Persona 13",
+        team: ["Persona 12", "Persona 15"],
+        entry: "Brief aprobado.",
+        action: "Crear piezas, brochure, copy, anuncios y activos de difusion.",
+        output: "Campana lista para publicar.",
+        evidence: "Piezas aprobadas, brochure completo y campana activa.",
+        systems: ["Meta Ads", "Drive", "Web", "YouTube"],
+        automation: "Agente #14 valida assets y cola web.",
+        status: "Automatizable",
+        risk: "Brochure incompleto o pieza tardia frena cierre.",
+        linkedActivities: ["ACT-022", "ACT-029", "ACT-109"]
+      },
+      {
+        id: "PB05-S3",
+        label: "Revisar GHL",
+        timing: "Diario",
+        owner: "Persona 18",
+        team: ["Persona 12", "Persona 29"],
+        entry: "Leads y conversaciones entrando.",
+        action: "Revisar calidad, respuestas, objeciones, origen y gaps del embudo.",
+        output: "Insights para copy, pauta, ventas y oferta.",
+        evidence: "Reporte GHL con objeciones y recomendaciones.",
+        systems: ["GHL", "WhatsApp Business", "Sheet comercial"],
+        automation: "Agente #16 cruza GHL con conversaciones y conversion.",
+        status: "En curso",
+        risk: "Marketing optimiza por CPL y no por ventas reales.",
+        linkedActivities: ["ACT-048", "ACT-107", "ACT-108"]
+      },
+      {
+        id: "PB05-S4",
+        label: "Llamar leads calientes",
+        timing: "Diario",
+        owner: "Persona 29",
+        team: ["Persona 19", "Persona 8"],
+        entry: "Lead caliente, respondio o pidio informacion.",
+        action: "Llamar, enviar audios, resolver objeciones y orientar al cierre.",
+        output: "Cierre, reunion, seguimiento o descarte con motivo.",
+        evidence: "Llamada/audio, etapa, objecion y proxima accion.",
+        systems: ["WhatsApp Business", "GHL", "Sheet ventas"],
+        automation: "Agente #16 prioriza leads por temperatura y proximo paso.",
+        status: "Riesgo",
+        risk: "Lead caliente sin llamada pierde ventana de compra.",
+        linkedActivities: ["ACT-105", "ACT-106", "ACT-107"]
+      },
+      {
+        id: "PB05-S5",
+        label: "Retroalimentar campana",
+        timing: "Semanal",
+        owner: "Persona 18",
+        team: ["Persona 12", "Persona 29", "Persona 19", "Persona 8"],
+        entry: "Resultados, conversaciones, objeciones y cierres.",
+        action: "Ajustar copy, oferta, landing, brochure, mensajes y entrenamiento ventas.",
+        output: "Mejora aplicada al siguiente ciclo.",
+        evidence: "Lista de cambios, antes/despues y efecto esperado.",
+        systems: ["GHL", "Meta Ads", "Drive", "Dashboard"],
+        automation: "Agente #16 resume objeciones y cambios recomendados.",
+        status: "Automatizable",
+        risk: "Sin feedback, ventas y marketing trabajan separados.",
+        linkedActivities: ["ACT-108", "ACT-111", "ACT-112"]
+      }
+    ],
+    handoffs: [
+      { from: "Persona 20", to: "Persona 12", rule: "Promesa comercial debe salir del skill outcome." },
+      { from: "Persona 12", to: "Persona 18", rule: "No se optimiza campana sin revisar calidad de leads." },
+      { from: "Persona 18", to: "Persona 29", rule: "Lead caliente debe tener siguiente accion comercial." },
+      { from: "Persona 29", to: "Persona 12", rule: "Objeciones reales vuelven a copy, oferta o brochure." }
+    ],
+    escalations: [
+      "Lead caliente sin contacto el mismo dia.",
+      "Brochure incompleto durante campana activa.",
+      "CPL bajo con conversion comercial mala."
+    ],
+    doneDefinition: [
+      "Campana activa con tracking.",
+      "Leads respondidos y clasificados.",
+      "Objeciones registradas.",
+      "Ajustes aplicados al siguiente ciclo."
+    ]
+  },
+  {
+    id: "PB-06",
+    title: "Evento, sponsors y aliados",
+    domain: "Autoridad y alianzas",
+    trigger: "Webinar, Summit, alianza o sponsor en pipeline.",
+    goal: "Coordinar evento y pipeline B2B sin perder contactos, reuniones ni convenios.",
+    lead: "Persona 14",
+    cycle: "Mapeo -> reunion -> evento -> seguimiento",
+    kpi: "Sponsors/aliados con proxima accion y asistentes con fuente registrada.",
+    agent: "Agente #13 + Agente #22 + Agente #23 + Agente #36",
+    steps: [
+      {
+        id: "PB06-S1",
+        label: "Mapear contactos",
+        timing: "Semanal",
+        owner: "Persona 25",
+        team: ["Persona 14", "Persona 18"],
+        entry: "Lista de empresas, sponsors o aliados objetivo.",
+        action: "Completar empresa, contacto, cargo, canal, necesidad y estado.",
+        output: "Pipeline priorizado.",
+        evidence: "Contacto completo con etapa y proxima accion.",
+        systems: ["Notion", "LinkedIn", "Sheet pipeline"],
+        automation: "Agente #22 detecta empresas incompletas y contactos sin siguiente accion.",
+        status: "En curso",
+        risk: "Contacto sin clasificacion no se convierte en reunion.",
+        linkedActivities: ["ACT-049", "ACT-053"]
+      },
+      {
+        id: "PB06-S2",
+        label: "Gestionar reunion",
+        timing: "Diario",
+        owner: "Persona 25",
+        team: ["Persona 14", "Persona 18"],
+        entry: "Contacto interesado o pendiente de llamada.",
+        action: "Agendar, recordar por WhatsApp, activar grabacion, presentar PPT y registrar resumen.",
+        output: "Reunion documentada y follow-up listo.",
+        evidence: "Grabacion, transcripcion, datos y resumen para correo.",
+        systems: ["Calendar", "Zoom/Meet", "WhatsApp", "Gmail"],
+        automation: "Agente #23 prepara reunion, recordatorio y resumen.",
+        status: "Riesgo",
+        risk: "Reunion sin grabacion ni resumen pierde acuerdos.",
+        linkedActivities: ["ACT-050", "ACT-052"]
+      },
+      {
+        id: "PB06-S3",
+        label: "Onboarding sponsor",
+        timing: "Al confirmar",
+        owner: "Persona 25",
+        team: ["Persona 21", "Persona 14"],
+        entry: "Sponsor o aliado confirmado.",
+        action: "Enviar bienvenida, crear grupo, perfil, mensaje y formulario.",
+        output: "Sponsor incorporado con canal y requerimientos.",
+        evidence: "Correo, grupo, formulario y contacto responsable.",
+        systems: ["Gmail", "WhatsApp", "Forms", "Drive"],
+        automation: "Agente #36 alerta sponsors sin bienvenida o formulario.",
+        status: "Automatizable",
+        risk: "Sponsor confirmado sin onboarding queda desatendido.",
+        linkedActivities: ["ACT-054", "ACT-055"]
+      },
+      {
+        id: "PB06-S4",
+        label: "Difusion y ejecucion",
+        timing: "72h -> evento",
+        owner: "Persona 14",
+        team: ["Persona 12", "Persona 15", "Persona 13"],
+        entry: "Evento, landing, piezas y lista de canales.",
+        action: "Publicar piezas, difundir en grupos, ejecutar evento y registrar inscritos.",
+        output: "Evento ejecutado con fuente y activos.",
+        evidence: "Landing, piezas, inscritos, asistencia y grabacion.",
+        systems: ["Web", "Meta Ads", "WhatsApp", "Zoom", "Sheet inscritos"],
+        automation: "Agente #13 semaforiza agenda, piezas, inscritos y sponsors.",
+        status: "En curso",
+        risk: "Evento con inscritos sin fuente no permite aprender ni remarketear.",
+        linkedActivities: ["ACT-023", "ACT-024", "ACT-025", "ACT-027"]
+      },
+      {
+        id: "PB06-S5",
+        label: "Follow-up post evento",
+        timing: "0-72h post evento",
+        owner: "Persona 14",
+        team: ["Persona 25", "Persona 18", "Persona 29"],
+        entry: "Evento finalizado.",
+        action: "Enviar resumen, propuesta, siguiente accion y reciclar activos.",
+        output: "Pipeline actualizado y activos reutilizables.",
+        evidence: "Correo enviado, estado actualizado, clips o propuesta.",
+        systems: ["Gmail", "GHL", "Drive", "Dashboard"],
+        automation: "Agente #36 consolida follow-up de sponsors, aliados y asistentes.",
+        status: "Automatizable",
+        risk: "Sin follow-up el evento genera autoridad pero no pipeline.",
+        linkedActivities: ["ACT-050", "ACT-107", "ACT-108"]
+      }
+    ],
+    handoffs: [
+      { from: "Persona 25", to: "Persona 14", rule: "Sponsor/aliado no entra a evento sin estado y proxima accion." },
+      { from: "Persona 14", to: "Persona 12", rule: "Difusion requiere landing, CTA y fuente." },
+      { from: "Persona 14", to: "Persona 18", rule: "Post-evento debe alimentar GHL, copy y oferta." }
+    ],
+    escalations: [
+      "Sponsor sin respuesta o documento pendiente >3 dias.",
+      "Reunion sin resumen el mismo dia.",
+      "Evento sin landing/fuente 72h antes."
+    ],
+    doneDefinition: [
+      "Pipeline actualizado.",
+      "Evento ejecutado con fuente.",
+      "Sponsor/aliado con siguiente accion.",
+      "Follow-up enviado."
+    ]
+  },
+  {
+    id: "PB-07",
+    title: "Producto, UX, dev y QA release",
+    domain: "Producto digital",
+    trigger: "Nueva mejora, flujo critico, bug o automatizacion candidata.",
+    goal: "Pasar de necesidad operativa a release validado con evidencia.",
+    lead: "Persona 23",
+    cycle: "Discovery -> release -> medicion",
+    kpi: "Release validado sin bugs criticos y con metrica de impacto.",
+    agent: "Agente #20 + Agente #24 + Agente #29 + Agente #30",
+    steps: [
+      {
+        id: "PB07-S1",
+        label: "Definir problema y flujo",
+        timing: "Discovery",
+        owner: "Persona 16",
+        team: ["Persona 10", "Persona 20", "Persona 27"],
+        entry: "Dolor operativo, feedback usuario o metrica en riesgo.",
+        action: "Mapear AS-IS/TO-BE, usuario, datos, pantallas y criterio de exito.",
+        output: "Brief UX/producto listo para desarrollo.",
+        evidence: "Flujo, spec, wireframe o prototipo validado.",
+        systems: ["Obsidian", "Figma/Miro", "Notion"],
+        automation: "Agente #26 estructura brief, flujo y handoff.",
+        status: "En curso",
+        risk: "Prototipo sin flujo completo genera retrabajo.",
+        linkedActivities: ["ACT-062", "ACT-063", "ACT-064", "ACT-069"]
+      },
+      {
+        id: "PB07-S2",
+        label: "Arquitectura y backlog",
+        timing: "Planning",
+        owner: "Persona 23",
+        team: ["Persona 27", "Persona 20"],
+        entry: "Flujo aprobado y datos definidos.",
+        action: "Definir arquitectura, entidades, API, permisos, tareas y criterios de aceptacion.",
+        output: "Backlog tecnico trazable.",
+        evidence: "ADR, API contract, schema y checklist de seguridad.",
+        systems: ["GitHub", "Obsidian", "Docs"],
+        automation: "Agente #20 audita arquitectura y seguridad.",
+        status: "Automatizable",
+        risk: "Sin contrato tecnico el release se rompe al integrar.",
+        linkedActivities: ["ACT-034", "ACT-035", "ACT-036", "ACT-037", "ACT-038"]
+      },
+      {
+        id: "PB07-S3",
+        label: "Construir e integrar",
+        timing: "Sprint",
+        owner: "Persona 23",
+        team: ["Persona 20", "Persona 11"],
+        entry: "Backlog aprobado.",
+        action: "Desarrollar backend, frontend, integraciones, logs y estados de error.",
+        output: "Feature lista para QA.",
+        evidence: "PR, build local, datos mock o integracion funcional.",
+        systems: ["GitHub", "Next.js", "API", "n8n"],
+        automation: "Agente #29 controla bloqueos, PRs y readiness.",
+        status: "En curso",
+        risk: "Integracion sin logs dificulta soporte y postventa.",
+        linkedActivities: ["ACT-039", "ACT-040", "ACT-041", "ACT-042", "ACT-075", "ACT-076"]
+      },
+      {
+        id: "PB07-S4",
+        label: "Validar QA",
+        timing: "Pre-release",
+        owner: "Persona 26",
+        team: ["Persona 16", "Persona 23", "Persona 22"],
+        entry: "Feature lista.",
+        action: "Validar E2E, UX, carga, pruebas automatizadas, bugfixes y data.",
+        output: "Release aprobado, observado o bloqueado.",
+        evidence: "Reporte QA, bugs y retest documentado.",
+        systems: ["Playwright", "Dashboard", "Sheet QA", "GitHub"],
+        automation: "Agente #24 exige retest y evidencia antes de cierre.",
+        status: "Riesgo",
+        risk: "Bug sin retest llega a usuarios y genera soporte innecesario.",
+        linkedActivities: ["ACT-056", "ACT-057", "ACT-058", "ACT-059", "ACT-060", "ACT-061"]
+      },
+      {
+        id: "PB07-S5",
+        label: "Release y medicion",
+        timing: "Produccion",
+        owner: "Persona 27",
+        team: ["Persona 23", "Persona 22", "Persona 10"],
+        entry: "QA aprobado.",
+        action: "Publicar, monitorear, documentar SOP y medir impacto operativo.",
+        output: "Release trazable y mejora medible.",
+        evidence: "Deploy, changelog, dashboard, incidentes y leccion aprendida.",
+        systems: ["Deploy", "n8n", "Dashboard", "Obsidian"],
+        automation: "Agente #30 monitorea workflows y Agente #32 consolida incidentes.",
+        status: "Automatizable",
+        risk: "Release sin medicion no demuestra mejora ni escalabilidad.",
+        linkedActivities: ["ACT-071", "ACT-072", "ACT-073", "ACT-080", "ACT-088"]
+      }
+    ],
+    handoffs: [
+      { from: "Persona 16", to: "Persona 23", rule: "Desarrollo inicia solo con flujo y criterio de exito." },
+      { from: "Persona 23", to: "Persona 26", rule: "QA recibe feature con build, datos y caso esperado." },
+      { from: "Persona 26", to: "Persona 27", rule: "Produccion requiere retest documentado y riesgo aceptado." },
+      { from: "Persona 27", to: "Persona 10", rule: "Release reporta impacto, riesgo e iteracion recomendada." }
+    ],
+    escalations: [
+      "Bug critico o datos corruptos en pre-release.",
+      "Workflow n8n caido o sin owner.",
+      "Feature sin metrica de impacto."
+    ],
+    doneDefinition: [
+      "Flujo y spec aprobados.",
+      "Build validado.",
+      "QA sin bloqueos criticos.",
+      "Release documentado y medido."
+    ]
   }
 ];
 
@@ -3032,14 +4150,14 @@ export const aecodeDomains: AecodeDomain[] = [
   {
     id: "DOM-05",
     domain: "Comercial y revenue",
-    mission: "Cerrar el loop entre campanas, asesoria, objeciones, pagos y conversion.",
-    lead: "Persona 18",
-    supportingRoles: ["Persona 19", "Persona 21", "Persona 12"],
-    responsibilities: ["Lead follow-up", "Objeciones", "Pipeline GHL", "Scripts", "Pagos", "Feedback a marketing"],
-    kpis: ["Tasa de contacto", "Tasa de cierre", "Motivos de no compra", "Tiempo de respuesta", "Ingresos por campana"],
-    cadences: ["Feedback diario", "Revision GHL marketing-ventas", "Review comercial semanal", "Cierre de cohortes"],
-    risks: ["Marketing optimiza sin ventas", "Promesas comerciales no alineadas", "Pagos bloqueados"],
-    automation: "Agente #16 cruza CRM, feedback y conversion por fuente."
+    mission: "Cerrar el loop entre campanas, leads calientes, audios, asesoria, objeciones, pagos, copys, brochures, entrenamiento y conversion.",
+    lead: "Persona 29",
+    supportingRoles: ["Persona 19", "Persona 21", "Persona 12", "Persona 18"],
+    responsibilities: ["Llamadas a leads calientes", "Audios comerciales", "Seguimiento de cierre", "Objeciones", "Pipeline GHL", "Copys", "Brochures", "Pagos", "Entrenamiento ventas", "Feedback a marketing"],
+    kpis: ["Tasa de contacto", "Tasa de cierre", "Leads calientes llamados", "Audios enviados", "Motivos de no compra", "Tiempo de respuesta", "Ingresos por campana", "Brochures completos", "Copys optimizados"],
+    cadences: ["Feedback diario", "Revision GHL marketing-ventas", "Review comercial semanal", "Entrenamiento ventas", "Cierre de cohortes"],
+    risks: ["Lead caliente sin llamada", "Marketing optimiza sin ventas", "Promesas comerciales no alineadas", "Brochure incompleto", "Copy debil", "Pagos bloqueados"],
+    automation: "Agente #16 cruza CRM, feedback, llamadas, audios y conversion por fuente; Agente #14 controla brochures y Agente #10 apoya seguimiento masivo."
   },
   {
     id: "DOM-06",
@@ -3419,7 +4537,7 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Subgrupos WSP programa", value: 14, target: 14, context: "Coordinacion y participantes por programa" },
   { label: "Programas con riesgo de acceso", value: 4, target: 0, context: "Matriz de plataforma, Zoom, WSP y formularios" },
   { label: "Actividades automatizables", value: activities.filter((item) => item.automationLevel !== "Baja").length, target: activities.length, context: "Actividades pegadas + modelo operativo" },
-  { label: "Roles operativos anonimos", value: opsRoles.length, target: opsRoles.length, context: "Equipo completo AECODE por responsabilidad" },
+  { label: "Roles operativos mapeados", value: opsRoles.length, target: opsRoles.length, context: "Equipo completo AECODE por responsabilidad" },
   { label: "Procesos marketing", value: marketingProcesses.length, target: marketingProcesses.length, context: "Panel HTML de marketing normalizado" },
   { label: "Actividades tecnologia", value: activities.filter((item) => item.area === "Tecnologia").length, target: activities.length, context: "Arquitectura, backend, frontend, infra e IA" },
   { label: "Actividades BIM", value: activities.filter((item) => item.area === "BIM").length, target: activities.length, context: "Modelos, planos, plantillas, scripts y assets academicos" },
@@ -3436,19 +4554,22 @@ export const sourceNotes = [
   "Chat WhatsApp, Sheet y Notion revisados para inventariar links; se registraron 34 activos.",
   "El link Notion AECODE Training directo no fue accesible por fetch; busqueda interna encontro una base relacionada con frecuencia, estado y semanas.",
   "No se publican links privados de WhatsApp, Zoom, Classroom, Miro o Drive.",
-  "Panel HTML de marketing integrado como procesos anonimizados: ads, Summit, difusion, clips, web y automatizacion.",
+  "Panel HTML de marketing integrado como procesos mapeados: ads, Summit, difusion, clips, web y automatizacion.",
   "El control maestro ya no se limita a coordinacion academica; incluye direccion, producto, marketing, comercial, eventos, finanzas, datos y BI.",
   "Cultura-AECODE.md integrada como reglas operativas: presencia, trazabilidad, cierre, aprendizaje, documentacion y alineacion al negocio.",
   "Cultura-GEN+.md usada como frontera: proyectos cliente, ingenieria aplicada y productos GEN+ se enrutan fuera de AECODE salvo activos educativos empaquetados.",
-  "Actividades tecnicas y BIM integradas como roles anonimos Persona 23 y Persona 24.",
+  "Actividades tecnicas y BIM integradas como Anderson y Kevin con trazabilidad Persona 23 y Persona 24.",
   "Marketing debe revisar GHL y venta real para ajustar mensajes, campanas y lead quality.",
   "Actividades de alianzas/sponsors/reuniones integradas como Persona 25.",
   "Actividades de QA/testing/data integradas como Persona 26.",
   "Actividades UX/UI y branding integradas como Persona 16.",
   "PDF de actividades tecnologia/automatizacion integrado como Persona 27: n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA y soporte comercial/postventa.",
   "Actividades de programas activos, Summit, postventa, marketing, B2B y comunicaciones HTML integradas como Persona 28.",
+  "PDF Dashboard_Operativo_AP_GEN+_AECODE integrado como capa ejecutiva: empresas, proyectos criticos, flywheel, campos minimos, metricas, vistas y reglas de operacion.",
+  "Carpeta Obsidian Actividades_TEAM actualizada como mapa de 35 personas consideradas: 25 asientos nucleo y 10 perfiles en red extendida para cumplir el limite operativo solicitado.",
+  "Playbooks operativos agregados como capa interactiva: postventa/accesos, sesiones live, grabaciones, certificados, growth/ventas, eventos/sponsors y producto-dev-QA.",
   "Fuente Notion AECODE OS directa no accesible por URL; se integraron fuentes Notion relacionadas accesibles sobre AI Ops, producto digital y operaciones dentro de Persona 27.",
-  "Los owners reales fueron anonimizados como Persona N.",
+  "Los owners reales se muestran cuando hay evidencia; Persona N queda como trazabilidad cuando falta confirmacion.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];
 

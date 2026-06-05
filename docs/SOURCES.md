@@ -31,15 +31,34 @@ Informacion extraida y normalizada:
 - Notion `AECODE Training`: link adicional compartido por el usuario; el fetch directo no tuvo acceso, pero la busqueda interna encontro una base relacionada con frecuencia, estado y semanas.
 - PDF interno de actividades tecnologia/automatizacion: usado para mapear n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA, soporte comercial/postventa y frontera GEN+.
 - Actividades pegadas de programas/Summit: usadas para mapear programas activos, actas, flujos Notion, docentes, postventa, automatizaciones, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
+- Actividades pegadas de cierre comercial: llamadas a leads calientes, audios, seguimiento orientado al cierre, optimizacion de copys, brochures completos, seguimiento masivo, entrenamiento de ventas y reuniones de mejora. Alejandro corrigio que este bloque lo hace Talia.
+- `Dashboard_Operativo_AP_GEN+_AECODE.pdf`: usado para agregar capa ejecutiva AP, empresas del ecosistema, proyectos criticos, flywheel, campos minimos, metricas, 15 vistas, reglas de operacion y criterios UX/UI.
+- Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`: usada para validar la lista completa de personas del equipo. Se consideraron 35 fichas: 34 nombres compartidos por Alejandro y `Yudely`, detectada en el vault. El tablero limita el nucleo a 25 personas y conserva 10 como red extendida.
 
 ## Normalizacion
 
-Para publicar el tablero en GitHub se aplico anonimizacion:
+Esta version es interna. La normalizacion actual aplica:
 
-- nombres personales -> `Persona N`;
+- nombres personales reales cuando hay evidencia suficiente;
+- `Persona N` cuando el responsable fue asumido o falta confirmacion;
 - automatizaciones -> `Agente #N`;
 - enlaces privados -> `link_presente`, `link_faltante`, `requiere_backend`;
-- propietarios reales -> roles operativos anonimizados.
+- propietarios reales -> roles operativos con trazabilidad.
+- capacidad de equipo -> 25 asientos nucleo maximo y red extendida para apoyos puntuales o roles sin reporte detallado.
+
+## Equipo y capacidad
+
+Fichas con reporte o rol detallado usadas para el nucleo: Patrick, Ivana, Carolina, Anggie, Arantxa, Daniella, Erika, Fabrizio, Jessica, Kevin, Paola, Robert Herrera, Yary, Yudely e Israel. Tambien se integraron actividades enviadas directamente por Alejandro para Anderson, Jordi, Paola, Yary y Talia.
+
+Fichas conservadas como red extendida por apoyo puntual o menor detalle operativo: Alex Anchayhua, Ana, Edith, Enma, Fernando, Genesis, Guisella, Luis Vergara, Moises y Sebastian. Talia, Yadira y Reiner pasan al nucleo por instrucciones directas de Alejandro aunque sus notas Obsidian aun no tienen detalle.
+
+La fuente operativa exportable queda en:
+
+- `templates/team_core_25.csv`
+- `templates/team_extended_network.csv`
+- `templates/team_connections.csv`
+- `templates/workflow_playbooks.csv`
+- `templates/workflow_playbook_steps.csv`
 
 ## Inventario de links
 
@@ -56,3 +75,14 @@ Se detectaron 34 activos enlazados:
 La pestana `ENLACES GRUPOS WHATSAPP` contiene 7 programas mapeados, 14 subgrupos de programa y registros de instructores. Por seguridad no se publican URLs, nombres ni invitaciones completas.
 
 El repo publica solo metadata segura. Las URLs completas se guardan localmente en `outputs/internal_links_private.csv`, carpeta excluida de Git.
+
+## PDF Dashboard Operativo AP
+
+El PDF no se publica completo dentro del tablero. Se extrajo solo estructura operativa:
+
+- empresas y colores funcionales;
+- proyectos criticos con avance, siguiente accion, owner y riesgo;
+- campos minimos de la base maestra de actividades;
+- metricas por AECODE, GEN+, VisionPro, AgentFlow y Growth;
+- reglas de ownership, calidad de dato y escalamiento;
+- arquitectura de 15 vistas requeridas.

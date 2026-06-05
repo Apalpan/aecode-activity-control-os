@@ -1,0 +1,16 @@
+id,tab,audience,frequency,purpose
+VIEW-01,Centro de Control,Alejandro + lideres,Diaria,Bloqueos top 5 prioridades del dia semaforo por empresa y flywheel health
+VIEW-02,Equipo y Roles,Todos,Semanal,Carga visual por persona actividades y proximo entregable
+VIEW-03,AECODE Operaciones,AECODE team,Diaria,AECODE 2.0/3.0 ventas coordinacion academica y postventa
+VIEW-04,GEN+ Proyectos,GEN+ team + direccion,Semanal,Pipeline comercial delivery cobranzas y portafolio
+VIEW-05,Training / Cursos,Coordinacion e instructores,Diaria,Sesiones materiales grabaciones y certificados
+VIEW-06,Marketing & Growth,Anggie / Arantxa,Diaria en campanas,Calendario metricas ADS creativos y conversion
+VIEW-07,Ventas / WhatsApp,Ventas y coordinacion,Diaria,Funnel de leads por etapa y seguimientos del dia
+VIEW-08,Comunidad / Embajadores,Embajadores y coordinacion,Semanal,Leads y publicaciones semanales por persona
+VIEW-09,Instructores,Instructores y coordinacion,Por sesion,Sesiones materiales proxima clase y alertas
+VIEW-10,Testing / Soporte / Bugs,Soporte testing y dev,Diaria,Bugs incidencias abiertas retest y alumnos sin acceso
+VIEW-11,Producto / Dev,Marlon Emanuel Fabrizio,Diaria en sprint,Sprint board backlog roadmap 90 dias y estado tecnico
+VIEW-12,Metricas,Alejandro y lideres,Semanal,NSM activacion retencion monetizacion y comercial
+VIEW-13,Bloqueos,Todos,Diaria,Solo bloqueados ordenados por dias sin resolver
+VIEW-14,Automatizaciones,Marlon Fabrizio y direccion,Semanal,Agentes activos flujos y candidatos de automatizacion
+VIEW-15,Documentacion,Todos,Referencia,Links a Obsidian Drive SOPs Loom y decisiones

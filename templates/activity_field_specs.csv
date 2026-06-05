@@ -1,0 +1,20 @@
+field,type,rule,required
+empresa,Select,GEN+ / AECODE / THESIA / SP+ / Ecosistema,SI
+area,Select,Marketing Ventas Producto Dev Educacion Comunidad Soporte Testing Admin I+D o Direccion,SI
+proyecto_programa,Link/Text,Debe apuntar a programa proyecto sprint o iniciativa concreta,SI
+sprint_fase,Text,Sprint actual fase de roadmap o ciclo operativo,SI
+rol,Select,Dev Growth Coord Academico Instructor Embajador Ventas Soporte Testing o Direccion,SI
+responsable,Persona,Exactamente 1 nombre real Equipo no es responsable valido,SI
+actividad,Text,Descripcion breve de la tarea,SI
+accion_concreta,Text,Verbo + objeto + resultado esperado,SI
+entregable,Text,Artefacto fisico o digital medible,SI
+prioridad,Select,Critica Alta Media o Baja,SI
+estado,Select,Pendiente En curso Completado Bloqueado En revision o En espera,SI
+fecha_inicio,Date,Formato YYYY-MM-DD,SI
+fecha_limite,Date,Obligatoria para alertas y escalamiento,SI
+dependencia,Link/Text,Persona o tarea concreta nunca depende del cliente sin accion,SI
+metrica_asociada,Text,KPI que mueve esta actividad,SI
+evidencia_link,URL,Sin evidencia el entregable queda incompleto,SI
+observacion,Text,Contexto riesgo o nota operativa,NO
+proximo_paso,Text,Verbo + objeto + fecha + responsable,SI
+flywheel_capa,Select,Comunidad Educacion Producto Autoridad Data IA o Escala,SI

@@ -10,9 +10,28 @@ El tablero no debe funcionar como una lista larga de pendientes. Debe operar com
 
 La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `04_Team GEN+`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE, `Cultura-AECODE.md` y el panel HTML de marketing. Esta version es interna y muestra nombres reales con trazabilidad `Persona N` cuando el owner fue asumido.
 
+La capa ejecutiva se alimenta tambien del PDF `Dashboard_Operativo_AP_GEN+_AECODE.pdf`: agrega empresas del ecosistema, proyectos criticos, flywheel AP, campos minimos, metricas, 15 vistas objetivo y reglas de ownership/calidad de dato.
+
 `Cultura-GEN+.md` se usa como frontera operativa: lo que sea consultoria, proyecto cliente, ingenieria aplicada, BIM/VDC para cliente, automatizacion empresarial o producto GEN+ no entra al tablero AECODE salvo que se convierta en activo educativo anonimizado.
 
+## Regla de capacidad del equipo
+
+El equipo operativo visible no debe superar 25 personas nucleo. La carpeta Obsidian contiene 35 fichas consideradas: las 34 personas listadas por Alejandro y `Yudely`, detectada adicionalmente en el vault.
+
+Decision aplicada:
+
+- `Nucleo`: 25 personas con ownership activo, cadencia, handoff, fuente y riesgo.
+- `Red extendida`: 10 personas con apoyo puntual, rol por confirmar o sin reporte detallado.
+- Una persona no consume asiento nucleo si no tiene actividad clara, evidencia o entregable asignado.
+- Los alias `Persona N` quedan como capa de compatibilidad para actividades ya creadas, pero la UI muestra nombres reales cuando existe evidencia suficiente.
+
+Nucleo actual: Alejandro Palpan, Patrick, Ivana, Carolina, Anggie, Arantxa, Jessica, Talia, Yadira, Reiner, Yary, Anderson, Fabrizio, Yudely, Jordi, Paola, Daniella, Erika, Julie, Kevin, Israel, Robert Herrera, Emanuel, Marlon y Paolo.
+
+Red extendida actual: Alex Anchayhua, Ana, Edith, Enma, Fernando, Genesis, Guisella, Luis Vergara, Moises y Sebastian.
+
 ## Roles operativos
+
+La lista siguiente conserva alias legacy `Persona N` para compatibilidad con actividades y agentes ya existentes. En la UI y templates nuevos esos alias se resuelven a nombres reales cuando hay evidencia.
 
 - `Persona 1`: accesos, soporte, plataforma, certificados y contenido.
 - `Persona 2`: datos, registro academico, GHT y fuentes maestras.
@@ -21,27 +40,28 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `04_Team 
 - `Persona 5`: contenido publicable, YouTube y piezas de difusion.
 - `Persona 6`: comunidad, grupos WSP, recordatorios y sesiones.
 - `Persona 7`: calidad academica, embajadores, evidencias, rubricas y cierre academico.
-- `Persona 8`: difusion, comunidad y fuentes de marketing.
+- `Reiner (Persona 8)`: difusion, comunidad, seguimiento masivo y fuentes de marketing.
 - `Persona 9`: QA visual de certificados.
 - `Persona 10`: direccion operativa, prioridades y decisiones.
 - `Persona 11`: automatizacion y mejora de procesos.
 - `Persona 12`: paid growth, Meta Ads, CPL y lead quality.
 - `Persona 13`: piezas de campana, copies y assets.
 - `Persona 14`: eventos, Summit, agenda y sponsors.
-- `Persona 15`: web, difusion organica, brochures y Drive.
-- `Persona 16`: investigacion UX, flujos, UI, branding, formularios, web experience y handoff con desarrollo.
+- `Anggie (Persona 15)`: web, difusion organica, brochures y Drive.
+- `Yary (Persona 16)`: investigacion UX, flujos, UI, branding, formularios, web experience y handoff con desarrollo.
 - `Persona 17`: edicion de video, clips y shorts.
-- `Persona 18`: feedback comercial y calidad de leads.
-- `Persona 19`: asesoria comercial y pipeline.
+- `Jessica (Persona 18)`: revision de ventas/GHL para optimizar marketing, copys, oferta y calidad de leads.
+- `Yadira (Persona 19)`: asesoria comercial, pipeline, cierre y llamadas en entrenamiento.
 - `Persona 20`: producto, rutas, Skill Graph y Skill Passport.
 - `Persona 21`: finanzas, pagos y documentacion.
 - `Persona 22`: datos, BI, dashboards y gobernanza.
-- `Persona 23`: arquitectura, backend, frontend, infra, IA y delivery end-to-end.
-- `Persona 24`: activos BIM academicos, modelos, plantillas, familias, scripts, PPTs y Miros.
-- `Persona 25`: alianzas, sponsors, interesados, reuniones, WhatsApp Business, LinkedIn, grupos y convenios.
-- `Persona 26`: QA, E2E, UX, carga/estres, pruebas automatizadas, bugfixes y data.
+- `Anderson (Persona 23)`: arquitectura, backend, frontend, infra, IA y delivery end-to-end.
+- `Kevin (Persona 24)`: activos BIM academicos, modelos, plantillas, familias, scripts, PPTs y Miros.
+- `Paola (Persona 25)`: alianzas, sponsors, interesados, reuniones, WhatsApp Business, LinkedIn, grupos y convenios.
+- `Jordi (Persona 26)`: QA, E2E, UX, carga/estres, pruebas automatizadas, bugfixes y data.
 - `Persona 27`: AI automation, n8n, integraciones, agentes IA, AECODITOS, dashboards, data, ML, deploy, specs, capacitacion IA y soporte tecnico a flujos comerciales/postventa.
 - `Persona 28`: programas activos, actas, flujos Notion, docentes, postventa, automatizaciones, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
+- `Talia (Persona 29)`: cierre comercial, leads calientes, audios, copys, brochures, seguimiento masivo y entrenamiento de ventas.
 
 ## Flujo operativo por sesion
 
@@ -62,10 +82,39 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `04_Team 
 15. UX/UI y handoff de producto: investigacion, flujo completo, UI, branding, assets web, formularios y coordinacion con desarrollo.
 16. Producto digital y AI Ops: automatizaciones, n8n, integraciones, AECODITOS, agentes IA, dashboards, data, deploys, specs, capacitacion IA, roadmap, seguimiento dev, flujos criticos, web y accesos post compra.
 17. Programas activos, Summit y postventa: sesiones, actas, Notion, docentes, soporte, automatizaciones, sponsors, ponentes, marketing, B2B y HTML.
+18. Cierre comercial y entrenamiento ventas: llamadas a leads calientes, audios, seguimiento de cierre, copys, brochures, seguimiento masivo, entrenamiento y review de mejoras.
+
+## Playbooks tipicos interactivos
+
+La UI agrupa las etapas anteriores en 7 playbooks operables. Cada playbook tiene trigger, objetivo, lead, ciclo, KPI, agente, pasos, handoffs, escalamiento y definicion de terminado.
+
+1. `PB-01` Postventa y acceso de estudiante: compra -> acceso -> grupo -> bienvenida -> soporte.
+2. `PB-02` Sesion en vivo y soporte academico: Zoom -> recursos -> embajador -> ejecucion -> acta.
+3. `PB-03` Grabacion, edicion y publicacion: Zoom/Drive -> QA -> Vimeo -> plataforma -> notificacion.
+4. `PB-04` Evidencia, rubrica y certificados: reto -> evidencia -> rubrica -> certificado -> dashboard.
+5. `PB-05` Campana, GHL y cierre comercial: brief -> piezas -> GHL -> llamadas/audios -> feedback.
+6. `PB-06` Evento, sponsors y aliados: contactos -> reunion -> onboarding sponsor -> difusion -> follow-up.
+7. `PB-07` Producto, UX, dev y QA release: flujo -> arquitectura -> build -> QA -> release/medicion.
+
+Estos playbooks son la capa que debe usar el equipo para operar; las 18 etapas quedan como biblioteca de referencia y trazabilidad.
 
 ## Loop maestro
 
 `Registro -> acceso -> recordatorio -> sesion -> grabacion -> edicion -> Vimeo -> plataforma -> soporte -> evidencia -> certificado`
+
+## Loop ejecutivo AP
+
+`Comunidad -> Educacion -> Producto -> Autoridad -> Data -> IA -> Escala`
+
+Cada actividad nueva debe declarar `flywheel_capa`, `metrica_asociada`, `evidencia_link` y `proximo_paso`. Si no tiene responsable unico, fecha limite o evidencia, queda incompleta.
+
+## Reglas de escalamiento
+
+- Fecha vencida sin estado: alerta al responsable y a Alejandro.
+- Bloqueo mayor a 3 dias: escalamiento automatico.
+- Sin actualizar en 7+ dias: badge de riesgo visible.
+- Bug sin retest documentado: no se cierra.
+- Proximo paso obligatorio: verbo + objeto + fecha + responsable.
 
 ## Dominios AECODE
 
@@ -95,7 +144,16 @@ Toda actividad compartida debe tener ficha de asset: origen, permiso de uso, cur
 
 ## GHL marketing-ventas
 
-Marketing no debe optimizar solo por CPL. `Persona 12` revisa GHL con ventas para entender conversaciones, objeciones, scripts, tiempos de respuesta, lead quality y conversion por fuente. La salida debe convertirse en ajuste de copy, campaña, landing, script o oferta.
+Marketing no debe optimizar solo por CPL. Anggie lidera GHL y lectura de growth; Jessica revisa calidad de lead, Ads y feedback comercial; Talia aporta objeciones reales de cierre; Yadira ejecuta seguimiento en entrenamiento; Reiner apoya seguimiento masivo. La salida debe convertirse en ajuste de copy, campana, landing, script u oferta.
+
+## Conexiones operativas
+
+1. Postventa y academia: Patrick conecta con Ivana, Carolina, Daniella, Julie y Sebastian.
+2. Growth y ventas: Anggie conecta con Arantxa, Jessica, Talia, Yadira, Reiner y Patrick.
+3. Producto y tecnologia: Anderson conecta con Yary, Fabrizio, Yudely, Emanuel, Marlon y Jordi.
+4. Summit y autoridad: Daniella conecta con Paola, Erika, Julie, Ivana, Arantxa, Anggie y Ana.
+5. GEN+ BIM y activos educativos: Paolo conecta con Kevin, Israel, Robert Herrera, Fabrizio, Carolina y Yary.
+6. Administracion, pagos y compliance: Yudely conecta con Julie, Sebastian, Anggie, Anderson, Emanuel y Alejandro.
 
 ## Procesos de marketing integrados
 
@@ -145,7 +203,7 @@ Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excus
 - `Agente #13`: eventos, Summit y dependencias.
 - `Agente #14`: cola web, landings y QA visual.
 - `Agente #15`: clips, shorts y assets audiovisuales.
-- `Agente #16`: CRM, feedback comercial y conversion.
+- `Agente #16`: CRM, feedback comercial, llamadas, audios, objeciones, copys y conversion.
 - `Agente #17`: learning loop, evidencias y Skill Passport.
 - `Agente #18`: pagos, documentos y bloqueos administrativos.
 - `Agente #19`: dashboard ejecutivo integral.

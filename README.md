@@ -14,7 +14,7 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - detalle por flujo.
 - inventario seguro de links internos y activos fuente.
 - mapa de alias operativos con responsabilidades, KPIs, backup, comunicacion y chequeo diario.
-- flujo operativo por sesion/cohorte, campanas, eventos, producto y control administrativo.
+- playbooks interactivos para postventa/accesos, sesiones, grabaciones, certificados, growth/ventas, eventos/sponsors y producto-dev-QA.
 - panel izquierdo vertical con grupos desplegables para control, areas AECODE y sistemas.
 - plantillas CSV para importar a Sheets, Airtable, Notion o backend.
 
@@ -27,12 +27,16 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`.
 - Nota Obsidian `02_EMPRESAS/AECODE/Cultura-AECODE.md` convertida en reglas operativas, rituales, valores y antivalores.
 - Nota Obsidian `02_EMPRESAS/GEN+/Cultura-GEN+.md` usada como frontera para enrutar consultoria, proyectos cliente, ingenieria aplicada y productos GEN+ fuera del tablero AECODE.
-- Actividades enviadas por equipo tecnico y soporte BIM, anonimizadas como `Persona 23` y `Persona 24`.
-- Actividades de alianzas/sponsors/reuniones y QA/testing/data, anonimizadas como `Persona 25` y `Persona 26`.
-- Actividades UX/UI, branding, web experience y handoff, anonimizadas como `Persona 16`.
+- Actividades enviadas por Anderson y Kevin integradas como tecnologia, arquitectura y soporte BIM.
+- Actividades de Paola y Jordi integradas como alianzas/sponsors/reuniones y QA/testing/data.
+- Actividades de Yary integradas como UX/UI, branding, web experience y handoff.
+- Actividades de Jessica integradas como revision de ventas/GHL para optimizar marketing, copys, oferta y calidad de leads.
+- Actividades de Talia integradas como cierre comercial: llamadas a leads calientes, audios, seguimiento orientado al cierre, copys, brochures, seguimiento masivo y entrenamiento de ventas.
+- Lista completa de `09_Actividades Diarias/Actividades_TEAM` integrada: 35 personas consideradas, 25 asientos nucleo y 10 perfiles en red extendida para cumplir el limite operativo solicitado.
 - PDF de actividades de tecnologia/automatizacion integrado como `Persona 27`: n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA y soporte comercial/postventa.
-- Actividades de programas activos, Summit, postventa, marketing, B2B y comunicaciones HTML, anonimizadas como `Persona 28`.
+- Actividades de programas activos, Summit, postventa, marketing, B2B y comunicaciones HTML integradas como `Persona 28` hasta confirmar nombre.
 - Fuentes Notion AECODE relacionadas con AI Ops, producto digital, AECODE 2.0/3.0, AECODITOS y seguimiento dev, integradas dentro de `Persona 27`.
+- PDF `Dashboard_Operativo_AP_GEN+_AECODE.pdf` integrado como capa ejecutiva AP: empresas, proyectos criticos, flywheel, campos minimos, metricas, 15 vistas requeridas y reglas de operacion.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
 Esta version es interna: muestra nombres reales del equipo, pero no expone emails, credenciales, links de WhatsApp, links de Zoom ni URLs privadas completas.
@@ -66,6 +70,52 @@ La pantalla esta organizada para que cualquier miembro del equipo pueda responde
 
 Las fuentes Obsidian reales se usan para estructurar el sistema. La UI muestra nombres reales y conserva `Persona N` como respaldo cuando el mapeo es asumido.
 
+## Playbooks operativos
+
+La seccion `Playbooks operativos interactivos` convierte los flujos tipicos en rutas clickeables con:
+
+- trigger, objetivo, lead, ciclo, KPI y agente candidato;
+- pasos con owner, equipo de apoyo, entrada, accion, salida, evidencia, sistemas, estado y riesgo;
+- handoffs entre responsables;
+- reglas de escalamiento;
+- definicion de terminado.
+
+Playbooks incluidos:
+
+1. Postventa y acceso de estudiante.
+2. Sesion en vivo y soporte academico.
+3. Grabacion, edicion y publicacion.
+4. Evidencia, rubrica y certificados.
+5. Campana, GHL y cierre comercial.
+6. Evento, sponsors y aliados.
+7. Producto, UX, dev y QA release.
+
+Templates nuevos:
+
+- `templates/workflow_playbooks.csv`
+- `templates/workflow_playbook_steps.csv`
+
+## Equipo nucleo y red extendida
+
+El equipo no se modela como una lista plana. La regla actual es:
+
+- maximo 25 personas con asiento nucleo;
+- toda persona con rol activo debe tener ownership, cadencia, handoff, fuente y riesgo;
+- personas sin reporte detallado, apoyo puntual o rol por confirmar se mantienen como red extendida;
+- los alias `Persona N` se normalizan a nombres reales cuando existe evidencia suficiente;
+- las conexiones entre personas se muestran por dominio: postventa, growth/ventas, producto/dev, Summit, GEN+ BIM y administracion.
+
+Personas consideradas desde Obsidian:
+
+- Nucleo 25: Alejandro Palpan, Patrick, Ivana, Carolina, Anggie, Arantxa, Jessica, Talia, Yadira, Reiner, Yary, Anderson, Fabrizio, Yudely, Jordi, Paola, Daniella, Erika, Julie, Kevin, Israel, Robert Herrera, Emanuel, Marlon y Paolo.
+- Red extendida 10: Alex Anchayhua, Ana, Edith, Enma, Fernando, Genesis, Guisella, Luis Vergara, Moises y Sebastian.
+
+Templates nuevos:
+
+- `templates/team_core_25.csv`
+- `templates/team_extended_network.csv`
+- `templates/team_connections.csv`
+
 ## Control total AECODE
 
 El tablero ya no esta limitado a coordinacion academica. Incluye 15 dominios operativos:
@@ -89,6 +139,19 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 15 dominios ope
 Cada dominio define lead real, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
 
 La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables. La capa UX/UI estructura investigacion, flujos, interfaces, branding, formularios, assets web y handoff para desarrollo antes de prototipar. La capa AI Ops/producto digital conecta n8n, integraciones, AECODITOS, agentes IA, dashboards, scrapers, data, ML, deploys, specs, capacitacion IA, roadmap AECODE 2.0/3.0, seguimiento dev, flujos criticos y eficiencia operativa. La capa programas/Summit coordina sesiones, actas, Notion, docentes, postventa, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
+
+La capa comercial ahora separa cierre real de feedback general: Talia opera llamadas a leads calientes, audios, seguimiento orientado al cierre, copys optimizados desde objeciones, brochures completos, seguimiento masivo con Reiner, entrenamiento de Yadira y reuniones de mejora con el equipo. Jessica queda como revision de GHL/ventas para optimizar marketing y calidad de leads.
+
+## Capa ejecutiva AP
+
+El tablero incorpora una capa superior del ecosistema:
+
+- empresas: GEN+, AECODE, THESIA, SP+/VisionPro y Ecosistema AP;
+- proyectos criticos: AECODE 3.0, VisionPro, AgentFlow, ICEBOT, Summit, Qawari AI, UTEC 2026, THESIA IP y cotizacion ESPARQ SaaS;
+- flywheel AP: Comunidad -> Educacion -> Producto -> Autoridad -> Data -> IA -> Escala;
+- campos minimos por actividad para migrar a base de datos;
+- reglas de operacion diaria, cierre semanal, escalamiento y calidad de dato;
+- 15 vistas objetivo para convertir el tablero en centro de mando completo.
 
 ## Frontera AECODE / GEN+
 
@@ -141,7 +204,7 @@ GitHub Pages:
 app/              UI Next.js
 data/             modelo operativo interno y matriz real de equipo
 docs/             playbooks y especificacion
-templates/        CSVs importables: actividades, roles, dominios, cultura, procesos, links y agentes
+templates/        CSVs importables: actividades, roles, equipo, conexiones, playbooks, dominios, cultura, procesos, links y agentes
 public/           assets AECODE
 outputs/          archivos privados locales no versionados
 ```

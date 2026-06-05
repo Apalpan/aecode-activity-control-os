@@ -1,0 +1,13 @@
+id,company,metric,target,frequency,owner
+MET-01,AECODE,Skills verificadas / usuario activo mensual,>20%,Mensual,Producto + Educacion
+MET-02,AECODE,TTFSV - Time to First Skill Verified,<7 dias,Por cohorte,Producto
+MET-03,AECODE,Landing Conversion Rate,>15%,Diaria/campana,Growth + Producto
+MET-04,AECODE,Onboarding Completion,>65%,Semanal,Educacion
+MET-05,AECODE,Evidence Upload Rate,>20% gate / >35% objetivo,Semanal,Educacion + Producto
+MET-06,GEN+,Conversion cotizacion -> proyecto ganado,Seguimiento activo,Semanal,Direccion + Comercial
+MET-07,GEN+,Monto facturado vs cobrado / vencidos,0 vencidos >30d,Semanal,Administracion
+MET-08,SP+ / VisionPro,Reportes ejecutivos entregados,100% semanas activas,Semanal,Daniella / Erika
+MET-09,GEN+,AgentFlow uptime webhooks,>99%,Diaria,Marlon
+MET-10,Marketing & Growth,CTR pauta pagada,>2%,Diaria en campanas,Anggie / Arantxa
+MET-11,Marketing & Growth,CPL,<3x precio programa basico,Semanal por campana,Anggie / Arantxa
+MET-12,Marketing & Growth,Conversion post-webinar,>10% a siguiente oferta,Por webinar,Growth + Comercial

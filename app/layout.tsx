@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AECODE Activity Control OS",
-  description: "Tablero maestro anonimizado para gestion de actividades, roles, postventa, soporte y automatizacion AECODE."
+  description: "Tablero maestro interno para gestion de actividades, roles, postventa, soporte y automatizacion AECODE."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
