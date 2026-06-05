@@ -25,6 +25,7 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - HTML local `aecode-equipo-marketing.html` normalizado como procesos de marketing, Summit, difusion, clips, web, ventas y automatizacion.
 - Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`.
 - Nota Obsidian `02_EMPRESAS/AECODE/Cultura-AECODE.md` convertida en reglas operativas, rituales, valores y antivalores.
+- Nota Obsidian `02_EMPRESAS/GEN+/Cultura-GEN+.md` usada como frontera para enrutar consultoria, proyectos cliente, ingenieria aplicada y productos GEN+ fuera del tablero AECODE.
 - Actividades enviadas por equipo tecnico y soporte BIM, anonimizadas como `Persona 23` y `Persona 24`.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
@@ -77,6 +78,16 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 8 dominios oper
 Cada dominio define lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
 
 La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables.
+
+## Frontera AECODE / GEN+
+
+El tablero incorpora una regla de ruteo:
+
+- AECODE: aprendizaje, comunidad, cursos, skill verification, evidencias, certificacion, plataforma educativa y marketing/ventas de programas AECODE.
+- GEN+: consultoria, proyectos cliente, ingenieria aplicada, BIM/VDC para clientes, automatizacion empresarial, Visor BIM, ICEBOT, BIM Store y otros productos GEN+.
+- Compartido: know-how GEN+ que se anonimiza y empaqueta como recurso educativo AECODE.
+
+Marketing debe revisar GHL para entender como vende el equipo comercial: conversaciones, scripts, objeciones, tiempos de respuesta, lead quality y conversion por fuente.
 
 ## Cultura operativa
 

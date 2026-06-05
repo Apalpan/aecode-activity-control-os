@@ -140,6 +140,17 @@ export type CultureRitual = {
   owner: string;
 };
 
+export type OperatingBoundary = {
+  id: string;
+  topic: string;
+  routeTo: "AECODE" | "GEN+" | "Compartido";
+  criterion: string;
+  examples: string[];
+  owner: string;
+  evidence: string;
+  risk: string;
+};
+
 export const areas = [
   "Direccion",
   "Accesos y soporte",
@@ -915,6 +926,22 @@ export const activities: Activity[] = [
     source: "Actividad enviada por soporte BIM",
     risk: "Material de apoyo llega tarde o sin trazabilidad con el objetivo de aprendizaje.",
     nextAction: "Registrar proyecto, PPT, Miro, curso, modulo, owner, fecha y estado."
+  },
+  {
+    id: "ACT-048",
+    area: "Marketing",
+    activity: "Revisar como vende el equipo comercial en GHL para optimizar marketing",
+    owner: "Persona 12",
+    backup: "Persona 18",
+    agent: "Agente #16",
+    automationLevel: "Alta",
+    sla: "Diario / semanal",
+    evidence: "insights GHL + ajustes de campana",
+    status: "Activo",
+    priority: "Critica",
+    source: "Solicitud operativa marketing-ventas",
+    risk: "Marketing optimiza mensajes y pauta sin entender objeciones reales, calidad de asesorias y motivos de cierre/no cierre.",
+    nextAction: "Revisar conversaciones, etapas, objeciones, scripts, tiempos de respuesta y conversion por fuente en GHL."
   }
 ];
 
@@ -930,11 +957,11 @@ export const agents: Agent[] = [
   { id: "Agente #9", mission: "Asignar embajador e inducirlo con checklist.", input: "Programa y curso", output: "Embajador activo y checklist", humanControl: "Persona 7 valida induccion", status: "Propuesto", impact: "Medio" },
   { id: "Agente #10", mission: "Planificar difusion WSP, Facebook y YouTube.", input: "Campana o evento", output: "Envios y posts registrados", humanControl: "Persona 8 aprueba mensaje", status: "Propuesto", impact: "Medio" },
   { id: "Agente #11", mission: "Consolidar prioridades y oportunidades de automatizacion.", input: "Backlog por area", output: "Top semanal con impacto, owner y estado", humanControl: "Persona 10 decide prioridad", status: "Propuesto", impact: "Alto" },
-  { id: "Agente #12", mission: "Monitorear Meta Ads, CPL, creativos y lead quality.", input: "Ads + CRM + feedback ventas", output: "Reporte diario y alertas de campana", humanControl: "Persona 12 valida cambios de presupuesto", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #12", mission: "Monitorear Meta Ads, CPL, creativos, lead quality y desempeno comercial por GHL.", input: "Ads + GHL + feedback ventas", output: "Reporte diario, alertas de campana e insights de venta", humanControl: "Persona 12 valida cambios de mensaje y presupuesto", status: "Propuesto", impact: "Alto" },
   { id: "Agente #13", mission: "Orquestar eventos, Summit, agenda, piezas y sponsors.", input: "Notion evento + calendario + assets", output: "Semaforo de evento y tareas vencidas", humanControl: "Persona 14 escala bloqueos", status: "Propuesto", impact: "Alto" },
   { id: "Agente #14", mission: "Gestionar cola web, landings, piezas y QA visual.", input: "Solicitud de cambio + assets", output: "Checklist de publicacion y aprobacion", humanControl: "Persona 15 o 16 aprueba salida", status: "Propuesto", impact: "Medio" },
   { id: "Agente #15", mission: "Transformar webinars en clips, shorts y assets reutilizables.", input: "Grabacion + transcript + tema", output: "Backlog de clips con guion y estado", humanControl: "Persona 17 valida edicion final", status: "Propuesto", impact: "Medio" },
-  { id: "Agente #16", mission: "Cruzar leads, asesoria, objeciones y conversion comercial.", input: "CRM + feedback diario", output: "Lead quality y oportunidades por curso", humanControl: "Persona 18 valida lectura comercial", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #16", mission: "Cruzar leads, asesorias GHL, objeciones, scripts, tiempos de respuesta y conversion comercial.", input: "GHL + CRM + feedback diario", output: "Lead quality, objeciones, gaps de venta y oportunidades por curso", humanControl: "Persona 12 y Persona 18 validan lectura marketing-ventas", status: "Propuesto", impact: "Alto" },
   { id: "Agente #17", mission: "Auditar loop de aprendizaje, evidencias, rubricas y skill passport.", input: "Programas + evidencias + evaluaciones", output: "Mapa de skill verification por cohorte", humanControl: "Persona 20 valida criterio academico", status: "Propuesto", impact: "Alto" },
   { id: "Agente #18", mission: "Sincronizar pagos, comprobantes y bloqueos administrativos.", input: "Pagos + documentos + matriculas", output: "Estado administrativo por estudiante", humanControl: "Persona 21 revisa casos sensibles", status: "Propuesto", impact: "Medio" },
   { id: "Agente #19", mission: "Construir dashboard ejecutivo de operacion completa AECODE.", input: "Academico + marketing + comercial + soporte", output: "KPIs semanales y alertas de decision", humanControl: "Persona 22 valida datos", status: "Propuesto", impact: "Alto" },
@@ -1635,12 +1662,12 @@ export const opsRoles: OpsRole[] = [
   {
     id: "Persona 12",
     role: "Paid Growth + Meta Ads Ops",
-    mission: "Planificar, ejecutar y optimizar campanas pagadas con foco en lead quality y conversion.",
+    mission: "Planificar, ejecutar y optimizar campanas pagadas con foco en lead quality, venta real en GHL y conversion.",
     areas: ["Marketing", "Comercial", "Datos"],
-    primaryActivities: ["ACT-021", "ACT-022", "ACT-028"],
-    kpis: ["CPL por curso", "Lead quality", "Conversion por fuente", "Creativos ganadores"],
-    dailyCheck: "Revisar presupuesto, CPL, conversion, alertas y feedback comercial.",
-    escalation: "CPL fuera de umbral, lead sin contacto, landing rota o oferta no validada.",
+    primaryActivities: ["ACT-021", "ACT-022", "ACT-028", "ACT-048"],
+    kpis: ["CPL por curso", "Lead quality", "Conversion por fuente", "Objeciones GHL", "Creativos ganadores"],
+    dailyCheck: "Revisar presupuesto, CPL, conversaciones GHL, scripts, tiempos de respuesta, conversion, alertas y feedback comercial.",
+    escalation: "CPL fuera de umbral, lead sin contacto, objecion repetida, script debil, landing rota u oferta no validada.",
     backup: "Persona 13",
     obsidianSource: "HTML marketing/Trafficker Meta Ads"
   },
@@ -1709,9 +1736,9 @@ export const opsRoles: OpsRole[] = [
     role: "Sales Feedback + Lead Quality Ops",
     mission: "Traducir la realidad comercial en feedback accionable para campanas, cursos y oferta.",
     areas: ["Comercial", "Marketing", "Datos"],
-    primaryActivities: ["ACT-028", "ACT-029", "ACT-022"],
-    kpis: ["Leads contactados", "Objeciones mapeadas", "Conversion por campana", "Feedback diario enviado"],
-    dailyCheck: "Reportar calidad de leads, objeciones, cursos con traccion y oportunidades de mejora.",
+    primaryActivities: ["ACT-028", "ACT-029", "ACT-022", "ACT-048"],
+    kpis: ["Leads contactados", "Objeciones mapeadas", "Conversion por campana", "Feedback diario enviado", "Scripts mejorados"],
+    dailyCheck: "Reportar calidad de leads, objeciones, cursos con traccion, conversaciones GHL y oportunidades de mejora.",
     escalation: "Leads sin contacto, campana con mala calidad, curso sin oferta clara o asesorias desalineadas.",
     backup: "Persona 19",
     obsidianSource: "HTML marketing/Ventas Feedback Comercial"
@@ -1857,8 +1884,8 @@ export const workflowStages: WorkflowStage[] = [
     timing: "7 dias antes -> diario",
     owner: "Persona 12",
     objective: "Pasar de oferta academica a campana medible con feedback comercial.",
-    activities: ["ACT-021", "ACT-022", "ACT-028", "ACT-029"],
-    evidence: "Brief, piezas, landing, campana activa, CPL y lead quality.",
+    activities: ["ACT-021", "ACT-022", "ACT-028", "ACT-029", "ACT-048"],
+    evidence: "Brief, piezas, landing, campana activa, CPL, lead quality, conversaciones GHL y objeciones.",
     automation: "Agente #12 + Agente #16"
   },
   {
@@ -1955,12 +1982,12 @@ export const aecodeDomains: AecodeDomain[] = [
     domain: "Marketing, growth y distribucion",
     mission: "Generar demanda medible para cursos, webinars, eventos y comunidad con trazabilidad.",
     lead: "Persona 12",
-    supportingRoles: ["Persona 13", "Persona 15", "Persona 16", "Persona 17"],
-    responsibilities: ["Meta Ads", "Creativos", "Difusion", "Web", "YouTube", "Brochures"],
-    kpis: ["CPL", "Lead quality", "Publicaciones", "Conversion por fuente"],
-    cadences: ["Reporte diario ads", "Plan semanal contenidos", "Review de campana"],
-    risks: ["Lead barato sin compra", "Pieza sin CTA", "Web desactualizada"],
-    automation: "Agente #12 reporta campanas y Agente #14 gestiona cola web/QA."
+    supportingRoles: ["Persona 13", "Persona 15", "Persona 16", "Persona 17", "Persona 18"],
+    responsibilities: ["Meta Ads", "Creativos", "Difusion", "Web", "YouTube", "Brochures", "Revision GHL"],
+    kpis: ["CPL", "Lead quality", "Objeciones GHL", "Publicaciones", "Conversion por fuente"],
+    cadences: ["Reporte diario ads", "Revision GHL", "Plan semanal contenidos", "Review de campana"],
+    risks: ["Lead barato sin compra", "Pieza sin CTA", "Web desactualizada", "Marketing sin escuchar venta real"],
+    automation: "Agente #12 reporta campanas, Agente #16 cruza GHL/ventas y Agente #14 gestiona cola web/QA."
   },
   {
     id: "DOM-05",
@@ -1968,9 +1995,9 @@ export const aecodeDomains: AecodeDomain[] = [
     mission: "Cerrar el loop entre campanas, asesoria, objeciones, pagos y conversion.",
     lead: "Persona 18",
     supportingRoles: ["Persona 19", "Persona 21", "Persona 12"],
-    responsibilities: ["Lead follow-up", "Objeciones", "Pipeline", "Pagos", "Feedback a marketing"],
-    kpis: ["Tasa de contacto", "Tasa de cierre", "Motivos de no compra", "Ingresos por campana"],
-    cadences: ["Feedback diario", "Review comercial semanal", "Cierre de cohortes"],
+    responsibilities: ["Lead follow-up", "Objeciones", "Pipeline GHL", "Scripts", "Pagos", "Feedback a marketing"],
+    kpis: ["Tasa de contacto", "Tasa de cierre", "Motivos de no compra", "Tiempo de respuesta", "Ingresos por campana"],
+    cadences: ["Feedback diario", "Revision GHL marketing-ventas", "Review comercial semanal", "Cierre de cohortes"],
     risks: ["Marketing optimiza sin ventas", "Promesas comerciales no alineadas", "Pagos bloqueados"],
     automation: "Agente #16 cruza CRM, feedback y conversion por fuente."
   },
@@ -2036,15 +2063,78 @@ export const aecodeDomains: AecodeDomain[] = [
   }
 ];
 
+export const operatingBoundaries: OperatingBoundary[] = [
+  {
+    id: "BOUND-01",
+    topic: "Educacion, skill verification y comunidad",
+    routeTo: "AECODE",
+    criterion: "Se queda en AECODE si el trabajo mejora rutas, cursos, cohortes, evidencias, Skill Passport, certificacion, comunidad o experiencia del alumno.",
+    examples: ["Cursos live", "Microlearning", "Rubricas", "Evidencias", "Certificados", "Webinars de comunidad"],
+    owner: "Persona 20",
+    evidence: "Ruta, skill, evidencia, rubrica, feedback o dashboard academico.",
+    risk: "Si se mezcla con servicios GEN+, AECODE pierde foco como learning operating system."
+  },
+  {
+    id: "BOUND-02",
+    topic: "Consultoria, proyectos cliente e ingenieria aplicada",
+    routeTo: "GEN+",
+    criterion: "Se enruta a GEN+ si el trabajo es servicio tecnico para cliente, entrega BIM/VDC, automatizacion de proyecto, ingenieria, consultoria, Visor BIM, ICEBOT o BIM Store.",
+    examples: ["Gestion BIM cliente", "Automatizacion BIM cliente", "Detail engineering", "Diseno computacional", "AI implementation empresarial"],
+    owner: "Persona 10",
+    evidence: "Proyecto cliente, contrato, entregable tecnico, alcance GEN+ o roadmap de producto GEN+.",
+    risk: "Si entra a AECODE, se contamina el tablero educativo con operacion de consultoria."
+  },
+  {
+    id: "BOUND-03",
+    topic: "Activos BIM usados en cursos",
+    routeTo: "Compartido",
+    criterion: "Es compartido cuando nace como know-how GEN+ pero se empaqueta como recurso educativo AECODE.",
+    examples: ["Modelo BIM anonimizado", "Plantilla de clase", "Familia para practica", "Script pedagogico", "Miro de ejercicio"],
+    owner: "Persona 24",
+    evidence: "Ficha de asset con origen, curso, modulo, version, permiso de uso y objetivo de aprendizaje.",
+    risk: "Sin ficha, el material puede exponer trabajo cliente o quedar como archivo personal no reutilizable."
+  },
+  {
+    id: "BOUND-04",
+    topic: "Tecnologia de plataforma educativa",
+    routeTo: "AECODE",
+    criterion: "Se queda en AECODE cuando la arquitectura, backend, frontend, IA o infra soporta plataforma educativa, comunidad, certificacion o aprendizaje.",
+    examples: ["Panel AECODE", "Skill Passport", "AI Coach educativo", "Dashboard B2B academico", "Automatizacion de certificados"],
+    owner: "Persona 23",
+    evidence: "ADR vinculado a objetivo AECODE, feature educativa, metrica NSM o flujo de estudiante.",
+    risk: "Sin criterio de producto, tecnologia puede avanzar sin impactar aprendizaje verificable."
+  },
+  {
+    id: "BOUND-05",
+    topic: "Productos y herramientas GEN+",
+    routeTo: "GEN+",
+    criterion: "Se enruta a GEN+ cuando la tecnologia habilita servicios, productos o automatizaciones de ingenieria aplicada fuera del aprendizaje AECODE.",
+    examples: ["Visor BIM", "ICEBOT", "BIM Store", "POS", "Automatizacion interna de cliente", "Dashboards de obra"],
+    owner: "Persona 23",
+    evidence: "Backlog GEN+, repo GEN+, alcance comercial GEN+ o producto empresarial.",
+    risk: "Si se fuerza dentro de AECODE, se distorsionan prioridades, metricas y owners."
+  },
+  {
+    id: "BOUND-06",
+    topic: "Marketing y ventas AECODE via GHL",
+    routeTo: "AECODE",
+    criterion: "Debe vivir en AECODE cuando el analisis de GHL optimiza captacion, asesorias, objeciones y conversion de cursos, eventos o comunidad AECODE.",
+    examples: ["Revision de conversaciones", "Objeciones por curso", "Scripts comerciales", "Tiempos de respuesta", "Lead quality por fuente"],
+    owner: "Persona 12",
+    evidence: "Insights GHL, ajuste de copy, ajuste de campana, cambio de script o reporte conversion.",
+    risk: "Marketing optimiza pauta sin entender como vende el equipo comercial."
+  }
+];
+
 export const marketingProcesses: MarketingProcess[] = [
   {
     id: "MKT-01",
     title: "Ads para cursos Training",
     objective: "Del brief del curso al ajuste continuo de campanas de captacion.",
     lead: "Persona 12",
-    stages: ["Brief e insumos", "Planificacion funnel", "Produccion piezas", "Produccion video", "Validacion", "Lanzamiento", "Reporte", "Feedback ventas", "Ajuste"],
-    evidence: "Brief, piezas aprobadas, campana activa, reporte CPL y feedback comercial.",
-    automation: "Agente #12 alerta CPL y Agente #16 cruza calidad de leads."
+    stages: ["Brief e insumos", "Planificacion funnel", "Produccion piezas", "Produccion video", "Validacion", "Lanzamiento", "Reporte", "Revision GHL", "Feedback ventas", "Ajuste"],
+    evidence: "Brief, piezas aprobadas, campana activa, reporte CPL, insights GHL y feedback comercial.",
+    automation: "Agente #12 alerta CPL y Agente #16 cruza GHL, calidad de leads y objeciones."
   },
   {
     id: "MKT-02",
@@ -2238,7 +2328,9 @@ export const sourceNotes = [
   "Panel HTML de marketing integrado como procesos anonimizados: ads, Summit, difusion, clips, web y automatizacion.",
   "El control maestro ya no se limita a coordinacion academica; incluye direccion, producto, marketing, comercial, eventos, finanzas, datos y BI.",
   "Cultura-AECODE.md integrada como reglas operativas: presencia, trazabilidad, cierre, aprendizaje, documentacion y alineacion al negocio.",
+  "Cultura-GEN+.md usada como frontera: proyectos cliente, ingenieria aplicada y productos GEN+ se enrutan fuera de AECODE salvo activos educativos empaquetados.",
   "Actividades tecnicas y BIM integradas como roles anonimos Persona 23 y Persona 24.",
+  "Marketing debe revisar GHL y venta real para ajustar mensajes, campanas y lead quality.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

@@ -44,6 +44,7 @@ import {
   linkMetrics,
   marketingProcesses,
   opsRoles,
+  operatingBoundaries,
   opsSources,
   programs,
   sourceNotes,
@@ -92,6 +93,7 @@ const navGroups = [
     label: "Areas AECODE",
     items: [
       { label: "Mapa completo", href: "#areas", icon: ClipboardList },
+      { label: "Frontera GEN+", href: "#frontera", icon: Route },
       { label: "Marketing", href: "#marketing", icon: Megaphone },
       { label: "Comercial", href: "#comercial", icon: Users },
       { label: "Producto", href: "#producto", icon: GraduationCap }
@@ -297,6 +299,48 @@ export default function Page() {
                 <p className="mt-4 text-xs font-bold text-aecode-lavender">Apoyo: {domain.supportingRoles.join(" + ")}</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-6 panel p-5" id="frontera">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Frontera AECODE / GEN+</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Que se queda, que se deriva y que es compartido</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                AECODE concentra aprendizaje, comunidad, skills, evidencias y certificacion. GEN+ concentra consultoria, proyectos cliente, ingenieria aplicada, BIM/VDC, IA empresarial y productos tecnicos.
+              </p>
+            </div>
+            <Route className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-3">
+            {operatingBoundaries.map((boundary) => {
+              const routeClass = boundary.routeTo === "AECODE" ? "chip-good" : boundary.routeTo === "GEN+" ? "chip-high" : "";
+              return (
+                <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={boundary.id}>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-black text-aecode-muted">{boundary.id}</p>
+                      <h3 className="mt-1 text-lg font-black text-white">{boundary.topic}</h3>
+                    </div>
+                    <span className={`chip ${routeClass}`}>{boundary.routeTo}</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-aecode-muted">{boundary.criterion}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {boundary.examples.map((example) => (
+                      <span className="chip" key={example}>{example}</span>
+                    ))}
+                  </div>
+                  <div className="mt-4 rounded-lg border border-aecode-violet/15 bg-aecode-bg/35 p-3">
+                    <p className="text-xs font-black uppercase text-aecode-green">Evidencia de decision</p>
+                    <p className="mt-2 text-sm leading-6 text-white">{boundary.evidence}</p>
+                  </div>
+                  <p className="mt-3 text-xs font-bold text-aecode-lavender">Owner: {boundary.owner}</p>
+                  <p className="mt-2 text-xs leading-5 text-aecode-muted">Riesgo: {boundary.risk}</p>
+                </article>
+              );
+            })}
           </div>
         </section>
 

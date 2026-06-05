@@ -10,6 +10,8 @@ El tablero no debe funcionar como una lista larga de pendientes. Debe operar com
 
 La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE, `Cultura-AECODE.md` y el panel HTML de marketing. En la UI publica se mantienen roles anonimos.
 
+`Cultura-GEN+.md` se usa como frontera operativa: lo que sea consultoria, proyecto cliente, ingenieria aplicada, BIM/VDC para cliente, automatizacion empresarial o producto GEN+ no entra al tablero AECODE salvo que se convierta en activo educativo anonimizado.
+
 ## Roles operativos
 
 - `Persona 1`: accesos, soporte, plataforma, certificados y contenido.
@@ -68,6 +70,18 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 8. Finanzas, documentacion y compliance operativo.
 9. Tecnologia, arquitectura y product engineering.
 10. Activos BIM academicos.
+
+## Frontera AECODE / GEN+
+
+- AECODE: cursos, cohortes, comunidad, Skill Passport, evidencias, certificaciones, plataforma educativa, marketing y ventas de programas AECODE.
+- GEN+: servicios tecnicos, proyectos cliente, BIM/VDC cliente, ingenieria aplicada, IA empresarial, Visor BIM, ICEBOT, BIM Store y productos propios GEN+.
+- Compartido: know-how tecnico o BIM que se anonimiza, versiona y convierte en recurso pedagogico.
+
+Toda actividad compartida debe tener ficha de asset: origen, permiso de uso, curso, modulo, version, objetivo de aprendizaje y owner.
+
+## GHL marketing-ventas
+
+Marketing no debe optimizar solo por CPL. `Persona 12` revisa GHL con ventas para entender conversaciones, objeciones, scripts, tiempos de respuesta, lead quality y conversion por fuente. La salida debe convertirse en ajuste de copy, campaña, landing, script o oferta.
 
 ## Procesos de marketing integrados
 
