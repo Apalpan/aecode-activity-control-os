@@ -5,13 +5,16 @@ import {
   AlertTriangle,
   Bot,
   CalendarDays,
+  CheckSquare,
   ChevronDown,
   ChevronRight,
   CheckCircle2,
+  CircleDotDashed,
   ClipboardList,
   Database,
   ExternalLink,
   Filter,
+  Gauge,
   GraduationCap,
   LayoutDashboard,
   Link2,
@@ -23,6 +26,8 @@ import {
   Route,
   Search,
   ShieldCheck,
+  SlidersHorizontal,
+  TimerReset,
   UserRoundCheck,
   Users,
   Workflow
@@ -32,6 +37,7 @@ import {
   aecodeDomains,
   activities,
   activityFieldSpecs,
+  agentContracts,
   agents,
   areas,
   contentMetrics,
@@ -39,6 +45,8 @@ import {
   cultureClusters,
   cultureRituals,
   cultureValues,
+  dailyExecutionItems,
+  dataEntityContracts,
   ecosystemCompanies,
   ecosystemMetrics,
   ecosystemProjects,
@@ -58,6 +66,8 @@ import {
   workflowPlaybooks,
   workflowStages,
   type Activity,
+  type DailyExecutionItem,
+  type ExecutionStatus,
   type Priority
 } from "@/data/opsData";
 import {
@@ -76,6 +86,18 @@ const priorityClass: Record<Priority, string> = {
   Media: "",
   Baja: "chip-good"
 };
+
+const executionStatusClass: Record<ExecutionStatus, string> = {
+  Listo: "chip-good",
+  "En curso": "chip-high",
+  Riesgo: "chip-critical",
+  Bloqueado: "chip-critical",
+  Automatizable: "chip-good",
+  "Requiere decision": "chip-high"
+};
+
+const playbookModes = ["Checklist", "Kanban", "Timeline", "RACI", "Log"] as const;
+type PlaybookMode = (typeof playbookModes)[number];
 
 const privacyClass = {
   Critico: "chip-critical",
@@ -108,6 +130,7 @@ const navGroups = [
     id: "control",
     label: "Control",
     items: [
+      { label: "Hoy", href: "#hoy", icon: Gauge },
       { label: "Resumen", href: "#control", icon: LayoutDashboard },
       { label: "Cultura", href: "#cultura", icon: MessageSquareText },
       { label: "Actividades", href: "#actividades", icon: ListChecks },
@@ -133,6 +156,7 @@ const navGroups = [
     label: "Sistemas",
     items: [
       { label: "Agentes", href: "#agentes", icon: Bot },
+      { label: "AgentFlow", href: "#agentflow", icon: Workflow },
       { label: "Links", href: "#links", icon: Link2 },
       { label: "Programas", href: "#programas", icon: GraduationCap },
       { label: "Datos", href: "#datos", icon: Database },
@@ -201,11 +225,22 @@ function displayPerson(value: string) {
   return resolvePersonName(value);
 }
 
+function displayOperationalText(value: string) {
+  return Object.keys(personIdentityMap)
+    .sort((a, b) => b.length - a.length)
+    .reduce((text, key) => text.replaceAll(key, resolvePersonName(key)), value);
+}
+
 export default function Page() {
   const [area, setArea] = useState("Todas");
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("Todos");
   const [role, setRole] = useState("Todos");
+  const [executionOwner, setExecutionOwner] = useState("Todos");
+  const [executionStatus, setExecutionStatus] = useState("Todos");
+  const [executionPlaybook, setExecutionPlaybook] = useState("Todos");
+  const [playbookMode, setPlaybookMode] = useState<PlaybookMode>("Checklist");
+  const [activeAgentId, setActiveAgentId] = useState(agentContracts[0]?.id ?? "");
   const [activePlaybookId, setActivePlaybookId] = useState(workflowPlaybooks[0]?.id ?? "");
   const [activeStepId, setActiveStepId] = useState(workflowPlaybooks[0]?.steps[0]?.id ?? "");
   const [openNav, setOpenNav] = useState<Record<string, boolean>>({
@@ -224,6 +259,18 @@ export default function Page() {
       .sort(prioritySort);
   }, [area, query, role, status]);
 
+  const executionOwners = useMemo(() => {
+    return Array.from(new Set(dailyExecutionItems.flatMap((item) => [item.owner, item.backup]))).sort((a, b) => displayPerson(a).localeCompare(displayPerson(b)));
+  }, []);
+
+  const executionFiltered = useMemo(() => {
+    return dailyExecutionItems
+      .filter((item) => executionOwner === "Todos" || item.owner === executionOwner || item.backup === executionOwner)
+      .filter((item) => executionStatus === "Todos" || item.status === executionStatus)
+      .filter((item) => executionPlaybook === "Todos" || item.playbookId === executionPlaybook)
+      .sort((a, b) => getPriorityWeight(b.priority) - getPriorityWeight(a.priority));
+  }, [executionOwner, executionPlaybook, executionStatus]);
+
   const criticalCount = activities.filter((item) => item.priority === "Critica").length;
   const riskCount = activities.filter((item) => item.status === "Riesgo").length;
   const automationCount = activities.filter((item) => item.automationLevel !== "Baja").length;
@@ -236,9 +283,20 @@ export default function Page() {
   const extendedTeamCount = extendedTeamMembers.length;
   const selectedPlaybook = workflowPlaybooks.find((playbook) => playbook.id === activePlaybookId) ?? workflowPlaybooks[0]!;
   const selectedStep = selectedPlaybook.steps.find((step) => step.id === activeStepId) ?? selectedPlaybook.steps[0]!;
+  const activeAgent = agentContracts.find((agent) => agent.id === activeAgentId) ?? agentContracts[0]!;
   const selectedPlaybookReadyCount = selectedPlaybook.steps.filter((step) => step.status === "Listo").length;
   const selectedPlaybookRiskCount = selectedPlaybook.steps.filter((step) => step.status === "Riesgo").length;
   const selectedPlaybookProgress = Math.round((selectedPlaybookReadyCount / Math.max(selectedPlaybook.steps.length, 1)) * 100);
+  const blockedToday = dailyExecutionItems.filter((item) => item.status === "Bloqueado" || item.status === "Riesgo").length;
+  const decisionToday = dailyExecutionItems.filter((item) => item.status === "Requiere decision" || item.decisionNeeded.toLowerCase().includes("confirmar") || item.decisionNeeded.toLowerCase().includes("definir")).length;
+  const evidenceToday = dailyExecutionItems.filter((item) => item.evidence.toLowerCase().includes("evidencia") || item.evidence.toLowerCase().includes("log") || item.evidence.toLowerCase().includes("reporte")).length;
+  const agentReadyToday = dailyExecutionItems.filter((item) => item.status === "Automatizable" || item.agent.includes("Agente")).length;
+  const ownerLoad = executionOwners.map((owner) => ({
+    owner,
+    count: dailyExecutionItems.filter((item) => item.owner === owner || item.backup === owner).length,
+    critical: dailyExecutionItems.filter((item) => (item.owner === owner || item.backup === owner) && item.priority === "Critica").length
+  })).sort((a, b) => b.count - a.count);
+  const overloadedPeople = ownerLoad.filter((item) => item.count >= 3 || item.critical >= 2);
 
   return (
     <div className="shell">
@@ -331,6 +389,162 @@ export default function Page() {
             <Metric label="En riesgo" value={String(riskCount)} detail="Requieren owner, SLA o evidencia para no generar reclamos." tone="risk" />
             <Metric label="Automatizables" value={`${automationCount}/${activities.length}`} detail="Candidatas para AgentFlow, GHL, WhatsApp, Drive o n8n." tone="good" />
             <Metric label="Programas listos" value={`${readyPrograms}/${programs.length}`} detail="Lectura de readiness por accesos, Zoom, WSP, Classroom y embajador." />
+          </div>
+        </section>
+
+        <section className="execution-center mt-6" id="hoy">
+          <div className="execution-hero">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Hoy / Centro de ejecucion</p>
+              <h2 className="mt-2 text-3xl font-black text-white">Lo que el equipo debe mover ahora</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Vista diaria para Alejandro y el equipo: responsables reales, bloqueos, evidencia faltante, decision requerida, agente sugerido y siguiente mejor accion.
+              </p>
+            </div>
+            <div className="execution-pulse" aria-label="Operacion viva">
+              <CircleDotDashed size={26} />
+              <span>live ops</span>
+            </div>
+          </div>
+
+          <div className="execution-kpis">
+            <article>
+              <p>Items de hoy</p>
+              <strong>{dailyExecutionItems.length}</strong>
+              <span>por playbook operativo</span>
+            </article>
+            <article>
+              <p>Bloqueos/riesgo</p>
+              <strong>{blockedToday}</strong>
+              <span>requieren owner y SLA</span>
+            </article>
+            <article>
+              <p>Decisiones AP</p>
+              <strong>{decisionToday}</strong>
+              <span>solo direccion si destraba valor</span>
+            </article>
+            <article>
+              <p>Evidencias</p>
+              <strong>{evidenceToday}</strong>
+              <span>logs, reportes o cierres</span>
+            </article>
+            <article>
+              <p>Agentes posibles</p>
+              <strong>{agentReadyToday}</strong>
+              <span>con control humano</span>
+            </article>
+          </div>
+
+          <div className="execution-filters">
+            <div>
+              <label htmlFor="execution-owner">Persona</label>
+              <select id="execution-owner" value={executionOwner} onChange={(event) => setExecutionOwner(event.target.value)}>
+                <option value="Todos">Todos</option>
+                {executionOwners.map((owner) => (
+                  <option key={owner} value={owner}>{displayPerson(owner)}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="execution-status">Estado</label>
+              <select id="execution-status" value={executionStatus} onChange={(event) => setExecutionStatus(event.target.value)}>
+                <option value="Todos">Todos</option>
+                {(["Listo", "En curso", "Riesgo", "Bloqueado", "Automatizable", "Requiere decision"] as ExecutionStatus[]).map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="execution-playbook">Playbook</label>
+              <select id="execution-playbook" value={executionPlaybook} onChange={(event) => setExecutionPlaybook(event.target.value)}>
+                <option value="Todos">Todos</option>
+                {workflowPlaybooks.map((playbook) => (
+                  <option key={playbook.id} value={playbook.id}>{playbook.id} / {playbook.title}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="execution-layout">
+            <div className="execution-board">
+              {executionFiltered.map((item) => (
+                <article className="execution-card" key={item.id}>
+                  <div className="execution-card-head">
+                    <div>
+                      <p>{item.id} / {item.area}</p>
+                      <h3>{item.title}</h3>
+                    </div>
+                    <span className={`chip ${executionStatusClass[item.status]}`}>{item.status}</span>
+                  </div>
+                  <div className="execution-meta">
+                    <span className={`chip ${priorityClass[item.priority]}`}>{item.priority}</span>
+                    <span className="chip">{item.due}</span>
+                    <span className="chip chip-good">{item.agent}</span>
+                  </div>
+                  <div className="execution-owners">
+                    <p><strong>Owner</strong>{displayPerson(item.owner)}</p>
+                    <p><strong>Backup</strong>{displayPerson(item.backup)}</p>
+                    <p><strong>Flujo</strong>{item.playbookId}</p>
+                  </div>
+                  <div className="next-action">
+                    <TimerReset size={17} />
+                    <p>{item.nextBestAction}</p>
+                  </div>
+                  <div className="execution-evidence">
+                    <p><span>Evidencia</span>{item.evidence}</p>
+                    <p><span>Decision</span>{item.decisionNeeded}</p>
+                    <p><span>Escala</span>{item.escalation}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <aside className="execution-side">
+              <div className="side-block">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-aecode-green">Carga</p>
+                    <h3 className="mt-1 text-lg font-black text-white">Personas sobrecargadas</h3>
+                  </div>
+                  <SlidersHorizontal size={22} className="text-aecode-mint" />
+                </div>
+                <div className="mt-4 grid gap-3">
+                  {ownerLoad.slice(0, 7).map((item) => (
+                    <div className="load-row" key={item.owner}>
+                      <div>
+                        <p>{displayPerson(item.owner)}</p>
+                        <span>{item.critical} criticas</span>
+                      </div>
+                      <strong>{item.count}</strong>
+                    </div>
+                  ))}
+                </div>
+                {overloadedPeople.length ? (
+                  <p className="mt-4 rounded-lg border border-aecode-coral/30 bg-aecode-coral/10 p-3 text-sm leading-6 text-[#ffb2aa]">
+                    Alerta: {overloadedPeople.map((item) => displayPerson(item.owner)).join(", ")} concentran demasiada carga o tareas criticas.
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="side-block">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-aecode-green">Decisiones para Alejandro</p>
+                <div className="mt-3 grid gap-2">
+                  {dailyExecutionItems.filter((item) => item.status === "Requiere decision").map((item) => (
+                    <a className="decision-link" href="#flujo" key={item.id} onClick={() => setActivePlaybookId(item.playbookId)}>
+                      <AlertTriangle size={15} />
+                      <span>{item.title}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="side-block">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-aecode-green">Regla operativa</p>
+                <p className="mt-2 text-sm leading-6 text-aecode-muted">
+                  Una actividad no esta cerrada si no tiene evidencia, owner unico, fecha, estado y proximo paso. Todo lo sensible queda fuera del deploy publico.
+                </p>
+              </div>
+            </aside>
           </div>
         </section>
 
@@ -546,7 +760,7 @@ export default function Page() {
                 </div>
                 <div className="mt-4 rounded-lg border border-aecode-violet/15 bg-aecode-bg/35 p-3">
                   <p className="text-xs font-black uppercase text-aecode-green">Automatizacion</p>
-                  <p className="mt-2 text-sm leading-6 text-white">{domain.automation}</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{displayOperationalText(domain.automation)}</p>
                 </div>
                 <p className="mt-4 text-xs font-bold text-aecode-lavender">Apoyo: {domain.supportingRoles.map(displayPerson).join(" + ")}</p>
               </article>
@@ -1105,7 +1319,7 @@ export default function Page() {
                   ))}
                 </div>
                 <p className="mt-4 text-sm leading-6 text-white">Evidencia: {process.evidence}</p>
-                <p className="mt-2 text-xs font-bold text-aecode-lavender">{process.automation}</p>
+                <p className="mt-2 text-xs font-bold text-aecode-lavender">{displayOperationalText(process.automation)}</p>
               </article>
             ))}
           </div>
@@ -1229,6 +1443,112 @@ export default function Page() {
             ))}
           </div>
 
+          <div className="playbook-mode-bar mt-5" aria-label="Modo de visualizacion del playbook">
+            {playbookModes.map((mode) => (
+              <button data-active={playbookMode === mode} key={mode} onClick={() => setPlaybookMode(mode)} type="button">
+                {mode === "Checklist" ? <CheckSquare size={15} /> : mode === "Kanban" ? <LayoutDashboard size={15} /> : mode === "Timeline" ? <TimerReset size={15} /> : mode === "RACI" ? <Users size={15} /> : <Database size={15} />}
+                <span>{mode}</span>
+              </button>
+            ))}
+          </div>
+
+          <section className="playbook-mode-panel mt-4">
+            {playbookMode === "Checklist" ? (
+              <div className="checklist-grid">
+                {selectedPlaybook.steps.map((step) => (
+                  <button className="checklist-item" data-active={selectedStep.id === step.id} key={step.id} onClick={() => setActiveStepId(step.id)} type="button">
+                    <CheckCircle2 size={17} />
+                    <span>
+                      <strong>{step.label}</strong>
+                      <small>{displayPerson(step.owner)} / {step.evidence}</small>
+                    </span>
+                    <em>{step.timing}</em>
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            {playbookMode === "Kanban" ? (
+              <div className="kanban-grid">
+                {(["Riesgo", "En curso", "Automatizable", "Listo"] as const).map((column) => (
+                  <div className="kanban-column" key={column}>
+                    <p className={`chip ${workflowStatusClass(column)}`}>{column}</p>
+                    <div className="mt-3 grid gap-2">
+                      {selectedPlaybook.steps.filter((step) => step.status === column).map((step) => (
+                        <button className="kanban-card" key={step.id} onClick={() => setActiveStepId(step.id)} type="button">
+                          <strong>{step.label}</strong>
+                          <span>{displayPerson(step.owner)} / {step.timing}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+
+            {playbookMode === "Timeline" ? (
+              <div className="timeline-flow">
+                {selectedPlaybook.steps.map((step, index) => (
+                  <button className="timeline-node" key={step.id} onClick={() => setActiveStepId(step.id)} style={{ animationDelay: `${index * 80}ms` }} type="button">
+                    <span>{index + 1}</span>
+                    <div>
+                      <strong>{step.timing}</strong>
+                      <p>{step.label}</p>
+                      <small>{step.output}</small>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            {playbookMode === "RACI" ? (
+              <div className="table-wrap">
+                <table className="data-table raci-table">
+                  <thead>
+                    <tr>
+                      <th>Paso</th>
+                      <th>R Owner</th>
+                      <th>A Backup</th>
+                      <th>C Equipo</th>
+                      <th>I Evidencia</th>
+                      <th>Agente</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedPlaybook.steps.map((step) => (
+                      <tr key={step.id}>
+                        <td>
+                          <p className="font-black text-white">{step.label}</p>
+                          <p className="mt-1 text-xs text-aecode-muted">{step.id}</p>
+                        </td>
+                        <td className="font-bold text-white">{displayPerson(step.owner)}</td>
+                        <td>{displayPerson(selectedPlaybook.lead)}</td>
+                        <td>{step.team.map(displayPerson).join(" + ")}</td>
+                        <td><p className="max-w-[320px] text-sm leading-6 text-aecode-muted">{step.evidence}</p></td>
+                        <td><span className="chip chip-good">{step.automation.split(" ")[0]} {step.automation.split(" ")[1]}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
+
+            {playbookMode === "Log" ? (
+              <div className="log-grid">
+                {selectedPlaybook.steps.map((step, index) => (
+                  <article className="log-row" key={step.id}>
+                    <span>{`LOG-${index + 1}`}</span>
+                    <div>
+                      <strong>{step.status} / {step.label}</strong>
+                      <p>{displayPerson(step.owner)} registro evidencia esperada: {step.evidence}</p>
+                      <small>{step.risk}</small>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : null}
+          </section>
+
           <div className="workflow-experience mt-5">
             <div className="workflow-canvas">
               {selectedPlaybook.steps.map((step, index) => {
@@ -1291,7 +1611,7 @@ export default function Page() {
 
               <div className="automation-strip mt-4">
                 <Bot size={18} />
-                <p>{selectedStep.automation}</p>
+                <p>{displayOperationalText(selectedStep.automation)}</p>
               </div>
 
               <div className="mt-4 grid gap-3 xl:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
@@ -1495,13 +1815,98 @@ export default function Page() {
                     <span className="chip chip-good">{agent.id}</span>
                     <span className="text-xs font-bold uppercase text-aecode-muted">{agent.impact}</span>
                   </div>
-                  <p className="mt-3 font-black text-white">{agent.mission}</p>
-                  <p className="mt-2 text-sm leading-6 text-aecode-muted">Input: {agent.input}</p>
-                  <p className="text-sm leading-6 text-aecode-muted">Output: {agent.output}</p>
-                  <p className="mt-2 text-xs font-bold text-aecode-lavender">{agent.humanControl}</p>
+                  <p className="mt-3 font-black text-white">{displayOperationalText(agent.mission)}</p>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">Input: {displayOperationalText(agent.input)}</p>
+                  <p className="text-sm leading-6 text-aecode-muted">Output: {displayOperationalText(agent.output)}</p>
+                  <p className="mt-2 text-xs font-bold text-aecode-lavender">{displayOperationalText(agent.humanControl)}</p>
                 </article>
               ))}
             </div>
+
+            <section className="agentflow-panel mt-6" id="agentflow">
+              <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">AgentFlow AECODE</p>
+                  <h3 className="mt-2 text-2xl font-black text-white">Contratos auditables de automatizacion</h3>
+                  <p className="mt-2 max-w-3xl text-sm leading-7 text-aecode-muted">
+                    Cada agente prepara, valida o recomienda. Acciones externas, certificados, correos, mensajes, pagos y cambios oficiales requieren aprobacion humana.
+                  </p>
+                </div>
+                <span className="chip chip-good">{agentContracts.length} contratos</span>
+              </div>
+
+              <div className="agent-contract-tabs mt-5">
+                {agentContracts.map((agent) => (
+                  <button data-active={agent.id === activeAgent.id} key={agent.id} onClick={() => setActiveAgentId(agent.id)} type="button">
+                    <Bot size={15} />
+                    <span>{agent.name}</span>
+                  </button>
+                ))}
+              </div>
+
+              <article className="agent-contract-detail mt-4">
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">{activeAgent.id} / {displayPerson(activeAgent.owner)}</p>
+                    <h4 className="mt-2 text-2xl font-black text-white">{activeAgent.name}</h4>
+                    <p className="mt-2 text-sm leading-7 text-aecode-muted">{activeAgent.objective}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="chip chip-good">{activeAgent.status}</span>
+                    <span className={`chip ${privacyClass[activeAgent.privacyRisk === "Critico" ? "Critico" : activeAgent.privacyRisk === "Alto" ? "Critico" : activeAgent.privacyRisk === "Medio" ? "Interno" : "Publico"]}`}>Privacidad {activeAgent.privacyRisk}</span>
+                  </div>
+                </div>
+
+                <div className="agent-contract-grid mt-5">
+                  <div>
+                    <p>Trigger</p>
+                    <span>{activeAgent.trigger}</span>
+                  </div>
+                  <div>
+                    <p>Idempotencia</p>
+                    <span>{activeAgent.idempotency}</span>
+                  </div>
+                  <div>
+                    <p>Permisos</p>
+                    <span>{activeAgent.permissions}</span>
+                  </div>
+                  <div>
+                    <p>Output</p>
+                    <span>{displayOperationalText(activeAgent.output)}</span>
+                  </div>
+                  <div>
+                    <p>Logs</p>
+                    <span>{activeAgent.logs}</span>
+                  </div>
+                  <div>
+                    <p>Retries / fallback</p>
+                    <span>{activeAgent.retries} / {activeAgent.fallback}</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-3 xl:grid-cols-3">
+                  <div className="subpanel">
+                    <p className="text-xs font-black uppercase text-aecode-green">Input payload</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {activeAgent.inputPayload.map((item) => <span className="chip" key={item}>{item}</span>)}
+                    </div>
+                  </div>
+                  <div className="subpanel">
+                    <p className="text-xs font-black uppercase text-aecode-green">Validaciones</p>
+                    <div className="mt-3 grid gap-2">
+                  {activeAgent.validations.map((item) => <p className="text-sm leading-6 text-aecode-muted" key={item}>{displayOperationalText(item)}</p>)}
+                    </div>
+                  </div>
+                  <div className="subpanel">
+                    <p className="text-xs font-black uppercase text-aecode-green">Herramientas y control</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {activeAgent.tools.map((item) => <span className="chip chip-good" key={item}>{item}</span>)}
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-white">{displayOperationalText(activeAgent.humanApproval)}</p>
+                  </div>
+                </div>
+              </article>
+            </section>
           </div>
 
           <aside className="panel-light p-5" id="datos">
@@ -1530,7 +1935,7 @@ export default function Page() {
               {sourceNotes.map((note) => (
                 <p className="flex gap-2 text-sm leading-6 text-[#2A2C3A]" key={note}>
                   <CheckCircle2 className="mt-1 shrink-0 text-[#17B14E]" size={15} />
-                  {note}
+                  {displayOperationalText(note)}
                 </p>
               ))}
             </div>
@@ -1546,6 +1951,23 @@ export default function Page() {
                     <p className="mt-2 text-xs leading-5 text-[#3A4065]">{source.use}</p>
                     <p className="mt-2 break-all text-xs font-bold text-[#4A3AC1]">{source.path}</p>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5 border-t border-[#4A3AC1]/15 pt-4">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#4A3AC1]">Modelo backend-ready</p>
+              <div className="entity-grid mt-3">
+                {dataEntityContracts.map((entity) => (
+                  <article className="entity-card" key={entity.key}>
+                    <div className="flex items-center justify-between gap-2">
+                      <p>{entity.key}</p>
+                      <span className={`chip ${privacyClass[entity.security]}`}>{entity.security}</span>
+                    </div>
+                    <h3>{entity.entity}</h3>
+                    <span>{entity.purpose}</span>
+                    <small>{entity.relations.join(" + ")}</small>
+                  </article>
                 ))}
               </div>
             </div>

@@ -14,6 +14,40 @@ La capa ejecutiva se alimenta tambien del PDF `Dashboard_Operativo_AP_GEN+_AECOD
 
 `Cultura-GEN+.md` se usa como frontera operativa: lo que sea consultoria, proyecto cliente, ingenieria aplicada, BIM/VDC para cliente, automatizacion empresarial o producto GEN+ no entra al tablero AECODE salvo que se convierta en activo educativo anonimizado.
 
+## Centro de ejecucion diario
+
+La iteracion X5 agrega una vista `Hoy / Centro de ejecucion`. Esta vista no reemplaza el backlog: filtra lo que debe moverse en el dia y responde siete preguntas:
+
+- Que debe hacer cada persona hoy.
+- Que esta bloqueado o en riesgo.
+- Que vencio o vence hoy.
+- Que necesita decision de Alejandro.
+- Que flujo esta conectado a la tarea.
+- Que evidencia debe quedar para cerrar.
+- Que agente puede apoyar sin ejecutar acciones sensibles sin aprobacion.
+
+Cada item diario queda modelado con: `id`, `titulo`, `area`, `owner`, `backup`, `playbook_id`, `prioridad`, `estado`, `due`, `fuente`, `evidencia`, `next_best_action`, `escalamiento`, `agent`, `system` y `decision_needed`.
+
+Estados permitidos: `Listo`, `En curso`, `Riesgo`, `Bloqueado`, `Automatizable`, `Requiere decision`.
+
+Regla: si una actividad no tiene evidencia, owner unico, fecha y proximo paso, no esta cerrada.
+
+## Correccion de roles 2026-06-05
+
+La version actual usa nombres reales por instruccion directa de Alejandro. El tablero debe tratarse como interno/sensible.
+
+- Alejandro Palpan: vision global del ecosistema, prioridades, decisiones, producto, negocio y escalamiento.
+- Anggie: marketing y growth, GHL, funnel, lead quality, campanas, web, plantillas y aprendizaje de ventas.
+- Erika: Business Development and Partnership Coordinator, partnerships, sponsors, experiencia corporativa y activacion de empresas.
+- Fabrizio: desarrollo y enfoque del producto, automatizacion marketing, ingenieria general, dashboards, rutas, skills y AgentFlow backlog.
+- Daniella: operaciones a todo nivel, programas, Summit, sponsors, VisionPro, estrategia comercial y seguimiento transversal.
+- Julie: operaciones, instructora cuando aplique, administracion, enfoque startup en metricas y finanzas.
+- Paola: complemento operativo del equipo de Erika para pipeline, contactos, reuniones, convenios y follow-up multicanal.
+- Patrick, Ivana y Carolina: coordinacion academica, postventa, programas, sesiones, embajadores, actas, plataforma, soporte y certificados.
+- Anderson: full-stack senior y arquitecto con mayor experiencia tecnica para backend, frontend, infra, IA y delivery end-to-end.
+- Marlon: automatizacion, dev web, integraciones para la web, Aecoditos, n8n, paneles, agentes y deploys.
+- Emanuel: automatizaciones, AgentFlow, SEACE, flujos mapeados y soporte a agentes.
+
 ## Regla de capacidad del equipo
 
 El equipo operativo visible no debe superar 25 personas nucleo. La carpeta Obsidian contiene 35 fichas consideradas: las 34 personas listadas por Alejandro y `Yudely`, detectada adicionalmente en el vault.
@@ -97,6 +131,51 @@ La UI agrupa las etapas anteriores en 7 playbooks operables. Cada playbook tiene
 7. `PB-07` Producto, UX, dev y QA release: flujo -> arquitectura -> build -> QA -> release/medicion.
 
 Estos playbooks son la capa que debe usar el equipo para operar; las 18 etapas quedan como biblioteca de referencia y trazabilidad.
+
+La iteracion X5 agrega cinco modos por playbook:
+
+- `Checklist`: pasos ejecutables con owner, timing y evidencia.
+- `Kanban`: pasos agrupados por estado operativo.
+- `Timeline`: lectura por SLA/timing.
+- `RACI`: responsible, accountable, consulted, informed, evidencia y agente.
+- `Log`: bitacora simulada por paso para preparar auditoria real.
+
+## AgentFlow AECODE
+
+La capa AgentFlow define contratos de agentes, no automatizaciones ciegas. Todo agente debe declarar:
+
+- trigger;
+- input payload;
+- validaciones;
+- dedupe/idempotencia;
+- herramientas;
+- permisos;
+- output;
+- logs;
+- retries;
+- fallback;
+- limite de aprobacion humana;
+- riesgo de privacidad.
+
+Agentes X5 incluidos: soporte/accesos, registro de inscritos, Zoom/sesiones, Drive-Vimeo-plataforma, certificados, recordatorios WhatsApp/GHL, GHL/calidad de leads, sponsors/reuniones, QA/release y dashboard ejecutivo semanal.
+
+Regla de seguridad: enviar mensajes, correos, certificados, cambios oficiales de estado, pagos, convenios o acciones externas requiere aprobacion humana salvo autorizacion explicita.
+
+## Modelo backend-ready
+
+La app sigue siendo mock/static, pero ya queda preparada para backend. Entidades minimas:
+
+- `person_id`: identidad operativa.
+- `role_id`: rol, mision, backup y KPI.
+- `activity_id`: tarea con owner, SLA, prioridad y evidencia.
+- `playbook_id`: flujo repetible.
+- `step_id`: paso ejecutable del playbook.
+- `agent_id`: contrato auditable de agente.
+- `system_id`: sistema conectado o fuente.
+- `evidence_id`: prueba de cierre.
+- `escalation_id`: bloqueo o decision.
+- `source_id`: fuente y privacidad.
+- `status_log_id`: bitacora de cambios y ejecuciones.
 
 ## Loop maestro
 

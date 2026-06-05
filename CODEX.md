@@ -6,10 +6,11 @@ Este repo es un tablero operativo interno. No es landing publica.
 
 ## Privacidad
 
-- No publicar nombres personales.
 - No publicar correos.
 - No publicar links de WhatsApp, Zoom, Classroom, Miro o Drive.
-- Usar `Persona 1`, `Persona 2`, `Equipo soporte`, `Agente #1`.
+- Este tablero puede mostrar nombres reales porque Alejandro lo solicito para operacion interna.
+- Si el repo o deploy es publico, publicar solo version sanitizada o mantener el repositorio privado.
+- Usar `Persona 1`, `Persona 2`, `Equipo soporte`, `Agente #1` como trazabilidad cuando el owner no este confirmado.
 - Los links reales deben vivir solo en Google Sheets, Drive, GHL o backend protegido.
 
 ## Producto

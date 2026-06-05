@@ -32,6 +32,8 @@ Informacion extraida y normalizada:
 - PDF interno de actividades tecnologia/automatizacion: usado para mapear n8n, integraciones, agentes IA, dashboards, data, ML, deploy, documentacion, capacitacion IA, soporte comercial/postventa y frontera GEN+.
 - Actividades pegadas de programas/Summit: usadas para mapear programas activos, actas, flujos Notion, docentes, postventa, automatizaciones, sponsors, ponentes, marketing, B2B y comunicaciones HTML.
 - Actividades pegadas de cierre comercial: llamadas a leads calientes, audios, seguimiento orientado al cierre, optimizacion de copys, brochures completos, seguimiento masivo, entrenamiento de ventas y reuniones de mejora. Alejandro corrigio que este bloque lo hace Talia.
+- Prompt X5 pegado el 2026-06-05: usado como especificacion de producto para ejecutar la mejora del centro diario, playbooks x5, AgentFlow, entidades backend-ready, seguridad, templates y validacion.
+- Correcciones de roles pegadas el 2026-06-05: Alejandro global; Anggie marketing/growth; Erika Business Development and Partnership Coordinator; Fabrizio producto/automatizacion marketing/ingenieria; Daniella operaciones a todo nivel; Julie operaciones/instructora/administracion/startup metricas y finanzas; Paola complemento del equipo de Erika; Ivana, Patrick y Carolina coordinacion academica; Anderson full-stack senior; Marlon automatizacion/dev web/integraciones.
 - `Dashboard_Operativo_AP_GEN+_AECODE.pdf`: usado para agregar capa ejecutiva AP, empresas del ecosistema, proyectos criticos, flywheel, campos minimos, metricas, 15 vistas, reglas de operacion y criterios UX/UI.
 - Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`: usada para validar la lista completa de personas del equipo. Se consideraron 35 fichas: 34 nombres compartidos por Alejandro y `Yudely`, detectada en el vault. El tablero limita el nucleo a 25 personas y conserva 10 como red extendida.
 
@@ -59,6 +61,15 @@ La fuente operativa exportable queda en:
 - `templates/team_connections.csv`
 - `templates/workflow_playbooks.csv`
 - `templates/workflow_playbook_steps.csv`
+- `templates/daily_execution_items.csv`
+- `templates/agentflow_contracts.csv`
+- `templates/backend_entity_contracts.csv`
+
+## Limites de publicacion
+
+El tablero usa nombres reales porque Alejandro lo pidio para control interno. No se publican correos, telefonos, links privados, invitaciones de WhatsApp/Zoom, credenciales, datos de alumnos ni pipeline sensible completo.
+
+Si se usa GitHub Pages como demo publica, debe asumirse como version estructural y no como fuente operativa completa. Para operacion real: repo privado, autenticacion o backend seguro.
 
 ## Inventario de links
 

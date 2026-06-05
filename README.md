@@ -103,6 +103,26 @@ El prompt maestro para escalar este tablero como sistema interactivo, funcional 
 
 Ese prompt define el siguiente salto del producto: centro de ejecucion diario, playbooks ejecutables, filtros avanzados, capa AgentFlow, contratos de datos, seguridad, QA visual y roadmap 7/30/90 dias.
 
+## Iteracion X5 ejecutada
+
+La app ya incorpora la primera ejecucion del prompt X5:
+
+- `Hoy / Centro de ejecucion`: vista diaria con filtros por persona, estado y playbook; muestra bloqueos, decisiones para Alejandro, evidencias faltantes, carga por persona, agente sugerido y siguiente mejor accion.
+- Playbooks x5: cada flujo puede verse como checklist, kanban, timeline, RACI o log simulado, manteniendo owner, equipo, evidencia, SLA, riesgo y handoff.
+- `AgentFlow AECODE`: contratos auditables para soporte/accesos, inscritos, Zoom, Drive-Vimeo-plataforma, certificados, recordatorios, GHL/leads, sponsors/reuniones, QA/release y dashboard ejecutivo semanal.
+- Modelo backend-ready: entidades `person_id`, `role_id`, `activity_id`, `playbook_id`, `step_id`, `agent_id`, `system_id`, `evidence_id`, `escalation_id`, `source_id` y `status_log_id`.
+- Roles actualizados: Alejandro ve globalmente todo; Anggie lidera marketing/growth; Erika es Business Development and Partnership Coordinator; Fabrizio conecta producto, automatizacion marketing e ingenieria; Daniella opera transversalmente; Julie cubre operaciones, instructora, administracion, metricas y finanzas; Paola complementa al equipo de Erika; Ivana, Patrick y Carolina concentran coordinacion academica; Anderson es el full-stack senior; Marlon lidera automatizacion, dev web e integraciones.
+
+Templates nuevos:
+
+- `templates/daily_execution_items.csv`
+- `templates/agentflow_contracts.csv`
+- `templates/backend_entity_contracts.csv`
+
+Roadmap:
+
+- `docs/ROADMAP_X5.md`
+
 ## Equipo nucleo y red extendida
 
 El equipo no se modela como una lista plana. La regla actual es:
@@ -205,6 +225,8 @@ npm run build
 GitHub Pages:
 
 `https://apalpan.github.io/aecode-activity-control-os/`
+
+Nota de seguridad: el deploy publico es util como demo de estructura, pero este tablero contiene nombres reales y operacion interna. Para uso real del equipo, usar repo privado, autenticacion o version publica sanitizada.
 
 ## Estructura
 
