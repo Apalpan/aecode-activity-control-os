@@ -570,6 +570,58 @@ export const strategicRoleProfiles: StrategicRoleProfile[] = [
     operatingMetrics: ["Avance producto F3", "Dashboards de metricas activos", "Automatizaciones por impacto", "Cotizaciones/propuestas seguidas", "Riesgos producto vs urgencias"],
     nextSystemActions: ["Definir 1 loop F3 que mueve skills verificadas antes de ampliar features", "Separar backlog Fabrizio en Producto, Marketing numerico, AgentFlow y Comercial tecnico", "Publicar reporte diario de producto/marketing/automatizacion con evidencia y bloqueo"],
     source: "WhatsApp Chat Gen+ Fabrizio + actividades enviadas por Alejandro"
+  },
+  {
+    id: "SRP-04",
+    person: "Erika",
+    title: "Business Development and Partnership Coordinator",
+    scope: "Pipeline comercial, sponsors, aliados estrategicos, reuniones, LinkedIn/outbound, onboarding sponsor, BD de asistentes y reportabilidad ejecutiva.",
+    executiveRead: "Erika debe operar como owner de desarrollo comercial y partnerships: su foco no es listar contactos, sino convertir oportunidades en reuniones, sponsors activados, aliados trazados y decisiones visibles.",
+    blocks: [
+      {
+        label: "Sponsor pipeline y cotizaciones",
+        company: "AECODE",
+        objective: "Mantener cotizaciones, convenios, respuestas comerciales y sponsors por etapa con proxima accion clara.",
+        activities: ["Dar seguimiento a cotizaciones enviadas", "Separar pendientes por confirmar", "Actualizar estado de sponsor por categoria", "Escalar proveedor/facturacion cuando bloquee activacion"],
+        systems: ["Sponsor board", "Gmail", "Sheets pipeline", "WhatsApp", "Notion"],
+        metrics: ["Sponsors por etapa", "Cotizaciones enviadas", "Cotizaciones con follow-up <48h", "Sponsors confirmados sin activacion", "Bloqueos administrativos"],
+        handoffs: ["Paola ejecuta seguimiento y reuniones", "Julie/Yudely atienden facturacion y administracion", "Daniella alinea operacion Summit", "Alejandro decide paquetes o excepciones comerciales"],
+        risks: ["Sponsor confirmado sin correo o grupo", "Proveedor sin registro administrativo", "Cotizacion sin siguiente accion", "Contacto incompleto"]
+      },
+      {
+        label: "Aliados estrategicos",
+        company: "AECODE",
+        objective: "Convertir aliados confirmados y pendientes en propuesta, correo, acuerdo operativo y activacion publica.",
+        activities: ["Actualizar aliados confirmados", "Enviar propuesta/correo pendiente", "Coordinar entrega de logos o piezas", "Registrar compromisos y beneficios"],
+        systems: ["Notion aliados", "Gmail", "Drive piezas", "Calendar"],
+        metrics: ["Aliados confirmados", "Aliados con propuesta enviada", "Compromisos registrados", "Piezas publicadas"],
+        handoffs: ["Anggie/Arantxa preparan difusion", "Daniella valida estrategia institucional", "Ana apoya eventos puntuales"],
+        risks: ["Aliado confirmado sin activacion", "Beneficio ambiguo", "Pieza o logo sin aprobacion"]
+      },
+      {
+        label: "Reuniones comerciales y outbound",
+        company: "GEN+",
+        objective: "Asegurar que cada reunion, llamada y contacto LinkedIn produzca resumen, proximo paso y seguimiento.",
+        activities: ["Preparar agenda de reuniones", "Reprogramar reuniones fallidas", "Ejecutar llamadas a contactos", "Dar seguimiento a LinkedIn y empresas calientes", "Enviar resumen post reunion"],
+        systems: ["Calendar", "LinkedIn", "WhatsApp Business", "Read AI", "Gmail"],
+        metrics: ["Reuniones agendadas", "Reuniones realizadas", "No-shows reprogramados", "Llamadas ejecutadas", "Follow-up enviado <24h"],
+        handoffs: ["Paola prepara recordatorios y resumenes", "Daniella recibe insumos para correos o acuerdos", "Jessica/Anggie reciben aprendizajes comerciales"],
+        risks: ["Reunion sin grabacion o resumen", "No-show sin reprogramacion", "LinkedIn sin clasificacion", "Follow-up tardio"]
+      },
+      {
+        label: "BD fuentes y sistema ejecutivo",
+        company: "Ecosistema AP",
+        objective: "Usar bases de asistentes, Ads, historicos y reportes diarios para priorizar ingresos, crecimiento y bloqueos.",
+        activities: ["Alimentar BD de asistentes", "Clasificar fuentes Ads e historicos", "Generar reporte ejecutivo diario", "Medir planificado vs ejecutado", "Detectar fugas de tiempo"],
+        systems: ["Sheets BD", "CRM futuro", "Notion", "Dashboard", "Smart reminders"],
+        metrics: ["Contactos completos", "Empresas priorizadas", "Top 3 diario cerrado", "Actividades de alto impacto", "Bloqueos escalados"],
+        handoffs: ["Alejandro recibe solo decisiones y bloqueos", "Fabrizio/Marlon pueden automatizar captura y reportes", "Anggie usa datos para growth"],
+        risks: ["BD grande sin prioridad", "Actividad manual sin impacto", "Reporte sin accion ejecutiva"]
+      }
+    ],
+    operatingMetrics: ["Sponsors por etapa", "Aliados activados", "Cotizaciones con seguimiento", "Reuniones realizadas y follow-up <24h", "BD con contactos completos", "Top 3 diario ejecutado"],
+    nextSystemActions: ["Crear vista Erika con pipeline por etapa, fecha, owner, proxima accion, riesgo y evidencia", "Separar sponsors confirmados sin correo/grupo/facturacion/proveedor", "Activar Agente #37 para resumen diario, plan vs ejecutado y recomendaciones de foco"],
+    source: "Actividades Erika 2026-06-02 + prompt ejecutivo Erika"
   }
 ];
 
@@ -2781,6 +2833,150 @@ export const activities: Activity[] = [
     source: "WhatsApp Chat Gen+ Fabrizio",
     risk: "Alcance comercial sin precision tecnica genera retrabajo o propuesta fuera de capacidad.",
     nextAction: "Separar cotizaciones GEN+ de producto AECODE para no contaminar prioridades."
+  },
+  {
+    id: "ACT-125",
+    area: "Comercial",
+    activity: "Dar seguimiento a cotizaciones, convenios y respuestas comerciales del Summit y GEN+",
+    owner: "Erika",
+    backup: "Paola",
+    agent: "Agente #36",
+    automationLevel: "Alta",
+    sla: "Diario en sprint Summit / 48h por oportunidad",
+    evidence: "cotizacion o convenio con estado, ultimo contacto, proxima accion, responsable y fecha",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Cotizacion o convenio sin siguiente accion pierde cierre, sponsor o alianza institucional.",
+    nextAction: "Crear cola por empresa: enviada, respondio, por confirmar, requiere Daniella, requiere administracion, cierre."
+  },
+  {
+    id: "ACT-126",
+    area: "Eventos",
+    activity: "Actualizar flyer oficial y piezas publicas de sponsors y aliados confirmados",
+    owner: "Erika",
+    backup: "Anggie",
+    agent: "Agente #13",
+    automationLevel: "Media",
+    sla: "Cada cambio de sponsor o aliado",
+    evidence: "pieza versionada con lista de sponsors, aliados, logos pendientes y aprobacion",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Sponsor o aliado confirmado no aparece en pieza oficial y se afecta la experiencia comercial.",
+    nextAction: "Separar lista: confirmado con logo, confirmado sin logo, pendiente de aprobacion y pendiente de publicacion."
+  },
+  {
+    id: "ACT-127",
+    area: "Alianzas",
+    activity: "Gestionar sponsors pendientes, no avanzados y bloqueos administrativos de proveedor",
+    owner: "Erika",
+    backup: "Julie",
+    agent: "Agente #36",
+    automationLevel: "Alta",
+    sla: "Diario para sponsor caliente",
+    evidence: "sponsor con etapa, motivo, bloqueo administrativo, owner y fecha de siguiente contacto",
+    status: "Riesgo",
+    priority: "Critica",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Sponsor confirmado o caliente queda bloqueado por registro de proveedor, facturacion, contacto incompleto o falta de correo.",
+    nextAction: "Crear semaforo: pendiente respuesta, no va, bloqueado administracion, requiere facturacion, requiere grupo, requiere correo."
+  },
+  {
+    id: "ACT-128",
+    area: "Reuniones",
+    activity: "Gestionar agenda de reuniones comerciales, reprogramaciones y confirmaciones",
+    owner: "Erika",
+    backup: "Paola",
+    agent: "Agente #23",
+    automationLevel: "Alta",
+    sla: "Antes y despues de cada reunion",
+    evidence: "agenda con empresa, hora, estado, recordatorio, asistencia, resumen y siguiente paso",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Reunion no atendida, cancelada o no reprogramada se pierde sin aprendizaje ni cierre.",
+    nextAction: "Separar reuniones de manana, no-shows, reprogramadas, pendientes de correo y pendientes de confirmacion."
+  },
+  {
+    id: "ACT-129",
+    area: "Comercial",
+    activity: "Ejecutar LinkedIn outreach, llamadas y seguimiento a contactos estrategicos",
+    owner: "Erika",
+    backup: "Paola",
+    agent: "Agente #22",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "contactos llamados o respondidos con canal, intencion, prioridad y proximo paso",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Contacto caliente queda sin respuesta o sin clasificacion y no llega a reunion.",
+    nextAction: "Usar cola unica de LinkedIn/llamadas: nuevo, interesado, pendiente reunion, seguimiento, descartado, convertido."
+  },
+  {
+    id: "ACT-130",
+    area: "Datos",
+    activity: "Alimentar BD de asistentes, Ads y asistentes historicos para oportunidades comerciales",
+    owner: "Erika",
+    backup: "Paola",
+    agent: "Agente #22",
+    automationLevel: "Alta",
+    sla: "Semanal / diario en campana",
+    evidence: "BD con fuente, empresa, segmento, prioridad, estado, responsable y siguiente accion",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Base historica o de Ads sin segmentacion impide priorizar sponsors, aliados o reuniones.",
+    nextAction: "Normalizar campos minimos: fuente, empresa, contacto, interes, etapa, prioridad, owner, fecha y proximo paso."
+  },
+  {
+    id: "ACT-131",
+    area: "Eventos",
+    activity: "Controlar sponsors confirmados por categoria y pendientes de correo, grupo, facturacion y activacion",
+    owner: "Erika",
+    backup: "Daniella",
+    agent: "Agente #36",
+    automationLevel: "Alta",
+    sla: "Diario en sprint Summit",
+    evidence: "sponsor board con categoria, estado de bienvenida, grupo, formulario, facturacion, pieza y owner",
+    status: "Riesgo",
+    priority: "Critica",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Sponsor confirmado sin onboarding completo se vuelve riesgo reputacional del evento.",
+    nextAction: "Crear vista 'confirmados con deuda': sin correo, sin grupo, sin facturacion, sin formulario, sin pieza, sin owner."
+  },
+  {
+    id: "ACT-132",
+    area: "Alianzas",
+    activity: "Gestionar aliados estrategicos confirmados y pendientes de propuesta o correo",
+    owner: "Erika",
+    backup: "Daniella",
+    agent: "Agente #36",
+    automationLevel: "Media",
+    sla: "48h por aliado confirmado",
+    evidence: "aliado con propuesta enviada, beneficios, compromisos, pieza y siguiente accion",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividades Erika 2026-06-02",
+    risk: "Aliado confirmado sin propuesta o activacion no aporta autoridad ni distribucion.",
+    nextAction: "Separar aliados: confirmados con correo, confirmados sin correo, pendientes propuesta, pendientes pieza, pendientes activacion."
+  },
+  {
+    id: "ACT-133",
+    area: "Direccion",
+    activity: "Operar sistema ejecutivo Erika con Top 3 diario, plan vs ejecutado, riesgos y recomendaciones de foco",
+    owner: "Erika",
+    backup: "Daniella",
+    agent: "Agente #37",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "reporte ejecutivo diario con resultados, oportunidades, bloqueos, fugas de tiempo y proximas acciones",
+    status: "Activo",
+    priority: "Critica",
+    source: "Prompt ejecutivo Erika",
+    risk: "Mucha actividad comercial sin reporte ejecutivo impide saber que mueve ingresos, crecimiento o desbloqueo.",
+    nextAction: "Generar dashboard diario con comercial, Summit, comunidad, VisionPro, marca personal y reuniones."
   }
 ];
 
@@ -3054,6 +3250,24 @@ export const dailyExecutionItems: DailyExecutionItem[] = [
     agent: "Agente #29",
     system: "GitHub / AgentFlow / GHL / Looker / Notion producto",
     decisionNeeded: "Elegir 1 loop F3 y 1 automatizacion marketing que se cierran esta semana."
+  },
+  {
+    id: "DAY-016",
+    title: "Erika: sponsors, aliados y reuniones de manana",
+    area: "Alianzas",
+    owner: "Erika",
+    backup: "Paola",
+    playbookId: "PB-06",
+    priority: "Critica",
+    status: "Riesgo",
+    due: "Hoy 18:45",
+    source: "Actividades Erika 2026-06-02 + prompt ejecutivo Erika",
+    evidence: "Sponsor board, agenda de reuniones, cotizaciones, aliados, llamadas, LinkedIn y bloqueos administrativos actualizados",
+    nextBestAction: "Cerrar hoy los sponsors confirmados con deuda de correo, grupo, facturacion o proveedor, y dejar la agenda de manana con recordatorio y objetivo.",
+    escalation: "Alejandro solo recibe decisiones de paquete, sponsor especial o bloqueo institucional; administracion y follow-up bajan a Julie/Yudely/Paola.",
+    agent: "Agente #36 + Agente #37",
+    system: "Notion / Sheets / Gmail / Calendar / WhatsApp / LinkedIn",
+    decisionNeeded: "Confirmar owner operativo para registro de proveedor y sponsors internos GEN+, VisionPro y THESIA."
   }
 ];
 
@@ -3093,7 +3307,8 @@ export const agents: Agent[] = [
   { id: "Agente #33", mission: "Convertir capacitaciones IA en guias, plantillas, toolkits, practicas y artefactos reutilizables.", input: "Tema + audiencia + taller + recursos", output: "Toolkit IA con guia, prompts, practica, evidencia y checklist", humanControl: "Persona 27 valida toolkit y Persona 20 valida valor academico", status: "Propuesto", impact: "Medio" },
   { id: "Agente #34", mission: "Unificar flujo ventas, pago, ticket, notificaciones y soporte postventa.", input: "CRM + pagos + tickets + canales + reglas", output: "Estado comercial/postventa con alertas de acceso, ticket y notificacion", humanControl: "Persona 27 valida flujo y Persona 21 valida administracion", status: "Propuesto", impact: "Alto" },
   { id: "Agente #35", mission: "Operar checklist de programas activos: sesiones, actas, Notion, docentes, materiales, soporte y HTML.", input: "Calendario + programa + acta + materiales + grupos + plantillas", output: "Estado de programa con pendientes, evidencias, comunicacion y bloqueos", humanControl: "Persona 28 valida coordinacion y Persona 3 valida agenda academica", status: "Propuesto", impact: "Alto" },
-  { id: "Agente #36", mission: "Gestionar pipeline Summit/sponsors/aliados con CRM, correos, ponentes, B2B y seguimiento.", input: "CRM + contactos + agenda + correos + oportunidades", output: "Pipeline priorizado con correo, etapa, proxima accion, riesgo y responsable", humanControl: "Persona 28 valida seguimiento y Persona 25 valida tono/relacion", status: "Propuesto", impact: "Alto" }
+  { id: "Agente #36", mission: "Gestionar pipeline Summit/sponsors/aliados con CRM, correos, ponentes, B2B y seguimiento.", input: "CRM + contactos + agenda + correos + oportunidades", output: "Pipeline priorizado con correo, etapa, proxima accion, riesgo y responsable", humanControl: "Erika valida prioridad comercial; Paola valida tono/relacion; Daniella valida bloqueos operativos", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #37", mission: "Actuar como Chief of Staff digital para Erika: priorizar Top 3, comparar plan vs ejecutado, detectar bloqueos, fugas de tiempo y oportunidades de cierre.", input: "Tareas + reuniones + CRM + agenda + reportes + mensajes clasificados", output: "Resumen ejecutivo diario con foco, resultados, riesgos, oportunidades, pendientes y recomendaciones", humanControl: "Erika aprueba prioridades y Alejandro solo revisa decisiones o bloqueos criticos", status: "Propuesto", impact: "Alto" }
 ];
 
 export const agentContracts: AgentContract[] = [
@@ -3233,15 +3448,15 @@ export const agentContracts: AgentContract[] = [
   {
     id: "AF-008",
     name: "Sponsors y reuniones",
-    owner: "Persona 25",
-    objective: "Ordenar contactos, reuniones, recordatorios, grabaciones, resumen y follow-up de sponsors/aliados.",
-    trigger: "Nuevo contacto estrategico, reunion agendada o convenio pendiente.",
+    owner: "Erika",
+    objective: "Ordenar sponsors, aliados, contactos, reuniones, recordatorios, grabaciones, resumenes y follow-up con owner comercial claro.",
+    trigger: "Nuevo sponsor o aliado, reunion agendada, cotizacion enviada, convenio pendiente o bloqueo administrativo.",
     inputPayload: ["company_id", "contact_ref", "meeting_id", "stage", "last_touch", "requested_doc_state"],
-    validations: ["Empresa clasificada", "Contacto completo", "Proxima accion declarada", "Convenio versionado"],
+    validations: ["Empresa clasificada", "Contacto completo", "Categoria o etapa definida", "Proxima accion declarada", "Convenio o cotizacion versionada"],
     idempotency: "company_id + contact_ref + stage + meeting_date",
     tools: ["Notion", "Google Calendar", "Gmail draft", "Read AI", "WhatsApp metadata"],
-    permissions: "Preparar borradores y resumentes; envio externo requiere aprobacion.",
-    output: "Pipeline actualizado con proxima accion, resumen, riesgo y responsable.",
+    permissions: "Preparar borradores y resumenes; envio externo requiere aprobacion.",
+    output: "Pipeline actualizado con etapa, proxima accion, resumen, riesgo, bloqueo y responsable.",
     logs: "company_id, stage_change, meeting_summary_ref, pending_docs, next_action_owner",
     retries: "2 reintentos; si falta grabacion/transcripcion, pedir resumen humano.",
     fallback: "Paola/Erika registran manualmente el estado.",
@@ -3284,6 +3499,25 @@ export const agentContracts: AgentContract[] = [
     retries: "2 reintentos; si faltan fuentes, emitir reporte parcial con brecha.",
     fallback: "Persona 22 prepara resumen manual con evidencias.",
     humanApproval: "Obligatoria para enviar por correo o compartir fuera del equipo interno.",
+    privacyRisk: "Alto",
+    status: "Diseno"
+  },
+  {
+    id: "AF-011",
+    name: "Chief of Staff digital Erika",
+    owner: "Erika",
+    objective: "Priorizar trabajo comercial y estrategico de Erika con Top 3 diario, plan vs ejecutado, pipeline, reuniones, bloqueos y recomendaciones de foco.",
+    trigger: "Inicio de dia, cierre de dia, nueva reunion, sponsor bloqueado o actividad critica sin avance.",
+    inputPayload: ["date", "planned_tasks", "executed_tasks", "meeting_snapshot", "crm_pipeline", "sponsor_board", "blocked_items", "time_spent"],
+    validations: ["Cada tarea tiene impacto o razon", "Cada bloqueo tiene owner", "Cada reunion tiene proximo paso", "No se exponen datos personales innecesarios"],
+    idempotency: "owner + date + report_type",
+    tools: ["Dashboard", "Notion", "Sheets", "Calendar", "Gmail draft", "CRM futuro"],
+    permissions: "Genera resumenes y borradores; no envia mensajes ni modifica agenda sin aprobacion.",
+    output: "Reporte diario con resultados, Top 3, oportunidades, riesgos, fugas de tiempo, bloqueos y siguientes acciones.",
+    logs: "report_id, date, included_sources, planned_vs_executed, decision_queue, blocked_items",
+    retries: "2 reintentos; si faltan fuentes, emitir reporte parcial con brecha visible.",
+    fallback: "Erika registra manualmente Top 3, bloqueos y compromisos del dia.",
+    humanApproval: "Obligatoria para enviar reporte externo, cambiar prioridades comerciales o contactar terceros.",
     privacyRisk: "Alto",
     status: "Diseno"
   }
@@ -4168,8 +4402,20 @@ export const opsRoles: OpsRole[] = [
     kpis: ["Interesados clasificados", "Reuniones agendadas", "Bandejas respondidas", "Convenios revisados", "Grupos creados"],
     dailyCheck: "Revisar interesados, WhatsApp Business, LinkedIn, llamadas pendientes, reuniones del dia, convenios y grupos por crear.",
     escalation: "Contacto caliente sin respuesta, reunion sin recordatorio/grabacion, sponsor sin grupo, convenio completo sin revision o empresa sin datos.",
-    backup: "Persona 14",
+    backup: "Erika",
     obsidianSource: "Actividad enviada por partnerships/outreach"
+  },
+  {
+    id: "Erika",
+    role: "Business Development + Sponsor Partnership Ops",
+    mission: "Convertir sponsors, aliados, reuniones y fuentes BD en pipeline trazable, activacion comercial y decisiones ejecutivas.",
+    areas: ["Alianzas", "Comercial", "Eventos", "Reuniones", "Datos", "Marketing", "Direccion"],
+    primaryActivities: ["ACT-125", "ACT-126", "ACT-127", "ACT-128", "ACT-129", "ACT-130", "ACT-131", "ACT-132", "ACT-133"],
+    kpis: ["Sponsors por etapa", "Cotizaciones con follow-up <48h", "Aliados con propuesta/correo", "Reuniones con resumen <24h", "BD con contactos completos", "Top 3 diario ejecutado"],
+    dailyCheck: "Revisar cotizaciones, sponsors confirmados con deuda, aliados pendientes, agenda de manana, llamadas, LinkedIn, BD y bloqueos administrativos.",
+    escalation: "Sponsor especial sin decision, proveedor bloqueado, sponsor confirmado sin onboarding, aliado sin propuesta, reunion critica sin seguimiento o pipeline sin owner.",
+    backup: "Paola",
+    obsidianSource: "Actividades Erika 2026-06-02 + prompt ejecutivo Erika"
   },
   {
     id: "Persona 26",
@@ -4333,12 +4579,12 @@ export const workflowStages: WorkflowStage[] = [
   {
     id: "WF-13",
     label: "Alianzas y sponsors",
-    timing: "Interes -> cierre",
-    owner: "Persona 25",
-    objective: "Convertir interesados, empresas, sponsors y aliados en reuniones, grupos, convenios y follow-up trazable.",
-    activities: ["ACT-049", "ACT-050", "ACT-051", "ACT-052", "ACT-053", "ACT-054", "ACT-055"],
-    evidence: "Pipeline actualizado, reunion registrada, grupo creado, correo enviado y convenio revisado.",
-    automation: "Agente #22 + Agente #23"
+    timing: "Interes -> cotizacion -> confirmacion -> activacion",
+    owner: "Erika",
+    objective: "Convertir interesados, empresas, sponsors y aliados en reuniones, cotizaciones, onboarding, activacion publica y follow-up trazable.",
+    activities: ["ACT-049", "ACT-050", "ACT-051", "ACT-052", "ACT-053", "ACT-054", "ACT-055", "ACT-125", "ACT-126", "ACT-127", "ACT-128", "ACT-129", "ACT-130", "ACT-131", "ACT-132", "ACT-133"],
+    evidence: "Pipeline actualizado, reunion registrada, cotizacion seguida, grupo creado, correo enviado, facturacion/proveedor trazado y reporte ejecutivo diario.",
+    automation: "Agente #22 + Agente #23 + Agente #36 + Agente #37"
   },
   {
     id: "WF-14",
@@ -4945,34 +5191,34 @@ export const workflowPlaybooks: WorkflowPlaybook[] = [
     title: "Evento, sponsors y aliados",
     domain: "Autoridad y alianzas",
     trigger: "Webinar, Summit, alianza o sponsor en pipeline.",
-    goal: "Coordinar evento y pipeline B2B sin perder contactos, reuniones ni convenios.",
-    lead: "Persona 14",
-    cycle: "Mapeo -> reunion -> evento -> seguimiento",
-    kpi: "Sponsors/aliados con proxima accion y asistentes con fuente registrada.",
-    agent: "Agente #13 + Agente #22 + Agente #23 + Agente #36",
+    goal: "Coordinar pipeline B2B, sponsors, aliados y evento sin perder contactos, reuniones, cotizaciones, activacion ni seguimiento ejecutivo.",
+    lead: "Erika",
+    cycle: "Mapeo -> reunion -> cotizacion -> onboarding -> evento -> seguimiento ejecutivo",
+    kpi: "Sponsors/aliados por etapa, cotizaciones con follow-up, reuniones con resumen y confirmados sin deuda operativa.",
+    agent: "Agente #13 + Agente #22 + Agente #23 + Agente #36 + Agente #37",
     steps: [
       {
         id: "PB06-S1",
-        label: "Mapear contactos",
+        label: "Mapear contactos y fuentes BD",
         timing: "Semanal",
-        owner: "Persona 25",
-        team: ["Persona 14", "Persona 18"],
-        entry: "Lista de empresas, sponsors o aliados objetivo.",
-        action: "Completar empresa, contacto, cargo, canal, necesidad y estado.",
-        output: "Pipeline priorizado.",
+        owner: "Erika",
+        team: ["Paola", "Daniella", "Anggie"],
+        entry: "Lista de empresas, sponsors, aliados, asistentes, Ads o historicos objetivo.",
+        action: "Completar empresa, contacto, canal, fuente, prioridad, etapa, owner y siguiente accion.",
+        output: "Pipeline priorizado por impacto comercial y urgencia.",
         evidence: "Contacto completo con etapa y proxima accion.",
         systems: ["Notion", "LinkedIn", "Sheet pipeline"],
         automation: "Agente #22 detecta empresas incompletas y contactos sin siguiente accion.",
         status: "En curso",
         risk: "Contacto sin clasificacion no se convierte en reunion.",
-        linkedActivities: ["ACT-049", "ACT-053"]
+        linkedActivities: ["ACT-049", "ACT-053", "ACT-129", "ACT-130"]
       },
       {
         id: "PB06-S2",
         label: "Gestionar reunion",
         timing: "Diario",
-        owner: "Persona 25",
-        team: ["Persona 14", "Persona 18"],
+        owner: "Erika",
+        team: ["Paola", "Daniella"],
         entry: "Contacto interesado o pendiente de llamada.",
         action: "Agendar, recordar por WhatsApp, activar grabacion, presentar PPT y registrar resumen.",
         output: "Reunion documentada y follow-up listo.",
@@ -4981,30 +5227,46 @@ export const workflowPlaybooks: WorkflowPlaybook[] = [
         automation: "Agente #23 prepara reunion, recordatorio y resumen.",
         status: "Riesgo",
         risk: "Reunion sin grabacion ni resumen pierde acuerdos.",
-        linkedActivities: ["ACT-050", "ACT-052"]
+        linkedActivities: ["ACT-050", "ACT-052", "ACT-128"]
       },
       {
         id: "PB06-S3",
-        label: "Onboarding sponsor",
-        timing: "Al confirmar",
-        owner: "Persona 25",
-        team: ["Persona 21", "Persona 14"],
-        entry: "Sponsor o aliado confirmado.",
-        action: "Enviar bienvenida, crear grupo, perfil, mensaje y formulario.",
-        output: "Sponsor incorporado con canal y requerimientos.",
-        evidence: "Correo, grupo, formulario y contacto responsable.",
-        systems: ["Gmail", "WhatsApp", "Forms", "Drive"],
-        automation: "Agente #36 alerta sponsors sin bienvenida o formulario.",
-        status: "Automatizable",
-        risk: "Sponsor confirmado sin onboarding queda desatendido.",
-        linkedActivities: ["ACT-054", "ACT-055"]
+        label: "Cotizacion y decision sponsor",
+        timing: "0-48h post reunion",
+        owner: "Erika",
+        team: ["Paola", "Julie", "Yudely", "Daniella"],
+        entry: "Reunion realizada, sponsor caliente, aliado confirmado o convenio pendiente.",
+        action: "Enviar o seguir cotizacion, convenio, correo formal y bloqueo administrativo hasta dejar owner y fecha.",
+        output: "Sponsor o aliado con etapa comercial y decision siguiente.",
+        evidence: "Cotizacion/convenio con estado, ultimo contacto, bloqueo, owner y fecha.",
+        systems: ["Gmail", "Sheets", "Notion", "Facturacion"],
+        automation: "Agente #36 prioriza cotizaciones, sponsors bloqueados y confirmados con deuda.",
+        status: "Riesgo",
+        risk: "Sponsor caliente o confirmado queda sin cierre por falta de seguimiento o administracion.",
+        linkedActivities: ["ACT-125", "ACT-127", "ACT-131", "ACT-132"]
       },
       {
         id: "PB06-S4",
+        label: "Onboarding y activacion sponsor",
+        timing: "Al confirmar",
+        owner: "Erika",
+        team: ["Paola", "Julie", "Yudely", "Anggie", "Arantxa"],
+        entry: "Sponsor o aliado confirmado.",
+        action: "Enviar bienvenida, crear grupo, completar formulario, resolver facturacion/proveedor y activar pieza publica.",
+        output: "Sponsor incorporado con canal, requerimientos y activacion visible.",
+        evidence: "Correo, grupo, formulario, facturacion/proveedor, pieza y contacto responsable.",
+        systems: ["Gmail", "WhatsApp", "Forms", "Drive", "Sheets"],
+        automation: "Agente #36 alerta sponsors sin bienvenida, grupo, formulario, facturacion o pieza.",
+        status: "Automatizable",
+        risk: "Sponsor confirmado sin onboarding queda desatendido.",
+        linkedActivities: ["ACT-054", "ACT-055", "ACT-126", "ACT-131", "ACT-132"]
+      },
+      {
+        id: "PB06-S5",
         label: "Difusion y ejecucion",
         timing: "72h -> evento",
         owner: "Persona 14",
-        team: ["Persona 12", "Persona 15", "Persona 13"],
+        team: ["Erika", "Persona 12", "Persona 15", "Persona 13"],
         entry: "Evento, landing, piezas y lista de canales.",
         action: "Publicar piezas, difundir en grupos, ejecutar evento y registrar inscritos.",
         output: "Evento ejecutado con fuente y activos.",
@@ -5013,40 +5275,46 @@ export const workflowPlaybooks: WorkflowPlaybook[] = [
         automation: "Agente #13 semaforiza agenda, piezas, inscritos y sponsors.",
         status: "En curso",
         risk: "Evento con inscritos sin fuente no permite aprender ni remarketear.",
-        linkedActivities: ["ACT-023", "ACT-024", "ACT-025", "ACT-027"]
+        linkedActivities: ["ACT-023", "ACT-024", "ACT-025", "ACT-027", "ACT-126"]
       },
       {
-        id: "PB06-S5",
+        id: "PB06-S6",
         label: "Follow-up post evento",
         timing: "0-72h post evento",
-        owner: "Persona 14",
-        team: ["Persona 25", "Persona 18", "Persona 29"],
+        owner: "Erika",
+        team: ["Paola", "Persona 18", "Persona 29", "Daniella"],
         entry: "Evento finalizado.",
-        action: "Enviar resumen, propuesta, siguiente accion y reciclar activos.",
-        output: "Pipeline actualizado y activos reutilizables.",
-        evidence: "Correo enviado, estado actualizado, clips o propuesta.",
-        systems: ["Gmail", "GHL", "Drive", "Dashboard"],
-        automation: "Agente #36 consolida follow-up de sponsors, aliados y asistentes.",
+        action: "Enviar resumen, propuesta, siguiente accion, actualizar pipeline y cerrar reporte ejecutivo de aprendizajes.",
+        output: "Pipeline actualizado, activos reutilizables y decisiones visibles.",
+        evidence: "Correo enviado, estado actualizado, clips, propuesta o reporte ejecutivo.",
+        systems: ["Gmail", "GHL", "Drive", "Dashboard", "Notion"],
+        automation: "Agente #36 consolida follow-up; Agente #37 resume resultados, bloqueos y oportunidades.",
         status: "Automatizable",
         risk: "Sin follow-up el evento genera autoridad pero no pipeline.",
-        linkedActivities: ["ACT-050", "ACT-107", "ACT-108"]
+        linkedActivities: ["ACT-050", "ACT-107", "ACT-108", "ACT-133"]
       }
     ],
     handoffs: [
-      { from: "Persona 25", to: "Persona 14", rule: "Sponsor/aliado no entra a evento sin estado y proxima accion." },
+      { from: "Erika", to: "Paola", rule: "Cada sponsor o aliado debe tener siguiente accion operativa con fecha." },
+      { from: "Erika", to: "Julie", rule: "Sponsor confirmado con facturacion, proveedor o documento pendiente baja a administracion con evidencia." },
+      { from: "Erika", to: "Daniella", rule: "Bloqueos operativos, experiencia VIP o sponsor especial se escalan con decision requerida." },
       { from: "Persona 14", to: "Persona 12", rule: "Difusion requiere landing, CTA y fuente." },
       { from: "Persona 14", to: "Persona 18", rule: "Post-evento debe alimentar GHL, copy y oferta." }
     ],
     escalations: [
       "Sponsor sin respuesta o documento pendiente >3 dias.",
       "Reunion sin resumen el mismo dia.",
+      "Sponsor confirmado sin correo, grupo, facturacion o responsable.",
+      "Aliado confirmado sin propuesta o pieza.",
       "Evento sin landing/fuente 72h antes."
     ],
     doneDefinition: [
       "Pipeline actualizado.",
       "Evento ejecutado con fuente.",
-      "Sponsor/aliado con siguiente accion.",
-      "Follow-up enviado."
+      "Sponsor/aliado con etapa y siguiente accion.",
+      "Confirmados sin deuda critica de onboarding.",
+      "Follow-up enviado.",
+      "Reporte ejecutivo diario cerrado."
     ]
   },
   {

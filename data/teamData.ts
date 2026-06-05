@@ -404,16 +404,16 @@ export const aecodeTeamMembers: TeamMember[] = [
     company: "AECODE / AI Construction Summit",
     confidence: "Alta",
     seatType: "Nucleo",
-    load: "Carga media",
-    focus: "Business development, partnerships, sponsors, delegaciones, experiencia VIP, onboarding corporativo, QR, acreditaciones, comunicaciones y activacion de empresas.",
-    projects: ["AI Construction Summit", "VIP corporativo", "Delegaciones", "Sponsors"],
-    activities: ["Alinear experiencia VIP", "Definir onboarding corporativo", "Activar grupos oficiales", "Impulsar kits y posts LinkedIn", "Detectar riesgos de acreditacion"],
-    communicatesWith: ["Daniella", "Paola", "Julie", "Arantxa", "Anggie"],
-    owns: ["Business development", "Partnerships", "Experiencia VIP", "Delegaciones", "Onboarding sponsor"],
-    source: "Obsidian: Erika.md",
-    cadence: "Revision semanal de sponsors confirmados -> activacion -> experiencia.",
-    keyHandoff: "Entrega requisitos de QR/acreditacion a web/dev y comunicaciones a marketing.",
-    risk: "El evento puede vender bien y fallar en experiencia si no hay sistema de onboarding."
+    load: "Alta carga",
+    focus: "Business development y partnerships: seguimiento comercial, sponsors, aliados estrategicos, agenda de reuniones, llamadas, LinkedIn, onboarding sponsor, activacion corporativa y fuentes BD.",
+    projects: ["AI Construction Summit", "Sponsors", "Aliados estrategicos", "Reuniones comerciales", "LinkedIn / llamadas", "BD asistentes", "GEN+ oportunidades"],
+    activities: ["Dar seguimiento a cotizaciones, convenios y respuestas comerciales", "Actualizar sponsor board por categoria, estado, correo, grupo, facturacion y siguiente accion", "Gestionar aliados estrategicos confirmados y pendientes", "Coordinar agenda de reuniones, reprogramaciones y follow-up", "Ejecutar LinkedIn outreach, llamadas y mapeo de contactos", "Alimentar BD de asistentes, Ads y base historica", "Escalar dependencias administrativas de proveedores o facturacion"],
+    communicatesWith: ["Alejandro Palpan", "Daniella", "Paola", "Julie", "Yudely", "Anggie", "Arantxa", "Ana"],
+    owns: ["Business development", "Sponsor pipeline", "Aliados estrategicos", "Reuniones comerciales", "LinkedIn / llamadas", "Sponsor onboarding", "BD asistentes"],
+    source: "Obsidian: Erika.md + actividades Erika 2026-06-02 + prompt ejecutivo Erika",
+    cadence: "Revision diaria en sprint Summit: cotizaciones, sponsors, aliados, agenda, llamadas, LinkedIn, BD y bloqueos; cierre semanal por etapa.",
+    keyHandoff: "Entrega sponsor/aliado confirmado a Paola/Julie/Daniella/Yudely con correo, grupo, facturacion, formulario, pieza, responsable y siguiente accion.",
+    risk: "Sponsors confirmados pueden quedar sin activacion si faltan correo, grupo, facturacion, proveedor, contacto completo o responsable de seguimiento."
   },
   {
     name: "Julie",
@@ -768,6 +768,16 @@ export const teamConnections: TeamConnection[] = [
     evidence: "Pipeline sponsors, links personalizados, QR/acreditaciones, agenda y grupos oficiales.",
     agent: "Agente #13 Evento + Agente #36 Sponsors/VIP",
     risk: "El evento puede crecer en sponsors pero fallar en onboarding y experiencia presencial."
+  },
+  {
+    id: "CON-07",
+    lane: "Sponsors, aliados y BD",
+    primary: "Erika",
+    connects: ["Paola", "Daniella", "Julie", "Yudely", "Anggie", "Arantxa", "Ana", "Alejandro Palpan"],
+    objective: "Prospecto o aliado -> cotizacion/reunion -> seguimiento -> confirmacion -> bienvenida -> grupo -> facturacion -> activacion publica.",
+    evidence: "Sponsor board, agenda comercial, LinkedIn, llamadas, BD asistentes, correos, grupos oficiales y estado de facturacion/proveedor.",
+    agent: "Agente #22 Pipeline + Agente #23 Reuniones + Agente #36 Sponsors/aliados",
+    risk: "Sin etapa, fecha, owner y siguiente accion por empresa, el pipeline se ve grande pero no se convierte en activacion ni cierre."
   },
   {
     id: "CON-05",

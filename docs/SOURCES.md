@@ -38,6 +38,8 @@ Informacion extraida y normalizada:
 - Actividades recurrentes Julie: GEN+ proyectos, comercial, administracion/facturacion, cobranza, pago a instructores, AECODE Training, AI Summit sponsors/legal/VIP, AECODE StartUp y THESIA StartUp.
 - Analisis Daniella 2026: PMO GEN+, coordinacion academica AECODE Training, Summit/partners, comercial tecnico, documentacion, sistemas de seguimiento, THESIA/startup, riesgos y campos recomendados de dashboard.
 - `WhatsApp Chat - Gen+ Fabrizio`: usado para extraer temas operativos de alto nivel: producto AECODE F3/3.0, automatizacion marketing, dashboards, AgentFlow, Summit, propuesta tecnica y cotizaciones. No se publican mensajes completos, numeros, correos ni URLs privadas.
+- Actividades Erika 2026-06-02: usadas para detallar seguimiento de cotizaciones, convenios, sponsors pendientes, sponsors confirmados por categoria, aliados estrategicos, agenda de reuniones, LinkedIn, llamadas, BD de asistentes y bloqueos administrativos. Se omitieron nombres de contactos individuales.
+- Prompt ejecutivo Erika: usado para crear el rol de Chief of Staff digital, `ACT-133`, `Agente #37` y `AF-011` con Top 3 diario, plan vs ejecutado, reuniones, CRM, reportabilidad y mejora continua.
 - `Dashboard_Operativo_AP_GEN+_AECODE.pdf`: usado para agregar capa ejecutiva AP, empresas del ecosistema, proyectos criticos, flywheel, campos minimos, metricas, 15 vistas, reglas de operacion y criterios UX/UI.
 - Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`: usada para validar la lista completa de personas del equipo. Se consideraron 35 fichas: 34 nombres compartidos por Alejandro y `Yudely`, detectada en el vault. El tablero limita el nucleo a 25 personas y conserva 10 como red extendida.
 

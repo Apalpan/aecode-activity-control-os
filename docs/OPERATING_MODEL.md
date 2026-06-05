@@ -38,7 +38,7 @@ La version actual usa nombres reales por instruccion directa de Alejandro. El ta
 
 - Alejandro Palpan: vision global del ecosistema, prioridades, decisiones, producto, negocio y escalamiento.
 - Anggie: marketing y growth, GHL, funnel, lead quality, campanas, web, plantillas y aprendizaje de ventas.
-- Erika: Business Development and Partnership Coordinator, partnerships, sponsors, experiencia corporativa y activacion de empresas.
+- Erika: Business Development and Partnership Coordinator; owner de sponsors, aliados estrategicos, cotizaciones, agenda comercial, LinkedIn/llamadas, BD de asistentes, onboarding sponsor y reporte ejecutivo diario.
 - Fabrizio: desarrollo y enfoque del producto, automatizacion marketing, ingenieria general, dashboards, rutas, skills y AgentFlow backlog.
 - Daniella: operaciones a todo nivel, programas, Summit, sponsors, VisionPro, estrategia comercial y seguimiento transversal.
 - Julie: operaciones, instructora cuando aplique, administracion, enfoque startup en metricas y finanzas.
@@ -231,8 +231,9 @@ Marketing no debe optimizar solo por CPL. Anggie lidera GHL y lectura de growth;
 2. Growth y ventas: Anggie conecta con Arantxa, Jessica, Talia, Yadira, Reiner y Patrick.
 3. Producto y tecnologia: Anderson conecta con Yary, Fabrizio, Yudely, Emanuel, Marlon y Jordi.
 4. Summit y autoridad: Daniella conecta con Paola, Erika, Julie, Ivana, Arantxa, Anggie y Ana.
-5. GEN+ BIM y activos educativos: Paolo conecta con Kevin, Israel, Robert Herrera, Fabrizio, Carolina y Yary.
-6. Administracion, pagos y compliance: Yudely conecta con Julie, Sebastian, Anggie, Anderson, Emanuel y Alejandro.
+5. Sponsors, aliados y BD: Erika conecta con Paola, Daniella, Julie, Yudely, Anggie, Arantxa, Ana y Alejandro.
+6. GEN+ BIM y activos educativos: Paolo conecta con Kevin, Israel, Robert Herrera, Fabrizio, Carolina y Yary.
+7. Administracion, pagos y compliance: Yudely conecta con Julie, Sebastian, Anggie, Anderson, Emanuel y Alejandro.
 
 ## Procesos de marketing integrados
 
@@ -303,3 +304,4 @@ Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excus
 - `Agente #34`: sincronizador de ventas, pagos, tickets, notificaciones y postventa.
 - `Agente #35`: copiloto de programas activos, actas, sesiones, Notion, soporte y HTML.
 - `Agente #36`: monitor de pipeline Summit, sponsors, aliados, ponentes, B2B y CRM.
+- `Agente #37`: Chief of Staff digital de Erika para Top 3 diario, plan vs ejecutado, reuniones, bloqueos, oportunidades y recomendaciones de foco.

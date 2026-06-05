@@ -138,7 +138,18 @@ La seccion `Hoy / Centro de ejecucion` ahora funciona como piloto diario sin bac
 - exporta/importa un JSON de estado para compartir cortes operativos;
 - mantiene la base versionada del repo intacta y reiniciable.
 
-Tambien se agrego `Perfiles operativos criticos`, una lectura ejecutiva de Julie, Daniella y Fabrizio con frentes, actividades, sistemas, handoffs, metricas, riesgos y siguientes acciones de sistema.
+Tambien se agrego `Perfiles operativos criticos`, una lectura ejecutiva de Julie, Daniella, Fabrizio y Erika con frentes, actividades, sistemas, handoffs, metricas, riesgos y siguientes acciones de sistema.
+
+## Iteracion Erika / Sponsors / BD
+
+La version actual incorpora la informacion de Erika del 2026-06-02 y el prompt ejecutivo recibido:
+
+- Erika queda como owner de `Business Development + Sponsor Partnership Ops`.
+- Se agregan actividades `ACT-125` a `ACT-133` para cotizaciones, convenios, sponsors pendientes, flyer oficial, agenda de reuniones, LinkedIn, llamadas, BD de asistentes, aliados estrategicos y sistema ejecutivo diario.
+- Se agrega `DAY-016` como foco diario de sponsors, aliados y reuniones de manana.
+- `PB-06` ahora modela el flujo completo: mapeo, reunion, cotizacion, onboarding, evento y seguimiento ejecutivo.
+- `Agente #37` queda como Chief of Staff digital para Erika: Top 3 diario, plan vs ejecutado, riesgos, oportunidades y recomendaciones de foco.
+- `AF-011` deja preparado el contrato AgentFlow para conectar Notion, Sheets, Calendar, CRM futuro y reportes sin publicar datos personales sensibles.
 
 ## Iteracion Personas x3
 
@@ -161,7 +172,7 @@ El equipo no se modela como una lista plana. La regla actual es:
 - toda persona con rol activo debe tener ownership, cadencia, handoff, fuente y riesgo;
 - personas sin reporte detallado, apoyo puntual o rol por confirmar se mantienen como red extendida;
 - los alias `Persona N` se normalizan a nombres reales cuando existe evidencia suficiente;
-- las conexiones entre personas se muestran por dominio: postventa, growth/ventas, producto/dev, Summit, GEN+ BIM y administracion.
+- las conexiones entre personas se muestran por dominio: postventa, growth/ventas, producto/dev, Summit, sponsors/BD, GEN+ BIM y administracion.
 
 Personas consideradas desde Obsidian:
 
