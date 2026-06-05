@@ -18,6 +18,7 @@ import {
   ListChecks,
   Megaphone,
   LockKeyhole,
+  MessageSquareText,
   PlaySquare,
   Route,
   Search,
@@ -33,6 +34,10 @@ import {
   agents,
   areas,
   contentMetrics,
+  cultureAntiValues,
+  cultureClusters,
+  cultureRituals,
+  cultureValues,
   getPriorityWeight,
   getReadinessScore,
   linkAssets,
@@ -76,6 +81,7 @@ const navGroups = [
     label: "Control",
     items: [
       { label: "Resumen", href: "#control", icon: LayoutDashboard },
+      { label: "Cultura", href: "#cultura", icon: MessageSquareText },
       { label: "Actividades", href: "#actividades", icon: ListChecks },
       { label: "Roles", href: "#roles", icon: UserRoundCheck },
       { label: "Flujo", href: "#flujo", icon: Route }
@@ -271,7 +277,7 @@ export default function Page() {
           <div className="mt-5 grid gap-3 xl:grid-cols-4">
             {aecodeDomains.map((domain) => (
               <article className="domain-card" key={domain.id}>
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="text-xs font-black text-aecode-muted">{domain.id}</p>
                     <h3 className="mt-1 text-lg font-black text-white">{domain.domain}</h3>
@@ -291,6 +297,96 @@ export default function Page() {
                 <p className="mt-4 text-xs font-bold text-aecode-lavender">Apoyo: {domain.supportingRoles.join(" + ")}</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-6 panel p-5" id="cultura">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Cultura operativa</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Habitos que hacen funcionar el sistema</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Cultura AECODE se traduce en presencia, trazabilidad, cierre diario, alineacion al negocio, aprendizaje compartido y documentacion reutilizable.
+              </p>
+            </div>
+            <MessageSquareText className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-3">
+            {cultureClusters.map((item) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={item.id}>
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                    <h3 className="mt-1 text-lg font-black text-white">{item.cluster}</h3>
+                  </div>
+                  <span className="chip chip-good max-w-full whitespace-normal text-left">{item.metric}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">{item.principle}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {item.habits.map((habit) => (
+                    <span className="chip" key={habit}>{habit}</span>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-3">
+                  <p className="text-xs font-black uppercase text-aecode-green">Regla operativa</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{item.operatingRule}</p>
+                </div>
+                <p className="mt-3 text-xs font-bold text-aecode-lavender">Evidencia: {item.evidence}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
+            <div className="min-w-0 rounded-lg border border-aecode-violet/20 bg-aecode-bg/35 p-4">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Rituales</p>
+              <div className="mt-4 overflow-x-auto">
+                <table className="data-table min-w-[760px]">
+                  <thead>
+                    <tr>
+                      <th>Ritual</th>
+                      <th>Frecuencia</th>
+                      <th>Formato</th>
+                      <th>Canal</th>
+                      <th>Owner</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cultureRituals.map((ritual) => (
+                      <tr key={ritual.ritual}>
+                        <td className="font-black text-white">{ritual.ritual}</td>
+                        <td className="text-sm text-aecode-mint">{ritual.frequency}</td>
+                        <td className="text-sm leading-6 text-aecode-muted">{ritual.format}</td>
+                        <td><span className="chip">{ritual.channel}</span></td>
+                        <td className="text-sm font-bold text-white">{ritual.owner}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <aside className="grid min-w-0 gap-3">
+              <div className="rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-4">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Valores</p>
+                <div className="mt-3 grid gap-2">
+                  {cultureValues.map((value) => (
+                    <p className="flex gap-2 text-sm leading-6 text-aecode-muted" key={value}>
+                      <CheckCircle2 className="mt-1 shrink-0 text-aecode-green" size={15} />
+                      {value}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-lg border border-aecode-coral/30 bg-aecode-coral/10 p-4">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#ffb2aa]">Antivalores</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {cultureAntiValues.map((value) => (
+                    <span className="chip chip-critical" key={value}>{value}</span>
+                  ))}
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
 

@@ -24,6 +24,7 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - Textos pegados sobre coordinacion academica, postventa, retencion, certificacion y arquitectura operativa.
 - HTML local `aecode-equipo-marketing.html` normalizado como procesos de marketing, Summit, difusion, clips, web, ventas y automatizacion.
 - Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`.
+- Nota Obsidian `02_EMPRESAS/AECODE/Cultura-AECODE.md` convertida en reglas operativas, rituales, valores y antivalores.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
 Por seguridad, el repositorio no expone nombres personales, emails, links de WhatsApp, links de Zoom ni URLs privadas. La app usa estados, conteos, roles anonimizados y referencias de fuente.
@@ -72,6 +73,19 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 8 dominios oper
 
 Cada dominio define lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
 
+## Cultura operativa
+
+La cultura AECODE se incorpora como capa de ejecucion diaria:
+
+- presencia y foco;
+- comunicacion y trazabilidad;
+- ejecucion y cierre;
+- alineacion al negocio y al rol;
+- conocimiento, aprendizaje y comunidad;
+- documentacion, sintesis y presentacion.
+
+La UI muestra rituales, evidencia esperada, valores y antivalores para que el equipo opere con el mismo estandar.
+
 ## Ejecutar
 
 ```bash
@@ -100,7 +114,7 @@ GitHub Pages:
 app/              UI Next.js
 data/             modelo operativo anonimizado
 docs/             playbooks y especificacion
-templates/        CSVs importables: actividades, roles, dominios, procesos, links y agentes
+templates/        CSVs importables: actividades, roles, dominios, cultura, procesos, links y agentes
 public/           assets AECODE
 outputs/          archivos privados locales no versionados
 ```

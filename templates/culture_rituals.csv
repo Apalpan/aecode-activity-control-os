@@ -1,0 +1,9 @@
+ritual,frequency,format,channel,owner
+Check-in de inicio,Diario 9:00 am,Estado visible,Discord,Cada Persona
+Estatus de avance,Diario cierre,Hecho logrado aprendido bloqueo proximo paso,Grupo Discord,Cada Persona
+Lista de actividades,Diario,Actualizacion personal,Notion / tablero,Cada Persona
+Reporte semanal,Viernes,Resumen por area,Grupo + archivo,Lead de area
+Retrospectiva de area,Quincenal,Reunion corta,Video call,Lead de area
+Aprendizaje compartido,Semanal,Mini-post o nota,Canal aprendizajes,Cada Persona
+Retrospectiva de evento,Post-evento,Informe de cierre,Notion,Persona 14
+Trazabilidad mensual,Fin de mes,Entregables metricas aprendizajes,Dashboard,Persona 22

@@ -122,6 +122,24 @@ export type MarketingProcess = {
   automation: string;
 };
 
+export type CultureCluster = {
+  id: string;
+  cluster: string;
+  principle: string;
+  habits: string[];
+  operatingRule: string;
+  evidence: string;
+  metric: string;
+};
+
+export type CultureRitual = {
+  ritual: string;
+  frequency: string;
+  format: string;
+  channel: string;
+  owner: string;
+};
+
 export const areas = [
   "Direccion",
   "Accesos y soporte",
@@ -1779,6 +1797,94 @@ export const marketingProcesses: MarketingProcess[] = [
   }
 ];
 
+export const cultureClusters: CultureCluster[] = [
+  {
+    id: "CUL-01",
+    cluster: "Presencia y foco",
+    principle: "En un ecosistema digital distribuido, la presencia es un acto deliberado.",
+    habits: ["Conectado 9:00 am", "Estado activo visible", "Bloques de deep work sin ruido"],
+    operatingRule: "El dia empieza con disponibilidad visible y foco real; presencia no es solo estar conectado.",
+    evidence: "Check-in diario y bloque de trabajo declarado.",
+    metric: "Check-ins completos / dias laborales"
+  },
+  {
+    id: "CUL-02",
+    cluster: "Comunicacion y trazabilidad",
+    principle: "Un equipo que no se comunica bien hacia adentro no puede comunicar bien hacia afuera.",
+    habits: ["Estatus diario", "Acuse de recibo", "Canal grupal para temas compartidos", "Reporte semanal"],
+    operatingRule: "Toda coordinacion que impacta a mas de una persona vive en canal compartido.",
+    evidence: "Mensaje diario: hecho, logrado, aprendido, bloqueo y proximo paso.",
+    metric: "Reportes diarios entregados / reportes esperados"
+  },
+  {
+    id: "CUL-03",
+    cluster: "Ejecucion y cierre",
+    principle: "AECODE produce en ciclos cortos; cerrar es parte de la propuesta de valor.",
+    habits: ["Cerrar algo al dia", "Avances parciales", "Lista de actividades actualizada"],
+    operatingRule: "No acumular en proceso; cada dia debe producir un entregable verificable.",
+    evidence: "Actividad cerrada, decision tomada, pieza publicada o bloqueo escalado.",
+    metric: "Entregables cerrados por persona / semana"
+  },
+  {
+    id: "CUL-04",
+    cluster: "Alineacion al negocio y al rol",
+    principle: "Cada accion debe conectar con plataforma, comunidad, aprendizaje, crecimiento o revenue.",
+    habits: ["Conocer rol", "Priorizar por impacto", "Preguntar que mueve la aguja", "Conectar con NSM"],
+    operatingRule: "Antes de iniciar una tarea: confirmar si ayuda a skills verificadas, comunidad, experiencia, marca o MRR.",
+    evidence: "Actividad vinculada a dominio, KPI o sprint.",
+    metric: "Actividades con KPI asociado / total de actividades"
+  },
+  {
+    id: "CUL-05",
+    cluster: "Conocimiento, aprendizaje y comunidad",
+    principle: "El aprendizaje interno es insumo de producto, contenido y comunidad.",
+    habits: ["Aprendizaje compartido", "Medir mejora", "Leer herramientas", "Pensamiento critico", "Participar en eventos"],
+    operatingRule: "Cada aprendizaje reutilizable debe convertirse en nota, capsula, practica o mejora de proceso.",
+    evidence: "Mini-post, nota, playbook, mejora o insight de evento.",
+    metric: "Aprendizajes reutilizados / semana"
+  },
+  {
+    id: "CUL-06",
+    cluster: "Documentacion, sintesis y presentacion",
+    principle: "Documentar no es administracion; es una habilidad de producto.",
+    habits: ["Documentar avances", "Orden operativo", "Sintesis tipo embudo", "Mapa A3", "Preguntas buenas", "Aportes"],
+    operatingRule: "Todo proceso relevante debe dejar mapa, resumen o evidencia para que otro pueda continuarlo.",
+    evidence: "Nota, A3, checklist, SOP, tablero o resumen ejecutivo.",
+    metric: "Procesos documentados / procesos recurrentes"
+  }
+];
+
+export const cultureRituals: CultureRitual[] = [
+  { ritual: "Check-in de inicio", frequency: "Diario 9:00 am", format: "Estado visible", channel: "Discord", owner: "Cada Persona" },
+  { ritual: "Estatus de avance", frequency: "Diario cierre", format: "Hecho, logrado, aprendido, bloqueo, proximo paso", channel: "Grupo Discord", owner: "Cada Persona" },
+  { ritual: "Lista de actividades", frequency: "Diario", format: "Actualizacion personal", channel: "Notion / tablero", owner: "Cada Persona" },
+  { ritual: "Reporte semanal", frequency: "Viernes", format: "Resumen por area", channel: "Grupo + archivo", owner: "Lead de area" },
+  { ritual: "Retrospectiva de area", frequency: "Quincenal", format: "Reunion corta", channel: "Video call", owner: "Lead de area" },
+  { ritual: "Aprendizaje compartido", frequency: "Semanal", format: "Mini-post o nota", channel: "Canal aprendizajes", owner: "Cada Persona" },
+  { ritual: "Retrospectiva de evento", frequency: "Post-evento", format: "Informe de cierre", channel: "Notion", owner: "Persona 14" },
+  { ritual: "Trazabilidad mensual", frequency: "Fin de mes", format: "Entregables, metricas y aprendizajes", channel: "Dashboard", owner: "Persona 22" }
+];
+
+export const cultureValues = [
+  "Compromiso: cumplir acuerdos, cerrar tareas y hacerse cargo del impacto.",
+  "Honestidad: comunicacion directa y feedback sin agresion.",
+  "Gratitud: reconocer aportes y evitar ego operativo.",
+  "Proactividad: anticiparse, proponer y ejecutar sin permiso innecesario.",
+  "Innovacion: mejorar procesos y convertir ideas en entregables.",
+  "Comunicacion: mensajes claros, alineacion explicita y escucha activa.",
+  "Aprendizaje: aprender rapido, aplicar rapido y ensenar lo aprendido."
+];
+
+export const cultureAntiValues = [
+  "Incumplimiento recurrente",
+  "Falta de trazabilidad",
+  "Excusas constantes",
+  "Ocultar errores",
+  "Individualismo",
+  "Desorden operativo cronico",
+  "Falta de respeto"
+];
+
 export const opsSources: OpsSource[] = [
   {
     label: "Actividades TEAM",
@@ -1833,6 +1939,7 @@ export const sourceNotes = [
   "No se publican links privados de WhatsApp, Zoom, Classroom, Miro o Drive.",
   "Panel HTML de marketing integrado como procesos anonimizados: ads, Summit, difusion, clips, web y automatizacion.",
   "El control maestro ya no se limita a coordinacion academica; incluye direccion, producto, marketing, comercial, eventos, finanzas, datos y BI.",
+  "Cultura-AECODE.md integrada como reglas operativas: presencia, trazabilidad, cierre, aprendizaje, documentacion y alineacion al negocio.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

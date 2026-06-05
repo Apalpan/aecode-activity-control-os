@@ -8,7 +8,7 @@ El tablero no debe funcionar como una lista larga de pendientes. Debe operar com
 - flujo -> etapa -> owner -> agente -> fuente;
 - fuente -> Obsidian, Sheet, Notion o Drive -> estado de seguridad.
 
-La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE y el panel HTML de marketing. En la UI publica se mantienen roles anonimos.
+La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE, `Cultura-AECODE.md` y el panel HTML de marketing. En la UI publica se mantienen roles anonimos.
 
 ## Roles operativos
 
@@ -79,6 +79,20 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 - Cada actividad debe tener evidencia esperada.
 - Toda actividad repetible debe tener un agente candidato.
 - Toda actividad sensible debe mantenerse fuera del frontend publico.
+- Toda actividad debe poder conectarse con un dominio, KPI o ritual de cultura.
+
+## Cultura operativa
+
+La cultura AECODE se convierte en reglas medibles:
+
+1. Presencia y foco: check-in 9:00 am, estado visible y bloques de deep work.
+2. Comunicacion y trazabilidad: avance diario, acuse de recibo y canal grupal cuando aplica.
+3. Ejecucion y cierre: cerrar algo al dia y evitar acumulacion de tareas en proceso.
+4. Alineacion al negocio y al rol: toda tarea debe conectar con NSM, comunidad, experiencia, marca o MRR.
+5. Conocimiento, aprendizaje y comunidad: cada aprendizaje reutilizable se documenta y comparte.
+6. Documentacion, sintesis y presentacion: procesos relevantes dejan mapa, A3, checklist o resumen.
+
+Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excusas constantes, ocultar errores, individualismo, desorden operativo cronico y falta de respeto.
 
 ## Agentes candidatos
 
