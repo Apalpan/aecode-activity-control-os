@@ -46,6 +46,8 @@ const icons = {
   content: PlaySquare
 };
 
+const assetBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 function Metric({ label, value, detail, tone }: { label: string; value: string; detail: string; tone?: "risk" | "good" }) {
   const Icon = tone === "risk" ? icons.risk : tone === "good" ? icons.verified : icons.total;
 
@@ -92,7 +94,7 @@ export default function Page() {
       <aside className="sidebar">
         <div className="flex items-center gap-3">
           <Image
-            src="/aecode-logo-principal-fondo-oscuro.png"
+            src={`${assetBasePath}/aecode-logo-principal-fondo-oscuro.png`}
             alt="AECODE"
             width={132}
             height={31}
@@ -355,7 +357,7 @@ export default function Page() {
             </div>
             <Image
               className="mx-auto max-h-[180px] w-auto object-contain"
-              src="/aecodito-home.png"
+              src={`${assetBasePath}/aecodito-home.png`}
               alt="Aecodito"
               width={180}
               height={180}
