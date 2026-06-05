@@ -95,6 +95,14 @@ Templates nuevos:
 - `templates/workflow_playbooks.csv`
 - `templates/workflow_playbook_steps.csv`
 
+## Prompt X5 de mejora
+
+El prompt maestro para escalar este tablero como sistema interactivo, funcional y operable por el equipo esta en:
+
+- `docs/PROMPT_X5_ACTIVITY_CONTROL_OS.md`
+
+Ese prompt define el siguiente salto del producto: centro de ejecucion diario, playbooks ejecutables, filtros avanzados, capa AgentFlow, contratos de datos, seguridad, QA visual y roadmap 7/30/90 dias.
+
 ## Equipo nucleo y red extendida
 
 El equipo no se modela como una lista plana. La regla actual es:
