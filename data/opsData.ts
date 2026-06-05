@@ -157,6 +157,8 @@ export const areas = [
   "Automatizacion",
   "Finanzas",
   "Producto",
+  "Tecnologia",
+  "BIM",
   "Plataforma",
   "Certificados"
 ];
@@ -689,6 +691,230 @@ export const activities: Activity[] = [
     source: "Sistema operativo AECODE + HTML marketing",
     risk: "Sin KPIs cruzados, cada area reporta actividad pero no impacto.",
     nextAction: "Medir skills verificadas, activacion, asistencia, videos, tickets, certificados, leads y conversion."
+  },
+  {
+    id: "ACT-034",
+    area: "Tecnologia",
+    activity: "Disenar arquitectura de productos desde cero",
+    owner: "Persona 23",
+    backup: "Persona 20",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Inicio de proyecto",
+    evidence: "architecture decision record",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Sin arquitectura base, los productos crecen con deuda tecnica y criterios inconsistentes.",
+    nextAction: "Estandarizar ADR por proyecto: contexto, dominio, boundaries, stack, riesgos y decisiones."
+  },
+  {
+    id: "ACT-035",
+    area: "Tecnologia",
+    activity: "Definir stack tecnico y estandares de ingenieria",
+    owner: "Persona 23",
+    backup: "Persona 11",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Antes de desarrollo",
+    evidence: "engineering playbook",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Cada proyecto puede implementar patrones distintos y perder mantenibilidad.",
+    nextAction: "Crear reglas por stack: Go, Java, Next.js, auth, testing, errores, logs y deploy."
+  },
+  {
+    id: "ACT-036",
+    area: "Tecnologia",
+    activity: "Modelar bases de datos, schemas y migraciones",
+    owner: "Persona 23",
+    backup: "Persona 22",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Antes de implementar feature",
+    evidence: "schema + migracion",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Datos mal modelados bloquean dashboards, permisos, pagos, evidencias y escalabilidad.",
+    nextAction: "Vincular cada entidad a dominio, owner, privacy level y migration strategy."
+  },
+  {
+    id: "ACT-037",
+    area: "Tecnologia",
+    activity: "Desarrollar APIs backend en Go/Fiber y Java/Spring",
+    owner: "Persona 23",
+    backup: "Persona 20",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Por sprint",
+    evidence: "API versionada",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "APIs sin contrato claro rompen frontend, integraciones y automatizaciones.",
+    nextAction: "Definir OpenAPI/contratos, errores estandar, versionado y pruebas de integracion."
+  },
+  {
+    id: "ACT-038",
+    area: "Tecnologia",
+    activity: "Implementar auth, JWT, OTP, hashing, RBAC, colas, Redis y cache",
+    owner: "Persona 23",
+    backup: "Persona 11",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Por modulo critico",
+    evidence: "security checklist",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Permisos, seguridad y tareas asincronas mal definidas exponen datos o degradan experiencia.",
+    nextAction: "Crear matriz RBAC por rol, flujo auth, jobs asincronos, cache keys y auditoria."
+  },
+  {
+    id: "ACT-039",
+    area: "Tecnologia",
+    activity: "Integrar pagos y servicios externos como IziPay, S3 y correo",
+    owner: "Persona 23",
+    backup: "Persona 21",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Por lanzamiento",
+    evidence: "integracion validada",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Integraciones sin trazabilidad generan pagos inconsistentes, archivos perdidos o correos fallidos.",
+    nextAction: "Documentar webhook, retry, logs, estados de pago, storage policy y alertas."
+  },
+  {
+    id: "ACT-040",
+    area: "Tecnologia",
+    activity: "Construir frontends, dashboards, formularios, onboarding y paneles admin",
+    owner: "Persona 23",
+    backup: "Persona 20",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Por sprint",
+    evidence: "flujo frontend validado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "UI sin flujo completo valida pantallas, pero no producto operativo.",
+    nextAction: "Vincular cada pantalla a user story, datos, estado vacio, permisos y accion principal."
+  },
+  {
+    id: "ACT-041",
+    area: "Tecnologia",
+    activity: "Configurar infra, AWS, serverless, Cognito, CDK, Docker y entornos",
+    owner: "Persona 23",
+    backup: "Persona 11",
+    agent: "Agente #20",
+    automationLevel: "Alta",
+    sla: "Por ambiente",
+    evidence: "deploy reproducible",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Sin ambientes reproducibles, dev/prod divergen y los lanzamientos quedan fragiles.",
+    nextAction: "Crear checklist por ambiente: variables, secretos, dominios, logs, backup y rollback."
+  },
+  {
+    id: "ACT-042",
+    area: "Tecnologia",
+    activity: "Integrar IA, embeddings, pgvector, generacion y personalizacion",
+    owner: "Persona 23",
+    backup: "Persona 20",
+    agent: "Agente #20",
+    automationLevel: "Alta",
+    sla: "Por caso de uso",
+    evidence: "AI feature spec",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "IA sin criterios de evaluacion se vuelve demo aislada y no mejora aprendizaje ni operacion.",
+    nextAction: "Definir input, output, evaluacion, trazabilidad, fallback y control humano."
+  },
+  {
+    id: "ACT-043",
+    area: "Producto",
+    activity: "Entregar productos end-to-end en multiples verticales",
+    owner: "Persona 23",
+    backup: "Persona 10",
+    agent: "Agente #20",
+    automationLevel: "Media",
+    sla: "Por roadmap",
+    evidence: "release completo",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por equipo tecnico",
+    risk: "Multiproyecto sin gobernanza dispersa foco tecnico y retrasa releases.",
+    nextAction: "Priorizar por roadmap, owner de negocio, estado de release, deuda tecnica y riesgo."
+  },
+  {
+    id: "ACT-044",
+    area: "BIM",
+    activity: "Modelado BIM y planos en BIM para proyectos academicos",
+    owner: "Persona 24",
+    backup: "Persona 20",
+    agent: "Agente #21",
+    automationLevel: "Baja",
+    sla: "Por curso/proyecto",
+    evidence: "modelo o plano BIM",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por soporte BIM",
+    risk: "Sin activos BIM bien preparados, los cursos pierden calidad practica y evidencia tecnica.",
+    nextAction: "Versionar modelos por curso, nivel, objetivo de aprendizaje y evidencia esperada."
+  },
+  {
+    id: "ACT-045",
+    area: "BIM",
+    activity: "Configurar proyectos, plantillas, familias y recursos BIM",
+    owner: "Persona 24",
+    backup: "Persona 7",
+    agent: "Agente #21",
+    automationLevel: "Media",
+    sla: "Antes de clase",
+    evidence: "plantilla/familia lista",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por soporte BIM",
+    risk: "Recursos sin estandar elevan friccion del instructor y del estudiante.",
+    nextAction: "Crear libreria por disciplina, version, curso, uso permitido y owner."
+  },
+  {
+    id: "ACT-046",
+    area: "BIM",
+    activity: "Crear scripts personales y automatizaciones BIM de apoyo",
+    owner: "Persona 24",
+    backup: "Persona 11",
+    agent: "Agente #21",
+    automationLevel: "Media",
+    sla: "Por necesidad",
+    evidence: "script documentado",
+    status: "Pendiente",
+    priority: "Media",
+    source: "Actividad enviada por soporte BIM",
+    risk: "Scripts utiles quedan personales y no se convierten en activo reutilizable.",
+    nextAction: "Documentar input, output, herramienta, caso de uso, limitaciones y ejemplo."
+  },
+  {
+    id: "ACT-047",
+    area: "BIM",
+    activity: "Apoyar busqueda de proyectos, PPTs y tableros Miro para cursos",
+    owner: "Persona 24",
+    backup: "Persona 13",
+    agent: "Agente #21",
+    automationLevel: "Media",
+    sla: "Por calendario academico",
+    evidence: "asset academico entregado",
+    status: "Activo",
+    priority: "Media",
+    source: "Actividad enviada por soporte BIM",
+    risk: "Material de apoyo llega tarde o sin trazabilidad con el objetivo de aprendizaje.",
+    nextAction: "Registrar proyecto, PPT, Miro, curso, modulo, owner, fecha y estado."
   }
 ];
 
@@ -711,7 +937,9 @@ export const agents: Agent[] = [
   { id: "Agente #16", mission: "Cruzar leads, asesoria, objeciones y conversion comercial.", input: "CRM + feedback diario", output: "Lead quality y oportunidades por curso", humanControl: "Persona 18 valida lectura comercial", status: "Propuesto", impact: "Alto" },
   { id: "Agente #17", mission: "Auditar loop de aprendizaje, evidencias, rubricas y skill passport.", input: "Programas + evidencias + evaluaciones", output: "Mapa de skill verification por cohorte", humanControl: "Persona 20 valida criterio academico", status: "Propuesto", impact: "Alto" },
   { id: "Agente #18", mission: "Sincronizar pagos, comprobantes y bloqueos administrativos.", input: "Pagos + documentos + matriculas", output: "Estado administrativo por estudiante", humanControl: "Persona 21 revisa casos sensibles", status: "Propuesto", impact: "Medio" },
-  { id: "Agente #19", mission: "Construir dashboard ejecutivo de operacion completa AECODE.", input: "Academico + marketing + comercial + soporte", output: "KPIs semanales y alertas de decision", humanControl: "Persona 22 valida datos", status: "Propuesto", impact: "Alto" }
+  { id: "Agente #19", mission: "Construir dashboard ejecutivo de operacion completa AECODE.", input: "Academico + marketing + comercial + soporte", output: "KPIs semanales y alertas de decision", humanControl: "Persona 22 valida datos", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #20", mission: "Auditar arquitectura, estandares, API, seguridad, frontend, infra e IA por proyecto.", input: "Repo + ADR + backlog + deployment", output: "Checklist tecnico, riesgos y decisiones pendientes", humanControl: "Persona 23 aprueba arquitectura", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #21", mission: "Catalogar modelos, plantillas, familias, scripts, PPTs y Miros BIM como activos reutilizables.", input: "Assets BIM + curso + modulo", output: "Ficha de recurso con uso academico y estado", humanControl: "Persona 24 valida calidad tecnica BIM", status: "Propuesto", impact: "Medio" }
 ];
 
 export const programs: ProgramStatus[] = [
@@ -1535,6 +1763,30 @@ export const opsRoles: OpsRole[] = [
     escalation: "Fuente rota, dato sensible expuesto, dashboard inconsistente o metrica sin definicion.",
     backup: "Persona 11",
     obsidianSource: "Sheet academico + HTML marketing + sistema operativo AECODE"
+  },
+  {
+    id: "Persona 23",
+    role: "Product Engineering + Architecture Lead",
+    mission: "Disenar arquitectura, estandares y construir productos completos de backend, frontend, infra e IA.",
+    areas: ["Tecnologia", "Producto", "Plataforma", "Automatizacion", "Datos"],
+    primaryActivities: ["ACT-034", "ACT-035", "ACT-036", "ACT-037", "ACT-038", "ACT-039", "ACT-040", "ACT-041", "ACT-042", "ACT-043"],
+    kpis: ["Arquitecturas documentadas", "APIs versionadas", "Deploys reproducibles", "Features end-to-end entregadas"],
+    dailyCheck: "Revisar decisiones tecnicas, bloqueos de producto, estado de APIs, frontend, infra y deuda critica.",
+    escalation: "Arquitectura sin ADR, permisos inseguros, deploy no reproducible, API sin contrato o multiproyecto sin foco.",
+    backup: "Persona 20",
+    obsidianSource: "Actividad enviada por equipo tecnico"
+  },
+  {
+    id: "Persona 24",
+    role: "BIM Academic Asset Ops",
+    mission: "Preparar modelos, planos, plantillas, familias, scripts y recursos BIM para cursos y soporte academico.",
+    areas: ["BIM", "Contenido", "Producto", "Plataforma"],
+    primaryActivities: ["ACT-044", "ACT-045", "ACT-046", "ACT-047"],
+    kpis: ["Assets BIM listos", "Plantillas versionadas", "Scripts documentados", "Recursos alineados al curso"],
+    dailyCheck: "Revisar necesidades de cursos, proyectos BIM, PPTs, Miros, plantillas y scripts pendientes.",
+    escalation: "Material BIM sin version, script no documentado, recurso tarde o desalineado con objetivo de aprendizaje.",
+    backup: "Persona 7",
+    obsidianSource: "Actividad enviada por soporte BIM"
   }
 ];
 
@@ -1638,6 +1890,26 @@ export const workflowStages: WorkflowStage[] = [
     activities: ["ACT-032", "ACT-002", "ACT-018", "ACT-019"],
     evidence: "Estado administrativo, pago conciliado y certificado habilitado.",
     automation: "Agente #18"
+  },
+  {
+    id: "WF-11",
+    label: "Product engineering",
+    timing: "Discovery -> release",
+    owner: "Persona 23",
+    objective: "Convertir necesidad de producto en arquitectura, backend, frontend, infra, IA y deploy trazable.",
+    activities: ["ACT-034", "ACT-035", "ACT-036", "ACT-037", "ACT-038", "ACT-040", "ACT-041", "ACT-042", "ACT-043"],
+    evidence: "ADR, API contract, schema, UI flow, deploy, logs y checklist de seguridad.",
+    automation: "Agente #20"
+  },
+  {
+    id: "WF-12",
+    label: "Activos BIM academicos",
+    timing: "Planificacion de curso -> clase",
+    owner: "Persona 24",
+    objective: "Convertir modelos, planos, plantillas, familias, scripts, PPTs y Miros en recursos reutilizables.",
+    activities: ["ACT-044", "ACT-045", "ACT-046", "ACT-047"],
+    evidence: "Ficha de asset BIM con curso, modulo, version, uso academico y estado.",
+    automation: "Agente #21"
   }
 ];
 
@@ -1737,6 +2009,30 @@ export const aecodeDomains: AecodeDomain[] = [
     cadences: ["Chequeo diario", "Cierre semanal", "Auditoria mensual"],
     risks: ["Alumno pagado sin acceso", "Certificado retenido sin causa clara", "Doble registro"],
     automation: "Agente #18 sincroniza pago, documento, acceso y certificado."
+  },
+  {
+    id: "DOM-09",
+    domain: "Tecnologia, arquitectura y product engineering",
+    mission: "Construir productos completos con arquitectura, backend, frontend, infra, seguridad, IA y deploy reproducible.",
+    lead: "Persona 23",
+    supportingRoles: ["Persona 20", "Persona 11", "Persona 22"],
+    responsibilities: ["Arquitectura", "Stack tecnico", "DB/migraciones", "APIs", "Auth/RBAC", "Frontend", "Infra", "IA"],
+    kpis: ["ADRs aprobados", "APIs versionadas", "Deploys reproducibles", "Incidentes tecnicos controlados"],
+    cadences: ["Architecture review", "Sprint engineering", "Release checklist"],
+    risks: ["Deuda tecnica", "APIs sin contrato", "Permisos inseguros", "Ambientes no reproducibles"],
+    automation: "Agente #20 audita arquitectura, seguridad, frontend, infra e IA por proyecto."
+  },
+  {
+    id: "DOM-10",
+    domain: "Activos BIM academicos",
+    mission: "Convertir modelos, planos, plantillas, familias, scripts, PPTs y Miros en recursos reutilizables para aprendizaje aplicado.",
+    lead: "Persona 24",
+    supportingRoles: ["Persona 7", "Persona 13", "Persona 20"],
+    responsibilities: ["Modelos BIM", "Planos", "Plantillas", "Familias", "Scripts", "PPTs", "Miro"],
+    kpis: ["Assets listos antes de clase", "Recursos versionados", "Scripts documentados", "Alineacion con skill outcome"],
+    cadences: ["Preparacion por curso", "Revision antes de clase", "Cierre de asset"],
+    risks: ["Material tardio", "Recursos sin version", "Scripts personales no reutilizables", "Miro/PPT sin objetivo"],
+    automation: "Agente #21 cataloga activos BIM con curso, modulo, version, uso y estado."
   }
 ];
 
@@ -1928,7 +2224,9 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Programas con riesgo de acceso", value: 4, target: 0, context: "Matriz de plataforma, Zoom, WSP y formularios" },
   { label: "Actividades automatizables", value: activities.filter((item) => item.automationLevel !== "Baja").length, target: activities.length, context: "Actividades pegadas + modelo operativo" },
   { label: "Roles operativos anonimos", value: opsRoles.length, target: opsRoles.length, context: "Equipo completo AECODE por responsabilidad" },
-  { label: "Procesos marketing", value: marketingProcesses.length, target: marketingProcesses.length, context: "Panel HTML de marketing normalizado" }
+  { label: "Procesos marketing", value: marketingProcesses.length, target: marketingProcesses.length, context: "Panel HTML de marketing normalizado" },
+  { label: "Actividades tecnologia", value: activities.filter((item) => item.area === "Tecnologia").length, target: activities.length, context: "Arquitectura, backend, frontend, infra e IA" },
+  { label: "Actividades BIM", value: activities.filter((item) => item.area === "BIM").length, target: activities.length, context: "Modelos, planos, plantillas, scripts y assets academicos" }
 ];
 
 export const sourceNotes = [
@@ -1940,6 +2238,7 @@ export const sourceNotes = [
   "Panel HTML de marketing integrado como procesos anonimizados: ads, Summit, difusion, clips, web y automatizacion.",
   "El control maestro ya no se limita a coordinacion academica; incluye direccion, producto, marketing, comercial, eventos, finanzas, datos y BI.",
   "Cultura-AECODE.md integrada como reglas operativas: presencia, trazabilidad, cierre, aprendizaje, documentacion y alineacion al negocio.",
+  "Actividades tecnicas y BIM integradas como roles anonimos Persona 23 y Persona 24.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

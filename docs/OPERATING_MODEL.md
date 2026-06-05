@@ -34,6 +34,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 - `Persona 20`: producto, rutas, Skill Graph y Skill Passport.
 - `Persona 21`: finanzas, pagos y documentacion.
 - `Persona 22`: datos, BI, dashboards y gobernanza.
+- `Persona 23`: arquitectura, backend, frontend, infra, IA y delivery end-to-end.
+- `Persona 24`: activos BIM academicos, modelos, plantillas, familias, scripts, PPTs y Miros.
 
 ## Flujo operativo por sesion
 
@@ -47,6 +49,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 8. Evento / Summit: agenda, sponsors, piezas, inscritos y post-evento.
 9. Producto y skill verification: ruta, skill, evidencia, rubrica, feedback y certificado.
 10. Control administrativo: pagos, documentos, accesos y certificados habilitados.
+11. Product engineering: arquitectura, contratos, backend, frontend, infra, IA y release.
+12. Activos BIM academicos: modelos, planos, plantillas, scripts, PPTs y Miros reutilizables.
 
 ## Loop maestro
 
@@ -62,6 +66,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 6. Eventos, alianzas y autoridad.
 7. Datos, BI y gobernanza.
 8. Finanzas, documentacion y compliance operativo.
+9. Tecnologia, arquitectura y product engineering.
+10. Activos BIM academicos.
 
 ## Procesos de marketing integrados
 
@@ -115,3 +121,5 @@ Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excus
 - `Agente #17`: learning loop, evidencias y Skill Passport.
 - `Agente #18`: pagos, documentos y bloqueos administrativos.
 - `Agente #19`: dashboard ejecutivo integral.
+- `Agente #20`: auditor tecnico de arquitectura, seguridad, frontend, infra e IA.
+- `Agente #21`: catalogador de activos BIM academicos.

@@ -4,7 +4,7 @@ Tablero maestro para estructurar, priorizar y automatizar actividades de todo AE
 
 ## Objetivo
 
-Convertir actividades dispersas de direccion, postventa, accesos, soporte, plataforma, videos, difusion, embajadores, marketing, comercial, eventos, producto, finanzas, datos y certificados en un sistema operativo con:
+Convertir actividades dispersas de direccion, postventa, accesos, soporte, plataforma, videos, difusion, embajadores, marketing, comercial, eventos, producto, tecnologia, BIM, finanzas, datos y certificados en un sistema operativo con:
 
 - actividades anonimizadas por `Persona 1`, `Persona 2`, etc.
 - automatizaciones candidatas por `Agente #1`, `Agente #2`, etc.
@@ -25,6 +25,7 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - HTML local `aecode-equipo-marketing.html` normalizado como procesos de marketing, Summit, difusion, clips, web, ventas y automatizacion.
 - Carpeta Obsidian `09_Actividades Diarias/Actividades_TEAM`.
 - Nota Obsidian `02_EMPRESAS/AECODE/Cultura-AECODE.md` convertida en reglas operativas, rituales, valores y antivalores.
+- Actividades enviadas por equipo tecnico y soporte BIM, anonimizadas como `Persona 23` y `Persona 24`.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
 Por seguridad, el repositorio no expone nombres personales, emails, links de WhatsApp, links de Zoom ni URLs privadas. La app usa estados, conteos, roles anonimizados y referencias de fuente.
@@ -70,8 +71,12 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 8 dominios oper
 6. Eventos, alianzas y autoridad.
 7. Datos, BI y gobernanza.
 8. Finanzas, documentacion y compliance operativo.
+9. Tecnologia, arquitectura y product engineering.
+10. Activos BIM academicos.
 
 Cada dominio define lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
+
+La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables.
 
 ## Cultura operativa
 

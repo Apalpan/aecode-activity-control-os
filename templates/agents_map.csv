@@ -18,3 +18,5 @@ Agente #16,Revenue Feedback,Cruzar leads asesoria objeciones y conversion,CRM fe
 Agente #17,Skill Verification,Auditar aprendizaje evidencias rubricas y Skill Passport,programas evidencias evaluaciones,mapa de skill verification por cohorte,Persona 20 valida criterio academico,Propuesto
 Agente #18,Admin Finance Sync,Sincronizar pagos comprobantes y bloqueos administrativos,pagos documentos matriculas,estado administrativo por estudiante,Persona 21 revisa casos sensibles,Propuesto
 Agente #19,Executive KPI,Construir dashboard ejecutivo integral,academico marketing comercial soporte,KPIs semanales y alertas de decision,Persona 22 valida datos,Propuesto
+Agente #20,Architecture Copilot,Auditar arquitectura estandares API seguridad frontend infra e IA,repo ADR backlog deployment,checklist tecnico riesgos y decisiones pendientes,Persona 23 aprueba arquitectura,Propuesto
+Agente #21,BIM Asset Cataloger,Catalogar modelos plantillas familias scripts PPTs y Miros BIM,assets BIM curso modulo,ficha de recurso con uso academico y estado,Persona 24 valida calidad tecnica BIM,Propuesto
