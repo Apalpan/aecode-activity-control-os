@@ -938,6 +938,22 @@ export const linkAssets: LinkAsset[] = [
     risk: "La URL compartida no fue accesible directo por conector; existe una base relacionada en workspace y debe consolidarse sin duplicar fuente.",
     nextAction: "Validar si esta pagina es fuente maestra, espejo o vista secundaria del seguimiento Training.",
     secureReference: "URL completa en outputs/internal_links_private.csv"
+  },
+  {
+    id: "LNK-034",
+    category: "Google Sheet",
+    domain: "docs.google.com",
+    assetLabel: "Enlaces grupos WhatsApp",
+    owner: "Persona 6",
+    agent: "Agente #6",
+    relatedArea: "Comunidad",
+    privacy: "Critico",
+    status: "Listo para conectar",
+    infoInside: "Pestana del Sheet academico con subgrupos WhatsApp por programa, participantes, coordinacion e instructores.",
+    operationalUse: "Gobernar grupos por cohorte, tipo de audiencia, estado de enlace y responsable operativo.",
+    risk: "Contiene enlaces reales de WhatsApp y nombres internos; hay enlaces de coordinacion pendientes por completar.",
+    nextAction: "Convertir en tabla community_groups con group_type, program_id, audience, owner_alias, link_status y privacy_level.",
+    secureReference: "URL completa en outputs/internal_links_private.csv"
   }
 ];
 
@@ -952,13 +968,16 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Transcripciones mapeadas", value: 239, target: 239, context: "Resumen del Sheet academico" },
   { label: "Videos plataforma mapeados", value: 311, target: 311, context: "Total 2025+2026" },
   { label: "Videos 2026", value: 263, target: 263, context: "Resumen de subida de videos" },
+  { label: "Programas con WSP mapeado", value: 7, target: 7, context: "Pestana ENLACES GRUPOS WHATSAPP" },
+  { label: "Subgrupos WSP programa", value: 14, target: 14, context: "Coordinacion y participantes por programa" },
   { label: "Programas con riesgo de acceso", value: 4, target: 0, context: "Matriz de plataforma, Zoom, WSP y formularios" },
   { label: "Actividades automatizables", value: activities.filter((item) => item.automationLevel !== "Baja").length, target: activities.length, context: "Actividades pegadas + modelo operativo" }
 ];
 
 export const sourceNotes = [
   "Sheet leido por Drive como AECODE | AREA ACADEMICA | STATUS GENERAL.xlsx.",
-  "Chat WhatsApp y Notion revisados para inventariar links; se registraron 33 activos.",
+  "Pestana ENLACES GRUPOS WHATSAPP leida: 7 programas, 14 subgrupos por programa y registros de instructores.",
+  "Chat WhatsApp, Sheet y Notion revisados para inventariar links; se registraron 34 activos.",
   "El link Notion AECODE Training directo no fue accesible por fetch; busqueda interna encontro una base relacionada con frecuencia, estado y semanas.",
   "No se publican links privados de WhatsApp, Zoom, Classroom, Miro o Drive.",
   "Los owners reales fueron anonimizados como Persona N.",

@@ -25,7 +25,7 @@ Por seguridad, el repositorio no expone nombres personales, emails, links de Wha
 
 ## Links internos
 
-El tablero incluye un apartado `Links e informacion interna` con 33 activos detectados en el chat operativo y Notion:
+El tablero incluye un apartado `Links e informacion interna` con 34 activos detectados en el chat operativo, Google Sheets y Notion:
 
 - Google Sheets.
 - Miro boards.
@@ -36,6 +36,8 @@ El tablero incluye un apartado `Links e informacion interna` con 33 activos dete
 - Web externa.
 
 La version publica muestra metadata segura: tipo, dominio, uso operativo, owner anonimo, agente, riesgo y siguiente accion. Las URLs completas quedan solo en el archivo local no versionado `outputs/internal_links_private.csv`.
+
+Tambien incluye la pestana `ENLACES GRUPOS WHATSAPP` del Sheet academico como fuente critica para gobernar grupos de coordinacion, participantes e instructores.
 
 ## Ejecutar
 

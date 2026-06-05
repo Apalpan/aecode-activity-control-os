@@ -32,3 +32,4 @@ LNK-030,Miro,miro.com,Miro programa 13,Persona 3,Agente #2,Plataforma,Interno,In
 LNK-031,Miro,miro.com,Miro programa 14,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board identificado como link operativo,Asignar course_id y estado de acceso
 LNK-032,Zoom,zoom.us,Zoom de sesion,Persona 3,Agente #3,Sesiones,Critico,Requiere revision,Link de reunion con clave incluida,Rotar clave si corresponde y mover a gestor seguro
 LNK-033,Notion,notion.so,AECODE Training,Persona 2,Agente #7,Datos,Critico,Requiere revision,Base Notion de seguimiento con frecuencia estado y semanas,Validar si es fuente maestra espejo o vista secundaria
+LNK-034,Google Sheet,docs.google.com,Enlaces grupos WhatsApp,Persona 6,Agente #6,Comunidad,Critico,Listo para conectar,Pestana con subgrupos por programa participantes coordinacion e instructores,Convertir en tabla community_groups con link_status y privacy_level

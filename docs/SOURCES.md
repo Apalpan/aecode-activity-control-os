@@ -20,6 +20,7 @@ Informacion extraida y normalizada:
 - mapeo de embajadores;
 - checklist de actividades del embajador antes, durante y despues de sesion;
 - catalogo academico base.
+- pestana `ENLACES GRUPOS WHATSAPP`: programas, subgrupos de coordinacion, subgrupos de participantes, instructores y enlaces pendientes.
 
 ## Adjuntos
 
@@ -40,14 +41,16 @@ Para publicar el tablero en GitHub se aplico anonimizacion:
 
 ## Inventario de links
 
-Se detectaron 33 activos enlazados:
+Se detectaron 34 activos enlazados:
 
 - 15 Miro boards.
-- 10 Google Sheets.
+- 11 Google Sheets o pestanas criticas.
 - 4 Notion.
 - 1 Drive.
 - 1 YouTube.
 - 1 Zoom.
 - 1 web externa.
+
+La pestana `ENLACES GRUPOS WHATSAPP` contiene 7 programas mapeados, 14 subgrupos de programa y registros de instructores. Por seguridad no se publican URLs, nombres ni invitaciones completas.
 
 El repo publica solo metadata segura. Las URLs completas se guardan localmente en `outputs/internal_links_private.csv`, carpeta excluida de Git.
