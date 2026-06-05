@@ -81,7 +81,8 @@ import {
   personIdentityMap,
   resolvePersonName,
   teamCapacityPolicy,
-  teamConnections
+  teamConnections,
+  type TeamMember
 } from "@/data/teamData";
 
 const priorityClass: Record<Priority, string> = {
@@ -102,13 +103,19 @@ const executionStatusClass: Record<ExecutionStatus, string> = {
 
 const playbookModes = ["Checklist", "Kanban", "Timeline", "RACI", "Log"] as const;
 type PlaybookMode = (typeof playbookModes)[number];
+type PersonViewMode = "Ficha" | "Hoy" | "Actividades" | "Comunicacion" | "Crecimiento";
 type DailyExecutionPatch = Partial<Pick<DailyExecutionItem, "status" | "due" | "evidence" | "nextBestAction" | "decisionNeeded">>;
 type EditableDailyField = keyof DailyExecutionPatch;
 
 const executionStatuses: ExecutionStatus[] = ["Listo", "En curso", "Riesgo", "Bloqueado", "Automatizable", "Requiere decision"];
+const personViewModes: PersonViewMode[] = ["Ficha", "Hoy", "Actividades", "Comunicacion", "Crecimiento"];
 const editableDailyFields: EditableDailyField[] = ["status", "due", "evidence", "nextBestAction", "decisionNeeded"];
 const dailyOverridesStorageKey = "aecode-activity-control-os:daily-overrides:v1";
 const executionOwnerStorageKey = "aecode-activity-control-os:execution-owner:v1";
+const activePersonStorageKey = "aecode-activity-control-os:active-person:v1";
+
+const growthAreas = ["Operacion", "Ventas", "Marketing", "Producto", "Soporte", "Formacion", "Automatizacion", "Finanzas", "Alianzas", "Eventos", "Tecnologia"] as const;
+type GrowthArea = (typeof growthAreas)[number];
 
 const privacyClass = {
   Critico: "chip-critical",
@@ -141,6 +148,7 @@ const navGroups = [
     id: "control",
     label: "Control",
     items: [
+      { label: "Personas", href: "#personas", icon: Users },
       { label: "Hoy", href: "#hoy", icon: Gauge },
       { label: "Resumen", href: "#control", icon: LayoutDashboard },
       { label: "Cultura", href: "#cultura", icon: MessageSquareText },
@@ -243,6 +251,69 @@ function displayOperationalText(value: string) {
     .reduce((text, key) => text.replaceAll(key, resolvePersonName(key)), value);
 }
 
+function normalizeText(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function uniqueValues(values: string[]) {
+  return Array.from(new Set(values.filter(Boolean)));
+}
+
+function personAliases(member: TeamMember) {
+  return uniqueValues([
+    member.name,
+    ...Object.entries(personIdentityMap)
+      .filter(([, identity]) => normalizeText(identity.name) === normalizeText(member.name))
+      .map(([alias]) => alias)
+  ]);
+}
+
+function personMatches(value: string, aliases: string[]) {
+  const resolved = displayPerson(value);
+  return aliases.some((alias) => normalizeText(alias) === normalizeText(value) || normalizeText(alias) === normalizeText(resolved));
+}
+
+function areaToGrowth(area: string): GrowthArea {
+  const value = normalizeText(area);
+  if (["comercial", "reuniones"].some((item) => value.includes(item))) return "Ventas";
+  if (["marketing", "difusion", "diseno", "web"].some((item) => value.includes(item))) return "Marketing";
+  if (["producto", "plataforma", "qa"].some((item) => value.includes(item))) return "Producto";
+  if (["accesos", "soporte", "certificados", "contenido"].some((item) => value.includes(item))) return "Soporte";
+  if (["sesiones", "programas", "bim", "embajadores", "capacitacion"].some((item) => value.includes(item))) return "Formacion";
+  if (["automatizacion", "ai ops", "datos"].some((item) => value.includes(item))) return "Automatizacion";
+  if (["finanzas", "administracion", "legal"].some((item) => value.includes(item))) return "Finanzas";
+  if (["alianzas"].some((item) => value.includes(item))) return "Alianzas";
+  if (["eventos"].some((item) => value.includes(item))) return "Eventos";
+  if (["tecnologia", "computer vision"].some((item) => value.includes(item))) return "Tecnologia";
+  return "Operacion";
+}
+
+type PersonProfile = {
+  member: TeamMember;
+  aliases: string[];
+  roles: typeof opsRoles;
+  activityRecords: Activity[];
+  todayItems: DailyExecutionItem[];
+  relatedConnections: typeof teamConnections;
+  activityAreas: string[];
+  companyTags: string[];
+  roleTags: string[];
+  priorities: Priority[];
+  systems: string[];
+  agents: string[];
+  kpis: string[];
+  focusActivities: string[];
+  risks: string[];
+  nextActions: string[];
+  growthFocus: GrowthArea[];
+  clarityState: "Con actividades claras" | "Rol pendiente de confirmar";
+  searchText: string;
+};
+
 export default function Page() {
   const [area, setArea] = useState("Todas");
   const [query, setQuery] = useState("");
@@ -265,11 +336,22 @@ export default function Page() {
   const [importPayload, setImportPayload] = useState("");
   const [storeNotice, setStoreNotice] = useState("Sin cambios locales.");
   const [storeHydrated, setStoreHydrated] = useState(false);
+  const [personSearch, setPersonSearch] = useState("");
+  const [activePersonName, setActivePersonName] = useState("Patrick");
+  const [personAreaFilter, setPersonAreaFilter] = useState("Todas");
+  const [personCompanyFilter, setPersonCompanyFilter] = useState("Todas");
+  const [personRoleFilter, setPersonRoleFilter] = useState("Todos");
+  const [personPriorityFilter, setPersonPriorityFilter] = useState("Todas");
+  const [personTypeFilter, setPersonTypeFilter] = useState("Todos");
+  const [personLoadFilter, setPersonLoadFilter] = useState("Todas");
+  const [personStateFilter, setPersonStateFilter] = useState("Todos");
+  const [personViewMode, setPersonViewMode] = useState<PersonViewMode>("Ficha");
 
   useEffect(() => {
     try {
       const savedOverrides = window.localStorage.getItem(dailyOverridesStorageKey);
       const savedOwner = window.localStorage.getItem(executionOwnerStorageKey);
+      const savedPerson = window.localStorage.getItem(activePersonStorageKey);
 
       if (savedOverrides) {
         const parsed = JSON.parse(savedOverrides) as Record<string, DailyExecutionPatch>;
@@ -279,6 +361,10 @@ export default function Page() {
 
       if (savedOwner) {
         setExecutionOwner(savedOwner);
+      }
+
+      if (savedPerson) {
+        setActivePersonName(savedPerson);
       }
     } catch {
       setStoreNotice("No se pudo leer el estado local. Se mantiene la base del repo.");
@@ -297,9 +383,174 @@ export default function Page() {
     window.localStorage.setItem(executionOwnerStorageKey, executionOwner);
   }, [executionOwner, storeHydrated]);
 
+  useEffect(() => {
+    if (!storeHydrated) return;
+    window.localStorage.setItem(activePersonStorageKey, activePersonName);
+  }, [activePersonName, storeHydrated]);
+
   const executionItems = useMemo(() => {
     return dailyExecutionItems.map((item) => ({ ...item, ...(dailyOverrides[item.id] ?? {}) }));
   }, [dailyOverrides]);
+
+  const personProfiles = useMemo<PersonProfile[]>(() => {
+    return allConsideredTeamMembers.map((member) => {
+      const aliases = personAliases(member);
+      const rolesForPerson = opsRoles.filter((item) => personMatches(item.id, aliases) || personMatches(item.backup, aliases));
+      const activityRecords = activities.filter((item) => personMatches(item.owner, aliases) || personMatches(item.backup, aliases));
+      const todayItems = executionItems.filter((item) => personMatches(item.owner, aliases) || personMatches(item.backup, aliases));
+      const relatedConnections = teamConnections.filter((connection) => {
+        const connectionPeople = [connection.primary, ...connection.connects];
+        return connectionPeople.some((person) => personMatches(person, aliases));
+      });
+      const strategicProfile = strategicRoleProfiles.find((profile) => personMatches(profile.person, aliases));
+      const activityAreas = uniqueValues([
+        ...activityRecords.map((item) => item.area),
+        ...todayItems.map((item) => item.area),
+        ...rolesForPerson.flatMap((item) => item.areas),
+        ...member.owns
+      ]);
+      const companyTags = uniqueValues(member.company.split("/").map((item) => item.trim()));
+      const roleTags = uniqueValues([member.squad, member.role, ...rolesForPerson.map((item) => item.role)]);
+      const priorities = uniqueValues([
+        ...activityRecords.map((item) => item.priority),
+        ...todayItems.map((item) => item.priority)
+      ]) as Priority[];
+      const systems = uniqueValues([
+        ...todayItems.flatMap((item) => item.system.split("/").map((system) => system.trim())),
+        ...(strategicProfile?.blocks.flatMap((block) => block.systems) ?? [])
+      ]).slice(0, 12);
+      const agents = uniqueValues([
+        ...activityRecords.map((item) => item.agent),
+        ...todayItems.map((item) => item.agent),
+        ...relatedConnections.map((connection) => connection.agent)
+      ]).slice(0, 8);
+      const kpis = uniqueValues([
+        ...rolesForPerson.flatMap((item) => item.kpis),
+        ...(strategicProfile?.operatingMetrics ?? [])
+      ]).slice(0, 10);
+      const focusActivities = uniqueValues([
+        ...todayItems.map((item) => item.title),
+        ...member.activities,
+        ...activityRecords.map((item) => item.activity)
+      ]).slice(0, 12);
+      const risks = uniqueValues([
+        member.risk,
+        ...todayItems.map((item) => item.escalation),
+        ...activityRecords.map((item) => item.risk),
+        ...relatedConnections.map((connection) => connection.risk),
+        ...(strategicProfile?.blocks.flatMap((block) => block.risks) ?? [])
+      ]).slice(0, 10);
+      const nextActions = uniqueValues([
+        ...todayItems.map((item) => item.nextBestAction),
+        ...activityRecords.map((item) => item.nextAction),
+        member.keyHandoff,
+        ...(strategicProfile?.nextSystemActions ?? [])
+      ]).slice(0, 10);
+      const growthFocus = uniqueValues([
+        ...activityAreas.map(areaToGrowth),
+        ...member.projects.map(areaToGrowth),
+        ...member.owns.map(areaToGrowth)
+      ]).filter((item): item is GrowthArea => growthAreas.includes(item as GrowthArea)).slice(0, 7);
+      const clarityState: PersonProfile["clarityState"] = activityRecords.length || todayItems.length || rolesForPerson.length || member.confidence !== "Baja"
+        ? "Con actividades claras"
+        : "Rol pendiente de confirmar";
+      const searchText = normalizeText([
+        member.name,
+        member.role,
+        member.squad,
+        member.company,
+        member.focus,
+        member.projects.join(" "),
+        member.activities.join(" "),
+        member.communicatesWith.join(" "),
+        member.owns.join(" "),
+        aliases.join(" "),
+        activityAreas.join(" "),
+        kpis.join(" "),
+        focusActivities.join(" ")
+      ].join(" "));
+
+      return {
+        member,
+        aliases,
+        roles: rolesForPerson,
+        activityRecords,
+        todayItems,
+        relatedConnections,
+        activityAreas,
+        companyTags,
+        roleTags,
+        priorities,
+        systems,
+        agents,
+        kpis,
+        focusActivities,
+        risks,
+        nextActions,
+        growthFocus,
+        clarityState,
+        searchText
+      };
+    }).sort((a, b) => a.member.name.localeCompare(b.member.name));
+  }, [executionItems]);
+
+  const personAreaOptions = useMemo(() => ["Todas", ...uniqueValues(personProfiles.flatMap((profile) => profile.activityAreas)).sort()], [personProfiles]);
+  const personCompanyOptions = useMemo(() => ["Todas", ...uniqueValues(personProfiles.flatMap((profile) => profile.companyTags)).sort()], [personProfiles]);
+  const personRoleOptions = useMemo(() => ["Todos", ...uniqueValues(personProfiles.flatMap((profile) => profile.roleTags)).sort()], [personProfiles]);
+  const personPriorityOptions = useMemo(() => ["Todas", ...uniqueValues(personProfiles.flatMap((profile) => profile.priorities)).sort(), "Sin prioridad"], [personProfiles]);
+  const personTypeOptions = useMemo(() => ["Todos", ...uniqueValues(personProfiles.map((profile) => profile.member.seatType)).sort()], [personProfiles]);
+  const personLoadOptions = useMemo(() => ["Todas", ...uniqueValues(personProfiles.map((profile) => profile.member.load)).sort()], [personProfiles]);
+  const personStateOptions = useMemo(() => ["Todos", ...uniqueValues(personProfiles.map((profile) => profile.clarityState)).sort()], [personProfiles]);
+
+  const filteredPeople = useMemo(() => {
+    const search = normalizeText(personSearch);
+    return personProfiles
+      .filter((profile) => !search || profile.searchText.includes(search))
+      .filter((profile) => personAreaFilter === "Todas" || profile.activityAreas.includes(personAreaFilter))
+      .filter((profile) => personCompanyFilter === "Todas" || profile.companyTags.includes(personCompanyFilter))
+      .filter((profile) => personRoleFilter === "Todos" || profile.roleTags.includes(personRoleFilter))
+      .filter((profile) => personPriorityFilter === "Todas" || (personPriorityFilter === "Sin prioridad" ? !profile.priorities.length : profile.priorities.includes(personPriorityFilter as Priority)))
+      .filter((profile) => personTypeFilter === "Todos" || profile.member.seatType === personTypeFilter)
+      .filter((profile) => personLoadFilter === "Todas" || profile.member.load === personLoadFilter)
+      .filter((profile) => personStateFilter === "Todos" || profile.clarityState === personStateFilter);
+  }, [personAreaFilter, personCompanyFilter, personLoadFilter, personPriorityFilter, personProfiles, personRoleFilter, personSearch, personStateFilter, personTypeFilter]);
+
+  const activePerson = useMemo(() => {
+    return filteredPeople.find((profile) => profile.member.name === activePersonName)
+      ?? personProfiles.find((profile) => profile.member.name === activePersonName)
+      ?? filteredPeople[0]
+      ?? personProfiles[0];
+  }, [activePersonName, filteredPeople, personProfiles]);
+
+  const activeCommunicationPeople = useMemo(() => {
+    if (!activePerson) return [];
+    return uniqueValues([
+      ...activePerson.member.communicatesWith,
+      ...activePerson.relatedConnections.flatMap((connection) => [connection.primary, ...connection.connects])
+    ].filter((person) => normalizeText(person) !== normalizeText(activePerson.member.name))).slice(0, 18);
+  }, [activePerson]);
+
+  const activeGrowthMap = useMemo(() => {
+    if (!activePerson) return [];
+    return growthAreas.map((growthArea) => {
+      const count = [
+        ...activePerson.activityAreas,
+        ...activePerson.focusActivities,
+        ...activePerson.kpis
+      ].filter((item) => areaToGrowth(item) === growthArea || normalizeText(item).includes(normalizeText(growthArea))).length;
+
+      return {
+        area: growthArea,
+        active: activePerson.growthFocus.includes(growthArea),
+        count
+      };
+    });
+  }, [activePerson]);
+
+  const selectedPersonRole = activePerson?.roles[0];
+  const peopleWithClearActivities = personProfiles.filter((profile) => profile.clarityState === "Con actividades claras").length;
+  const peopleWithTodayFocus = personProfiles.filter((profile) => profile.todayItems.length > 0).length;
+  const peopleWithRisk = personProfiles.filter((profile) => profile.todayItems.some((item) => item.status === "Riesgo" || item.status === "Bloqueado") || profile.activityRecords.some((item) => item.status === "Riesgo")).length;
 
   const updateDailyItem = (id: string, patch: DailyExecutionPatch) => {
     const seed = dailyExecutionItems.find((item) => item.id === id);
@@ -483,7 +734,48 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="metric-grid">
+          <div className="person-command-strip">
+            <div className="person-command-search">
+              <Search size={18} />
+              <input
+                value={personSearch}
+                onChange={(event) => setPersonSearch(event.target.value)}
+                placeholder="Buscar persona, rol, area o actividad..."
+                aria-label="Buscar persona en el tablero"
+              />
+            </div>
+            <div className="person-command-results">
+              {filteredPeople.slice(0, 10).map((profile) => (
+                <a
+                  className="person-result-chip"
+                  data-active={activePerson?.member.name === profile.member.name}
+                  href="#personas"
+                  key={profile.member.name}
+                  onClick={() => {
+                    setActivePersonName(profile.member.name);
+                    setExecutionOwner(profile.aliases[0] ?? profile.member.name);
+                  }}
+                >
+                  <span>{profile.member.name}</span>
+                  <small>{profile.todayItems.length ? `${profile.todayItems.length} hoy` : profile.clarityState === "Con actividades claras" ? `${profile.activityRecords.length} acts.` : "por completar"}</small>
+                </a>
+              ))}
+              {!filteredPeople.length ? <span className="text-sm font-bold text-aecode-muted">Sin coincidencias con los filtros actuales.</span> : null}
+            </div>
+            <div className="person-command-stats">
+              <span><strong>{personProfiles.length}</strong> personas</span>
+              <span><strong>{peopleWithClearActivities}</strong> con rol claro</span>
+              <span><strong>{peopleWithTodayFocus}</strong> con foco hoy</span>
+              <span><strong>{peopleWithRisk}</strong> con riesgo</span>
+            </div>
+          </div>
+
+          <details className="metrics-disclosure">
+            <summary>
+              <span>Resumen completo del sistema</span>
+              <small>{activities.length} actividades / {workflowPlaybooks.length} playbooks / {agents.length} agentes</small>
+            </summary>
+          <div className="metric-grid mt-4">
             <Metric label="Actividades" value={String(activities.length)} detail="Actividades completas normalizadas desde Obsidian, Notion, Sheet y adjuntos." />
             <Metric label="Empresas AP" value={String(ecosystemCompanies.length)} detail="GEN+, AECODE, THESIA, SP+/VisionPro y direccion del ecosistema." tone="good" />
             <Metric label="Proyectos AP" value={String(ecosystemProjects.length)} detail="Iniciativas criticas con siguiente accion y riesgo operativo." />
@@ -497,6 +789,312 @@ export default function Page() {
             <Metric label="En riesgo" value={String(riskCount)} detail="Requieren owner, SLA o evidencia para no generar reclamos." tone="risk" />
             <Metric label="Automatizables" value={`${automationCount}/${activities.length}`} detail="Candidatas para AgentFlow, GHL, WhatsApp, Drive o n8n." tone="good" />
             <Metric label="Programas listos" value={`${readyPrograms}/${programs.length}`} detail="Lectura de readiness por accesos, Zoom, WSP, Classroom y embajador." />
+          </div>
+          </details>
+        </section>
+
+        <section className="people-os mt-6" id="personas">
+          <div className="people-os-head">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Personas / Roles / Actividades</p>
+              <h2 className="mt-2 text-3xl font-black text-white">Busca tu nombre y opera tu foco</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Vista x3 para el equipo: rol, actividades, foco de hoy, metricas, comunicacion, riesgos y crecimiento por persona sin navegar todo el tablero.
+              </p>
+            </div>
+            <div className="people-answer-stack">
+              <span>¿quién soy?</span>
+              <span>¿qué hago?</span>
+              <span>¿con quién coordino?</span>
+            </div>
+          </div>
+
+          <div className="people-filters">
+            <label>
+              <span>Persona</span>
+              <input value={personSearch} onChange={(event) => setPersonSearch(event.target.value)} placeholder="Nombre, rol o actividad" />
+            </label>
+            <label>
+              <span>Area</span>
+              <select value={personAreaFilter} onChange={(event) => setPersonAreaFilter(event.target.value)}>
+                {personAreaOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Empresa</span>
+              <select value={personCompanyFilter} onChange={(event) => setPersonCompanyFilter(event.target.value)}>
+                {personCompanyOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Rol</span>
+              <select value={personRoleFilter} onChange={(event) => setPersonRoleFilter(event.target.value)}>
+                {personRoleOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Prioridad</span>
+              <select value={personPriorityFilter} onChange={(event) => setPersonPriorityFilter(event.target.value)}>
+                {personPriorityOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Tipo</span>
+              <select value={personTypeFilter} onChange={(event) => setPersonTypeFilter(event.target.value)}>
+                {personTypeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Carga</span>
+              <select value={personLoadFilter} onChange={(event) => setPersonLoadFilter(event.target.value)}>
+                {personLoadOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Estado</span>
+              <select value={personStateFilter} onChange={(event) => setPersonStateFilter(event.target.value)}>
+                {personStateOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <div className="people-layout">
+            <aside className="people-list-panel">
+              <div className="people-list-head">
+                <strong>{filteredPeople.length}</strong>
+                <span>personas encontradas</span>
+              </div>
+              <div className="people-list">
+                {filteredPeople.map((profile) => (
+                  <button
+                    className="people-list-item"
+                    data-active={activePerson?.member.name === profile.member.name}
+                    key={profile.member.name}
+                    onClick={() => {
+                      setActivePersonName(profile.member.name);
+                      setExecutionOwner(profile.aliases[0] ?? profile.member.name);
+                    }}
+                    type="button"
+                  >
+                    <span className="avatar-badge">{profile.member.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>
+                    <span>
+                      <strong>{profile.member.name}</strong>
+                      <small>{profile.member.role}</small>
+                    </span>
+                    <em>{profile.todayItems.length || profile.activityRecords.length}</em>
+                  </button>
+                ))}
+                {!filteredPeople.length ? (
+                  <div className="empty-state">
+                    <Search size={22} />
+                    <p>No hay coincidencias. Limpia filtros o busca por otra palabra.</p>
+                  </div>
+                ) : null}
+              </div>
+            </aside>
+
+            {activePerson ? (
+              <article className="person-focus-panel">
+                <div className="person-focus-head">
+                  <div className="person-title-block">
+                    <span className="avatar-badge avatar-badge-large">{activePerson.member.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-aecode-green">Ficha operativa</p>
+                      <h3>{activePerson.member.name}</h3>
+                      <p>{activePerson.member.role}</p>
+                    </div>
+                  </div>
+                  <div className="person-status-chips">
+                    <span className={`chip ${confidenceClass(activePerson.member.confidence)}`}>{activePerson.member.confidence}</span>
+                    <span className={`chip ${loadClass(activePerson.member.load)}`}>{activePerson.member.load}</span>
+                    <span className="chip">{activePerson.member.seatType}</span>
+                    <span className={activePerson.clarityState === "Con actividades claras" ? "chip chip-good" : "chip chip-critical"}>{activePerson.clarityState}</span>
+                  </div>
+                </div>
+
+                <div className="quick-answer-grid">
+                  <div>
+                    <p>Rol</p>
+                    <strong>{activePerson.member.squad}</strong>
+                  </div>
+                  <div>
+                    <p>Foco hoy</p>
+                    <strong>{activePerson.todayItems[0]?.title ?? activePerson.focusActivities[0] ?? "Definir primer entregable"}</strong>
+                  </div>
+                  <div>
+                    <p>Coordina con</p>
+                    <strong>{activeCommunicationPeople.slice(0, 3).join(" + ") || "Por definir"}</strong>
+                  </div>
+                  <div>
+                    <p>Metrica</p>
+                    <strong>{activePerson.kpis[0] ?? "Definir KPI de rol"}</strong>
+                  </div>
+                  <div>
+                    <p>Reporta</p>
+                    <strong>{activePerson.member.cadence}</strong>
+                  </div>
+                  <div>
+                    <p>Riesgo</p>
+                    <strong>{activePerson.risks[0] ?? "Sin riesgo registrado"}</strong>
+                  </div>
+                </div>
+
+                <div className="person-mode-tabs">
+                  {personViewModes.map((mode) => (
+                    <button data-active={personViewMode === mode} key={mode} onClick={() => setPersonViewMode(mode)} type="button">
+                      {mode}
+                    </button>
+                  ))}
+                </div>
+
+                {personViewMode === "Ficha" ? (
+                  <div className="person-mode-grid">
+                    <section className="person-subpanel person-subpanel-wide">
+                      <p className="person-subtitle">Resumen ejecutivo</p>
+                      <h4>{activePerson.member.focus}</h4>
+                      <p>{selectedPersonRole?.mission ?? activePerson.member.keyHandoff}</p>
+                    </section>
+                    <section className="person-subpanel">
+                      <p className="person-subtitle">Responsabilidades</p>
+                      <div className="pill-wrap">
+                        {uniqueValues([...activePerson.member.owns, ...(selectedPersonRole?.areas ?? [])]).map((item) => <span className="chip" key={item}>{item}</span>)}
+                      </div>
+                    </section>
+                    <section className="person-subpanel">
+                      <p className="person-subtitle">Objetivos / proyectos</p>
+                      <div className="compact-list">
+                        {activePerson.member.projects.map((project) => <p key={project}>{project}</p>)}
+                      </div>
+                    </section>
+                    <section className="person-subpanel">
+                      <p className="person-subtitle">Metricas que debe mirar</p>
+                      <div className="compact-list">
+                        {(activePerson.kpis.length ? activePerson.kpis : ["Definir metrica de contribucion"]).map((kpi) => <p key={kpi}>{kpi}</p>)}
+                      </div>
+                    </section>
+                    <section className="person-subpanel">
+                      <p className="person-subtitle">Sistemas / agentes</p>
+                      <div className="pill-wrap">
+                        {[...activePerson.systems, ...activePerson.agents].slice(0, 12).map((item) => <span className="chip chip-good" key={item}>{displayOperationalText(item)}</span>)}
+                      </div>
+                    </section>
+                  </div>
+                ) : null}
+
+                {personViewMode === "Hoy" ? (
+                  <div className="person-today-grid">
+                    {(activePerson.todayItems.length ? activePerson.todayItems : []).map((item) => (
+                      <article className="person-task-card" key={item.id}>
+                        <div className="flex flex-wrap items-start justify-between gap-2">
+                          <div>
+                            <p>{item.id} / {item.area}</p>
+                            <h4>{item.title}</h4>
+                          </div>
+                          <span className={`chip ${executionStatusClass[item.status]}`}>{item.status}</span>
+                        </div>
+                        <p className="mt-3 text-sm leading-6 text-aecode-muted">{item.nextBestAction}</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <span className={`chip ${priorityClass[item.priority]}`}>{item.priority}</span>
+                          <span className="chip">{item.due}</span>
+                          <span className="chip chip-good">{item.agent}</span>
+                        </div>
+                      </article>
+                    ))}
+                    {!activePerson.todayItems.length ? (
+                      <div className="empty-state">
+                        <Gauge size={22} />
+                        <p>No tiene foco diario asignado. Usar su ficha para definir primer entregable y KPI.</p>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+
+                {personViewMode === "Actividades" ? (
+                  <div className="person-activity-list">
+                    {(activePerson.activityRecords.length ? activePerson.activityRecords : []).slice(0, 18).map((item) => (
+                      <article className="person-activity-row" key={item.id}>
+                        <span className={`chip ${priorityClass[item.priority]}`}>{item.priority}</span>
+                        <div>
+                          <strong>{item.activity}</strong>
+                          <p>{item.area} / SLA {item.sla} / Evidencia: {item.evidence}</p>
+                        </div>
+                        <small>{displayPerson(item.owner)} / {displayPerson(item.backup)}</small>
+                      </article>
+                    ))}
+                    {!activePerson.activityRecords.length ? (
+                      <div className="empty-state">
+                        <ClipboardList size={22} />
+                        <p>Rol pendiente de completar en el maestro de actividades. Mantener visible, pero no cargar como nucleo hasta validar ownership.</p>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+
+                {personViewMode === "Comunicacion" ? (
+                  <div className="communication-grid">
+                    <section className="person-subpanel">
+                      <p className="person-subtitle">Mapa de comunicacion</p>
+                      <div className="communication-nodes">
+                        <span className="communication-node-main">{activePerson.member.name}</span>
+                        {activeCommunicationPeople.map((person) => (
+                          <button
+                            key={person}
+                            onClick={() => {
+                              const matchedProfile = personProfiles.find((profile) => normalizeText(profile.member.name) === normalizeText(person));
+                              if (matchedProfile) {
+                                setActivePersonName(matchedProfile.member.name);
+                              } else {
+                                setPersonSearch(person);
+                              }
+                            }}
+                            type="button"
+                          >
+                            {person}
+                          </button>
+                        ))}
+                      </div>
+                    </section>
+                    <section className="person-subpanel">
+                      <p className="person-subtitle">Handoffs</p>
+                      <div className="compact-list">
+                        <p>{activePerson.member.keyHandoff}</p>
+                        {activePerson.relatedConnections.map((connection) => (
+                          <p key={connection.id}>{connection.lane}: {connection.objective}</p>
+                        ))}
+                      </div>
+                    </section>
+                    <section className="person-subpanel person-subpanel-wide">
+                      <p className="person-subtitle">Riesgos de coordinacion</p>
+                      <div className="compact-list">
+                        {activePerson.risks.slice(0, 8).map((risk) => <p key={risk}>{risk}</p>)}
+                      </div>
+                    </section>
+                  </div>
+                ) : null}
+
+                {personViewMode === "Crecimiento" ? (
+                  <div className="growth-focus-grid">
+                    {activeGrowthMap.map((item) => (
+                      <article className="growth-focus-card" data-active={item.active} key={item.area}>
+                        <div className="flex items-center justify-between gap-2">
+                          <strong>{item.area}</strong>
+                          <span>{item.active ? "Foco" : "Apoyo"}</span>
+                        </div>
+                        <div className="growth-bar">
+                          <span style={{ width: `${Math.min(100, item.active ? 82 : Math.max(16, item.count * 18))}%` }} />
+                        </div>
+                      </article>
+                    ))}
+                    <section className="person-subpanel person-subpanel-wide">
+                      <p className="person-subtitle">Proximos pasos</p>
+                      <div className="compact-list">
+                        {(activePerson.nextActions.length ? activePerson.nextActions : ["Definir objetivo, metrica y primer entregable"]).map((action) => <p key={action}>{action}</p>)}
+                      </div>
+                    </section>
+                  </div>
+                ) : null}
+              </article>
+            ) : null}
           </div>
         </section>
 

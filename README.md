@@ -140,6 +140,19 @@ La seccion `Hoy / Centro de ejecucion` ahora funciona como piloto diario sin bac
 
 Tambien se agrego `Perfiles operativos criticos`, una lectura ejecutiva de Julie, Daniella y Fabrizio con frentes, actividades, sistemas, handoffs, metricas, riesgos y siguientes acciones de sistema.
 
+## Iteracion Personas x3
+
+La ultima version reorganiza la experiencia alrededor de personas:
+
+- `Personas / Roles / Actividades` queda como apartado principal.
+- Buscador global superior por nombre, rol, area o actividad.
+- Filtros por persona, area, empresa, rol, prioridad, tipo, carga y estado.
+- Ficha enfocada por persona con tabs: `Ficha`, `Hoy`, `Actividades`, `Comunicacion` y `Crecimiento`.
+- Vista `Mi foco de hoy` por persona, conectada con el centro diario.
+- Mapa de comunicacion por persona usando conexiones reales del equipo.
+- Enfoque de crecimiento por operacion, ventas, marketing, producto, soporte, formacion, automatizacion, finanzas, alianzas, eventos y tecnologia.
+- Las metricas grandes del sistema pasan a un panel desplegable para reducir carga visual inicial.
+
 ## Equipo nucleo y red extendida
 
 El equipo no se modela como una lista plana. La regla actual es:
