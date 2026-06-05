@@ -28,6 +28,7 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - Nota Obsidian `02_EMPRESAS/GEN+/Cultura-GEN+.md` usada como frontera para enrutar consultoria, proyectos cliente, ingenieria aplicada y productos GEN+ fuera del tablero AECODE.
 - Actividades enviadas por equipo tecnico y soporte BIM, anonimizadas como `Persona 23` y `Persona 24`.
 - Actividades de alianzas/sponsors/reuniones y QA/testing/data, anonimizadas como `Persona 25` y `Persona 26`.
+- Actividades UX/UI, branding, web experience y handoff, anonimizadas como `Persona 16`.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
 Por seguridad, el repositorio no expone nombres personales, emails, links de WhatsApp, links de Zoom ni URLs privadas. La app usa estados, conteos, roles anonimizados y referencias de fuente.
@@ -63,7 +64,7 @@ Las fuentes Obsidian reales se usan para estructurar el sistema, pero la version
 
 ## Control total AECODE
 
-El tablero ya no esta limitado a coordinacion academica. Incluye 8 dominios operativos:
+El tablero ya no esta limitado a coordinacion academica. Incluye 13 dominios operativos:
 
 1. Direccion y sistema operativo.
 2. Operacion academica y postventa.
@@ -77,10 +78,11 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 8 dominios oper
 10. Activos BIM academicos.
 11. Alianzas, sponsors y reuniones.
 12. QA, testing y validacion de data.
+13. UX/UI, branding y web experience.
 
 Cada dominio define lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
 
-La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables.
+La capa tecnica incluye arquitectura, stack, DB/migraciones, APIs, auth/RBAC, frontends, infra, IA y delivery end-to-end. La capa BIM incluye modelos, planos, plantillas, familias, scripts, PPTs y Miros como activos academicos reutilizables. La capa UX/UI estructura investigacion, flujos, interfaces, branding, formularios, assets web y handoff para desarrollo antes de prototipar.
 
 ## Frontera AECODE / GEN+
 

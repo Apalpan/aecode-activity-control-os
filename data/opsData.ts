@@ -167,6 +167,7 @@ export const areas = [
   "Reuniones",
   "QA",
   "Web",
+  "UX/UI",
   "Diseno",
   "Automatizacion",
   "Finanzas",
@@ -1153,6 +1154,150 @@ export const activities: Activity[] = [
     source: "Actividad enviada por QA/testing",
     risk: "Data desactualizada afecta dashboards, accesos, pruebas, CRM y decisiones.",
     nextAction: "Validar fuente, schema, duplicados, campos obligatorios, fecha de carga y responsable."
+  },
+  {
+    id: "ACT-062",
+    area: "UX/UI",
+    activity: "Investigacion y analisis UX para productos digitales",
+    owner: "Persona 16",
+    backup: "Persona 20",
+    agent: "Agente #26",
+    automationLevel: "Media",
+    sla: "Antes de prototipo",
+    evidence: "insights UX",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Sin investigacion, el producto se disena por intuicion y no por necesidad real del usuario.",
+    nextAction: "Registrar usuario, problema, contexto, fricciones, jobs-to-be-done y criterio de exito."
+  },
+  {
+    id: "ACT-063",
+    area: "UX/UI",
+    activity: "Definir arquitectura de informacion y flujos antes del prototipo",
+    owner: "Persona 16",
+    backup: "Persona 20",
+    agent: "Agente #26",
+    automationLevel: "Media",
+    sla: "Antes de diseno UI",
+    evidence: "mapa de flujo completo",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por UX/UI",
+    risk: "Prototipar sin flujo completo genera pantallas bonitas pero decisiones y estados incompletos.",
+    nextAction: "Documentar entrada, pasos, estados, permisos, errores, salidas y handoff antes de prototipar."
+  },
+  {
+    id: "ACT-064",
+    area: "UX/UI",
+    activity: "Disenar interfaces UI para productos, dashboards y paneles",
+    owner: "Persona 16",
+    backup: "Persona 23",
+    agent: "Agente #26",
+    automationLevel: "Media",
+    sla: "Por sprint",
+    evidence: "UI spec/prototipo",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Interfaces sin estados, jerarquia o handoff claro ralentizan desarrollo y QA.",
+    nextAction: "Entregar pantalla con estados, componentes, responsive, copy, tokens y criterios de implementacion."
+  },
+  {
+    id: "ACT-065",
+    area: "Diseno",
+    activity: "Crear linea visual, branding y sistema grafico",
+    owner: "Persona 16",
+    backup: "Persona 13",
+    agent: "Agente #26",
+    automationLevel: "Media",
+    sla: "Por campana/producto",
+    evidence: "guia visual o kit de marca",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Sin linea visual, web, campanas y producto pierden consistencia y autoridad.",
+    nextAction: "Definir tokens, estilos, componentes, reglas de uso, ejemplos y restricciones por canal."
+  },
+  {
+    id: "ACT-066",
+    area: "Diseno",
+    activity: "Dar feedback de diseno al equipo en general",
+    owner: "Persona 16",
+    backup: "Persona 13",
+    agent: "Agente #26",
+    automationLevel: "Baja",
+    sla: "24-48h",
+    evidence: "feedback accionable",
+    status: "Activo",
+    priority: "Media",
+    source: "Actividad enviada por UX/UI",
+    risk: "Feedback sin criterio accionable genera retrabajo o decisiones subjetivas.",
+    nextAction: "Estandarizar feedback por jerarquia, claridad, marca, accesibilidad, conversion y consistencia."
+  },
+  {
+    id: "ACT-067",
+    area: "Web",
+    activity: "Armar disenos requeridos para web, ediciones de fotos y piezas estrategicas",
+    owner: "Persona 16",
+    backup: "Persona 15",
+    agent: "Agente #14",
+    automationLevel: "Media",
+    sla: "Por solicitud web/campana",
+    evidence: "asset web aprobado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Assets web sin version o sin criterio visual retrasan publicacion y conversion.",
+    nextAction: "Registrar brief, formato, version, destino web, aprobacion y archivo fuente."
+  },
+  {
+    id: "ACT-068",
+    area: "Web",
+    activity: "Disenar formularios y componentes para la web",
+    owner: "Persona 16",
+    backup: "Persona 23",
+    agent: "Agente #26",
+    automationLevel: "Media",
+    sla: "Por flujo",
+    evidence: "formulario especificado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Formularios mal estructurados bajan conversion y generan data incompleta.",
+    nextAction: "Definir campos, validaciones, errores, privacidad, destino de datos, tracking y estado de exito."
+  },
+  {
+    id: "ACT-069",
+    area: "Tecnologia",
+    activity: "Coordinar implementacion de disenos con desarrollo",
+    owner: "Persona 16",
+    backup: "Persona 23",
+    agent: "Agente #26",
+    automationLevel: "Media",
+    sla: "Durante sprint",
+    evidence: "handoff validado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Sin coordinacion con desarrollo, el producto implementado no respeta flujo, marca o estados.",
+    nextAction: "Hacer handoff con specs, assets, estados, restricciones, dudas abiertas y QA visual."
+  },
+  {
+    id: "ACT-070",
+    area: "Web",
+    activity: "Coordinar actualizaciones web con operaciones web",
+    owner: "Persona 16",
+    backup: "Persona 15",
+    agent: "Agente #14",
+    automationLevel: "Media",
+    sla: "Por publicacion",
+    evidence: "actualizacion web coordinada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por UX/UI",
+    risk: "Actualizaciones web sin coordinacion generan versiones inconsistentes o cambios incompletos.",
+    nextAction: "Registrar solicitud, responsable web, fecha, assets, validacion visual, publicacion y rollback."
   }
 ];
 
@@ -1181,7 +1326,8 @@ export const agents: Agent[] = [
   { id: "Agente #22", mission: "Monitorear interesados, empresas, WhatsApp Business, LinkedIn, llamadas, convenios y siguientes acciones.", input: "Bandejas + Notion + listas de contactos", output: "Pipeline de alianzas actualizado con prioridad y proximo paso", humanControl: "Persona 25 valida clasificacion y tono comercial", status: "Propuesto", impact: "Alto" },
   { id: "Agente #23", mission: "Preparar reuniones, recordatorios, grabaciones, PPTs, resumen, transcripcion y onboarding de grupos.", input: "Calendario + contacto + PPT + reunion", output: "Checklist de reunion y paquete de follow-up", humanControl: "Persona 25 valida envio y materiales", status: "Propuesto", impact: "Alto" },
   { id: "Agente #24", mission: "Ejecutar checklist QA: E2E, UX, carga, estres, automatizadas, bugs y regresion.", input: "Release + casos de prueba + bugfix", output: "Reporte QA con evidencia, severidad y decision de release", humanControl: "Persona 26 aprueba validacion", status: "Propuesto", impact: "Alto" },
-  { id: "Agente #25", mission: "Validar carga y actualizacion de data con controles de schema, duplicados y campos obligatorios.", input: "Fuente de datos + plantilla + corte", output: "Data validada u observada con errores accionables", humanControl: "Persona 26 valida carga final", status: "Propuesto", impact: "Medio" }
+  { id: "Agente #25", mission: "Validar carga y actualizacion de data con controles de schema, duplicados y campos obligatorios.", input: "Fuente de datos + plantilla + corte", output: "Data validada u observada con errores accionables", humanControl: "Persona 26 valida carga final", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #26", mission: "Convertir brief, investigacion y requerimientos en IA, flujos, UI specs, branding y handoff para desarrollo.", input: "Brief + objetivo + usuario + constraints", output: "Mapa UX, estructura, criterios UI y checklist de implementacion", humanControl: "Persona 16 valida criterio UX/UI y marca", status: "Propuesto", impact: "Alto" }
 ];
 
 export const programs: ProgramStatus[] = [
@@ -1924,15 +2070,15 @@ export const opsRoles: OpsRole[] = [
   },
   {
     id: "Persona 16",
-    role: "Design System + Brand QA",
-    mission: "Asegurar consistencia visual en diseno, landings, impresos, Summit, piezas y certificados.",
-    areas: ["Diseno", "Web", "Certificados", "Eventos"],
-    primaryActivities: ["ACT-026", "ACT-025", "ACT-018", "ACT-019"],
-    kpis: ["Errores visuales detectados antes de publicar", "Plantillas reutilizables", "Piezas aprobadas", "Marca consistente"],
-    dailyCheck: "Revisar solicitudes visuales, piezas criticas, landings y plantillas pendientes.",
-    escalation: "Pieza publica fuera de marca, diseno sin fuente, impreso urgente o certificado observado.",
+    role: "UX/UI Product Design + Brand Lead",
+    mission: "Investigar, estructurar flujos, disenar interfaces, definir branding y coordinar implementacion visual con web/desarrollo/marketing.",
+    areas: ["UX/UI", "Diseno", "Web", "Producto", "Marketing", "Tecnologia"],
+    primaryActivities: ["ACT-026", "ACT-062", "ACT-063", "ACT-064", "ACT-065", "ACT-066", "ACT-067", "ACT-068", "ACT-069", "ACT-070"],
+    kpis: ["Flujos completos antes de prototipo", "Handoffs validados", "Piezas aprobadas", "Marca consistente", "Formularios con data completa"],
+    dailyCheck: "Revisar briefs, flujos pendientes, UI specs, branding, assets web, feedback al equipo y coordinaciones con desarrollo/web ops.",
+    escalation: "Prototipo sin flujo, handoff incompleto, web sin asset aprobado, formulario sin validacion, pieza fuera de marca o cambio no coordinado.",
     backup: "Persona 9",
-    obsidianSource: "HTML marketing/Apoyo Visual y Diseno Corporativo"
+    obsidianSource: "Actividad enviada por UX/UI + HTML marketing/diseno"
   },
   {
     id: "Persona 17",
@@ -2196,6 +2342,16 @@ export const workflowStages: WorkflowStage[] = [
     activities: ["ACT-056", "ACT-057", "ACT-058", "ACT-059", "ACT-060", "ACT-061"],
     evidence: "Reporte QA, bugs validados, pruebas automatizadas y data cargada sin observaciones.",
     automation: "Agente #24 + Agente #25"
+  },
+  {
+    id: "WF-15",
+    label: "UX/UI y handoff de producto",
+    timing: "Brief -> implementacion",
+    owner: "Persona 16",
+    objective: "Convertir requerimientos en investigacion, flujo completo, UI, branding, assets web y handoff validado.",
+    activities: ["ACT-062", "ACT-063", "ACT-064", "ACT-065", "ACT-066", "ACT-067", "ACT-068", "ACT-069", "ACT-070"],
+    evidence: "Mapa UX, flujo, UI spec, kit visual, assets web, formulario y handoff a desarrollo.",
+    automation: "Agente #14 + Agente #26"
   }
 ];
 
@@ -2343,6 +2499,18 @@ export const aecodeDomains: AecodeDomain[] = [
     cadences: ["QA por feature", "QA pre-release", "Validacion de data por corte"],
     risks: ["Release sin validacion", "Bug recurrente", "UX bloqueante", "Data inconsistente"],
     automation: "Agente #24 valida QA y Agente #25 controla cargas de data."
+  },
+  {
+    id: "DOM-13",
+    domain: "UX/UI, branding y web experience",
+    mission: "Estructurar productos digitales con investigacion, flujos completos, UI, branding, assets web, formularios y handoff a desarrollo.",
+    lead: "Persona 16",
+    supportingRoles: ["Persona 15", "Persona 20", "Persona 23", "Persona 13"],
+    responsibilities: ["Investigacion UX", "Arquitectura informacion", "Flujos", "UI", "Branding", "Web assets", "Formularios", "Handoff"],
+    kpis: ["Flujos antes de prototipo", "Handoffs validados", "Consistencia de marca", "Formularios completos", "Cambios web coordinados"],
+    cadences: ["Review de brief", "Design handoff", "QA visual web"],
+    risks: ["Prototipos sin flujo", "Handoff incompleto", "Branding inconsistente", "Web sin coordinacion"],
+    automation: "Agente #26 estructura UX/UI y Agente #14 coordina QA visual web."
   }
 ];
 
@@ -2601,7 +2769,8 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Actividades tecnologia", value: activities.filter((item) => item.area === "Tecnologia").length, target: activities.length, context: "Arquitectura, backend, frontend, infra e IA" },
   { label: "Actividades BIM", value: activities.filter((item) => item.area === "BIM").length, target: activities.length, context: "Modelos, planos, plantillas, scripts y assets academicos" },
   { label: "Actividades alianzas", value: activities.filter((item) => item.area === "Alianzas" || item.area === "Reuniones").length, target: activities.length, context: "Interesados, empresas, reuniones, sponsors y convenios" },
-  { label: "Actividades QA/data", value: activities.filter((item) => item.area === "QA" || item.id === "ACT-061").length, target: activities.length, context: "E2E, UX, carga, automatizadas, bugs y data" }
+  { label: "Actividades QA/data", value: activities.filter((item) => item.area === "QA" || item.id === "ACT-061").length, target: activities.length, context: "E2E, UX, carga, automatizadas, bugs y data" },
+  { label: "Actividades UX/UI", value: activities.filter((item) => item.owner === "Persona 16").length, target: activities.length, context: "Investigacion, flujos, UI, branding, web, formularios y handoff" }
 ];
 
 export const sourceNotes = [
@@ -2618,6 +2787,7 @@ export const sourceNotes = [
   "Marketing debe revisar GHL y venta real para ajustar mensajes, campanas y lead quality.",
   "Actividades de alianzas/sponsors/reuniones integradas como Persona 25.",
   "Actividades de QA/testing/data integradas como Persona 26.",
+  "Actividades UX/UI y branding integradas como Persona 16.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

@@ -29,7 +29,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 - `Persona 13`: piezas de campana, copies y assets.
 - `Persona 14`: eventos, Summit, agenda y sponsors.
 - `Persona 15`: web, difusion organica, brochures y Drive.
-- `Persona 16`: diseno, marca, landings e impresos.
+- `Persona 16`: investigacion UX, flujos, UI, branding, formularios, web experience y handoff con desarrollo.
 - `Persona 17`: edicion de video, clips y shorts.
 - `Persona 18`: feedback comercial y calidad de leads.
 - `Persona 19`: asesoria comercial y pipeline.
@@ -57,6 +57,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 12. Activos BIM academicos: modelos, planos, plantillas, scripts, PPTs y Miros reutilizables.
 13. Alianzas y sponsors: interesados, empresas, llamadas, reuniones, grupos, convenios y follow-up.
 14. QA y release validation: E2E, UX, carga, pruebas automatizadas, bugs y data.
+15. UX/UI y handoff de producto: investigacion, flujo completo, UI, branding, assets web, formularios y coordinacion con desarrollo.
 
 ## Loop maestro
 
@@ -76,6 +77,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 10. Activos BIM academicos.
 11. Alianzas, sponsors y reuniones.
 12. QA, testing y validacion de data.
+13. UX/UI, branding y web experience.
 
 ## Frontera AECODE / GEN+
 
@@ -143,3 +145,8 @@ Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excus
 - `Agente #19`: dashboard ejecutivo integral.
 - `Agente #20`: auditor tecnico de arquitectura, seguridad, frontend, infra e IA.
 - `Agente #21`: catalogador de activos BIM academicos.
+- `Agente #22`: pipeline de alianzas, sponsors e interesados.
+- `Agente #23`: preparacion y follow-up de reuniones.
+- `Agente #24`: validador QA de releases.
+- `Agente #25`: validador de carga y actualizacion de data.
+- `Agente #26`: estructurador UX/UI, branding y handoff de producto.

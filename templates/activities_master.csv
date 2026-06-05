@@ -60,3 +60,12 @@ ACT-058,QA,Pruebas de carga y estres,Persona 26,Agente #24,Media,Antes release c
 ACT-059,QA,Pruebas automatizadas,Persona 26,Agente #24,Alta,Por sprint,suite automatizada,Pendiente,Alta
 ACT-060,QA,Validacion de correccion de bugs,Persona 26,Agente #24,Media,Por bugfix,bug validado,Activo,Alta
 ACT-061,Datos,Carga y actualizacion de data,Persona 26,Agente #25,Alta,Segun corte operativo,data actualizada validada,Activo,Alta
+ACT-062,UX/UI,Investigacion y analisis UX para productos digitales,Persona 16,Agente #26,Alta,Discovery por producto,mapa UX con hallazgos,Activo,Alta
+ACT-063,UX/UI,Definir arquitectura de informacion y flujos antes del prototipo,Persona 16,Agente #26,Alta,Antes de prototipo,flujo completo validado,Activo,Critica
+ACT-064,UX/UI,Disenar interfaces UI para productos dashboards y paneles,Persona 16,Agente #26,Media,Por sprint o requerimiento,UI spec aprobada,Activo,Alta
+ACT-065,Diseno,Crear linea visual branding y sistema grafico,Persona 16,Agente #26,Media,Por producto o campana,kit visual versionado,Activo,Alta
+ACT-066,Diseno,Dar feedback de diseno al equipo en general,Persona 16,Agente #26,Baja,Por solicitud,feedback accionable registrado,Activo,Media
+ACT-067,Web,Armar disenos requeridos para web ediciones de fotos y piezas estrategicas,Persona 16,Agente #14,Media,Por backlog web,asset web aprobado,Activo,Alta
+ACT-068,Web,Disenar formularios y componentes para la web,Persona 16,Agente #26,Media,Por requerimiento,formulario validado,Activo,Alta
+ACT-069,Tecnologia,Coordinar implementacion de disenos con desarrollo,Persona 16,Agente #26,Media,Por handoff,handoff aceptado por desarrollo,Activo,Critica
+ACT-070,Web,Coordinar actualizaciones web con operaciones web,Persona 16,Agente #14,Media,Semanal o por cambio,cambio web coordinado,Activo,Alta
