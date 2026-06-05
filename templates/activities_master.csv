@@ -47,3 +47,16 @@ ACT-045,BIM,Configurar proyectos plantillas familias y recursos BIM,Persona 24,A
 ACT-046,BIM,Crear scripts personales y automatizaciones BIM de apoyo,Persona 24,Agente #21,Media,Por necesidad,script documentado,Pendiente,Media
 ACT-047,BIM,Apoyar busqueda de proyectos PPTs y tableros Miro para cursos,Persona 24,Agente #21,Media,Por calendario academico,asset academico entregado,Activo,Media
 ACT-048,Marketing,Revisar como vende el equipo comercial en GHL para optimizar marketing,Persona 12,Agente #16,Alta,Diario semanal,insights GHL y ajustes campana,Activo,Critica
+ACT-049,Alianzas,Seguimiento a interesados clasificacion de empresas y envio de correos,Persona 25,Agente #22,Alta,Diario,estado interesado actualizado,Activo,Alta
+ACT-050,Comercial,Gestion de llamadas y reuniones por listas pendientes,Persona 25,Agente #22,Alta,Diario,lista llamadas reuniones actualizada,Activo,Critica
+ACT-051,Alianzas,Control total de WhatsApp Business y respuestas de LinkedIn,Persona 25,Agente #22,Alta,Durante el dia,bandeja respondida y clasificada,Activo,Critica
+ACT-052,Reuniones,Operar reuniones recordatorios grabacion PPT y resumen para correos,Persona 25,Agente #23,Alta,Antes y despues reunion,reunion registrada con resumen,Activo,Critica
+ACT-053,Alianzas,Busqueda y mapeo de nuevos contactos estrategicos,Persona 25,Agente #22,Alta,Semanal,contacto estrategico completo,Activo,Alta
+ACT-054,Alianzas,Crear grupos cuando se sumen sponsors o aliados,Persona 25,Agente #23,Media,24h post confirmacion,grupo creado y bienvenida enviada,Activo,Alta
+ACT-055,Alianzas,Revision de convenios y documentos solicitados,Persona 25,Agente #22,Media,48h,convenio revisado,Pendiente,Alta
+ACT-056,QA,Validacion funcional de flujos completos E2E,Persona 26,Agente #24,Media,Por release,reporte E2E,Activo,Critica
+ACT-057,QA,Validaciones de experiencia de usuario,Persona 26,Agente #24,Media,Por feature,reporte UX QA,Activo,Alta
+ACT-058,QA,Pruebas de carga y estres,Persona 26,Agente #24,Media,Antes release critico,reporte carga,Pendiente,Alta
+ACT-059,QA,Pruebas automatizadas,Persona 26,Agente #24,Alta,Por sprint,suite automatizada,Pendiente,Alta
+ACT-060,QA,Validacion de correccion de bugs,Persona 26,Agente #24,Media,Por bugfix,bug validado,Activo,Alta
+ACT-061,Datos,Carga y actualizacion de data,Persona 26,Agente #25,Alta,Segun corte operativo,data actualizada validada,Activo,Alta

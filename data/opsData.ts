@@ -162,7 +162,10 @@ export const areas = [
   "Difusion",
   "Marketing",
   "Comercial",
+  "Alianzas",
   "Eventos",
+  "Reuniones",
+  "QA",
   "Web",
   "Diseno",
   "Automatizacion",
@@ -942,6 +945,214 @@ export const activities: Activity[] = [
     source: "Solicitud operativa marketing-ventas",
     risk: "Marketing optimiza mensajes y pauta sin entender objeciones reales, calidad de asesorias y motivos de cierre/no cierre.",
     nextAction: "Revisar conversaciones, etapas, objeciones, scripts, tiempos de respuesta y conversion por fuente en GHL."
+  },
+  {
+    id: "ACT-049",
+    area: "Alianzas",
+    activity: "Seguimiento a interesados, clasificacion de empresas y envio de correos",
+    owner: "Persona 25",
+    backup: "Persona 18",
+    agent: "Agente #22",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "estado de interesado actualizado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Interesados se enfrían si no se clasifica empresa, respuesta y siguiente paso.",
+    nextAction: "Usar pipeline: interesado, respondio, empresa clasificada, correo enviado, pendiente respuesta, reunion propuesta."
+  },
+  {
+    id: "ACT-050",
+    area: "Comercial",
+    activity: "Gestion de llamadas y reuniones por listas pendientes",
+    owner: "Persona 25",
+    backup: "Persona 18",
+    agent: "Agente #22",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "lista de llamadas/reuniones actualizada",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Contactos de eventos, ads o empresas reunidas quedan sin cierre si no hay cola clara.",
+    nextAction: "Separar colas: pendientes por llamar, empresas ya reunidas por cerrar, contactos ads, reuniones por agendar."
+  },
+  {
+    id: "ACT-051",
+    area: "Alianzas",
+    activity: "Control total de WhatsApp Business y respuestas de LinkedIn",
+    owner: "Persona 25",
+    backup: "Persona 12",
+    agent: "Agente #22",
+    automationLevel: "Alta",
+    sla: "Durante el dia",
+    evidence: "bandeja respondida y clasificada",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Mensajes sin respuesta generan perdida de sponsors, alianzas o reuniones.",
+    nextAction: "Clasificar cada mensaje por canal, empresa, intencion, urgencia, owner y siguiente accion."
+  },
+  {
+    id: "ACT-052",
+    area: "Reuniones",
+    activity: "Operar reuniones: recordatorios, grabacion, PPT y resumen para correos",
+    owner: "Persona 25",
+    backup: "Persona 14",
+    agent: "Agente #23",
+    automationLevel: "Alta",
+    sla: "Antes y despues de cada reunion",
+    evidence: "reunion registrada con resumen",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Sin grabacion, PPT correcta o resumen, el follow-up pierde contexto y velocidad.",
+    nextAction: "Checklist: recordar por WSP, confirmar numero, activar grabacion, presentar PPT correcta, ocultar slides sensibles, enviar resumen y transcripcion."
+  },
+  {
+    id: "ACT-053",
+    area: "Alianzas",
+    activity: "Busqueda y mapeo de nuevos contactos estrategicos",
+    owner: "Persona 25",
+    backup: "Persona 22",
+    agent: "Agente #22",
+    automationLevel: "Alta",
+    sla: "Semanal",
+    evidence: "contacto estrategico completo",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Notion queda incompleto y no se puede priorizar empresas faltantes.",
+    nextAction: "Completar empresa, cargo, contacto, canal, prioridad, estado, fuente, responsable y siguiente accion."
+  },
+  {
+    id: "ACT-054",
+    area: "Alianzas",
+    activity: "Crear grupos cuando se sumen sponsors o aliados",
+    owner: "Persona 25",
+    backup: "Persona 6",
+    agent: "Agente #23",
+    automationLevel: "Media",
+    sla: "24h post confirmacion",
+    evidence: "grupo creado y bienvenida enviada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Onboarding incompleto genera friccion con sponsor, aliado o equipo interno.",
+    nextAction: "Checklist: correo bienvenida, grupo WSP, perfil del grupo, recordatorio de correo y formulario."
+  },
+  {
+    id: "ACT-055",
+    area: "Alianzas",
+    activity: "Revision de convenios y documentos solicitados",
+    owner: "Persona 25",
+    backup: "Persona 21",
+    agent: "Agente #22",
+    automationLevel: "Media",
+    sla: "48h",
+    evidence: "convenio revisado",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Actividad enviada por partnerships/outreach",
+    risk: "Convenios completos quedan sin revision y se retrasa cierre formal.",
+    nextAction: "Registrar documento recibido, completitud, observaciones, aprobacion, responsable y fecha de cierre."
+  },
+  {
+    id: "ACT-056",
+    area: "QA",
+    activity: "Validacion funcional de flujos completos E2E",
+    owner: "Persona 26",
+    backup: "Persona 23",
+    agent: "Agente #24",
+    automationLevel: "Media",
+    sla: "Por release",
+    evidence: "reporte E2E",
+    status: "Activo",
+    priority: "Critica",
+    source: "Actividad enviada por QA/testing",
+    risk: "Un release puede verse correcto por pantalla pero fallar en el flujo completo.",
+    nextAction: "Definir casos E2E por rol, permisos, datos, estados vacios, errores y resultado esperado."
+  },
+  {
+    id: "ACT-057",
+    area: "QA",
+    activity: "Validaciones de experiencia de usuario",
+    owner: "Persona 26",
+    backup: "Persona 20",
+    agent: "Agente #24",
+    automationLevel: "Media",
+    sla: "Por feature",
+    evidence: "reporte UX QA",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por QA/testing",
+    risk: "Flujos funcionales pueden seguir siendo confusos, lentos o poco claros para el usuario.",
+    nextAction: "Validar claridad, jerarquia, errores, feedback visual, responsive, textos y accion principal."
+  },
+  {
+    id: "ACT-058",
+    area: "QA",
+    activity: "Pruebas de carga y estres",
+    owner: "Persona 26",
+    backup: "Persona 23",
+    agent: "Agente #24",
+    automationLevel: "Media",
+    sla: "Antes de release critico",
+    evidence: "reporte de carga",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Actividad enviada por QA/testing",
+    risk: "Plataforma puede degradarse en eventos, campañas o cohortes con alto trafico.",
+    nextAction: "Definir escenarios, usuarios concurrentes, endpoints criticos, umbrales, errores y rollback."
+  },
+  {
+    id: "ACT-059",
+    area: "QA",
+    activity: "Pruebas automatizadas",
+    owner: "Persona 26",
+    backup: "Persona 23",
+    agent: "Agente #24",
+    automationLevel: "Alta",
+    sla: "Por sprint",
+    evidence: "suite automatizada",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Actividad enviada por QA/testing",
+    risk: "Sin automatizacion se repiten bugs y cada release depende de revision manual.",
+    nextAction: "Crear suite por flujo critico: auth, pagos, acceso, formularios, certificados, CRM y dashboard."
+  },
+  {
+    id: "ACT-060",
+    area: "QA",
+    activity: "Validacion de correccion de bugs",
+    owner: "Persona 26",
+    backup: "Persona 23",
+    agent: "Agente #24",
+    automationLevel: "Media",
+    sla: "Por bugfix",
+    evidence: "bug validado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por QA/testing",
+    risk: "Bugs marcados como resueltos pueden regresar si no se valida causa y regresion.",
+    nextAction: "Verificar caso original, prueba de regresion, captura/evidencia y estado final."
+  },
+  {
+    id: "ACT-061",
+    area: "Datos",
+    activity: "Carga y actualizacion de data",
+    owner: "Persona 26",
+    backup: "Persona 22",
+    agent: "Agente #25",
+    automationLevel: "Alta",
+    sla: "Segun corte operativo",
+    evidence: "data actualizada y validada",
+    status: "Activo",
+    priority: "Alta",
+    source: "Actividad enviada por QA/testing",
+    risk: "Data desactualizada afecta dashboards, accesos, pruebas, CRM y decisiones.",
+    nextAction: "Validar fuente, schema, duplicados, campos obligatorios, fecha de carga y responsable."
   }
 ];
 
@@ -966,7 +1177,11 @@ export const agents: Agent[] = [
   { id: "Agente #18", mission: "Sincronizar pagos, comprobantes y bloqueos administrativos.", input: "Pagos + documentos + matriculas", output: "Estado administrativo por estudiante", humanControl: "Persona 21 revisa casos sensibles", status: "Propuesto", impact: "Medio" },
   { id: "Agente #19", mission: "Construir dashboard ejecutivo de operacion completa AECODE.", input: "Academico + marketing + comercial + soporte", output: "KPIs semanales y alertas de decision", humanControl: "Persona 22 valida datos", status: "Propuesto", impact: "Alto" },
   { id: "Agente #20", mission: "Auditar arquitectura, estandares, API, seguridad, frontend, infra e IA por proyecto.", input: "Repo + ADR + backlog + deployment", output: "Checklist tecnico, riesgos y decisiones pendientes", humanControl: "Persona 23 aprueba arquitectura", status: "Propuesto", impact: "Alto" },
-  { id: "Agente #21", mission: "Catalogar modelos, plantillas, familias, scripts, PPTs y Miros BIM como activos reutilizables.", input: "Assets BIM + curso + modulo", output: "Ficha de recurso con uso academico y estado", humanControl: "Persona 24 valida calidad tecnica BIM", status: "Propuesto", impact: "Medio" }
+  { id: "Agente #21", mission: "Catalogar modelos, plantillas, familias, scripts, PPTs y Miros BIM como activos reutilizables.", input: "Assets BIM + curso + modulo", output: "Ficha de recurso con uso academico y estado", humanControl: "Persona 24 valida calidad tecnica BIM", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #22", mission: "Monitorear interesados, empresas, WhatsApp Business, LinkedIn, llamadas, convenios y siguientes acciones.", input: "Bandejas + Notion + listas de contactos", output: "Pipeline de alianzas actualizado con prioridad y proximo paso", humanControl: "Persona 25 valida clasificacion y tono comercial", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #23", mission: "Preparar reuniones, recordatorios, grabaciones, PPTs, resumen, transcripcion y onboarding de grupos.", input: "Calendario + contacto + PPT + reunion", output: "Checklist de reunion y paquete de follow-up", humanControl: "Persona 25 valida envio y materiales", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #24", mission: "Ejecutar checklist QA: E2E, UX, carga, estres, automatizadas, bugs y regresion.", input: "Release + casos de prueba + bugfix", output: "Reporte QA con evidencia, severidad y decision de release", humanControl: "Persona 26 aprueba validacion", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #25", mission: "Validar carga y actualizacion de data con controles de schema, duplicados y campos obligatorios.", input: "Fuente de datos + plantilla + corte", output: "Data validada u observada con errores accionables", humanControl: "Persona 26 valida carga final", status: "Propuesto", impact: "Medio" }
 ];
 
 export const programs: ProgramStatus[] = [
@@ -1814,6 +2029,30 @@ export const opsRoles: OpsRole[] = [
     escalation: "Material BIM sin version, script no documentado, recurso tarde o desalineado con objetivo de aprendizaje.",
     backup: "Persona 7",
     obsidianSource: "Actividad enviada por soporte BIM"
+  },
+  {
+    id: "Persona 25",
+    role: "Strategic Outreach + Partnerships Ops",
+    mission: "Gestionar interesados, empresas, llamadas, reuniones, WhatsApp Business, LinkedIn, sponsors, grupos y convenios.",
+    areas: ["Alianzas", "Comercial", "Reuniones", "Eventos", "Marketing"],
+    primaryActivities: ["ACT-049", "ACT-050", "ACT-051", "ACT-052", "ACT-053", "ACT-054", "ACT-055"],
+    kpis: ["Interesados clasificados", "Reuniones agendadas", "Bandejas respondidas", "Convenios revisados", "Grupos creados"],
+    dailyCheck: "Revisar interesados, WhatsApp Business, LinkedIn, llamadas pendientes, reuniones del dia, convenios y grupos por crear.",
+    escalation: "Contacto caliente sin respuesta, reunion sin recordatorio/grabacion, sponsor sin grupo, convenio completo sin revision o empresa sin datos.",
+    backup: "Persona 18",
+    obsidianSource: "Actividad enviada por partnerships/outreach"
+  },
+  {
+    id: "Persona 26",
+    role: "QA + Data Validation Ops",
+    mission: "Validar flujos E2E, experiencia de usuario, carga/estres, automatizacion de pruebas, bugfixes y data.",
+    areas: ["QA", "Datos", "Tecnologia", "Producto"],
+    primaryActivities: ["ACT-056", "ACT-057", "ACT-058", "ACT-059", "ACT-060", "ACT-061"],
+    kpis: ["Casos E2E validados", "Bugs reabiertos", "Pruebas automatizadas", "Errores de data", "Riesgos de release"],
+    dailyCheck: "Revisar releases, bugs corregidos, casos E2E, UX, carga, pruebas automatizadas y data pendiente.",
+    escalation: "Release sin QA, bug critico sin regresion, data inconsistente, carga no validada o UX bloqueante.",
+    backup: "Persona 23",
+    obsidianSource: "Actividad enviada por QA/testing"
   }
 ];
 
@@ -1937,6 +2176,26 @@ export const workflowStages: WorkflowStage[] = [
     activities: ["ACT-044", "ACT-045", "ACT-046", "ACT-047"],
     evidence: "Ficha de asset BIM con curso, modulo, version, uso academico y estado.",
     automation: "Agente #21"
+  },
+  {
+    id: "WF-13",
+    label: "Alianzas y sponsors",
+    timing: "Interes -> cierre",
+    owner: "Persona 25",
+    objective: "Convertir interesados, empresas, sponsors y aliados en reuniones, grupos, convenios y follow-up trazable.",
+    activities: ["ACT-049", "ACT-050", "ACT-051", "ACT-052", "ACT-053", "ACT-054", "ACT-055"],
+    evidence: "Pipeline actualizado, reunion registrada, grupo creado, correo enviado y convenio revisado.",
+    automation: "Agente #22 + Agente #23"
+  },
+  {
+    id: "WF-14",
+    label: "QA y release validation",
+    timing: "Feature -> release",
+    owner: "Persona 26",
+    objective: "Reducir riesgo de producto validando funcionalidad E2E, UX, rendimiento, bugs y data antes de release.",
+    activities: ["ACT-056", "ACT-057", "ACT-058", "ACT-059", "ACT-060", "ACT-061"],
+    evidence: "Reporte QA, bugs validados, pruebas automatizadas y data cargada sin observaciones.",
+    automation: "Agente #24 + Agente #25"
   }
 ];
 
@@ -2060,6 +2319,30 @@ export const aecodeDomains: AecodeDomain[] = [
     cadences: ["Preparacion por curso", "Revision antes de clase", "Cierre de asset"],
     risks: ["Material tardio", "Recursos sin version", "Scripts personales no reutilizables", "Miro/PPT sin objetivo"],
     automation: "Agente #21 cataloga activos BIM con curso, modulo, version, uso y estado."
+  },
+  {
+    id: "DOM-11",
+    domain: "Alianzas, sponsors y reuniones",
+    mission: "Gestionar interesados, empresas, llamadas, reuniones, WhatsApp Business, LinkedIn, grupos, convenios y follow-up.",
+    lead: "Persona 25",
+    supportingRoles: ["Persona 14", "Persona 18", "Persona 21", "Persona 22"],
+    responsibilities: ["Interesados", "Clasificacion empresas", "Correos", "Llamadas", "Reuniones", "WSP Business", "LinkedIn", "Convenios"],
+    kpis: ["Interesados respondidos", "Empresas clasificadas", "Reuniones agendadas", "Convenios revisados", "Grupos creados"],
+    cadences: ["Revision diaria de bandejas", "Seguimiento de reuniones", "Cierre semanal de convenios"],
+    risks: ["Contactos sin seguimiento", "Reuniones sin grabacion", "Convenios sin revision", "Sponsors sin onboarding"],
+    automation: "Agente #22 monitorea pipeline y Agente #23 opera reuniones, grupos y follow-up."
+  },
+  {
+    id: "DOM-12",
+    domain: "QA, testing y validacion de data",
+    mission: "Proteger releases y decisiones validando E2E, UX, rendimiento, pruebas automatizadas, bugfixes y data.",
+    lead: "Persona 26",
+    supportingRoles: ["Persona 23", "Persona 20", "Persona 22"],
+    responsibilities: ["E2E", "UX QA", "Carga/estres", "Automatizadas", "Bugfix validation", "Carga data"],
+    kpis: ["Casos E2E aprobados", "Defectos criticos", "Cobertura automatizada", "Errores de data", "Riesgo de release"],
+    cadences: ["QA por feature", "QA pre-release", "Validacion de data por corte"],
+    risks: ["Release sin validacion", "Bug recurrente", "UX bloqueante", "Data inconsistente"],
+    automation: "Agente #24 valida QA y Agente #25 controla cargas de data."
   }
 ];
 
@@ -2316,7 +2599,9 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Roles operativos anonimos", value: opsRoles.length, target: opsRoles.length, context: "Equipo completo AECODE por responsabilidad" },
   { label: "Procesos marketing", value: marketingProcesses.length, target: marketingProcesses.length, context: "Panel HTML de marketing normalizado" },
   { label: "Actividades tecnologia", value: activities.filter((item) => item.area === "Tecnologia").length, target: activities.length, context: "Arquitectura, backend, frontend, infra e IA" },
-  { label: "Actividades BIM", value: activities.filter((item) => item.area === "BIM").length, target: activities.length, context: "Modelos, planos, plantillas, scripts y assets academicos" }
+  { label: "Actividades BIM", value: activities.filter((item) => item.area === "BIM").length, target: activities.length, context: "Modelos, planos, plantillas, scripts y assets academicos" },
+  { label: "Actividades alianzas", value: activities.filter((item) => item.area === "Alianzas" || item.area === "Reuniones").length, target: activities.length, context: "Interesados, empresas, reuniones, sponsors y convenios" },
+  { label: "Actividades QA/data", value: activities.filter((item) => item.area === "QA" || item.id === "ACT-061").length, target: activities.length, context: "E2E, UX, carga, automatizadas, bugs y data" }
 ];
 
 export const sourceNotes = [
@@ -2331,6 +2616,8 @@ export const sourceNotes = [
   "Cultura-GEN+.md usada como frontera: proyectos cliente, ingenieria aplicada y productos GEN+ se enrutan fuera de AECODE salvo activos educativos empaquetados.",
   "Actividades tecnicas y BIM integradas como roles anonimos Persona 23 y Persona 24.",
   "Marketing debe revisar GHL y venta real para ajustar mensajes, campanas y lead quality.",
+  "Actividades de alianzas/sponsors/reuniones integradas como Persona 25.",
+  "Actividades de QA/testing/data integradas como Persona 26.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

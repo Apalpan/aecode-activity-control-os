@@ -38,6 +38,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 - `Persona 22`: datos, BI, dashboards y gobernanza.
 - `Persona 23`: arquitectura, backend, frontend, infra, IA y delivery end-to-end.
 - `Persona 24`: activos BIM academicos, modelos, plantillas, familias, scripts, PPTs y Miros.
+- `Persona 25`: alianzas, sponsors, interesados, reuniones, WhatsApp Business, LinkedIn, grupos y convenios.
+- `Persona 26`: QA, E2E, UX, carga/estres, pruebas automatizadas, bugfixes y data.
 
 ## Flujo operativo por sesion
 
@@ -53,6 +55,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 10. Control administrativo: pagos, documentos, accesos y certificados habilitados.
 11. Product engineering: arquitectura, contratos, backend, frontend, infra, IA y release.
 12. Activos BIM academicos: modelos, planos, plantillas, scripts, PPTs y Miros reutilizables.
+13. Alianzas y sponsors: interesados, empresas, llamadas, reuniones, grupos, convenios y follow-up.
+14. QA y release validation: E2E, UX, carga, pruebas automatizadas, bugs y data.
 
 ## Loop maestro
 
@@ -70,6 +74,8 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 8. Finanzas, documentacion y compliance operativo.
 9. Tecnologia, arquitectura y product engineering.
 10. Activos BIM academicos.
+11. Alianzas, sponsors y reuniones.
+12. QA, testing y validacion de data.
 
 ## Frontera AECODE / GEN+
 

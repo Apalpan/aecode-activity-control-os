@@ -27,6 +27,7 @@ Convertir actividades dispersas de direccion, postventa, accesos, soporte, plata
 - Nota Obsidian `02_EMPRESAS/AECODE/Cultura-AECODE.md` convertida en reglas operativas, rituales, valores y antivalores.
 - Nota Obsidian `02_EMPRESAS/GEN+/Cultura-GEN+.md` usada como frontera para enrutar consultoria, proyectos cliente, ingenieria aplicada y productos GEN+ fuera del tablero AECODE.
 - Actividades enviadas por equipo tecnico y soporte BIM, anonimizadas como `Persona 23` y `Persona 24`.
+- Actividades de alianzas/sponsors/reuniones y QA/testing/data, anonimizadas como `Persona 25` y `Persona 26`.
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
 Por seguridad, el repositorio no expone nombres personales, emails, links de WhatsApp, links de Zoom ni URLs privadas. La app usa estados, conteos, roles anonimizados y referencias de fuente.
@@ -74,6 +75,8 @@ El tablero ya no esta limitado a coordinacion academica. Incluye 8 dominios oper
 8. Finanzas, documentacion y compliance operativo.
 9. Tecnologia, arquitectura y product engineering.
 10. Activos BIM academicos.
+11. Alianzas, sponsors y reuniones.
+12. QA, testing y validacion de data.
 
 Cada dominio define lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencias, riesgos y agente candidato.
 
