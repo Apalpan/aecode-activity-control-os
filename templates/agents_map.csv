@@ -9,3 +9,12 @@ Agente #7,Data Steward,Sincronizar inscritos/GHT/BD grupos,Sheets/GHL,carga limp
 Agente #8,Certificados,Emitir certificados de participacion/Autodesk,lista aprobados,certificado enviado y trazado,Persona 1 valida bloqueos,Propuesto
 Agente #9,Embajador Ops,Asignar embajador e inducirlo,programa/curso,embajador activo y checklist,Persona 7 valida induccion,Propuesto
 Agente #10,Difusion Ops,Planificar difusion WSP/Facebook/YouTube,campana/evento,envios y posts registrados,Persona 8 aprueba mensaje,Propuesto
+Agente #11,Prioridades Automatizacion,Consolidar prioridades y oportunidades por area,backlog por area,top semanal con impacto owner y estado,Persona 10 decide prioridad,Propuesto
+Agente #12,Ads Performance,Monitorear Meta Ads CPL creativos y lead quality,ads CRM feedback ventas,reporte diario y alertas de campana,Persona 12 valida cambios de presupuesto,Propuesto
+Agente #13,Event Ops,Orquestar eventos Summit agenda piezas y sponsors,Notion evento calendario assets,semaforo de evento y tareas vencidas,Persona 14 escala bloqueos,Propuesto
+Agente #14,Web Brand QA,Gestionar cola web landings piezas y QA visual,solicitud de cambio assets,checklist de publicacion y aprobacion,Persona 15 o 16 aprueba salida,Propuesto
+Agente #15,Clip Factory,Transformar webinars en clips shorts y assets,grabacion transcript tema,backlog de clips con guion y estado,Persona 17 valida edicion final,Propuesto
+Agente #16,Revenue Feedback,Cruzar leads asesoria objeciones y conversion,CRM feedback diario,lead quality y oportunidades por curso,Persona 18 valida lectura comercial,Propuesto
+Agente #17,Skill Verification,Auditar aprendizaje evidencias rubricas y Skill Passport,programas evidencias evaluaciones,mapa de skill verification por cohorte,Persona 20 valida criterio academico,Propuesto
+Agente #18,Admin Finance Sync,Sincronizar pagos comprobantes y bloqueos administrativos,pagos documentos matriculas,estado administrativo por estudiante,Persona 21 revisa casos sensibles,Propuesto
+Agente #19,Executive KPI,Construir dashboard ejecutivo integral,academico marketing comercial soporte,KPIs semanales y alertas de decision,Persona 22 valida datos,Propuesto

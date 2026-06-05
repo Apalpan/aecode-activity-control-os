@@ -5,14 +5,18 @@ import {
   AlertTriangle,
   Bot,
   CalendarDays,
+  ChevronDown,
+  ChevronRight,
   CheckCircle2,
   ClipboardList,
   Database,
   ExternalLink,
   Filter,
   GraduationCap,
+  LayoutDashboard,
   Link2,
   ListChecks,
+  Megaphone,
   LockKeyhole,
   PlaySquare,
   Route,
@@ -24,6 +28,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
+  aecodeDomains,
   activities,
   agents,
   areas,
@@ -32,6 +37,7 @@ import {
   getReadinessScore,
   linkAssets,
   linkMetrics,
+  marketingProcesses,
   opsRoles,
   opsSources,
   programs,
@@ -64,6 +70,52 @@ const icons = {
 
 const assetBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
+const navGroups = [
+  {
+    id: "control",
+    label: "Control",
+    items: [
+      { label: "Resumen", href: "#control", icon: LayoutDashboard },
+      { label: "Actividades", href: "#actividades", icon: ListChecks },
+      { label: "Roles", href: "#roles", icon: UserRoundCheck },
+      { label: "Flujo", href: "#flujo", icon: Route }
+    ]
+  },
+  {
+    id: "areas",
+    label: "Areas AECODE",
+    items: [
+      { label: "Mapa completo", href: "#areas", icon: ClipboardList },
+      { label: "Marketing", href: "#marketing", icon: Megaphone },
+      { label: "Comercial", href: "#comercial", icon: Users },
+      { label: "Producto", href: "#producto", icon: GraduationCap }
+    ]
+  },
+  {
+    id: "sistemas",
+    label: "Sistemas",
+    items: [
+      { label: "Agentes", href: "#agentes", icon: Bot },
+      { label: "Links", href: "#links", icon: Link2 },
+      { label: "Programas", href: "#programas", icon: GraduationCap },
+      { label: "Datos", href: "#datos", icon: Database },
+      { label: "Riesgos", href: "#riesgos", icon: AlertTriangle }
+    ]
+  }
+];
+
+function NavItem({ href, label, icon: Icon }: { href: string; label: string; icon: typeof ClipboardList }) {
+  return (
+    <a
+      className="nav-item"
+      href={href}
+    >
+      <Icon size={16} />
+      <span>{label}</span>
+    </a>
+  );
+}
+
 function Metric({ label, value, detail, tone }: { label: string; value: string; detail: string; tone?: "risk" | "good" }) {
   const Icon = tone === "risk" ? icons.risk : tone === "good" ? icons.verified : icons.total;
 
@@ -92,6 +144,11 @@ export default function Page() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("Todos");
   const [role, setRole] = useState("Todos");
+  const [openNav, setOpenNav] = useState<Record<string, boolean>>({
+    control: true,
+    areas: true,
+    sistemas: true
+  });
 
   const filtered = useMemo(() => {
     return activities
@@ -107,6 +164,8 @@ export default function Page() {
   const automationCount = activities.filter((item) => item.automationLevel !== "Baja").length;
   const readyPrograms = programs.filter((program) => getReadinessScore(program) >= 80).length;
   const selectedRole = opsRoles.find((item) => item.id === role);
+  const commercialRoles = opsRoles.filter((item) => item.areas.some((roleArea) => ["Comercial", "Finanzas"].includes(roleArea)));
+  const productRoles = opsRoles.filter((item) => item.areas.some((roleArea) => ["Producto", "Plataforma", "Certificados"].includes(roleArea)));
 
   return (
     <div className="shell">
@@ -125,30 +184,34 @@ export default function Page() {
           <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Activity Control OS</p>
           <h1 className="mt-3 text-3xl font-black leading-tight text-white">Tablero maestro de actividades</h1>
           <p className="mt-4 text-sm leading-7 text-aecode-muted">
-            Operacion academica, postventa, soporte, plataforma, contenido, difusion y certificados.
+            Control total AECODE: academia, postventa, soporte, producto, marketing, comercial, eventos, finanzas, datos y automatizacion.
           </p>
         </div>
 
-        <nav className="mt-8 grid gap-2">
-          {[
-            ["Actividades", ListChecks],
-            ["Roles", UserRoundCheck],
-            ["Flujo", Route],
-            ["Agentes", Bot],
-            ["Links", Link2],
-            ["Programas", GraduationCap],
-            ["Datos", Database],
-            ["Riesgos", AlertTriangle]
-          ].map(([label, Icon]) => (
-            <a
-              key={label as string}
-              className="flex min-h-10 items-center gap-3 rounded-lg border border-aecode-violet/10 px-3 text-sm font-bold text-aecode-muted transition hover:border-aecode-violet/40 hover:bg-aecode-card/50 hover:text-white"
-              href={`#${String(label).toLowerCase()}`}
-            >
-              <Icon size={17} />
-              {label as string}
-            </a>
-          ))}
+        <nav className="mt-8 grid gap-3" aria-label="Navegacion principal">
+          {navGroups.map((group) => {
+            const isOpen = openNav[group.id];
+            return (
+              <div className="nav-group" key={group.id}>
+                <button
+                  className="nav-group-button"
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenNav((current) => ({ ...current, [group.id]: !isOpen }))}
+                >
+                  <span>{group.label}</span>
+                  {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                </button>
+                {isOpen ? (
+                  <div className="grid gap-1 pt-2">
+                    {group.items.map((item) => (
+                      <NavItem href={item.href} icon={item.icon} key={item.href} label={item.label} />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="mt-8 rounded-lg border border-aecode-green/20 bg-aecode-green/10 p-4">
@@ -158,18 +221,21 @@ export default function Page() {
       </aside>
 
       <main className="main">
-        <section className="grid gap-4" id="actividades">
+        <section className="grid gap-4" id="control">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Operacion AECODE</p>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Control maestro AECODE</p>
               <h2 className="mt-2 text-3xl font-black text-white md:text-5xl" style={{ lineHeight: 1.2 }}>
-                Control, SLA y automatizacion
+                Roles, SLA, procesos y decisiones
               </h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Vista ejecutiva para operar AECODE completo: aprendizaje, postventa, soporte, producto, marketing, comercial, eventos, finanzas, datos y automatizacion.
+              </p>
             </div>
             <div className="flex gap-2">
               <a className="chip chip-good" href="#agentes">
                 <Bot size={14} />
-                <span className="ml-2">10 agentes</span>
+                <span className="ml-2">{agents.length} agentes</span>
               </a>
               <a className="chip" href="#programas">
                 <ExternalLink size={14} />
@@ -181,10 +247,57 @@ export default function Page() {
           <div className="metric-grid">
             <Metric label="Actividades" value={String(activities.length)} detail="Actividades completas normalizadas desde el pedido, Sheet y adjuntos." />
             <Metric label="Links" value={String(linkAssets.length)} detail="Inventario seguro de enlaces extraidos del chat operativo." />
+            <Metric label="Areas AECODE" value={String(aecodeDomains.length)} detail="Dominios de control desde direccion hasta finanzas y BI." tone="good" />
+            <Metric label="Roles" value={String(opsRoles.length)} detail="Responsables anonimos con mision, KPIs, backup y escalamiento." />
             <Metric label="Criticas" value={String(criticalCount)} detail="Accesos, videos y certificados tienen impacto directo en activacion." tone="risk" />
             <Metric label="En riesgo" value={String(riskCount)} detail="Requieren owner, SLA o evidencia para no generar reclamos." tone="risk" />
             <Metric label="Automatizables" value={`${automationCount}/${activities.length}`} detail="Candidatas para AgentFlow, GHL, WhatsApp, Drive o n8n." tone="good" />
             <Metric label="Programas listos" value={`${readyPrograms}/${programs.length}`} detail="Lectura de readiness por accesos, Zoom, WSP, Classroom y embajador." />
+          </div>
+        </section>
+
+        <section className="mt-6 panel p-5" id="areas">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Mapa completo</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Areas, responsabilidades y riesgos</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Cada dominio tiene lead anonimo, roles de apoyo, responsabilidades, KPIs, cadencia y automatizacion candidata.
+              </p>
+            </div>
+            <LayoutDashboard className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-4">
+            {aecodeDomains.map((domain) => (
+              <article className="domain-card" key={domain.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{domain.id}</p>
+                    <h3 className="mt-1 text-lg font-black text-white">{domain.domain}</h3>
+                  </div>
+                  <span className="chip chip-good">{domain.lead}</span>
+                </div>
+                <p className="mt-3 min-h-[72px] text-sm leading-6 text-aecode-muted">{domain.mission}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {domain.responsibilities.slice(0, 6).map((item) => (
+                    <span className="chip" key={item}>{item}</span>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-lg border border-aecode-violet/15 bg-aecode-bg/35 p-3">
+                  <p className="text-xs font-black uppercase text-aecode-green">Automatizacion</p>
+                  <p className="mt-2 text-sm leading-6 text-white">{domain.automation}</p>
+                </div>
+                <p className="mt-4 text-xs font-bold text-aecode-lavender">Apoyo: {domain.supportingRoles.join(" + ")}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-4" id="actividades">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-aecode-green">Operacion por actividad</p>
+            <h2 className="mt-2 text-2xl font-black text-white">Backlog operativo con owner, SLA y riesgo</h2>
           </div>
 
           <section className="panel p-4">
@@ -352,6 +465,100 @@ export default function Page() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="mt-6 panel p-5" id="marketing">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Marketing + Growth</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Procesos derivados del panel de marketing</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Se integran campanas, Summit, difusion, clips, automatizacion y contenido organico con roles anonimos y evidencia operativa.
+              </p>
+            </div>
+            <Megaphone className="text-aecode-mint" size={30} />
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-3">
+            {marketingProcesses.map((process) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={process.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{process.id}</p>
+                    <h3 className="mt-1 text-lg font-black text-white">{process.title}</h3>
+                  </div>
+                  <span className="chip chip-good">{process.lead}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">{process.objective}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {process.stages.map((stage) => (
+                    <span className="chip" key={stage}>{stage}</span>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-6 text-white">Evidencia: {process.evidence}</p>
+                <p className="mt-2 text-xs font-bold text-aecode-lavender">{process.automation}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="content-grid mt-6" id="comercial">
+          <div className="panel p-5">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Comercial + Finanzas</p>
+                <h2 className="mt-2 text-2xl font-black text-white">Responsabilidades de revenue y control administrativo</h2>
+              </div>
+              <Users className="text-aecode-mint" size={28} />
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {commercialRoles.map((item) => (
+                <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={item.id}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                      <h3 className="mt-1 text-lg font-black text-white">{item.role}</h3>
+                    </div>
+                    <span className="chip">{item.backup}</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-aecode-muted">{item.mission}</p>
+                  <div className="mt-4 grid gap-2">
+                    {item.kpis.slice(0, 4).map((kpi) => (
+                      <p className="flex gap-2 text-sm leading-6 text-aecode-muted" key={kpi}>
+                        <CheckCircle2 className="mt-1 shrink-0 text-aecode-green" size={15} />
+                        {kpi}
+                      </p>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <aside className="panel p-5" id="producto">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Producto educativo</p>
+                <h2 className="mt-2 text-2xl font-black text-white">Learning OS</h2>
+              </div>
+              <GraduationCap className="text-aecode-mint" size={28} />
+            </div>
+            <p className="mt-4 text-sm leading-7 text-aecode-muted">
+              AECODE debe operar cursos, pero el producto real es verificar habilidades con evidencia: diagnostico, ruta, skill, practica, rubrica, feedback y certificado.
+            </p>
+            <div className="mt-5 grid gap-3">
+              {productRoles.map((item) => (
+                <div className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={item.id}>
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-black text-white">{item.role}</p>
+                    <span className="chip chip-good">{item.id}</span>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-aecode-muted">{item.dailyCheck}</p>
+                  <p className="mt-2 text-xs font-bold text-aecode-lavender">{item.escalation}</p>
+                </div>
+              ))}
+            </div>
+          </aside>
         </section>
 
         <section className="mt-6 panel p-5" id="flujo">

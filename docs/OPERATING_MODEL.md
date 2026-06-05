@@ -8,7 +8,7 @@ El tablero no debe funcionar como una lista larga de pendientes. Debe operar com
 - flujo -> etapa -> owner -> agente -> fuente;
 - fuente -> Obsidian, Sheet, Notion o Drive -> estado de seguridad.
 
-La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM` y `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, pero en la UI publica se mantienen roles anonimos.
+La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE`, el sistema operativo AECODE y el panel HTML de marketing. En la UI publica se mantienen roles anonimos.
 
 ## Roles operativos
 
@@ -21,6 +21,19 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM` y `05_Mape
 - `Persona 7`: calidad academica, embajadores, evidencias, rubricas y cierre academico.
 - `Persona 8`: difusion, comunidad y fuentes de marketing.
 - `Persona 9`: QA visual de certificados.
+- `Persona 10`: direccion operativa, prioridades y decisiones.
+- `Persona 11`: automatizacion y mejora de procesos.
+- `Persona 12`: paid growth, Meta Ads, CPL y lead quality.
+- `Persona 13`: piezas de campana, copies y assets.
+- `Persona 14`: eventos, Summit, agenda y sponsors.
+- `Persona 15`: web, difusion organica, brochures y Drive.
+- `Persona 16`: diseno, marca, landings e impresos.
+- `Persona 17`: edicion de video, clips y shorts.
+- `Persona 18`: feedback comercial y calidad de leads.
+- `Persona 19`: asesoria comercial y pipeline.
+- `Persona 20`: producto, rutas, Skill Graph y Skill Passport.
+- `Persona 21`: finanzas, pagos y documentacion.
+- `Persona 22`: datos, BI, dashboards y gobernanza.
 
 ## Flujo operativo por sesion
 
@@ -30,22 +43,34 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM` y `05_Mape
 4. Contenido post sesion: Drive, edicion, Vimeo, plataforma y piezas publicables.
 5. Calidad y cierre: evidencias, notas, rubrica, recuperacion y certificados.
 6. Difusion y comunidad: grupos correctos, copy, CTA, fuente y resultado.
+7. Lanzamiento de campana: brief, piezas, landing, ads, reporte y feedback ventas.
+8. Evento / Summit: agenda, sponsors, piezas, inscritos y post-evento.
+9. Producto y skill verification: ruta, skill, evidencia, rubrica, feedback y certificado.
+10. Control administrativo: pagos, documentos, accesos y certificados habilitados.
 
 ## Loop maestro
 
 `Registro -> acceso -> recordatorio -> sesion -> grabacion -> edicion -> Vimeo -> plataforma -> soporte -> evidencia -> certificado`
 
-## Areas
+## Dominios AECODE
 
-1. Accesos y soporte.
-2. Plataforma y contenido.
-3. Sesiones y Zoom.
-4. Comunidad y grupos.
-5. Embajadores.
-6. Difusion.
-7. Datos y GHT.
-8. Certificados.
-9. Automatizacion.
+1. Direccion y sistema operativo.
+2. Operacion academica y postventa.
+3. Plataforma, contenido y learning experience.
+4. Marketing, growth y distribucion.
+5. Comercial y revenue.
+6. Eventos, alianzas y autoridad.
+7. Datos, BI y gobernanza.
+8. Finanzas, documentacion y compliance operativo.
+
+## Procesos de marketing integrados
+
+1. Ads para cursos Training.
+2. AECODE AI Summit y eventos.
+3. Difusion multicanal.
+4. Clips de webinar.
+5. Optimizacion y automatizacion.
+6. Contenido organico y web.
 
 ## Reglas de control
 
@@ -67,3 +92,12 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM` y `05_Mape
 - `Agente #8`: emisor de certificados.
 - `Agente #9`: control de embajadores.
 - `Agente #10`: difusion multicanal.
+- `Agente #11`: prioridades y automatizacion por area.
+- `Agente #12`: campanas, CPL y lead quality.
+- `Agente #13`: eventos, Summit y dependencias.
+- `Agente #14`: cola web, landings y QA visual.
+- `Agente #15`: clips, shorts y assets audiovisuales.
+- `Agente #16`: CRM, feedback comercial y conversion.
+- `Agente #17`: learning loop, evidencias y Skill Passport.
+- `Agente #18`: pagos, documentos y bloqueos administrativos.
+- `Agente #19`: dashboard ejecutivo integral.

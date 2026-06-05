@@ -99,7 +99,31 @@ export type OpsSource = {
   privacy: "Publico" | "Interno" | "Critico";
 };
 
+export type AecodeDomain = {
+  id: string;
+  domain: string;
+  mission: string;
+  lead: string;
+  supportingRoles: string[];
+  responsibilities: string[];
+  kpis: string[];
+  cadences: string[];
+  risks: string[];
+  automation: string;
+};
+
+export type MarketingProcess = {
+  id: string;
+  title: string;
+  objective: string;
+  lead: string;
+  stages: string[];
+  evidence: string;
+  automation: string;
+};
+
 export const areas = [
+  "Direccion",
   "Accesos y soporte",
   "Datos",
   "Sesiones",
@@ -107,6 +131,14 @@ export const areas = [
   "Comunidad",
   "Embajadores",
   "Difusion",
+  "Marketing",
+  "Comercial",
+  "Eventos",
+  "Web",
+  "Diseno",
+  "Automatizacion",
+  "Finanzas",
+  "Producto",
   "Plataforma",
   "Certificados"
 ];
@@ -415,6 +447,230 @@ export const activities: Activity[] = [
     source: "Actividad pegada + action items",
     risk: "Sin lista de aprobados validada, el envio queda bloqueado.",
     nextAction: "Definir gate: aprobado, email valido, curso, licencia, plantilla."
+  },
+  {
+    id: "ACT-020",
+    area: "Direccion",
+    activity: "Definir prioridades maestras de AECODE por semana",
+    owner: "Persona 10",
+    backup: "Persona 11",
+    agent: "Agente #11",
+    automationLevel: "Media",
+    sla: "Lunes 10am",
+    evidence: "prioridades semanales",
+    status: "Activo",
+    priority: "Critica",
+    source: "HTML marketing + sistema operativo AECODE",
+    risk: "Sin direccion unica, marketing, academia, comercial y producto trabajan con prioridades distintas.",
+    nextAction: "Publicar top 5 semanal con owner, resultado esperado y bloqueo principal."
+  },
+  {
+    id: "ACT-021",
+    area: "Marketing",
+    activity: "Planificar campanas de cursos Training y pauta Meta Ads",
+    owner: "Persona 12",
+    backup: "Persona 13",
+    agent: "Agente #12",
+    automationLevel: "Alta",
+    sla: "7 dias antes de lanzamiento",
+    evidence: "brief + calendario + campana",
+    status: "Activo",
+    priority: "Alta",
+    source: "HTML marketing",
+    risk: "Campanas lanzadas sin brief, CTA o feedback comercial reducen conversion.",
+    nextAction: "Crear checklist: oferta, audiencia, piezas, landing, presupuesto, CPL objetivo y feedback ventas."
+  },
+  {
+    id: "ACT-022",
+    area: "Marketing",
+    activity: "Reportar rendimiento de Meta Ads, CPL y calidad de leads",
+    owner: "Persona 12",
+    backup: "Persona 18",
+    agent: "Agente #12",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "dashboard de ads",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "HTML marketing",
+    risk: "El equipo ajusta campanas tarde si no cruza costo, lead y conversion.",
+    nextAction: "Automatizar reporte diario por curso, fuente, CPL, lead quality y conversion comercial."
+  },
+  {
+    id: "ACT-023",
+    area: "Eventos",
+    activity: "Coordinar AECODE AI Summit y eventos estrategicos",
+    owner: "Persona 14",
+    backup: "Persona 10",
+    agent: "Agente #13",
+    automationLevel: "Media",
+    sla: "Semanal",
+    evidence: "plan de evento actualizado",
+    status: "Activo",
+    priority: "Alta",
+    source: "HTML marketing + Notion AECODE Training",
+    risk: "Evento sin tablero unico pierde sponsors, agenda, piezas y responsables.",
+    nextAction: "Separar tablero por agenda, sponsors, ponentes, piezas, difusion, inscritos y post-evento."
+  },
+  {
+    id: "ACT-024",
+    area: "Difusion",
+    activity: "Difusion multicanal de posts, webinars, cursos y eventos",
+    owner: "Persona 15",
+    backup: "Persona 8",
+    agent: "Agente #10",
+    automationLevel: "Alta",
+    sla: "72h / 24h",
+    evidence: "registro multicanal",
+    status: "Activo",
+    priority: "Alta",
+    source: "HTML marketing + actividad pegada",
+    risk: "Publicar sin matriz de canales impide saber que funciono.",
+    nextAction: "Unificar WhatsApp, Facebook, YouTube, web y GHL con source_channel por pieza."
+  },
+  {
+    id: "ACT-025",
+    area: "Web",
+    activity: "Gestionar cambios web, landings, banners y brochures",
+    owner: "Persona 15",
+    backup: "Persona 16",
+    agent: "Agente #14",
+    automationLevel: "Media",
+    sla: "48h por solicitud",
+    evidence: "cambio publicado",
+    status: "Activo",
+    priority: "Alta",
+    source: "HTML marketing",
+    risk: "Web desactualizada rompe confianza y afecta conversion de campanas.",
+    nextAction: "Crear cola web con solicitud, prioridad, asset, aprobacion, publicacion y rollback."
+  },
+  {
+    id: "ACT-026",
+    area: "Diseno",
+    activity: "Validar criterio visual, piezas de pauta, impresion y landings",
+    owner: "Persona 16",
+    backup: "Persona 13",
+    agent: "Agente #14",
+    automationLevel: "Media",
+    sla: "24-72h",
+    evidence: "pieza aprobada",
+    status: "Activo",
+    priority: "Media",
+    source: "HTML marketing",
+    risk: "Piezas inconsistentes diluyen marca y retrasan lanzamientos.",
+    nextAction: "Usar libreria Figma, checklist de marca y aprobacion por tipo de pieza."
+  },
+  {
+    id: "ACT-027",
+    area: "Contenido",
+    activity: "Editar clips de webinars y videos organicos para distribucion",
+    owner: "Persona 17",
+    backup: "Persona 5",
+    agent: "Agente #15",
+    automationLevel: "Media",
+    sla: "Semanal",
+    evidence: "clips listos",
+    status: "Pendiente",
+    priority: "Media",
+    source: "HTML marketing",
+    risk: "Webinars quedan como contenido muerto si no se transforman en clips reutilizables.",
+    nextAction: "Definir flujo: webinar, guion, cortes, edicion, aprobacion, YouTube, shorts y ads."
+  },
+  {
+    id: "ACT-028",
+    area: "Comercial",
+    activity: "Recoger feedback de ventas sobre leads, cursos y objeciones",
+    owner: "Persona 18",
+    backup: "Persona 19",
+    agent: "Agente #16",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "feedback comercial",
+    status: "Activo",
+    priority: "Alta",
+    source: "HTML marketing",
+    risk: "Marketing optimiza por lead barato, no por lead que compra.",
+    nextAction: "Reportar calidad por campana: contactado, calificado, interesado, compra, objecion."
+  },
+  {
+    id: "ACT-029",
+    area: "Comercial",
+    activity: "Actualizar asesoria comercial, estado de cursos y conversion",
+    owner: "Persona 19",
+    backup: "Persona 18",
+    agent: "Agente #16",
+    automationLevel: "Alta",
+    sla: "Diario",
+    evidence: "pipeline actualizado",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "HTML marketing + sistema operativo AECODE",
+    risk: "Sin estado comercial actualizado, direccion no puede decidir presupuesto ni prioridad.",
+    nextAction: "Conectar GHL/Sheet con dashboard por programa, fuente, asesor y etapa."
+  },
+  {
+    id: "ACT-030",
+    area: "Automatizacion",
+    activity: "Mapear procesos internos y proponer una automatizacion por area",
+    owner: "Persona 11",
+    backup: "Persona 10",
+    agent: "Agente #11",
+    automationLevel: "Alta",
+    sla: "Semanal",
+    evidence: "backlog de automatizacion",
+    status: "Activo",
+    priority: "Alta",
+    source: "HTML marketing",
+    risk: "Automatizar sin mapa genera herramientas aisladas y poca adopcion.",
+    nextAction: "Priorizar por horas ahorradas, errores reducidos, impacto en conversion y trazabilidad."
+  },
+  {
+    id: "ACT-031",
+    area: "Producto",
+    activity: "Gestionar learning experience, rutas, Skill Graph y plataforma",
+    owner: "Persona 20",
+    backup: "Persona 3",
+    agent: "Agente #17",
+    automationLevel: "Media",
+    sla: "Quincenal",
+    evidence: "roadmap producto",
+    status: "Pendiente",
+    priority: "Critica",
+    source: "Sistema operativo AECODE",
+    risk: "AECODE puede operar cursos sin convertir aprendizaje en habilidades verificables.",
+    nextAction: "Conectar diagnostico, ruta, skill, practica, evidencia, rubrica, feedback y certificacion."
+  },
+  {
+    id: "ACT-032",
+    area: "Finanzas",
+    activity: "Controlar pagos, documentacion, comprobantes y bloqueos administrativos",
+    owner: "Persona 21",
+    backup: "Persona 1",
+    agent: "Agente #18",
+    automationLevel: "Media",
+    sla: "Diario",
+    evidence: "estado administrativo",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Proceso coordinacion academica + sistema operativo AECODE",
+    risk: "Pagos/documentos sin estado bloquean accesos, certificados y reporting.",
+    nextAction: "Crear status unico: pagado, observado, factura, deuda, certificado habilitado."
+  },
+  {
+    id: "ACT-033",
+    area: "Datos",
+    activity: "Mantener dashboard ejecutivo de KPIs AECODE",
+    owner: "Persona 22",
+    backup: "Persona 11",
+    agent: "Agente #19",
+    automationLevel: "Alta",
+    sla: "Semanal",
+    evidence: "dashboard actualizado",
+    status: "Pendiente",
+    priority: "Critica",
+    source: "Sistema operativo AECODE + HTML marketing",
+    risk: "Sin KPIs cruzados, cada area reporta actividad pero no impacto.",
+    nextAction: "Medir skills verificadas, activacion, asistencia, videos, tickets, certificados, leads y conversion."
   }
 ];
 
@@ -428,7 +684,16 @@ export const agents: Agent[] = [
   { id: "Agente #7", mission: "Sincronizar inscritos, GHT y BD de grupos.", input: "Sheets y GHL", output: "Carga limpia y duplicados marcados", humanControl: "Persona 2 valida datos sensibles", status: "Propuesto", impact: "Alto" },
   { id: "Agente #8", mission: "Emitir certificados de participacion y Autodesk.", input: "Lista aprobados", output: "Certificado enviado y trazado", humanControl: "Persona 1 valida bloqueos", status: "Propuesto", impact: "Alto" },
   { id: "Agente #9", mission: "Asignar embajador e inducirlo con checklist.", input: "Programa y curso", output: "Embajador activo y checklist", humanControl: "Persona 7 valida induccion", status: "Propuesto", impact: "Medio" },
-  { id: "Agente #10", mission: "Planificar difusion WSP, Facebook y YouTube.", input: "Campana o evento", output: "Envios y posts registrados", humanControl: "Persona 8 aprueba mensaje", status: "Propuesto", impact: "Medio" }
+  { id: "Agente #10", mission: "Planificar difusion WSP, Facebook y YouTube.", input: "Campana o evento", output: "Envios y posts registrados", humanControl: "Persona 8 aprueba mensaje", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #11", mission: "Consolidar prioridades y oportunidades de automatizacion.", input: "Backlog por area", output: "Top semanal con impacto, owner y estado", humanControl: "Persona 10 decide prioridad", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #12", mission: "Monitorear Meta Ads, CPL, creativos y lead quality.", input: "Ads + CRM + feedback ventas", output: "Reporte diario y alertas de campana", humanControl: "Persona 12 valida cambios de presupuesto", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #13", mission: "Orquestar eventos, Summit, agenda, piezas y sponsors.", input: "Notion evento + calendario + assets", output: "Semaforo de evento y tareas vencidas", humanControl: "Persona 14 escala bloqueos", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #14", mission: "Gestionar cola web, landings, piezas y QA visual.", input: "Solicitud de cambio + assets", output: "Checklist de publicacion y aprobacion", humanControl: "Persona 15 o 16 aprueba salida", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #15", mission: "Transformar webinars en clips, shorts y assets reutilizables.", input: "Grabacion + transcript + tema", output: "Backlog de clips con guion y estado", humanControl: "Persona 17 valida edicion final", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #16", mission: "Cruzar leads, asesoria, objeciones y conversion comercial.", input: "CRM + feedback diario", output: "Lead quality y oportunidades por curso", humanControl: "Persona 18 valida lectura comercial", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #17", mission: "Auditar loop de aprendizaje, evidencias, rubricas y skill passport.", input: "Programas + evidencias + evaluaciones", output: "Mapa de skill verification por cohorte", humanControl: "Persona 20 valida criterio academico", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #18", mission: "Sincronizar pagos, comprobantes y bloqueos administrativos.", input: "Pagos + documentos + matriculas", output: "Estado administrativo por estudiante", humanControl: "Persona 21 revisa casos sensibles", status: "Propuesto", impact: "Medio" },
+  { id: "Agente #19", mission: "Construir dashboard ejecutivo de operacion completa AECODE.", input: "Academico + marketing + comercial + soporte", output: "KPIs semanales y alertas de decision", humanControl: "Persona 22 valida datos", status: "Propuesto", impact: "Alto" }
 ];
 
 export const programs: ProgramStatus[] = [
@@ -1096,6 +1361,162 @@ export const opsRoles: OpsRole[] = [
     escalation: "Logo incorrecto, datos incompletos, folio duplicado o plantilla no aprobada.",
     backup: "Persona 1",
     obsidianSource: "05_Mapeo de Procesos/Coordinacion-Academica-Postventa-AECODE"
+  },
+  {
+    id: "Persona 10",
+    role: "Direccion Operativa AECODE",
+    mission: "Definir prioridades, alinear areas y convertir informacion dispersa en decisiones semanales.",
+    areas: ["Direccion", "Marketing", "Producto", "Comercial", "Eventos"],
+    primaryActivities: ["ACT-020", "ACT-023", "ACT-030", "ACT-031", "ACT-033"],
+    kpis: ["Top 5 semanal publicado", "Bloqueos criticos resueltos", "Areas con prioridad visible", "Decisiones con evidencia"],
+    dailyCheck: "Revisar alertas rojas, metas de semana, avance por area y decisiones pendientes.",
+    escalation: "Conflicto entre areas, presupuesto sin retorno, lanzamiento bloqueado o evento en riesgo.",
+    backup: "Persona 11",
+    obsidianSource: "Sistema operativo AECODE + panel marketing"
+  },
+  {
+    id: "Persona 11",
+    role: "Automation + Process Improvement Lead",
+    mission: "Mapear procesos, reducir carga manual y convertir actividades repetitivas en agentes auditables.",
+    areas: ["Automatizacion", "Datos", "Marketing", "Accesos y soporte"],
+    primaryActivities: ["ACT-020", "ACT-030", "ACT-033"],
+    kpis: ["Procesos mapeados", "Automatizaciones priorizadas", "Horas manuales reducidas", "Errores repetitivos eliminados"],
+    dailyCheck: "Actualizar backlog de automatizacion, validar impacto y preparar siguiente piloto.",
+    escalation: "Automatizacion sin owner, fuente insegura, datos sensibles o flujo sin validacion humana.",
+    backup: "Persona 22",
+    obsidianSource: "HTML marketing/Optimizacion y Automatizacion"
+  },
+  {
+    id: "Persona 12",
+    role: "Paid Growth + Meta Ads Ops",
+    mission: "Planificar, ejecutar y optimizar campanas pagadas con foco en lead quality y conversion.",
+    areas: ["Marketing", "Comercial", "Datos"],
+    primaryActivities: ["ACT-021", "ACT-022", "ACT-028"],
+    kpis: ["CPL por curso", "Lead quality", "Conversion por fuente", "Creativos ganadores"],
+    dailyCheck: "Revisar presupuesto, CPL, conversion, alertas y feedback comercial.",
+    escalation: "CPL fuera de umbral, lead sin contacto, landing rota o oferta no validada.",
+    backup: "Persona 13",
+    obsidianSource: "HTML marketing/Trafficker Meta Ads"
+  },
+  {
+    id: "Persona 13",
+    role: "Campaign Content Ops",
+    mission: "Coordinar piezas para ads, carruseles, estaticos, copies y assets de campana.",
+    areas: ["Marketing", "Diseno", "Contenido"],
+    primaryActivities: ["ACT-021", "ACT-024", "ACT-026"],
+    kpis: ["Piezas listas a tiempo", "Brief completo", "Aprobaciones sin retrabajo", "Assets respaldados"],
+    dailyCheck: "Validar brief, piezas pendientes, versiones aprobadas y entrega a pauta/difusion.",
+    escalation: "Pieza sin brief, copy sin CTA, version duplicada o aprobacion faltante.",
+    backup: "Persona 16",
+    obsidianSource: "HTML marketing/Contenido Ads"
+  },
+  {
+    id: "Persona 14",
+    role: "Events + Summit Ops",
+    mission: "Coordinar eventos AECODE desde estrategia hasta ejecucion, difusion y seguimiento post-evento.",
+    areas: ["Eventos", "Marketing", "Comercial", "Difusion"],
+    primaryActivities: ["ACT-023", "ACT-024"],
+    kpis: ["Tareas de evento al dia", "Speakers/sponsors confirmados", "Piezas publicadas", "Inscritos por fuente"],
+    dailyCheck: "Revisar agenda, responsables, fechas, assets, difusion e inscritos.",
+    escalation: "Speaker sin confirmar, sponsor bloqueado, pieza atrasada o landing no publicada.",
+    backup: "Persona 10",
+    obsidianSource: "HTML marketing/AECODE AI Summit"
+  },
+  {
+    id: "Persona 15",
+    role: "Web + Organic Diffusion Ops",
+    mission: "Gestionar difusion digital, landings, web, brochures y respaldo de activos en Drive.",
+    areas: ["Difusion", "Web", "Drive", "Marketing"],
+    primaryActivities: ["ACT-024", "ACT-025", "ACT-008"],
+    kpis: ["Publicaciones registradas", "Web actualizada", "Brochures vigentes", "Assets respaldados"],
+    dailyCheck: "Confirmar piezas nuevas, canales programados, web/banners y respaldo de Drive.",
+    escalation: "Pieza sin publicar, brochure antiguo, web rota o asset no respaldado.",
+    backup: "Persona 8",
+    obsidianSource: "HTML marketing/Difusion Web Drive Brochures"
+  },
+  {
+    id: "Persona 16",
+    role: "Design System + Brand QA",
+    mission: "Asegurar consistencia visual en diseno, landings, impresos, Summit, piezas y certificados.",
+    areas: ["Diseno", "Web", "Certificados", "Eventos"],
+    primaryActivities: ["ACT-026", "ACT-025", "ACT-018", "ACT-019"],
+    kpis: ["Errores visuales detectados antes de publicar", "Plantillas reutilizables", "Piezas aprobadas", "Marca consistente"],
+    dailyCheck: "Revisar solicitudes visuales, piezas criticas, landings y plantillas pendientes.",
+    escalation: "Pieza publica fuera de marca, diseno sin fuente, impreso urgente o certificado observado.",
+    backup: "Persona 9",
+    obsidianSource: "HTML marketing/Apoyo Visual y Diseno Corporativo"
+  },
+  {
+    id: "Persona 17",
+    role: "Video + Clip Production Ops",
+    mission: "Editar videos organicos, clips de webinar, shorts y assets audiovisuales para pauta y comunidad.",
+    areas: ["Contenido", "Marketing", "Difusion"],
+    primaryActivities: ["ACT-007", "ACT-008", "ACT-027"],
+    kpis: ["Clips listos", "Videos publicados", "Plantillas reutilizadas", "Tiempo de entrega"],
+    dailyCheck: "Revisar grabaciones, guiones aprobados, cortes, ediciones y entregas a difusion.",
+    escalation: "Grabacion incompleta, guion sin aprobar, pieza atrasada o formato incorrecto.",
+    backup: "Persona 5",
+    obsidianSource: "HTML marketing/Editor de Video"
+  },
+  {
+    id: "Persona 18",
+    role: "Sales Feedback + Lead Quality Ops",
+    mission: "Traducir la realidad comercial en feedback accionable para campanas, cursos y oferta.",
+    areas: ["Comercial", "Marketing", "Datos"],
+    primaryActivities: ["ACT-028", "ACT-029", "ACT-022"],
+    kpis: ["Leads contactados", "Objeciones mapeadas", "Conversion por campana", "Feedback diario enviado"],
+    dailyCheck: "Reportar calidad de leads, objeciones, cursos con traccion y oportunidades de mejora.",
+    escalation: "Leads sin contacto, campana con mala calidad, curso sin oferta clara o asesorias desalineadas.",
+    backup: "Persona 19",
+    obsidianSource: "HTML marketing/Ventas Feedback Comercial"
+  },
+  {
+    id: "Persona 19",
+    role: "Commercial Advisory Ops",
+    mission: "Mantener asesoria, pipeline, seguimiento y conversion por curso alineados con marketing y academia.",
+    areas: ["Comercial", "Datos", "Accesos y soporte"],
+    primaryActivities: ["ACT-028", "ACT-029", "ACT-003"],
+    kpis: ["Pipeline actualizado", "Tasa de contacto", "Tasa de cierre", "Motivos de no compra"],
+    dailyCheck: "Actualizar etapa de leads, conversion por fuente, objeciones y bloqueos de pago/acceso.",
+    escalation: "Lead caliente sin atencion, promesa comercial no cubierta o discrepancia de datos.",
+    backup: "Persona 18",
+    obsidianSource: "HTML marketing/Ventas Feedback y Asesoria"
+  },
+  {
+    id: "Persona 20",
+    role: "Product + Learning Experience Lead",
+    mission: "Convertir cursos en rutas, habilidades verificables, evidencias, rubricas y Skill Passport.",
+    areas: ["Producto", "Plataforma", "Certificados", "Datos"],
+    primaryActivities: ["ACT-031", "ACT-016", "ACT-018", "ACT-019"],
+    kpis: ["Skills verificadas por usuario activo", "Rutas publicadas", "Evidencias revisadas", "Rubricas activas"],
+    dailyCheck: "Revisar avance de rutas, calidad de evidencias, bloqueos de plataforma y certificacion.",
+    escalation: "Curso sin skill outcome, evidencia sin rubrica, certificado sin validacion o plataforma desalineada.",
+    backup: "Persona 3",
+    obsidianSource: "Sistema operativo AECODE/Product loop"
+  },
+  {
+    id: "Persona 21",
+    role: "Finance + Documentation Ops",
+    mission: "Controlar pagos, comprobantes, documentacion y bloqueos administrativos que afectan acceso y certificados.",
+    areas: ["Finanzas", "Accesos y soporte", "Certificados", "Comercial"],
+    primaryActivities: ["ACT-032", "ACT-002", "ACT-018", "ACT-019"],
+    kpis: ["Pagos conciliados", "Bloqueos administrativos resueltos", "Documentos completos", "Certificados habilitados"],
+    dailyCheck: "Revisar pagos observados, comprobantes, estados administrativos y bloqueos de certificado.",
+    escalation: "Pago no conciliado, comprobante incorrecto, deuda activa o reclamo administrativo.",
+    backup: "Persona 1",
+    obsidianSource: "Proceso coordinacion academica/Pagos documentacion automatizacion"
+  },
+  {
+    id: "Persona 22",
+    role: "Data + BI Control Ops",
+    mission: "Unificar datos academicos, marketing, comercial, soporte y producto en un dashboard confiable.",
+    areas: ["Datos", "Automatizacion", "Marketing", "Producto", "Comercial"],
+    primaryActivities: ["ACT-003", "ACT-017", "ACT-022", "ACT-033"],
+    kpis: ["Fuentes sincronizadas", "Errores de datos corregidos", "KPIs publicados", "Alertas accionables"],
+    dailyCheck: "Validar consistencia de fuentes, duplicados, actualizacion de KPIs y alertas rojas.",
+    escalation: "Fuente rota, dato sensible expuesto, dashboard inconsistente o metrica sin definicion.",
+    backup: "Persona 11",
+    obsidianSource: "Sheet academico + HTML marketing + sistema operativo AECODE"
   }
 ];
 
@@ -1159,6 +1580,202 @@ export const workflowStages: WorkflowStage[] = [
     activities: ["ACT-013", "ACT-014", "ACT-015", "ACT-017"],
     evidence: "Grupo, copy, CTA, fuente y resultado registrados.",
     automation: "Agente #7 + Agente #10"
+  },
+  {
+    id: "WF-07",
+    label: "Lanzamiento de campana",
+    timing: "7 dias antes -> diario",
+    owner: "Persona 12",
+    objective: "Pasar de oferta academica a campana medible con feedback comercial.",
+    activities: ["ACT-021", "ACT-022", "ACT-028", "ACT-029"],
+    evidence: "Brief, piezas, landing, campana activa, CPL y lead quality.",
+    automation: "Agente #12 + Agente #16"
+  },
+  {
+    id: "WF-08",
+    label: "Evento / Summit",
+    timing: "Planificacion -> post-evento",
+    owner: "Persona 14",
+    objective: "Coordinar agenda, sponsors, ponentes, piezas, inscritos y seguimiento.",
+    activities: ["ACT-023", "ACT-024", "ACT-025", "ACT-027"],
+    evidence: "Tablero evento, piezas publicadas, inscritos por fuente y follow-up.",
+    automation: "Agente #13 + Agente #10"
+  },
+  {
+    id: "WF-09",
+    label: "Producto y skill verification",
+    timing: "Quincenal",
+    owner: "Persona 20",
+    objective: "Asegurar que AECODE mida habilidades verificables, no solo asistencia.",
+    activities: ["ACT-031", "ACT-018", "ACT-019", "ACT-033"],
+    evidence: "Ruta, skill, evidencia, rubrica, feedback y certificado.",
+    automation: "Agente #17 + Agente #19"
+  },
+  {
+    id: "WF-10",
+    label: "Control administrativo",
+    timing: "Diario / cierre",
+    owner: "Persona 21",
+    objective: "Evitar que pagos, documentos o estados administrativos bloqueen la experiencia.",
+    activities: ["ACT-032", "ACT-002", "ACT-018", "ACT-019"],
+    evidence: "Estado administrativo, pago conciliado y certificado habilitado.",
+    automation: "Agente #18"
+  }
+];
+
+export const aecodeDomains: AecodeDomain[] = [
+  {
+    id: "DOM-01",
+    domain: "Direccion y sistema operativo",
+    mission: "Alinear prioridades, decisiones, riesgos y resultados de todas las areas AECODE.",
+    lead: "Persona 10",
+    supportingRoles: ["Persona 11", "Persona 22"],
+    responsibilities: ["Top 5 semanal", "Riesgos rojos", "Seguimiento ejecutivo", "Definicion de sprint"],
+    kpis: ["Prioridades cumplidas", "Bloqueos resueltos", "Decisiones con evidencia"],
+    cadences: ["Daily 15 min por alertas", "Weekly ops review", "Cierre de sprint"],
+    risks: ["Areas trabajando aisladas", "Metricas sin decision", "Sobrecarga de tareas sin foco"],
+    automation: "Agente #11 consolida avance y alertas por area."
+  },
+  {
+    id: "DOM-02",
+    domain: "Operacion academica y postventa",
+    mission: "Garantizar acceso, sesiones, soporte, recursos, embajadores y certificados sin friccion.",
+    lead: "Persona 3",
+    supportingRoles: ["Persona 1", "Persona 6", "Persona 7", "Persona 9"],
+    responsibilities: ["Accesos", "Zoom", "Classroom", "Recordatorios", "Soporte", "Certificados"],
+    kpis: ["Acceso <24h", "Sesion lista 72h antes", "Tickets en SLA", "Certificados a tiempo"],
+    cadences: ["Chequeo diario", "Preparacion 72h", "Cierre semanal"],
+    risks: ["Alumno sin acceso", "Grabacion no publicada", "Certificado bloqueado"],
+    automation: "Agentes #1-#9 cubren soporte, accesos, Zoom, videos y certificados."
+  },
+  {
+    id: "DOM-03",
+    domain: "Plataforma, contenido y learning experience",
+    mission: "Convertir programas en rutas, recursos, videos, evidencias y skill verification.",
+    lead: "Persona 20",
+    supportingRoles: ["Persona 4", "Persona 17", "Persona 1"],
+    responsibilities: ["Drive -> Vimeo -> plataforma", "Rutas", "Rubricas", "Skill Passport", "Videos"],
+    kpis: ["Videos publicados", "Rutas activas", "Evidencias revisadas", "Skills verificadas"],
+    cadences: ["Post-sesion 24-48h", "Review quincenal producto", "Cierre de cohorte"],
+    risks: ["AECODE se percibe como academia tradicional", "Contenido disperso", "Evidencia sin rubrica"],
+    automation: "Agente #17 audita loop de aprendizaje y Agente #4 gestiona videos."
+  },
+  {
+    id: "DOM-04",
+    domain: "Marketing, growth y distribucion",
+    mission: "Generar demanda medible para cursos, webinars, eventos y comunidad con trazabilidad.",
+    lead: "Persona 12",
+    supportingRoles: ["Persona 13", "Persona 15", "Persona 16", "Persona 17"],
+    responsibilities: ["Meta Ads", "Creativos", "Difusion", "Web", "YouTube", "Brochures"],
+    kpis: ["CPL", "Lead quality", "Publicaciones", "Conversion por fuente"],
+    cadences: ["Reporte diario ads", "Plan semanal contenidos", "Review de campana"],
+    risks: ["Lead barato sin compra", "Pieza sin CTA", "Web desactualizada"],
+    automation: "Agente #12 reporta campanas y Agente #14 gestiona cola web/QA."
+  },
+  {
+    id: "DOM-05",
+    domain: "Comercial y revenue",
+    mission: "Cerrar el loop entre campanas, asesoria, objeciones, pagos y conversion.",
+    lead: "Persona 18",
+    supportingRoles: ["Persona 19", "Persona 21", "Persona 12"],
+    responsibilities: ["Lead follow-up", "Objeciones", "Pipeline", "Pagos", "Feedback a marketing"],
+    kpis: ["Tasa de contacto", "Tasa de cierre", "Motivos de no compra", "Ingresos por campana"],
+    cadences: ["Feedback diario", "Review comercial semanal", "Cierre de cohortes"],
+    risks: ["Marketing optimiza sin ventas", "Promesas comerciales no alineadas", "Pagos bloqueados"],
+    automation: "Agente #16 cruza CRM, feedback y conversion por fuente."
+  },
+  {
+    id: "DOM-06",
+    domain: "Eventos, alianzas y autoridad",
+    mission: "Operar Summit, webinars y alianzas como activos de crecimiento, comunidad y marca.",
+    lead: "Persona 14",
+    supportingRoles: ["Persona 10", "Persona 15", "Persona 16", "Persona 17"],
+    responsibilities: ["Agenda", "Speakers", "Sponsors", "Landing", "Difusion", "Post-evento"],
+    kpis: ["Inscritos por fuente", "Sponsors activos", "Asistencia", "Follow-up enviado"],
+    cadences: ["Standup evento", "Review de piezas", "Cierre post-evento"],
+    risks: ["Piezas atrasadas", "Sponsor sin seguimiento", "Inscritos sin nurturing"],
+    automation: "Agente #13 semaforiza evento, tareas vencidas y dependencias."
+  },
+  {
+    id: "DOM-07",
+    domain: "Datos, BI y gobernanza",
+    mission: "Unificar fuentes academicas, marketing, comercial, comunidad y producto sin exponer datos sensibles.",
+    lead: "Persona 22",
+    supportingRoles: ["Persona 2", "Persona 11", "Persona 12", "Persona 18"],
+    responsibilities: ["Registro unico", "GHT/GHL", "Dashboards", "Privacidad", "Data quality"],
+    kpis: ["Fuentes sincronizadas", "Duplicados", "Campos completos", "Alertas accionables"],
+    cadences: ["Validacion diaria", "Data quality semanal", "Reporte ejecutivo"],
+    risks: ["Sheets paralelos", "PII expuesta", "Metricas contradictorias"],
+    automation: "Agente #19 construye KPIs y Agente #7 limpia registros."
+  },
+  {
+    id: "DOM-08",
+    domain: "Finanzas, documentacion y compliance operativo",
+    mission: "Evitar que pagos, documentos y estados administrativos bloqueen acceso, soporte o certificados.",
+    lead: "Persona 21",
+    supportingRoles: ["Persona 1", "Persona 19", "Persona 22"],
+    responsibilities: ["Pagos", "Comprobantes", "Estados administrativos", "Habilitacion de certificados"],
+    kpis: ["Pagos conciliados", "Bloqueos resueltos", "Documentos completos", "Reclamos administrativos"],
+    cadences: ["Chequeo diario", "Cierre semanal", "Auditoria mensual"],
+    risks: ["Alumno pagado sin acceso", "Certificado retenido sin causa clara", "Doble registro"],
+    automation: "Agente #18 sincroniza pago, documento, acceso y certificado."
+  }
+];
+
+export const marketingProcesses: MarketingProcess[] = [
+  {
+    id: "MKT-01",
+    title: "Ads para cursos Training",
+    objective: "Del brief del curso al ajuste continuo de campanas de captacion.",
+    lead: "Persona 12",
+    stages: ["Brief e insumos", "Planificacion funnel", "Produccion piezas", "Produccion video", "Validacion", "Lanzamiento", "Reporte", "Feedback ventas", "Ajuste"],
+    evidence: "Brief, piezas aprobadas, campana activa, reporte CPL y feedback comercial.",
+    automation: "Agente #12 alerta CPL y Agente #16 cruza calidad de leads."
+  },
+  {
+    id: "MKT-02",
+    title: "AECODE AI Summit y eventos",
+    objective: "Coordinar estrategia, agenda, activos, difusion, inscritos y seguimiento.",
+    lead: "Persona 14",
+    stages: ["Estrategia", "Planificacion", "Diseno visual", "Landing/web", "Difusion", "Ads", "Ejecucion", "Post-evento"],
+    evidence: "Tablero de evento, landing, piezas, inscritos, sponsors y follow-up.",
+    automation: "Agente #13 genera semaforo de evento y tareas vencidas."
+  },
+  {
+    id: "MKT-03",
+    title: "Difusion multicanal",
+    objective: "Publicar por canal correcto y registrar fuente, copy, CTA y resultado.",
+    lead: "Persona 15",
+    stages: ["Pieza aprobada", "Canales definidos", "Programacion", "Publicacion", "Registro", "Respaldo Drive", "Reporte"],
+    evidence: "Registro por WhatsApp, Facebook, YouTube, web y fuente de campana.",
+    automation: "Agente #10 genera checklist y alertas 72h/24h."
+  },
+  {
+    id: "MKT-04",
+    title: "Clips de webinar",
+    objective: "Transformar sesiones largas en clips, shorts y activos reutilizables.",
+    lead: "Persona 17",
+    stages: ["Grabacion", "Transcripcion", "Seleccion de cortes", "Guion", "Edicion", "Aprobacion", "Publicacion", "Reuso en ads"],
+    evidence: "Backlog de clips, piezas finales, publicacion y CTA asociado.",
+    automation: "Agente #15 propone cortes y genera backlog de clips."
+  },
+  {
+    id: "MKT-05",
+    title: "Optimizacion y automatizacion",
+    objective: "Detectar una oportunidad por area y convertirla en piloto medible.",
+    lead: "Persona 11",
+    stages: ["Levantamiento", "Mapa proceso", "Dolor operativo", "Propuesta", "Priorizacion", "Piloto", "Medicion", "Estandarizacion"],
+    evidence: "Backlog de automatizacion con impacto, owner, estado y ahorro estimado.",
+    automation: "Agente #11 consolida oportunidades y sugiere prioridad."
+  },
+  {
+    id: "MKT-06",
+    title: "Contenido organico y web",
+    objective: "Mantener contenido publico, brochures, YouTube y web alineados con campanas.",
+    lead: "Persona 15",
+    stages: ["Post/video listo", "QA marca", "Publicacion", "Actualizacion web", "Respaldo Drive", "Medicion", "Reciclaje"],
+    evidence: "URL publica, asset respaldado, version vigente y fuente registrada.",
+    automation: "Agente #14 controla cola web y QA de publicacion."
   }
 ];
 
@@ -1203,7 +1820,9 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Programas con WSP mapeado", value: 7, target: 7, context: "Pestana ENLACES GRUPOS WHATSAPP" },
   { label: "Subgrupos WSP programa", value: 14, target: 14, context: "Coordinacion y participantes por programa" },
   { label: "Programas con riesgo de acceso", value: 4, target: 0, context: "Matriz de plataforma, Zoom, WSP y formularios" },
-  { label: "Actividades automatizables", value: activities.filter((item) => item.automationLevel !== "Baja").length, target: activities.length, context: "Actividades pegadas + modelo operativo" }
+  { label: "Actividades automatizables", value: activities.filter((item) => item.automationLevel !== "Baja").length, target: activities.length, context: "Actividades pegadas + modelo operativo" },
+  { label: "Roles operativos anonimos", value: opsRoles.length, target: opsRoles.length, context: "Equipo completo AECODE por responsabilidad" },
+  { label: "Procesos marketing", value: marketingProcesses.length, target: marketingProcesses.length, context: "Panel HTML de marketing normalizado" }
 ];
 
 export const sourceNotes = [
@@ -1212,6 +1831,8 @@ export const sourceNotes = [
   "Chat WhatsApp, Sheet y Notion revisados para inventariar links; se registraron 34 activos.",
   "El link Notion AECODE Training directo no fue accesible por fetch; busqueda interna encontro una base relacionada con frecuencia, estado y semanas.",
   "No se publican links privados de WhatsApp, Zoom, Classroom, Miro o Drive.",
+  "Panel HTML de marketing integrado como procesos anonimizados: ads, Summit, difusion, clips, web y automatizacion.",
+  "El control maestro ya no se limita a coordinacion academica; incluye direccion, producto, marketing, comercial, eventos, finanzas, datos y BI.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

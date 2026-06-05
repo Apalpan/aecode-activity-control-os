@@ -60,10 +60,65 @@ select:focus-visible {
   position: sticky;
   top: 0;
   height: 100vh;
+  overflow-y: auto;
   border-right: 1px solid var(--ae-border);
   background: rgba(12, 15, 41, 0.88);
   backdrop-filter: blur(18px);
   padding: 22px;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(124, 126, 223, 0.42);
+}
+
+.nav-group {
+  border: 1px solid rgba(124, 126, 223, 0.18);
+  border-radius: 8px;
+  background: rgba(19, 23, 47, 0.5);
+  padding: 8px;
+}
+
+.nav-group-button {
+  display: flex;
+  min-height: 34px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  background: transparent;
+  color: var(--ae-text);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav-item {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0 10px;
+  color: var(--ae-muted);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: border-color 140ms ease, background 140ms ease, color 140ms ease, transform 140ms ease;
+}
+
+.nav-item:hover {
+  border-color: rgba(124, 126, 223, 0.4);
+  background: rgba(34, 35, 65, 0.66);
+  color: white;
+  transform: translateX(2px);
 }
 
 .main {
@@ -83,6 +138,14 @@ select:focus-visible {
   background: #edeffb;
   color: #202231;
   border-radius: 8px;
+}
+
+.domain-card {
+  min-height: 100%;
+  border: 1px solid rgba(124, 126, 223, 0.2);
+  background: rgba(34, 35, 65, 0.42);
+  border-radius: 8px;
+  padding: 16px;
 }
 
 .metric-grid {
@@ -195,6 +258,7 @@ select:focus-visible {
   .sidebar {
     position: relative;
     height: auto;
+    max-height: none;
   }
 
   .metric-grid,

@@ -18,3 +18,17 @@ ACT-016,Plataforma,Creacion de Classrooms para diplomados,Persona 1,Agente #2,Me
 ACT-017,Datos,Apoyo en subida de datos al GHT de Marketing AECODE,Persona 2,Agente #7,Media,Semanal,carga validada,Activo,Media
 ACT-018,Certificados,Envio de certificados de participacion,Persona 1,Agente #8,Alta,5 dias post cierre,certificado enviado,Activo,Critica
 ACT-019,Certificados,Envio de certificados de aprobacion Autodesk,Persona 1,Agente #8,Media,5 dias post cierre,certificado enviado,Activo,Critica
+ACT-020,Direccion,Definir prioridades maestras de AECODE por semana,Persona 10,Agente #11,Media,Lunes 10am,prioridades semanales,Activo,Critica
+ACT-021,Marketing,Planificar campanas de cursos Training y pauta Meta Ads,Persona 12,Agente #12,Alta,7 dias antes de lanzamiento,brief calendario campana,Activo,Alta
+ACT-022,Marketing,Reportar rendimiento de Meta Ads CPL y calidad de leads,Persona 12,Agente #12,Alta,Diario,dashboard de ads,Pendiente,Alta
+ACT-023,Eventos,Coordinar AECODE AI Summit y eventos estrategicos,Persona 14,Agente #13,Media,Semanal,plan de evento actualizado,Activo,Alta
+ACT-024,Difusion,Difusion multicanal de posts webinars cursos y eventos,Persona 15,Agente #10,Alta,72h 24h,registro multicanal,Activo,Alta
+ACT-025,Web,Gestionar cambios web landings banners y brochures,Persona 15,Agente #14,Media,48h por solicitud,cambio publicado,Activo,Alta
+ACT-026,Diseno,Validar criterio visual piezas de pauta impresion y landings,Persona 16,Agente #14,Media,24-72h,pieza aprobada,Activo,Media
+ACT-027,Contenido,Editar clips de webinars y videos organicos para distribucion,Persona 17,Agente #15,Media,Semanal,clips listos,Pendiente,Media
+ACT-028,Comercial,Recoger feedback de ventas sobre leads cursos y objeciones,Persona 18,Agente #16,Alta,Diario,feedback comercial,Activo,Alta
+ACT-029,Comercial,Actualizar asesoria comercial estado de cursos y conversion,Persona 19,Agente #16,Alta,Diario,pipeline actualizado,Pendiente,Alta
+ACT-030,Automatizacion,Mapear procesos internos y proponer una automatizacion por area,Persona 11,Agente #11,Alta,Semanal,backlog automatizacion,Activo,Alta
+ACT-031,Producto,Gestionar learning experience rutas Skill Graph y plataforma,Persona 20,Agente #17,Media,Quincenal,roadmap producto,Pendiente,Critica
+ACT-032,Finanzas,Controlar pagos documentacion comprobantes y bloqueos administrativos,Persona 21,Agente #18,Media,Diario,estado administrativo,Pendiente,Alta
+ACT-033,Datos,Mantener dashboard ejecutivo de KPIs AECODE,Persona 22,Agente #19,Alta,Semanal,dashboard actualizado,Pendiente,Critica
