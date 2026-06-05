@@ -10,7 +10,9 @@ import {
   ExternalLink,
   Filter,
   GraduationCap,
+  Link2,
   ListChecks,
+  LockKeyhole,
   PlaySquare,
   Search,
   ShieldCheck,
@@ -25,6 +27,8 @@ import {
   contentMetrics,
   getPriorityWeight,
   getReadinessScore,
+  linkAssets,
+  linkMetrics,
   programs,
   sourceNotes,
   type Activity,
@@ -37,6 +41,12 @@ const priorityClass: Record<Priority, string> = {
   Media: "",
   Baja: "chip-good"
 };
+
+const privacyClass = {
+  Critico: "chip-critical",
+  Interno: "chip-high",
+  Publico: "chip-good"
+} as const;
 
 const icons = {
   total: ClipboardList,
@@ -114,6 +124,7 @@ export default function Page() {
           {[
             ["Actividades", ListChecks],
             ["Agentes", Bot],
+            ["Links", Link2],
             ["Programas", GraduationCap],
             ["Datos", Database],
             ["Riesgos", AlertTriangle]
@@ -158,6 +169,7 @@ export default function Page() {
 
           <div className="metric-grid">
             <Metric label="Actividades" value={String(activities.length)} detail="Actividades completas normalizadas desde el pedido, Sheet y adjuntos." />
+            <Metric label="Links" value={String(linkAssets.length)} detail="Inventario seguro de enlaces extraidos del chat operativo." />
             <Metric label="Criticas" value={String(criticalCount)} detail="Accesos, videos y certificados tienen impacto directo en activacion." tone="risk" />
             <Metric label="En riesgo" value={String(riskCount)} detail="Requieren owner, SLA o evidencia para no generar reclamos." tone="risk" />
             <Metric label="Automatizables" value={`${automationCount}/${activities.length}`} detail="Candidatas para AgentFlow, GHL, WhatsApp, Drive o n8n." tone="good" />
@@ -243,6 +255,100 @@ export default function Page() {
               </tbody>
             </table>
           </section>
+        </section>
+
+        <section className="mt-6 panel p-5" id="links">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-aecode-green">Repositorio operativo</p>
+              <h2 className="mt-2 text-2xl font-black text-white">Links e informacion interna</h2>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-aecode-muted">
+                Inventario de activos detectados en el chat: Sheets, Miros, Notion, Drive, YouTube, Zoom y web externa. El tablero publica metadata segura; las URLs completas quedan fuera del repo.
+              </p>
+            </div>
+            <LockKeyhole className="text-aecode-mint" size={28} />
+          </div>
+
+          <div className="mt-5 grid gap-3 md:grid-cols-4">
+            {linkMetrics.map((metric) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={metric.label}>
+                <p className="text-xs font-black uppercase text-aecode-green">{metric.label}</p>
+                <p className="mt-2 text-3xl font-black text-white">{metric.value}</p>
+                <p className="mt-2 text-sm leading-6 text-aecode-muted">{metric.context}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-5 grid gap-3 md:hidden">
+            {linkAssets.map((item) => (
+              <article className="rounded-lg border border-aecode-violet/20 bg-aecode-card/40 p-4" key={item.id}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-black text-aecode-muted">{item.id}</p>
+                    <h3 className="mt-1 text-base font-black text-white">{item.assetLabel}</h3>
+                    <p className="mt-1 text-xs font-bold text-aecode-lavender">{item.domain}</p>
+                  </div>
+                  <span className={`chip ${privacyClass[item.privacy]}`}>{item.privacy}</span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="chip">{item.category}</span>
+                  <span className="chip">{item.relatedArea}</span>
+                  <span className="chip chip-good">{item.agent}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-aecode-muted">{item.infoInside}</p>
+                <p className="mt-2 text-sm leading-6 text-white">{item.nextAction}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-5 hidden md:block table-wrap">
+            <table className="data-table link-table">
+              <thead>
+                <tr>
+                  <th>Activo</th>
+                  <th>Tipo</th>
+                  <th>Uso operativo</th>
+                  <th>Info interna</th>
+                  <th>Control</th>
+                  <th>Riesgo</th>
+                  <th>Siguiente accion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {linkAssets.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <p className="font-black text-white">{item.id}</p>
+                      <p className="mt-1 max-w-[260px] text-sm leading-6 text-aecode-muted">{item.assetLabel}</p>
+                      <p className="mt-1 text-xs font-bold text-aecode-lavender">{item.domain}</p>
+                    </td>
+                    <td>
+                      <span className="chip">{item.category}</span>
+                      <p className="mt-2 text-xs text-aecode-muted">{item.relatedArea}</p>
+                    </td>
+                    <td>
+                      <p className="max-w-[260px] text-sm leading-6 text-white">{item.operationalUse}</p>
+                    </td>
+                    <td>
+                      <p className="max-w-[300px] text-sm leading-6 text-aecode-muted">{item.infoInside}</p>
+                    </td>
+                    <td>
+                      <span className={`chip ${privacyClass[item.privacy]}`}>{item.privacy}</span>
+                      <p className="mt-2 text-xs text-aecode-muted">{item.owner} / {item.agent}</p>
+                      <p className="mt-1 text-xs text-aecode-muted">{item.status}</p>
+                    </td>
+                    <td>
+                      <p className="max-w-[280px] text-sm leading-6 text-aecode-muted">{item.risk}</p>
+                    </td>
+                    <td>
+                      <p className="max-w-[280px] text-sm leading-6 text-white">{item.nextAction}</p>
+                      <p className="mt-2 text-xs font-bold text-aecode-lavender">{item.secureReference}</p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section className="content-grid mt-6" id="agentes">

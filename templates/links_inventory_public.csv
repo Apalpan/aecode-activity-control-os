@@ -1,0 +1,33 @@
+link_id,category,domain,asset_label,owner,agent,related_area,privacy,status,public_note,next_action
+LNK-001,Web,unsaac.edu.pe,Landing externa de olimpiadas BIM,Persona 8,Agente #10,Difusion,Publico,Inventariado,Pagina publica de evento o alianza,Crear source_channel y campana asociada
+LNK-002,Google Sheet,docs.google.com,Status general area academica,Persona 2,Agente #7,Datos,Critico,Listo para conectar,Registro de status accesos videos programas y soporte,Conectar via backend seguro con permisos por rol
+LNK-003,Miro,miro.com,Miro programa 1,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Tablero colaborativo vinculado a programa academico,Asignar program_id owner y permisos
+LNK-004,Miro,miro.com,Miro programa 2,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Tablero Miro asociado a curso o especializacion,Renombrar con programa cohorte y fecha
+LNK-005,Miro,miro.com,Miro programa 3,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board compartido desde chat para actividad academica,Auditar permisos y vincular a matriz de programa
+LNK-006,Google Sheet,docs.google.com,Sheet operativo programa,Persona 2,Agente #7,Datos,Critico,Requiere revision,Hoja de seguimiento o registro compartida,Definir si es fuente maestra o secundaria
+LNK-007,Miro,miro.com,Miro programa 4,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Recurso de aprendizaje en Miro,Marcar estado activo historico o archivado
+LNK-008,Drive,drive.google.com,Carpeta Drive de recursos,Persona 4,Agente #4,Contenido,Critico,Inventariado,Carpeta de recursos videos o evidencias,Crear estructura por programa modulo sesion y estado
+LNK-009,Miro,miro.com,Miro programa 5,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board de trabajo academico,Cruzar con matriz de accesos
+LNK-010,Google Sheet,docs.google.com,Excel de registrados,Persona 2,Agente #7,Datos,Critico,Requiere revision,Registro de participantes o interesados,Importar con IDs anonimizados y deduplicar
+LNK-011,Google Sheet,docs.google.com,Registro AECODE Training 2026,Persona 2,Agente #7,Datos,Critico,Listo para conectar,Listado de registros para AECODE Training 2026,Normalizar campos canonicos y fuente de adquisicion
+LNK-012,Google Sheet,docs.google.com,Sheet operativo sin clasificar 1,Persona 2,Agente #7,Datos,Critico,Requiere revision,Hoja compartida sin descripcion explicita,Abrir clasificar tipo de dato y mapear a entidad
+LNK-013,Google Sheet,docs.google.com,Sheet operativo sin clasificar 2,Persona 2,Agente #7,Datos,Critico,Requiere revision,Hoja compartida sin contexto suficiente,Asignar owner y tipo de informacion
+LNK-014,Notion,notion.so,Notion de actividad operativa,Persona 1,Agente #7,Datos,Critico,Requiere revision,Pagina Notion de seguimiento operativo,Convertir en backlog anonimo por activity_id
+LNK-015,Miro,miro.com,Miro programa 6,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board de trabajo academico con share link,Auditar acceso y vincular a programa
+LNK-016,Miro,miro.com,Miro programa 7,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board compartido en conversacion operativa,Agregar status y fecha de ultima revision
+LNK-017,Miro,miro.com,Miro programa 8,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board Miro con uso academico,Asignar codigo LNK PRG y cohorte
+LNK-018,YouTube,youtube.com,Playlist de videos,Persona 5,Agente #10,Difusion,Publico,Inventariado,Playlist relacionada a contenidos publicables,Vincular playlist a programa CTA y metricas
+LNK-019,Miro,miro.com,Miro programa 9,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board enviado como enlace de programa,Registrar en matriz de activos del programa
+LNK-020,Miro,miro.com,Miro programa 10,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board Miro con share link activo,Cerrar o archivar segun estado del curso
+LNK-021,Miro,miro.com,Miro programa 11,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board Miro de actividad academica,Asignar owner operativo y fecha de revision
+LNK-022,Miro,miro.com,Miro programa 12,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board compartido para programa o actividad,Conectar a skill practica o evidencia asociada
+LNK-023,Google Sheet,docs.google.com,Registro operativo,Persona 2,Agente #7,Datos,Critico,Requiere revision,Registro en Sheet como fuente de control,Importar a staging y deduplicar
+LNK-024,Notion,notion.so,Recopilatorio webinars y talleres virtuales,Persona 8,Agente #10,Difusion,Interno,Inventariado,Repositorio de webinars talleres y registros,Estandarizar campos evento fecha leads grabacion CTA
+LNK-025,Miro,miro.com,Mapeo convenios y embajadores,Persona 7,Agente #9,Embajadores,Interno,Inventariado,Mapa de flujo de convenios embajadores y gestion,Convertir flujo en checklist SLA y tablero de convenios
+LNK-026,Google Sheet,docs.google.com,Sheet importado desde Excel,Persona 2,Agente #7,Datos,Critico,Requiere revision,Archivo spreadsheet con parametros de importacion,Clasificar estructura antes de conectarlo
+LNK-027,Notion,notion.so,Reporte certificaciones AECODE,Persona 1,Agente #8,Certificados,Critico,Listo para conectar,Reporte de certificaciones estados y pendientes,Convertir en certificate_queue con estado y SLA
+LNK-028,Google Sheet,docs.google.com,Sheet operativo sin clasificar 3,Persona 2,Agente #7,Datos,Critico,Requiere revision,Hoja compartida como enlace operativo,Registrar descripcion owner y entidad principal
+LNK-029,Google Sheet,docs.google.com,Sheet operativo sin clasificar 4,Persona 2,Agente #7,Datos,Critico,Requiere revision,Spreadsheet sin contexto operativo suficiente,Validar fecha campos y duplicidad con fuente maestra
+LNK-030,Miro,miro.com,Miro programa 13,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board enviado como link editado en chat,Confirmar link vigente y archivar version anterior
+LNK-031,Miro,miro.com,Miro programa 14,Persona 3,Agente #2,Plataforma,Interno,Inventariado,Board identificado como link operativo,Asignar course_id y estado de acceso
+LNK-032,Zoom,zoom.us,Zoom de sesion,Persona 3,Agente #3,Sesiones,Critico,Requiere revision,Link de reunion con clave incluida,Rotar clave si corresponde y mover a gestor seguro

@@ -26,6 +26,7 @@ Informacion extraida y normalizada:
 - `Texto pegado.txt` 1: documentacion y estructuracion de procesos, instructores, embajadores, tutoria, retencion, certificados, cursos y action items.
 - `Texto pegado.txt` 2: arquitectura operativa, automatizaciones postventa, onboarding, ciclo academico, roles, reportes, cursos, Sheets y chatbot.
 - `DESIGN-AECODE.zip`: design system, logos y referencias visuales.
+- `_chat.txt`: chat operativo usado para detectar 32 links unicos y convertirlos en inventario seguro.
 
 ## Normalizacion
 
@@ -35,3 +36,17 @@ Para publicar el tablero en GitHub se aplico anonimizacion:
 - automatizaciones -> `Agente #N`;
 - enlaces privados -> `link_presente`, `link_faltante`, `requiere_backend`;
 - propietarios reales -> roles operativos anonimizados.
+
+## Inventario de links
+
+Se detectaron 32 URLs unicas:
+
+- 15 Miro boards.
+- 10 Google Sheets.
+- 3 Notion.
+- 1 Drive.
+- 1 YouTube.
+- 1 Zoom.
+- 1 web externa.
+
+El repo publica solo metadata segura. Las URLs completas se guardan localmente en `outputs/internal_links_private.csv`, carpeta excluida de Git.

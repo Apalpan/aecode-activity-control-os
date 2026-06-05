@@ -11,6 +11,7 @@ Convertir actividades dispersas de postventa, accesos, soporte, plataforma, vide
 - KPIs de decision.
 - riesgos y bloqueos.
 - detalle por flujo.
+- inventario seguro de links internos y activos fuente.
 - plantillas CSV para importar a Sheets, Airtable, Notion o backend.
 
 ## Fuentes
@@ -21,6 +22,20 @@ Convertir actividades dispersas de postventa, accesos, soporte, plataforma, vide
 - Design system AECODE del archivo `DESIGN-AECODE.zip`.
 
 Por seguridad, el repositorio no expone nombres personales, emails, links de WhatsApp, links de Zoom ni URLs privadas. La app usa estados, conteos, roles anonimizados y referencias de fuente.
+
+## Links internos
+
+El tablero incluye un apartado `Links e informacion interna` con 32 activos detectados en el chat operativo:
+
+- Google Sheets.
+- Miro boards.
+- Notion.
+- Drive.
+- YouTube.
+- Zoom.
+- Web externa.
+
+La version publica muestra metadata segura: tipo, dominio, uso operativo, owner anonimo, agente, riesgo y siguiente accion. Las URLs completas quedan solo en el archivo local no versionado `outputs/internal_links_private.csv`.
 
 ## Ejecutar
 
@@ -52,6 +67,7 @@ data/             modelo operativo anonimizado
 docs/             playbooks y especificacion
 templates/        CSVs importables
 public/           assets AECODE
+outputs/          archivos privados locales no versionados
 ```
 
 ## Siguiente integracion
