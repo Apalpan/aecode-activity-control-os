@@ -40,6 +40,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 - `Persona 24`: activos BIM academicos, modelos, plantillas, familias, scripts, PPTs y Miros.
 - `Persona 25`: alianzas, sponsors, interesados, reuniones, WhatsApp Business, LinkedIn, grupos y convenios.
 - `Persona 26`: QA, E2E, UX, carga/estres, pruebas automatizadas, bugfixes y data.
+- `Persona 27`: producto digital, AI Ops, automatizaciones, AECODITOS, roadmap AECODE 2.0/3.0 y seguimiento dev.
 
 ## Flujo operativo por sesion
 
@@ -58,6 +59,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 13. Alianzas y sponsors: interesados, empresas, llamadas, reuniones, grupos, convenios y follow-up.
 14. QA y release validation: E2E, UX, carga, pruebas automatizadas, bugs y data.
 15. UX/UI y handoff de producto: investigacion, flujo completo, UI, branding, assets web, formularios y coordinacion con desarrollo.
+16. Producto digital y AI Ops: automatizaciones, AECODITOS, roadmap, seguimiento dev, flujos criticos, web y accesos post compra.
 
 ## Loop maestro
 
@@ -78,6 +80,7 @@ La estructura se alinea con `09_Actividades Diarias/Actividades_TEAM`, `05_Mapeo
 11. Alianzas, sponsors y reuniones.
 12. QA, testing y validacion de data.
 13. UX/UI, branding y web experience.
+14. Producto digital, AI Ops y automatizacion.
 
 ## Frontera AECODE / GEN+
 
@@ -150,3 +153,6 @@ Antivalores bloqueantes: incumplimiento recurrente, falta de trazabilidad, excus
 - `Agente #24`: validador QA de releases.
 - `Agente #25`: validador de carga y actualizacion de data.
 - `Agente #26`: estructurador UX/UI, branding y handoff de producto.
+- `Agente #27`: priorizador de AI Ops, agentes IA y AECODITOS.
+- `Agente #28`: mapeador AS-IS/TO-BE y medicion de eficiencia operativa.
+- `Agente #29`: torre de control de producto digital, dev, QA, bloqueos y releases.

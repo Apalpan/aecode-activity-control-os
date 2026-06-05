@@ -168,6 +168,8 @@ export const areas = [
   "QA",
   "Web",
   "UX/UI",
+  "Producto digital",
+  "AI Ops",
   "Diseno",
   "Automatizacion",
   "Finanzas",
@@ -1298,6 +1300,166 @@ export const activities: Activity[] = [
     source: "Actividad enviada por UX/UI",
     risk: "Actualizaciones web sin coordinacion generan versiones inconsistentes o cambios incompletos.",
     nextAction: "Registrar solicitud, responsable web, fecha, assets, validacion visual, publicacion y rollback."
+  },
+  {
+    id: "ACT-071",
+    area: "AI Ops",
+    activity: "Definir y priorizar backlog de automatizaciones por impacto operativo",
+    owner: "Persona 27",
+    backup: "Persona 11",
+    agent: "Agente #27",
+    automationLevel: "Alta",
+    sla: "Semanal",
+    evidence: "backlog priorizado",
+    status: "Activo",
+    priority: "Critica",
+    source: "Notion AECODE operaciones/AI Ops",
+    risk: "Sin priorizacion, el equipo automatiza tareas aisladas sin reducir carga real ni mejorar experiencia.",
+    nextAction: "Clasificar automatizaciones por impacto, ahorro, riesgo, fuente de datos, owner humano y tiempo estimado."
+  },
+  {
+    id: "ACT-072",
+    area: "AI Ops",
+    activity: "Coordinar implementacion end-to-end de asistentes y agentes IA",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #27",
+    automationLevel: "Alta",
+    sla: "Por sprint",
+    evidence: "agente en piloto o produccion",
+    status: "Activo",
+    priority: "Alta",
+    source: "Notion AECODE operaciones/AI Ops",
+    risk: "Agentes sin QA, owner o criterio de negocio pueden producir errores no trazables.",
+    nextAction: "Definir input, proceso, output, control humano, logs, fallback, piloto y criterio de paso a produccion."
+  },
+  {
+    id: "ACT-073",
+    area: "Automatizacion",
+    activity: "Mapear procesos AS-IS y disenar flujos TO-BE reutilizables",
+    owner: "Persona 27",
+    backup: "Persona 11",
+    agent: "Agente #28",
+    automationLevel: "Media",
+    sla: "Por proceso critico",
+    evidence: "SOP o mapa AS-IS/TO-BE",
+    status: "Activo",
+    priority: "Alta",
+    source: "Notion AECODE operaciones/AI Ops",
+    risk: "Sin mapa de proceso, la operacion depende de memoria individual y no escala.",
+    nextAction: "Documentar pasos actuales, cuellos de botella, responsables, evidencia, reglas, excepciones y flujo optimizado."
+  },
+  {
+    id: "ACT-074",
+    area: "Datos",
+    activity: "Medir eficiencia operativa de automatizaciones y mejoras de proceso",
+    owner: "Persona 27",
+    backup: "Persona 22",
+    agent: "Agente #28",
+    automationLevel: "Alta",
+    sla: "Mensual",
+    evidence: "reporte de eficiencia",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Notion AECODE operaciones/AI Ops",
+    risk: "Sin medicion, la automatizacion no demuestra ahorro ni impacto en tiempos, errores o experiencia.",
+    nextAction: "Medir horas ahorradas, errores reducidos, SLA mejorado, procesos activos y automatizaciones en produccion."
+  },
+  {
+    id: "ACT-075",
+    area: "Producto digital",
+    activity: "Dar seguimiento operativo a roadmap AECODE 2.0 y 3.0",
+    owner: "Persona 27",
+    backup: "Persona 20",
+    agent: "Agente #29",
+    automationLevel: "Media",
+    sla: "Diario/semanal",
+    evidence: "roadmap actualizado",
+    status: "Activo",
+    priority: "Critica",
+    source: "Notion AECODE producto digital",
+    risk: "Sin seguimiento operativo, producto, dev, QA y contenido avanzan con prioridades distintas.",
+    nextAction: "Actualizar estado por modulo, avance, bloqueo, owner, dependencia, fecha objetivo y proxima decision."
+  },
+  {
+    id: "ACT-076",
+    area: "Producto digital",
+    activity: "Validar flujos de compra, onboarding, cursos, comunidad e integraciones",
+    owner: "Persona 27",
+    backup: "Persona 26",
+    agent: "Agente #29",
+    automationLevel: "Media",
+    sla: "Por release",
+    evidence: "checklist funcional validado",
+    status: "Activo",
+    priority: "Critica",
+    source: "Notion AECODE producto digital",
+    risk: "Un flujo critico roto afecta conversion, acceso, retencion y confianza del alumno.",
+    nextAction: "Validar flujo completo con escenarios reales, pagos, data, usuario, acceso, curso, comunidad y errores."
+  },
+  {
+    id: "ACT-077",
+    area: "Producto digital",
+    activity: "Coordinar seguimiento dev, backlog, dailys, bloqueos y despliegues",
+    owner: "Persona 27",
+    backup: "Persona 23",
+    agent: "Agente #29",
+    automationLevel: "Media",
+    sla: "Diario",
+    evidence: "estado dev consolidado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Notion AECODE producto digital",
+    risk: "Sin visibilidad diaria, los bloqueos tecnicos aparecen tarde y el release pierde trazabilidad.",
+    nextAction: "Registrar tareas, responsables, avance, bloqueos, decisiones, pruebas, ambiente y fecha de despliegue."
+  },
+  {
+    id: "ACT-078",
+    area: "Plataforma",
+    activity: "Supervisar funcionamiento de AECODITOS por programa",
+    owner: "Persona 27",
+    backup: "Persona 20",
+    agent: "Agente #27",
+    automationLevel: "Alta",
+    sla: "Semanal",
+    evidence: "estado AECODITO por programa",
+    status: "Pendiente",
+    priority: "Alta",
+    source: "Notion AECODE producto digital",
+    risk: "AECODITOS sin supervision pueden responder mal, duplicar soporte o perder alineacion con el programa.",
+    nextAction: "Mapear programa, objetivo, base de conocimiento, limites, logs, casos fallidos y responsable de validacion."
+  },
+  {
+    id: "ACT-079",
+    area: "Web",
+    activity: "Gestionar contenido web del producto y coherencia entre landing, training y comunidad",
+    owner: "Persona 27",
+    backup: "Persona 15",
+    agent: "Agente #14",
+    automationLevel: "Media",
+    sla: "Semanal",
+    evidence: "contenido web actualizado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Notion AECODE producto digital",
+    risk: "Contenido web desactualizado rompe promesa comercial, onboarding y experiencia del alumno.",
+    nextAction: "Revisar copy, estructura, CTA, links, piezas visuales, estado de publicacion y coherencia con producto."
+  },
+  {
+    id: "ACT-080",
+    area: "Finanzas",
+    activity: "Coordinar validacion operativa de pagos, ingresos y accesos post compra",
+    owner: "Persona 27",
+    backup: "Persona 21",
+    agent: "Agente #18",
+    automationLevel: "Media",
+    sla: "Diario",
+    evidence: "pago validado y acceso habilitado",
+    status: "Activo",
+    priority: "Alta",
+    source: "Notion AECODE producto digital",
+    risk: "Pago no validado o acceso no habilitado genera reclamos y friccion inmediata en postventa.",
+    nextAction: "Cruzar pago, canal, comprobante, registro, acceso, curso, estado administrativo y excepciones."
   }
 ];
 
@@ -1327,7 +1489,10 @@ export const agents: Agent[] = [
   { id: "Agente #23", mission: "Preparar reuniones, recordatorios, grabaciones, PPTs, resumen, transcripcion y onboarding de grupos.", input: "Calendario + contacto + PPT + reunion", output: "Checklist de reunion y paquete de follow-up", humanControl: "Persona 25 valida envio y materiales", status: "Propuesto", impact: "Alto" },
   { id: "Agente #24", mission: "Ejecutar checklist QA: E2E, UX, carga, estres, automatizadas, bugs y regresion.", input: "Release + casos de prueba + bugfix", output: "Reporte QA con evidencia, severidad y decision de release", humanControl: "Persona 26 aprueba validacion", status: "Propuesto", impact: "Alto" },
   { id: "Agente #25", mission: "Validar carga y actualizacion de data con controles de schema, duplicados y campos obligatorios.", input: "Fuente de datos + plantilla + corte", output: "Data validada u observada con errores accionables", humanControl: "Persona 26 valida carga final", status: "Propuesto", impact: "Medio" },
-  { id: "Agente #26", mission: "Convertir brief, investigacion y requerimientos en IA, flujos, UI specs, branding y handoff para desarrollo.", input: "Brief + objetivo + usuario + constraints", output: "Mapa UX, estructura, criterios UI y checklist de implementacion", humanControl: "Persona 16 valida criterio UX/UI y marca", status: "Propuesto", impact: "Alto" }
+  { id: "Agente #26", mission: "Convertir brief, investigacion y requerimientos en IA, flujos, UI specs, branding y handoff para desarrollo.", input: "Brief + objetivo + usuario + constraints", output: "Mapa UX, estructura, criterios UI y checklist de implementacion", humanControl: "Persona 16 valida criterio UX/UI y marca", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #27", mission: "Priorizar automatizaciones, agentes IA y AECODITOS por impacto, riesgo y control humano.", input: "Backlog + procesos + metricas + fuentes", output: "Portafolio AI Ops priorizado con piloto, owner y criterio de produccion", humanControl: "Persona 27 valida impacto operativo y Persona 11 valida automatizacion", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #28", mission: "Convertir procesos AS-IS en SOPs TO-BE y medir eficiencia operativa.", input: "Proceso actual + tiempos + errores + responsables", output: "Mapa AS-IS/TO-BE, SOP y reporte de ahorro operativo", humanControl: "Persona 27 aprueba proceso y Persona 22 valida metricas", status: "Propuesto", impact: "Alto" },
+  { id: "Agente #29", mission: "Consolidar roadmap AECODE 2.0/3.0, backlog dev, bugs, bloqueos, despliegues y flujos criticos.", input: "Roadmap + tareas dev + QA + producto + contenido", output: "Estado producto digital con riesgos, bloqueos y decisiones pendientes", humanControl: "Persona 27 valida estado operativo y Persona 23 valida release", status: "Propuesto", impact: "Alto" }
 ];
 
 export const programs: ProgramStatus[] = [
@@ -2199,6 +2364,18 @@ export const opsRoles: OpsRole[] = [
     escalation: "Release sin QA, bug critico sin regresion, data inconsistente, carga no validada o UX bloqueante.",
     backup: "Persona 23",
     obsidianSource: "Actividad enviada por QA/testing"
+  },
+  {
+    id: "Persona 27",
+    role: "Digital Product Ops + AI Ops Lead",
+    mission: "Convertir automatizacion, AECODE 2.0/3.0, seguimiento dev, AECODITOS y flujos criticos en operacion trazable y medible.",
+    areas: ["AI Ops", "Producto digital", "Automatizacion", "Producto", "Tecnologia", "Web", "Plataforma", "Finanzas", "Datos"],
+    primaryActivities: ["ACT-071", "ACT-072", "ACT-073", "ACT-074", "ACT-075", "ACT-076", "ACT-077", "ACT-078", "ACT-079", "ACT-080"],
+    kpis: ["Automatizaciones en produccion", "Horas ahorradas", "Roadmap actualizado", "Bloqueos dev resueltos", "Flujos criticos validados"],
+    dailyCheck: "Revisar backlog de automatizacion, roadmap AECODE 2.0/3.0, bloqueos dev, flujos criticos, AECODITOS, contenido web y accesos post compra.",
+    escalation: "Automatizacion sin owner, flujo critico roto, release bloqueado, AECODITO sin control, pago sin acceso o roadmap sin estado.",
+    backup: "Persona 11",
+    obsidianSource: "Notion AECODE operaciones/AI Ops y producto digital"
   }
 ];
 
@@ -2352,6 +2529,16 @@ export const workflowStages: WorkflowStage[] = [
     activities: ["ACT-062", "ACT-063", "ACT-064", "ACT-065", "ACT-066", "ACT-067", "ACT-068", "ACT-069", "ACT-070"],
     evidence: "Mapa UX, flujo, UI spec, kit visual, assets web, formulario y handoff a desarrollo.",
     automation: "Agente #14 + Agente #26"
+  },
+  {
+    id: "WF-16",
+    label: "Producto digital y AI Ops",
+    timing: "Discovery -> produccion",
+    owner: "Persona 27",
+    objective: "Coordinar automatizaciones, AECODITOS, roadmap AECODE 2.0/3.0, dev, flujos criticos, web y accesos con trazabilidad.",
+    activities: ["ACT-071", "ACT-072", "ACT-073", "ACT-074", "ACT-075", "ACT-076", "ACT-077", "ACT-078", "ACT-079", "ACT-080"],
+    evidence: "Backlog AI Ops, SOP, roadmap, checklist funcional, estado dev, AECODITOS y reporte de eficiencia.",
+    automation: "Agente #27 + Agente #28 + Agente #29"
   }
 ];
 
@@ -2511,6 +2698,18 @@ export const aecodeDomains: AecodeDomain[] = [
     cadences: ["Review de brief", "Design handoff", "QA visual web"],
     risks: ["Prototipos sin flujo", "Handoff incompleto", "Branding inconsistente", "Web sin coordinacion"],
     automation: "Agente #26 estructura UX/UI y Agente #14 coordina QA visual web."
+  },
+  {
+    id: "DOM-14",
+    domain: "Producto digital, AI Ops y automatizacion",
+    mission: "Asegurar que AECODE 2.0/3.0, agentes IA, AECODITOS, backlog dev, flujos criticos y mejoras de proceso avancen con impacto medible.",
+    lead: "Persona 27",
+    supportingRoles: ["Persona 11", "Persona 20", "Persona 23", "Persona 26", "Persona 22", "Persona 15", "Persona 21"],
+    responsibilities: ["Backlog AI Ops", "Agentes IA", "AECODITOS", "Roadmap producto", "Seguimiento dev", "Flujos criticos", "SOPs", "Eficiencia operativa"],
+    kpis: ["Automatizaciones productivas", "Horas ahorradas", "Roadmap actualizado", "Flujos criticos validados", "Bloqueos dev resueltos"],
+    cadences: ["Review AI Ops semanal", "Daily producto/dev", "Release checklist", "Medicion mensual de eficiencia"],
+    risks: ["Automatizar sin impacto", "Producto sin trazabilidad", "Release sin validacion funcional", "AECODITOS sin control", "Flujos compra/acceso rotos"],
+    automation: "Agente #27 prioriza AI Ops, Agente #28 documenta procesos y Agente #29 consolida producto digital."
   }
 ];
 
@@ -2746,6 +2945,12 @@ export const opsSources: OpsSource[] = [
     path: "AECODE | AREA ACADEMICA | STATUS GENERAL",
     use: "Status de programas, grabaciones, transcripciones, certificados, grupos WSP y soporte.",
     privacy: "Critico"
+  },
+  {
+    label: "Notion AECODE operaciones y producto digital",
+    path: "Notion: AECODE OS / fuentes relacionadas accesibles",
+    use: "AI Ops, automatizaciones, AECODITOS, roadmap AECODE 2.0/3.0, seguimiento dev, flujos criticos, web y accesos post compra.",
+    privacy: "Critico"
   }
 ];
 
@@ -2770,7 +2975,8 @@ export const contentMetrics: ContentMetric[] = [
   { label: "Actividades BIM", value: activities.filter((item) => item.area === "BIM").length, target: activities.length, context: "Modelos, planos, plantillas, scripts y assets academicos" },
   { label: "Actividades alianzas", value: activities.filter((item) => item.area === "Alianzas" || item.area === "Reuniones").length, target: activities.length, context: "Interesados, empresas, reuniones, sponsors y convenios" },
   { label: "Actividades QA/data", value: activities.filter((item) => item.area === "QA" || item.id === "ACT-061").length, target: activities.length, context: "E2E, UX, carga, automatizadas, bugs y data" },
-  { label: "Actividades UX/UI", value: activities.filter((item) => item.owner === "Persona 16").length, target: activities.length, context: "Investigacion, flujos, UI, branding, web, formularios y handoff" }
+  { label: "Actividades UX/UI", value: activities.filter((item) => item.owner === "Persona 16").length, target: activities.length, context: "Investigacion, flujos, UI, branding, web, formularios y handoff" },
+  { label: "Actividades producto/AI Ops", value: activities.filter((item) => item.owner === "Persona 27").length, target: activities.length, context: "Automatizaciones, AECODITOS, roadmap, dev, flujos criticos y eficiencia" }
 ];
 
 export const sourceNotes = [
@@ -2788,6 +2994,7 @@ export const sourceNotes = [
   "Actividades de alianzas/sponsors/reuniones integradas como Persona 25.",
   "Actividades de QA/testing/data integradas como Persona 26.",
   "Actividades UX/UI y branding integradas como Persona 16.",
+  "Fuente Notion AECODE OS directa no accesible por URL; se integraron fuentes Notion relacionadas accesibles sobre AI Ops, producto digital y operaciones como Persona 27.",
   "Los owners reales fueron anonimizados como Persona N.",
   "Las automatizaciones se expresan como Agente #N para disenar pilotos sin exponer responsables."
 ];

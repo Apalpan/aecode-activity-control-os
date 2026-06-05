@@ -69,3 +69,13 @@ ACT-067,Web,Armar disenos requeridos para web ediciones de fotos y piezas estrat
 ACT-068,Web,Disenar formularios y componentes para la web,Persona 16,Agente #26,Media,Por requerimiento,formulario validado,Activo,Alta
 ACT-069,Tecnologia,Coordinar implementacion de disenos con desarrollo,Persona 16,Agente #26,Media,Por handoff,handoff aceptado por desarrollo,Activo,Critica
 ACT-070,Web,Coordinar actualizaciones web con operaciones web,Persona 16,Agente #14,Media,Semanal o por cambio,cambio web coordinado,Activo,Alta
+ACT-071,AI Ops,Definir y priorizar backlog de automatizaciones por impacto operativo,Persona 27,Agente #27,Alta,Semanal,backlog priorizado,Activo,Critica
+ACT-072,AI Ops,Coordinar implementacion end-to-end de asistentes y agentes IA,Persona 27,Agente #27,Alta,Por sprint,agente en piloto o produccion,Activo,Alta
+ACT-073,Automatizacion,Mapear procesos AS-IS y disenar flujos TO-BE reutilizables,Persona 27,Agente #28,Media,Por proceso critico,SOP o mapa AS-IS TO-BE,Activo,Alta
+ACT-074,Datos,Medir eficiencia operativa de automatizaciones y mejoras de proceso,Persona 27,Agente #28,Alta,Mensual,reporte de eficiencia,Pendiente,Alta
+ACT-075,Producto digital,Dar seguimiento operativo a roadmap AECODE 2.0 y 3.0,Persona 27,Agente #29,Media,Diario semanal,roadmap actualizado,Activo,Critica
+ACT-076,Producto digital,Validar flujos de compra onboarding cursos comunidad e integraciones,Persona 27,Agente #29,Media,Por release,checklist funcional validado,Activo,Critica
+ACT-077,Producto digital,Coordinar seguimiento dev backlog dailys bloqueos y despliegues,Persona 27,Agente #29,Media,Diario,estado dev consolidado,Activo,Alta
+ACT-078,Plataforma,Supervisar funcionamiento de AECODITOS por programa,Persona 27,Agente #27,Alta,Semanal,estado AECODITO por programa,Pendiente,Alta
+ACT-079,Web,Gestionar contenido web del producto y coherencia entre landing training y comunidad,Persona 27,Agente #14,Media,Semanal,contenido web actualizado,Activo,Alta
+ACT-080,Finanzas,Coordinar validacion operativa de pagos ingresos y accesos post compra,Persona 27,Agente #18,Media,Diario,pago validado y acceso habilitado,Activo,Alta
